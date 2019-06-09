@@ -3,6 +3,7 @@ layout: page
 title: About
 permalink: /about/
 ---
+"You may say I'm a dreamer, but I'm not the only one..." (Imagine - John Lennon)
 
 My name is Thai-Hoa Huynh (you can call me Hoa). I'm just one more developer from Vietnam with enthusiasm in IT and Computer Science.
 
