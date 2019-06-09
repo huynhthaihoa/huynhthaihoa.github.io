@@ -4,9 +4,6 @@ title: About
 permalink: /about/
 ---
 
-> _"You may say I'm a dreamer, but I'm not the only one..."_ 
-> (Imagine - John Lennon)
-
 My name is Thai-Hoa Huynh (you can call me Hoa). I'm just one more developer from Vietnam with enthusiasm in IT and Computer Science.
 
 In this blog, the regular topics are about the various domains in IT and Computer Science such as Programming Language, Artificial Intelligence, Computer Vision, Software Engineering... Besides that, sometimes I'll also write other things such as life experience, literature... The contents are from my own or have been translated (by myself) from some interesting stuffs on the Internet (I will include the source in the corresponding post).
