@@ -8,11 +8,11 @@ tags: [Books]
 permalink: /open-ebook-libraries/
 ---
 ## English:
-- [ebook4expert: https://ebook4expert.org/](https://ebook4expert.org/)
-- [b-ok: https://b-ok.org/](https://b-ok.org/)
-- [ebooktienganh: http://ebooktienganh.com/](http://ebooktienganh.com/)
-- [openstax: https://openstax.org/](https://openstax.org/)
+- [ebook4expert.org/](https://ebook4expert.org/)
+- [b-ok.org/](https://b-ok.org/)
+- [ebooktienganh.com/](http://ebooktienganh.com/)
+- [openstax.org/](https://openstax.org/)
 ## Vietnamese:
-- [sachhayonline: https://www.sachhayonline.com/](https://www.sachhayonline.com/)
-- [vnthuquan: https://vnthuquan.net/](https://vnthuquan.net/)
-- [sachvui: https://sachvui.com/](https://sachvui.com/)
+- [www.sachhayonline.com/](https://www.sachhayonline.com/)
+- [vnthuquan.net/](https://vnthuquan.net/)
+- [sachvui.com/](https://sachvui.com/)
