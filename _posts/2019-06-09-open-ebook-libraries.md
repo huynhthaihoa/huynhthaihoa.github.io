@@ -8,12 +8,12 @@ tags: [Books]
 permalink: /open-ebook-libraries/
 ---
 ## English:
-- permalink: https://ebook4expert.org/
-- permalink: https://b-ok.org/
-- permalink: http://ebooktienganh.com/
-- permalink: https://openstax.org/
+- https://ebook4expert.org/
+- https://b-ok.org/
+- http://ebooktienganh.com/
+- https://openstax.org/
 
 ## Vietnamese:
-- permalink: https://www.sachhayonline.com/
-- permalink: https://vnthuquan.net/
-- permalink: https://sachvui.com/
+- https://www.sachhayonline.com/
+- https://vnthuquan.net/
+- https://sachvui.com/
