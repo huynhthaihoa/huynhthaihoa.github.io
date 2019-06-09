@@ -4,6 +4,8 @@ title: About
 permalink: /about/
 ---
 
+Hello, welcome to my blog.
+
 My name is Thai-Hoa Huynh (you can call me Hoa). I'm just one more developer from Vietnam with enthusiasm in IT and Computer Science.
 
 In this blog, the regular topics are about the various domains in IT and Computer Science such as Programming Language, Artificial Intelligence, Computer Vision, Software Engineering... Besides that, sometimes I'll also write other things such as life experience, literature... The contents are from my own or have been translated (by myself) from some interesting stuff on the Internet (I will include the reference in the corresponding post).
