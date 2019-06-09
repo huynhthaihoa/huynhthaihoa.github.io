@@ -7,13 +7,13 @@ categories: [Books]
 tags: [Books]
 permalink: /open-ebook-libraries/
 ---
-##English:
+## English:
 - https://ebook4expert.org/
 - https://b-ok.org/
 - http://ebooktienganh.com/
 - https://openstax.org/
 
-##Vietnamese:
+## Vietnamese:
 - https://www.sachhayonline.com/
 - https://vnthuquan.net/
 - https://sachvui.com/
