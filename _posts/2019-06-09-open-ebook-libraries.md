@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Collection of open, free ebook libraries"
-subtitle: "Some websites which contain free ebooks that I have collected (still updating)"
+subtitle: "Some free ebook libraries that I have collected (still updating)"
 date:   2019-06-09
 categories: [Books]
 tags: [Books]
