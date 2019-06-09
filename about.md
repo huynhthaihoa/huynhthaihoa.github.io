@@ -11,6 +11,6 @@ In this blog, the regular topics are about the various domains in IT and Compute
 Hope that you will feel enjoy and (may) get something useful from it. 
 
 ### Contact me
-If you think there are any problems in my blog or you have any interesting things that you want to share, don't hesitate to contact me via this email: [huynhthaihoa1995@gmail.com](mailto:huynhthaihoa1995@gmail.com).
+If you think there are any problems in my blog or you have any interesting things that you want to share, please let me know via this email: [huynhthaihoa1995@gmail.com](mailto:huynhthaihoa1995@gmail.com).
 
 I'm looking forward to connecting and learning from all you guys.
