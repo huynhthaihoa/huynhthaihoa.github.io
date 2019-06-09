@@ -4,9 +4,13 @@ title: About
 permalink: /about/
 ---
 
-My name is Thai-Hoa Huynh. I'm just one more fresh developer with enthusiasm in IT and Computer Science. I'm also interested in books, music, movies, soccers, swimming and some other stuff. 
-Hope that you will feel enjoy and (may) get something useful from my blog. 
+My name is Thai-Hoa Huynh. I'm just one more fresh developer with enthusiasm in IT and Computer Science.
+
+In this blog, the regular topics are about the various domains in IT and Computer Science such as Programming, Artificial Intelligence, Computer Vision, Software Engineering... Besides that, sometimes I'll also write other stuff. The contents are from my own or are translated (by myself) from some interesting posts on the Internet (I will include the source in the corresponding post).
+
+Hope that you will feel enjoy and (may) get something useful from it. 
 
 ### Contact me
-If you think there are any problems in my blog or you have any interesting things that you want to share, don't hesitate to contact me via this email: [huynhthaihoa1995@gmail.com](mailto:huynhthaihoa1995@gmail.com)
+If you think there are any problems in my blog or you have any interesting things that you want to share, don't hesitate to contact me via this email: [huynhthaihoa1995@gmail.com](mailto:huynhthaihoa1995@gmail.com).
+
 I'm looking forward to connecting and learning from all you guys.
