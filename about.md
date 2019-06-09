@@ -6,7 +6,7 @@ permalink: /about/
 
 My name is Thai-Hoa Huynh. I'm just one more fresh developer with enthusiasm in IT and Computer Science.
 
-In this blog, the regular topics are about the various domains in IT and Computer Science such as Programming, Artificial Intelligence, Computer Vision, Software Engineering... Besides that, sometimes I'll also write other stuff. The contents are from my own or are translated (by myself) from some interesting posts on the Internet (I will include the source in the corresponding post).
+In this blog, the regular topics are about the various domains in IT and Computer Science such as Programming, Artificial Intelligence, Computer Vision, Software Engineering... Besides that, sometimes I'll also write other stuff about my hobby, life experience... The contents are from my own or are translated (by myself) from some interesting posts on the Internet (I will include the source in the corresponding post).
 
 Hope that you will feel enjoy and (may) get something useful from it. 
 
