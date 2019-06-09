@@ -12,6 +12,7 @@ permalink: /open-ebook-libraries/
 - https://b-ok.org/
 - http://ebooktienganh.com/
 - https://openstax.org/
+
 ##Vietnamese:
 - https://www.sachhayonline.com/
 - https://vnthuquan.net/
