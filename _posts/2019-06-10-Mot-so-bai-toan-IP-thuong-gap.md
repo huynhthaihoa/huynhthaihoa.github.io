@@ -30,9 +30,9 @@ vi _127.x.y.z_ là local host nên cũng không dùng tới.
 
 **_Cách nhận diện nhanh_**:
 
-- Các địa chỉ IP của nhóm A có bit đầu tiên (từ trái qua) là 0
-- Các địa chỉ IP của nhóm B có 2 bit đầu tiên (từ trái qua) là 10
-- Các địa chỉ IP của nhóm C có 3 bit đầu tiên (từ trái qua) là 110
+- Các địa chỉ IP của nhóm A có bit đầu tiên (từ trái qua) là 0.
+- Các địa chỉ IP của nhóm B có 2 bit đầu tiên (từ trái qua) là 10.
+- Các địa chỉ IP của nhóm C có 3 bit đầu tiên (từ trái qua) là 110.
 
 ## 2. Cách xác định Net Address & Host Address của một địa chỉ IP có dạng _x.y.z.t/m_
 
