@@ -14,7 +14,7 @@ dạng thập phân: cứ 8 bit được quy đổi ra một số thập phân, 
 - X bit đầu tương ứng với **Net Address** (địa chỉ mạng).
 - 32 - X bit tiếp theo tương ứng với **Host Address** (địa chỉ máy chủ). 
 
-Ngoài ra, ngay sau dãy số thập phân đó còn có thê có thêm một dấu gạch xiên **/** và một số thập phân nữa có giá trị bé hơn 32, con số 
+Ngoài ra, ngay sau dãy số thập phân đó còn có thể có thêm một dấu gạch xiên **/** và một số thập phân nữa có giá trị bé hơn 32, con số 
 này được gọi là **subnet mask** (hay còn gọi là **mask/netmask**).
 
 **_Ví dụ_**: _192.168.1.5/28_
