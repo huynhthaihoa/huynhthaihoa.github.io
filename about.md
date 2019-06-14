@@ -4,7 +4,7 @@ title: About
 permalink: /about/
 ---
 
-Hello, welcome to my blog.
+Hello, welcome to FORIX Blog.
 
 My name is Thai-Hoa Huynh (you can call me Hoa). I'm just one more developer from Vietnam with enthusiasm in IT and Computer Science.
 
