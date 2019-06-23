@@ -1,6 +1,10 @@
 ---
 layout: post
 title:  "Một số bài toán IP thường gặp"
+subtitle: "Một số bài toán IP thường gặp"
+categories: [IT]
+tags: [Networking]
+permalink: /mot-so-bai-toan-IP/
 ---
 
 ![](/images/2019-06-10-Mot-so-bai-toan-IP-thuong-gap-1.png)
