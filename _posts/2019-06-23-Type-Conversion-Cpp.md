@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "Type conversion: chuyển (ép) kiểu trong C++"
 subtitle: "Những điều cần biết về chuyển (ép) kiểu trong ngôn ngữ C++"
 date:   2019-06-23
