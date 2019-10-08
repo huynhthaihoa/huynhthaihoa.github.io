@@ -63,7 +63,7 @@ số lượng **Host Address** của mạng này là $2^{(32 - m)} - 2$, giá tr
 (Ví dụ: với m =2 thì các tổ hợp là 00, 01, 10, 11. Ta loại bỏ hai tổ hợp lớn & nhỏ nhất là 00 và 11).
 
 **_Ví dụ_**: xét địa chỉ _192.168.1.5/28_
-- Có tất cả là $2^{(32 - 28)} - 2$ = 14 chỉnh hợp cho 4 bit **Host Address**.
+- Có tất cả là $2^{(32 - 28)} - 2 = 14$ chỉnh hợp cho 4 bit **Host Address**.
 - Giữ nguyên 28 bit đầu: _11000000 10101000 00000001 0000_
   + Thêm 0001 sau cùng (in đậm): _11000000 10101000 00000001 0000**0001**_ ta được địa chỉ IP _192.168.1.1_.
   + Thêm 0010 sau cùng (in đậm): _11000000 10101000 00000001 0000**0010**_ ta được địa chỉ IP _192.168.1.2_.
@@ -86,8 +86,8 @@ nhưng lần này không cần bỏ bớt 2 chỉnh hợp) và 32 - X bit cuối
 
 **_Ví dụ_**: cho địa chỉ _192.168.1.0/24_ chia được bao nhiêu subnet 28, liệt kê.
 
-- Ta chia được $2^(28 - 24)$ = 16 **subnet** 28.
-- Giữ nguyên 24 bit đầu và 32 - 28 = 4 bit cuối của địa chỉ mạng gốc: _11000000 10101000 00000001 (…)0000_.
+- Ta chia được $2^(28 - 24) = 16$ **subnet** 28.
+- Giữ nguyên 24 bit đầu và $32 - 28 = 4$ bit cuối của địa chỉ mạng gốc: _11000000 10101000 00000001 (…)0000_.
 Điền từng chỉnh hợp $28 - 24 = 4$ bit vào chỗ trống, ta được các địa chỉ mạng cần tìm:
 
   + _11000000 10101000 00000001 00000000_ -> _192.168.1.0/28_
