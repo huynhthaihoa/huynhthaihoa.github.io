@@ -80,13 +80,13 @@ Cốt lõi của dạng toán này là từ địa chỉ mạng ban đầu, chú
 mạng mới.
 
 > * **Bước 1**: tính số bit được mượn từ **Host Address** = X - m.
-> * **Bước 2**: giống như mục 3, ta xác định số **subnet** chia được = $2^(số bit mượn)$.
+> * **Bước 2**: giống như mục 3, ta xác định số **subnet** chia được = $2^{(số bit mượn)}$.
 > * **Bước 3**: giữ nguyên m bit đầu từ địa chỉ mạng gốc, thêm vào X - m bit được mượn (X - m bit này cũng tạo thành các chỉnh hợp khác nhau,
 nhưng lần này không cần bỏ bớt 2 chỉnh hợp) và 32 - X bit cuối lấy từ 32 - X bit cuối của địa chỉ mạng gốc.
 
 **_Ví dụ_**: cho địa chỉ _192.168.1.0/24_ chia được bao nhiêu subnet 28, liệt kê.
 
-- Ta chia được $2^(28 - 24) = 16$ **subnet** 28.
+- Ta chia được $2^{(28 - 24)} = 16$ **subnet** 28.
 - Giữ nguyên 24 bit đầu và $32 - 28 = 4$ bit cuối của địa chỉ mạng gốc: _11000000 10101000 00000001 (…)0000_.
 Điền từng chỉnh hợp $28 - 24 = 4$ bit vào chỗ trống, ta được các địa chỉ mạng cần tìm:
 
@@ -102,7 +102,7 @@ yêu cầu tìm số **subnet mask** mới để cấp cho mạng con x host.
 > * **Bước 2**: giống như mục 4, giữ nguyên m bit đầu và $32 - (m + n)$ bit cuối của địa chỉ mạng gốc, và chèn vào n bit giữa là các chỉnh hợp n bit.
 
 **_Ví dụ_**: cho địa chỉ _192.168.1.0/24_, tính **subnet** để cho mạng con có 50 host.
-- n = log2(50 + 2) ≈ 6 => mượn 6 bit từ **Host Address** địa chỉ mạng gốc => số **subnet mask** mới là $24 + 6 = 30$.
+- $n = \log_2 (50 + 2) ≈ 6$ => mượn 6 bit từ **Host Address** địa chỉ mạng gốc => số **subnet mask** mới là $24 + 6 = 30$.
 - Giữ nguyên 24 bit đầu và $32 - (24 + 6) = 2$ bit cuối: _11000000 10101000 00000001 (……)00_.
 - Điền vào chỗ trống các tổ hợp 6 bit như sau:
 
