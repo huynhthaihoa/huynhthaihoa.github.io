@@ -1,10 +1,12 @@
 ---
+layout: post
 title: "Type conversion: chuyển (ép) kiểu trong C++"
 subtitle: "Những điều cần biết về chuyển (ép) kiểu trong ngôn ngữ C++"
 date:   2019-06-23
 categories: [Programming]
 tags: [C++]
 permalink: /type-conversion-cpp/
+comments: true
 ---
 *(Bài viết được dịch từ: [cplusplus.com](http://www.cplusplus.com/doc/tutorial/typecasting/))*
 ### 1. CHUYỂN KIỂU NGẦM ĐỊNH (IMPLICIT CONVERSIONS)
