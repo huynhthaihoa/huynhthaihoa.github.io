@@ -321,6 +321,7 @@ Khi _typeid_ được sử dụng cho một expression có kiểu là 1 class đ
 ---
 **CHÚ THÍCH**
 
-* [1] **RTTI (Runtime type information - thông tin kiểu thời gian thực thi)**: một cơ chế của ngôn ngữ lập trình C++ để đưa ra thông tin về kiểu dữ liệu của đối tượng tại **thời điểm thực thi (runtime)**. Cơ chế này có thể được áp dụng cho các kiểu dữ liệu đơn giản như kiểu số nguyên hay kiểu số thực hay các kiểu dữ liệu chung (generic: _typedef_ **_< typename T >_**...).
-* [2] **deference**: tham chiếu ngược, để lấy về giá trị của dữ liệu chứa trong địa chỉ mà con trỏ đó trỏ vào.
+- [1] **RTTI (Runtime type information - thông tin kiểu thời gian thực thi)**: một cơ chế của ngôn ngữ lập trình C++ để đưa ra thông tin về kiểu dữ liệu của đối tượng tại **thời điểm thực thi (runtime)**. Cơ chế này có thể được áp dụng cho các kiểu dữ liệu đơn giản như kiểu số nguyên hay kiểu số thực hay các kiểu dữ liệu chung (generic: _typedef_ **_< typename T >_**)...
+
+- [2] **deference**: tham chiếu ngược, để lấy về giá trị của dữ liệu chứa trong địa chỉ mà con trỏ đó trỏ vào.
 ---
