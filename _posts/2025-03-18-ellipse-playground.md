@@ -3,7 +3,7 @@ layout: post
 title:  "Ellipse Playground"
 subtitle: "Utilize Ellipse in Computer Vision Programming"
 categories: [Programming]
-tags: [Computer Vision]
+tags: [Computer_Vision,English]
 permalink: /ellipse-playground/
 ---
 
