@@ -3,7 +3,7 @@ layout: post
 title:  "Một số bài toán IP thường gặp"
 subtitle: "Một số bài toán IP thường gặp"
 categories: [IT]
-tags: [Networking]
+tags: [Networking,Vietnamese]
 permalink: /common-IP-mathematical-problems/
 ---
 
