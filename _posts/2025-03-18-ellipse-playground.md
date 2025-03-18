@@ -57,3 +57,24 @@ $$
 $$
 y_C=(x_B-x_A)sin(\theta)+(y_B-y_A)cos(\theta)+y_A
 $$
+
+Please refer to this code snipper for Python implementation:
+```Python
+def get_rotation(start_point, center_point, rad):
+    """Find the point T(x_T, y_T) that was made by rotating the point start_point(x_S, y_S) around the center point center_point(x_C, y_C)
+
+    Args:
+        start_point: start point as format (x, y)
+        center_point: center point as format (x, y)
+        rad: rotation angle in radian unit, counterclockwise order
+        
+    Returns:
+        T as shape [x_T, y_T]    
+    """    
+    
+    T = [0, 0]
+    T[0] = (start_point[0] - center_point[0]) * math.cos(rad) - (start_point[1] - center_point[1]) * math.sin(rad) + center_point[0]
+    T[1] = (start_point[0] - center_point[0]) * math.sin(rad) + (start_point[1] - center_point[1]) * math.cos(rad) + center_point[1]
+    
+    return T
+```
