@@ -2,7 +2,7 @@
 
 Given the image **coordinate system** $Oxy$, with $O(0, 0)$ is the **coordinate center**:
 
-![image.png](image.png)
+![image.png](../images/image.png)
 
 ## General Equation
 
@@ -33,7 +33,7 @@ given:
 - $\theta$ is the rotation angle measured from the $Cx$ axis (not $Ox$ axis) (**clockwise order**)
 - 𝛼 is the parameter, which ranges (radian) from 0 to 2𝜋
 
-![image.png](image%201.png)
+![image.png](../images/image_1.png)
 
 Rotated ellipse illustration, with $Cx$ and $Cy$ are correspondingly paralleled & share the same direction with $Ox$ and $Oy$
 
