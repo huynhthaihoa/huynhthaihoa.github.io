@@ -1,6 +1,6 @@
 # Ellipse Playground
 
-Given the image **coordinate system** $Oxy$, with $O(0, 0)$ is the **coordinate center**:
+Given the **image coordinate system** $Oxy$, with $O(0, 0)$ is the **coordinate center**:
 
 ![image.png](../images/image.png)
 
@@ -39,7 +39,7 @@ Rotated ellipse illustration, with $Cx$ and $Cy$ are correspondingly paralleled 
 
 # Rotate point
 
-If you rotate a point $B(x_B,y_B)$ around a point $A(x_A, y_A)$ by angle $\theta$ (anti-clockwise order) you'll get a point $C(x_C, y_C)$, in which:
+If you rotate a point $B(x_B, y_B)$ around a point $A(x_A, y_A)$ by angle $\theta$ (anti-clockwise order) you'll get a point $C(x_C, y_C)$, in which:
 
 $$
 x_C = (x_B - x_A)cos(\theta)+(y_B-y_A)sin(\theta)+x_A
