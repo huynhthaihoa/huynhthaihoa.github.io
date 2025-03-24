@@ -86,10 +86,7 @@ dist_coeffs = np.array([-0.115065515143958, 0.023076954804581, 0, 0, 0])
 A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)
 ```
 
-<aside>
-💡 Camera calibration is **an approximation process** that won’t give a “perfect” result (similar to machine learning), therefore we seldom get the actual ideal camera matrix. But for simplification, let’s consider it as $A$.
-
-</aside>
+> 💡 Camera calibration is **an approximation process** that won’t give a "perfect" result, which is similar to machine learning. Therefore, we seldom get the actual ideal camera matrix. But for simplification, let’s consider it as $A$.
 
 The **absolute depth map**, which also considers scale value $s$ in $(1)$, ****represents value $Z_c$ in 3D coordinate value $P_c$. The remaining values $X_c$ and $Y_c$ are then determined using $(1)$ and $(2)$ as below:
 
@@ -132,10 +129,7 @@ def Depthto3DCoord(D, fx, fy, cx, cy):
 
 # Replicate LIDAR with Pseudo-LIDAR
 
-<aside>
-💡 To verify this proposal, we can set up 4 cameras and 1 LIDAR in the Carla simulation environment, record the data, and experiment with the end-to-end pipeline.
-
-</aside>
+> 💡 To verify this proposal, we can set up **4 cameras** and **1 LIDAR** in the **Carla simulation environment**, record the data, and experiment with the end-to-end pipeline.
 
 Imagine we have a LIDAR $L$ that gives us a surrounding 360-degree 3D point cloud. We want to replicate it entirely using a set of cameras $C_i \{i| 1\leq i\leq n, n \in \mathbb{Z} \}$
 . The proposed step-by-step pipeline is as follows:
@@ -151,9 +145,9 @@ $$
 The advantages & disadvantages of Pseudo-LIDAR compared to actual LIDAR are as below:
 
 - **Advantages**:
-    - cheaper cost
-    - camera can give a denser point cloud and color information, compared to the LIDAR sparse point cloud, therefore it may be helpful for further downstream tasks (3D object detection, segmentation, etc.)
-    - higher frame rate (?)
+    - Cheaper cost
+    - Camera can give a denser point cloud and color information, compared to the LIDAR sparse point cloud, therefore it may be helpful for further downstream tasks (3D object detection, segmentation, etc.)
+    - Higher frame rate (?)
 - **Disadvantages**:
     - Cameras have hardware limits such as distortion effect
     - Cameras are easily affected by external parameters such as illumination, weather conditions, etc.
