@@ -8,10 +8,6 @@ tags: [Computer_Vision,English]
 permalink: /depth-pseudolidar/
 ---
 
-# From Depth Estimation to Pseudo-LIDAR
-
----
-
 # Human depth perception
 
 Literature on human depth perception provides insight into the pictorial cues that could be used to estimate distance. The following cues can typically be found in single images:
