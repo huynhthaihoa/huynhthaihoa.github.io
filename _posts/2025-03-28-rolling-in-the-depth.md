@@ -21,17 +21,17 @@ permalink: /depth-rolling/
 
 ## Personal Benchmark
 
-[Personal benchmark](https://www.notion.so/Personal-benchmark-1a8edcef2a19807c841ed22014058849?pvs=21)
+[Personal benchmark](https://stellar-message-d73.notion.site/Personal-benchmark-1a8edcef2a19807c841ed22014058849?pvs=4)
 
 ---
 
 # Personal Notes
 
-[From depth estimation to Pseudo-LIDAR](https://www.notion.so/From-depth-estimation-to-Pseudo-LIDAR-97198141495b442e86f6210e724200a7?pvs=21) 
+[From depth estimation to Pseudo-LIDAR](https://huynhthaihoa.github.io/depth-pseudolidar/)
 
-[Depth Experiment](https://www.notion.so/Depth-Experiment-15fedcef2a198046aeefe231ed001ae7?pvs=21)
+<!--[Depth Experiment](https://www.notion.so/Depth-Experiment-15fedcef2a198046aeefe231ed001ae7?pvs=21)-->
 
-[Augmentation techniques for depth model](https://www.notion.so/Augmentation-techniques-for-depth-model-239bf78641da43b4875e5e1daad2705f?pvs=21)
+[Augmentation techniques for depth model](https://stellar-message-d73.notion.site/Augmentation-techniques-for-depth-model-239bf78641da43b4875e5e1daad2705f?pvs=4)
 
 ---
 
