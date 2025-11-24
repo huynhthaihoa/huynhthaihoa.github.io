@@ -4,7 +4,7 @@ title:  "Perspective Transform vs Affine Transform"
 subtitle: "Perspective Transform vs Affine Transform"
 categories: [Geometry]
 tags: [Computer_Vision,English]
-permalink: /ellipse-playground/
+permalink: /perspective-affine/
 ---
 
 # Perspective Transform
