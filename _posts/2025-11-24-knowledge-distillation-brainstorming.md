@@ -1,3 +1,12 @@
+---
+layout: post
+title:  "Knowledge Distillation"
+subtitle: "Summarization & Brainstorming about Knowledge Disllation"
+categories: [Deep Learning]
+tags: [Deep Learning,English]
+permalink: /knowledge-distillation/
+---
+
 # Good references
 
 https://docs.pytorch.org/tutorials/beginner/knowledge_distillation_tutorial.html
