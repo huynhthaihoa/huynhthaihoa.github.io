@@ -1,3 +1,12 @@
+---
+layout: post
+title:  "Simple Looking at Phone Algorithm"
+subtitle: "A naive algorithm to check if a person is looking at the Phone"
+categories: [Geometry]
+tags: [Computer_Vision,Geometry,English]
+permalink: /phone-looking/
+---
+
 # Introduction
 
 This is a naive algorithm to check **if a person is looking at the Phone** from the input image, given an **Object Detection Model** and **Gaze Estimation Model**
