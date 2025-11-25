@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Simple Looking at Phone Algorithm"
+title:  "Simple Looking-at-Phone Algorithm"
 subtitle: "A naive algorithm to check if a person is looking at the Phone"
 categories: [Geometry]
 tags: [Computer_Vision,Geometry,English]
