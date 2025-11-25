@@ -7,13 +7,13 @@ tags: [Computer_Vision,Geometry,English]
 permalink: /phone-looking/
 ---
 
-# Introduction
+## Introduction
 
 This is a naive algorithm to check **if a person is looking at the Phone** from the input image, given an **Object Detection Model** and **Gaze Estimation Model**
 
 ---
 
-# Idea
+## Idea
 
 We assume that:
 
@@ -29,7 +29,7 @@ If there is at least 1 `Phone` object that satisfies these conditions, we say th
 
 ---
 
-# Configuration
+## Configuration
 
 > These values may be updated after experiments to bring the best possible accuracy
 > 
@@ -39,7 +39,7 @@ If there is at least 1 `Phone` object that satisfies these conditions, we say th
 
 ---
 
-# Demo
+## Demo
 In the demo script, I generated a random **gaze_vector**, as well as 5 `Phone` objects. The logic is applied to check if **the human is looking at the Phone** (Distracted) or not (Focus), as you can see in these 2 example images:
 
 ![Distracted](../images/example_distracted.png)
