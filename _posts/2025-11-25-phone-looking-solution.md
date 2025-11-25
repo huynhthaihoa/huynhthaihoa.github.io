@@ -11,21 +11,25 @@ permalink: /phone-looking/
 
 This is a naive algorithm to check **if a person is looking at the Phone** from the input image, given an **Object Detection Model** and **Gaze Estimation Model**
 
-## Idea
+---
+
+# Idea
 
 We assume that:
 
 - The **Object Detection Model** detects a list of specified object `Phone` + `Human`
 - The **Gaze Estimation Model** predicts a human's `gaze vector` (starts from point `gaze_start` and goes toward point `gaze_end`)
 
-Generally, the **Gaze Estimation Model will predict a vector**, but practically, humans don't look at only 1 specific "ray" but a "cone-like" **FOV**. Therefore, we define the gaze's `FOV` as the angle that starts from `gaze_start` and receives the `gaze vector` as the **angle bisector**, the idea is to check if is there is at least 1 `Obj` object **intersects** with the `FOV`. The `Obj` object is considered to **intersect** with the `FOV` if it satisfies 2 conditions:
+Generally, the **Gaze Estimation Model will predict a vector**, but practically, humans don't look at only 1 specific "ray" but a "cone-like" **FOV**. Therefore, we define the gaze's `FOV` as the angle that starts from `gaze_start` and receives the `gaze vector` as the **angle bisector**. The idea is to check if is there is at least 1 `Obj` object **intersects** with the `FOV`. The `Obj` object is considered to **intersect** with the `FOV` if it satisfies 2 conditions:
 
 - (1) The object's confidence score must not be lower than the specific confidence threshold `conf_thres` ($0 < conf\_thres <= 1$). This condition is to reduce the **False Positive** phone detection error.
 - (2) The `FOV` must intersect with at least `count_thres` edges of the object's bounding box (1 <= `count_thres` <= 4).
 
 If there is at least 1 `Phone` object that satisfies these conditions, we say that **a person is looking at the phone**.
 
-## Configuration
+---
+
+# Configuration
 
 > These values may be updated after experiments to bring the best possible accuracy
 > 
@@ -33,7 +37,9 @@ If there is at least 1 `Phone` object that satisfies these conditions, we say th
 - `count_thres`: 1 (1 <= `count_thres` <= 4)
 - `fov_degree`: 30 (`FOV`'s magnitude, in degree unit, 0 <= `fov_degree` <= 90)
 
-## Demo
+---
+
+# Demo
 In the demo script, I generated a random **gaze_vector**, as well as 5 `Phone` objects. The logic is applied to check if **the human is looking at the Phone** (Distracted) or not (Focus), as you can see in these 2 example images:
 
 ![Distracted](../images/example_distracted.png)
