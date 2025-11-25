@@ -13,7 +13,7 @@ The homography, also known as the perspective transform, is a geometric transfor
 
 ![Perspective Transform](../images/perspective_transform.png)
 
-In the above figure, each point $(x, y)$ of the plane $\pi$ corresponds to a point $(x',y')$ of the plane $\pi'$. Their relation can be represented by the following equation:
+In the above figure, each point $(x, y)$ of the plane $\pi$ corresponds to a point $(x', y')$ of the plane $\pi'$. Their relation can be represented by the following equation:
 
 $$
 s \begin{bmatrix} x^{'} \\ y^{'} \\ 1 \end{bmatrix} = \mathbf{H} \begin{bmatrix} x \\ y \\ 1 \end{bmatrix} = \begin{bmatrix} h_{11} & h_{12} & h_{13} \\ h_{21} & h_{22} & h_{23} \\ h_{31} & h_{32} & h_{33} \end{bmatrix} \begin{bmatrix} x \\ y \\ 1 \end{bmatrix}
