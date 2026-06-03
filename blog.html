@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog &amp; Notes – Hoa Huynh</title>
+  <meta name="description" content="Blog and notes by Hoa Huynh on deep learning, computer vision, and depth estimation." />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous" />
+  <style>
+    /* ============================================================
+       BLOG PAGE STYLES
+       ============================================================ */
+
+    #blog-hero {
+      background: var(--bg);
+      padding-top: calc(var(--nav-h) + 3.5rem);
+      padding-bottom: 3.5rem;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      color: var(--muted);
+      font-size: .875rem;
+      font-weight: 500;
+      margin-bottom: 2rem;
+      transition: color .2s;
+      text-decoration: none;
+    }
+    .back-link:hover { color: var(--accent); opacity: 1; }
+
+    #blog-hero h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -.03em;
+      margin-bottom: .5rem;
+    }
+
+    .page-subtitle {
+      color: var(--muted);
+      font-size: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    /* TOC cards */
+    .post-toc {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .toc-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      display: block;
+      text-decoration: none;
+      transition: all .22s;
+    }
+    .toc-card:hover {
+      border-color: var(--accent2);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+      opacity: 1;
+    }
+    .toc-card .blog-tag { margin-bottom: .6rem; }
+    .toc-title {
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.4;
+    }
+    .toc-date {
+      font-size: .78rem;
+      color: var(--muted);
+      margin-top: .35rem;
+    }
+
+    /* Article sections */
+    .blog-article { padding: 4rem 0; }
+    .blog-article.alt-bg { background: var(--bg2); }
+
+    .post-sep {
+      height: 1px;
+      background: var(--border);
+      margin: 0;
+    }
+
+    .post-header { margin-bottom: 2.5rem; }
+    .post-header .blog-tag { margin-bottom: .75rem; }
+    .post-header h1 {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 800;
+      letter-spacing: -.02em;
+      line-height: 1.2;
+      margin-bottom: .5rem;
+    }
+    .post-date { font-size: .82rem; color: var(--muted); }
+
+    /* Prose styles */
+    .post-body { max-width: 820px; }
+
+    .post-body h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin: 2.5rem 0 .8rem;
+      color: var(--text);
+      padding-bottom: .5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .post-body h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin: 1.75rem 0 .5rem;
+      color: var(--accent);
+    }
+    .post-body h4 {
+      font-size: .95rem;
+      font-weight: 600;
+      margin: 1.5rem 0 .4rem;
+      color: var(--text);
+    }
+    .post-body p {
+      margin-bottom: 1rem;
+      color: var(--muted);
+      line-height: 1.85;
+      font-size: .95rem;
+    }
+    .post-body ul, .post-body ol {
+      padding-left: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--muted);
+    }
+    .post-body li {
+      margin-bottom: .5rem;
+      line-height: 1.75;
+      font-size: .95rem;
+    }
+    .post-body strong { color: var(--text); font-weight: 600; }
+    .post-body em { font-style: italic; }
+    .post-body a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    .post-body a:hover { opacity: .75; }
+
+    .post-body code {
+      background: var(--bg3);
+      padding: .15rem .45rem;
+      border-radius: 4px;
+      font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', monospace;
+      font-size: .82em;
+      color: var(--accent2);
+      border: 1px solid var(--border);
+    }
+    .post-body pre {
+      background: var(--bg3);
+      padding: 1.25rem 1.5rem;
+      border-radius: 10px;
+      overflow-x: auto;
+      margin: 1.25rem 0;
+      border: 1px solid var(--border);
+    }
+    .post-body pre code {
+      background: none;
+      padding: 0;
+      border: none;
+      font-size: .875rem;
+      line-height: 1.7;
+      color: var(--text);
+    }
+    .post-body hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 2.5rem 0;
+    }
+    .post-body img {
+      max-width: 100%;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      margin: 1rem 0;
+      display: block;
+    }
+
+    /* Math display */
+    .math-display {
+      overflow-x: auto;
+      padding: .75rem 0;
+      text-align: center;
+    }
+
+    /* Reference / link cards */
+    .ref-links { display: flex; flex-direction: column; gap: .5rem; margin: 1rem 0; }
+    .ref-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: .6rem 1rem;
+      color: var(--text);
+      text-decoration: none;
+      font-size: .875rem;
+      font-weight: 500;
+      transition: all .2s;
+    }
+    .ref-link:hover { border-color: var(--accent); color: var(--accent); opacity: 1; }
+    .ref-link svg { flex-shrink: 0; color: var(--muted); }
+
+    /* Works list */
+    .works-list { display: flex; flex-direction: column; gap: .75rem; margin: 1rem 0; }
+    .work-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      transition: all .2s;
+    }
+    .work-item:hover { border-color: var(--accent); transform: translateX(3px); }
+    .work-title { font-size: .9rem; font-weight: 700; color: var(--text); margin-bottom: .3rem; }
+    .work-links { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .4rem; }
+    .work-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      padding: .25rem .65rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      font-size: .77rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: all .2s;
+      font-weight: 500;
+    }
+    .work-link-btn:hover { border-color: var(--accent); color: var(--accent); opacity: 1; }
+
+    /* Depth tag variant */
+    .blog-tag-depth {
+      display: inline-block;
+      background: rgba(56,189,248,.12);
+      color: var(--accent);
+      font-size: .75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      padding: .2rem .65rem;
+      border-radius: 100px;
+      margin-bottom: .75rem;
+    }
+
+    @media (max-width: 768px) {
+      .post-toc { grid-template-columns: 1fr; }
+      #blog-hero h1 { font-size: 1.75rem; }
+      .post-body pre { padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAVIGATION
+     ============================================================ -->
+<nav>
+  <a href="index.html" style="text-decoration:none;">
+    <span class="nav-brand">Hoa Huynh</span>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="index.html#experience">Experience</a></li>
+    <li><a href="index.html#education">Education</a></li>
+    <li><a href="index.html#skills">Skills</a></li>
+    <li><a href="index.html#projects">Projects</a></li>
+    <li><a href="index.html#publications">Publications</a></li>
+    <li><a href="index.html#blog" style="color:var(--text)">Blog</a></li>
+    <li><a href="index.html#certifications">Certifications</a></li>
+  </ul>
+
+  <div class="nav-right">
+    <button id="theme-toggle" aria-label="Toggle theme">☀️</button>
+    <button class="hamburger" aria-label="Menu">☰</button>
+  </div>
+</nav>
+
+<!-- ============================================================
+     PAGE HEADER
+     ============================================================ -->
+<section id="blog-hero">
+  <div class="container">
+    <a href="index.html" class="back-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+      </svg>
+      Back to Portfolio
+    </a>
+
+    <h1>Blog &amp; Notes</h1>
+    <p class="page-subtitle">Explorations in deep learning, computer vision, and depth estimation.</p>
+
+    <div class="post-toc">
+      <a href="#knowledge-distillation" class="toc-card fade-up">
+        <span class="blog-tag">Deep Learning</span>
+        <div class="toc-title">Knowledge Distillation Brainstorming</div>
+        <div class="toc-date">January 4, 2026</div>
+      </a>
+      <a href="#2d-vision" class="toc-card fade-up">
+        <span class="blog-tag">Computer Vision</span>
+        <div class="toc-title">2D Vision Utilities</div>
+        <div class="toc-date">January 4, 2026</div>
+      </a>
+      <a href="#rolling-in-the-deep" class="toc-card fade-up">
+        <span class="blog-tag-depth">Depth Estimation</span>
+        <div class="toc-title">Rolling in the Deep</div>
+        <div class="toc-date">January 4, 2026</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="post-sep"></div>
+
+<!-- ============================================================
+     POST 1 — KNOWLEDGE DISTILLATION BRAINSTORMING
+     ============================================================ -->
+<article id="knowledge-distillation" class="blog-article">
+  <div class="container">
+    <header class="post-header">
+      <span class="blog-tag">Deep Learning</span>
+      <h1>Knowledge Distillation Brainstorming</h1>
+      <div class="post-date">January 4, 2026</div>
+    </header>
+
+    <div class="post-body">
+
+      <h2>Good References</h2>
+      <div class="ref-links">
+        <a href="https://docs.pytorch.org/tutorials/beginner/knowledge_distillation_tutorial.html" target="_blank" rel="noopener" class="ref-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          PyTorch Knowledge Distillation Tutorial
+        </a>
+      </div>
+
+      <h2>Brainstorm</h2>
+      <p>In the context of machine learning knowledge distillation, training both the teacher model and the student model in parallel is generally not the standard or most effective approach, though it can make sense in specific scenarios depending on the goals and constraints.</p>
+
+      <h2>1. Standard Knowledge Distillation Process</h2>
+      <p>Knowledge distillation typically involves a two-stage process:</p>
+      <ol>
+        <li><strong>Teacher Model Training</strong>: A large, complex model (the teacher) is trained first on the target task using the available dataset. The teacher model is usually overparameterized and achieves high performance, but may be computationally expensive.</li>
+        <li><strong>Student Model Training</strong>: A smaller, more efficient model (the student) is then trained to mimic the teacher's behavior. This is done by using the teacher's outputs (e.g., softened logits or feature representations) as soft targets, in addition to or instead of the ground-truth labels. The student is trained to minimize a loss function that includes a distillation loss (e.g., Kullback-Leibler divergence between the teacher's and student's outputs) and, often, a task-specific loss (e.g., cross-entropy with ground-truth labels).</li>
+      </ol>
+      <p>The teacher is <strong>typically pre-trained and fixed</strong> during the student's training because the goal is to <strong>transfer the teacher's learned knowledge to the student</strong>. The teacher's outputs <strong>provide a richer supervision signal (e.g., capturing inter-class relationships via soft probabilities) than hard labels alone</strong>.</p>
+
+      <h2>2. Why Parallel Training Is Uncommon</h2>
+      <p>Training the teacher and student models in parallel (i.e., simultaneously updating both models during training) is not standard for several reasons:</p>
+      <ol>
+        <li><strong>Teacher Stability</strong>: The teacher model is expected to provide reliable and high-quality outputs to guide the student. If the teacher is still training and its parameters are changing, its outputs may be noisy or inconsistent, which could destabilize the student's learning process.</li>
+        <li><strong>Computational Overhead</strong>: Training both models simultaneously increases computational requirements, as both models need to perform forward and backward passes. Knowledge distillation aims to produce a lightweight student model for efficiency, so adding the overhead of training a large teacher in parallel contradicts this goal.</li>
+        <li><strong>Objective Misalignment</strong>: The teacher is typically optimized for task performance (e.g., minimizing cross-entropy loss), while the student is optimized to mimic the teacher's outputs (distillation loss) and, optionally, the ground-truth labels. Jointly optimizing both models could lead to conflicting gradients or objectives, making convergence harder.</li>
+        <li><strong>Sequential Dependency</strong>: The student relies on the teacher's knowledge, which is most effective when the teacher has already converged on a good solution. Training them in parallel undermines this dependency, as the teacher may not yet have reliable knowledge to transfer.</li>
+      </ol>
+
+      <h3>Scenarios Where Parallel Training Might Make Sense</h3>
+      <p>There are specific cases where training the teacher and student in parallel could be considered, though these are less common and typically involve modifications to the standard distillation framework:</p>
+      <ol>
+        <li>
+          <strong>Online Knowledge Distillation (OKD)</strong>: In <strong>online distillation</strong> (e.g., as proposed in methods like <a href="https://arxiv.org/abs/1706.00384" target="_blank" rel="noopener">Deep Mutual Learning</a>), multiple models (which can be seen as <strong>peers</strong> rather than a strict teacher-student hierarchy) are trained simultaneously, and they learn from each other's outputs. Instead of a pre-trained teacher, all models act as both teachers and students, sharing knowledge via their predictions. <strong>Use Case</strong>: Scenarios with limited access to a pre-trained teacher or when training multiple models of similar capacity to improve generalization.
+        </li>
+        <li>
+          <strong>Dynamic Teacher Updates</strong>: In some setups, the teacher model may be fine-tuned or updated during training to adapt to the student's needs or to incorporate new data. This requires careful design to ensure the teacher remains a stable source of knowledge, such as using a slower learning rate for the teacher or alternating updates. <strong>Use Case</strong>: Continual learning, online learning, or scenarios with streaming data where pre-training a teacher is impractical.
+        </li>
+        <li>
+          <strong>Co-Training for Efficiency</strong>: If computational resources allow, parallel training could be explored to reduce the total training time compared to sequential training. For example, the teacher and student could share some computational graphs (e.g., in a shared feature extraction backbone) to save resources. <strong>Use Case</strong>: Resource-rich environments where training time is a bottleneck.
+        </li>
+        <li>
+          <strong>Reinforcement Learning or Adversarial Settings</strong>: In some advanced setups, such as those inspired by GANs or reinforcement learning, the teacher and student might be trained competitively or cooperatively. <strong>Use Case</strong>: Research settings exploring novel training dynamics or adversarial knowledge transfer.
+        </li>
+      </ol>
+
+      <h3>Challenges of Parallel Training</h3>
+      <ul>
+        <li><strong>Stabilizing Teacher Outputs</strong>: The teacher's outputs may be noisy early in training, so techniques like output smoothing, teacher ensembling, or delayed distillation may be needed.</li>
+        <li><strong>Balancing Objectives</strong>: The teacher and student may have different learning rates, loss weights, or objectives, requiring careful tuning.</li>
+        <li><strong>Increased Complexity</strong>: Parallel training requires more memory and compute, which may not be feasible for large teacher models.</li>
+        <li><strong>Evaluation Metrics</strong>: You'd need to define how to evaluate the teacher's readiness to provide useful knowledge.</li>
+      </ul>
+
+      <h3>Alternative Approaches</h3>
+      <ul>
+        <li><strong>Self-Distillation</strong>: The student model distills knowledge from itself (e.g., from earlier layers or epochs) rather than a separate teacher.</li>
+        <li><strong>Pre-Trained Teacher Reuse</strong>: Use an existing pre-trained model (e.g., a foundation model like BERT or a publicly available checkpoint) as the teacher.</li>
+        <li><strong>Online Distillation Variants</strong>: Explore methods like Deep Mutual Learning or Collaborative Learning, where multiple models learn together without a fixed teacher-student hierarchy.</li>
+      </ul>
+
+      <h3>Practical Recommendation</h3>
+      <p>In most cases, <strong>sequential training</strong> (pre-training the teacher, then training the student) is the most effective and straightforward approach for knowledge distillation. It ensures the teacher provides stable, high-quality outputs and aligns to produce an efficient student model. <strong>Parallel training</strong> could be explored in research settings or specific use cases (e.g., <strong>online distillation</strong> or <strong>continual learning</strong>), but it requires careful design to manage the challenges outlined above.</p>
+
+      <h2>3. Why Pretraining the Teacher and Training the Student on the Same Dataset Makes Sense</h2>
+
+      <h4>Consistency in Data Distribution</h4>
+      <p>Using the same dataset for both the teacher and student ensures that <strong>the knowledge being transferred is relevant to the task and data distribution that the student will encounter</strong>. The teacher learns the patterns, relationships, and structure of the dataset, and the student benefits from mimicking these learned representations. If the teacher were trained on a different dataset, its knowledge might not generalize well to the student's target dataset, leading to suboptimal performance.</p>
+
+      <h4>Teacher as a High-Quality Reference</h4>
+      <p>Pretraining the teacher model on the same dataset allows it to <strong>converge to a high-performing solution, capturing rich information about the task</strong> (e.g., class probabilities, feature representations, or decision boundaries). The student can then leverage this high-quality knowledge via the teacher's soft outputs (e.g., softened logits or intermediate features), which provide more information than hard labels alone. For example, in classification tasks, the teacher's softmax outputs (with a temperature parameter) reveal inter-class relationships, helping the student learn nuanced decision boundaries.</p>
+
+      <h4>Standard Practice in Knowledge Distillation</h4>
+      <p>The canonical knowledge distillation framework, as introduced by Hinton et al. (2015), assumes the teacher is pretrained on the target dataset, and the student is trained to match the teacher's outputs on the same dataset. This setup is widely used in applications like model compression for image classification, natural language processing, and speech recognition. The student typically optimizes a combination of the distillation loss (e.g., KL divergence between the teacher's and student's logits) and the task-specific loss (e.g., cross-entropy with ground-truth labels) on the same dataset.</p>
+
+      <h4>Efficient Use of Data</h4>
+      <p>In many real-world scenarios, the dataset is fixed and limited. Using the same dataset for both models avoids the need for additional data collection or the risk of domain mismatch. The teacher extracts as much knowledge as possible from the dataset, and the student distills this knowledge into a more compact model.</p>
+
+      <h3>Benefits of This Approach</h3>
+      <ul>
+        <li><strong>Improved Student Performance</strong>: The student benefits from the teacher's learned knowledge, often achieving better performance than if trained solely on ground-truth labels.</li>
+        <li><strong>Generalization</strong>: The teacher's soft targets act as a form of regularization, helping the student generalize better by learning smoother decision boundaries.</li>
+        <li><strong>Flexibility</strong>: This approach works across various tasks (e.g., classification, regression, sequence modeling) and model architectures.</li>
+        <li><strong>Data Efficiency</strong>: Even with limited labeled data, the teacher's outputs provide additional supervision, making it easier for the student to learn effectively.</li>
+      </ul>
+
+      <h3>Considerations and Best Practices</h3>
+      <ol>
+        <li><strong>Teacher Quality</strong>: The teacher must be <strong>well-trained</strong> and <strong>perform well on the dataset</strong>. A poorly trained teacher will provide <strong>noisy</strong> or <strong>unreliable outputs</strong>, leading to suboptimal student performance.</li>
+        <li><strong>Distillation Loss Design</strong>: The student's loss function typically combines the <strong>distillation loss</strong> (matching the teacher's outputs) and the <strong>task-specific loss</strong> (matching ground-truth labels). The balance (controlled by a weighting hyperparameter, e.g., <code>α</code> in <code>L = α * L_distillation + (1-α) * L_task</code>) is critical. The <strong>temperature parameter</strong> in the softmax function also needs tuning — a higher temperature (e.g., <code>T = 2</code> or <code>T = 4</code>) makes the teacher's outputs smoother.</li>
+        <li><strong>Overfitting Risk</strong>: If the dataset is small, the teacher might overfit. Use <strong>regularization techniques</strong> during teacher training (e.g., dropout, weight decay), <strong>data augmentation</strong>, and monitor the teacher's generalization performance.</li>
+        <li><strong>Dataset Size and Diversity</strong>: For very small datasets, the teacher's knowledge may be limited. Consider using a pre-trained teacher or augmenting the dataset.</li>
+        <li><strong>Model Architecture Compatibility</strong>: Ensure the teacher and student models are compatible in terms of their output spaces. If the student has a different architecture, additional techniques like feature-based distillation may be needed.</li>
+        <li><strong>Computational Efficiency</strong>: Since the teacher is pretrained, its parameters are fixed during student training. The student only needs the teacher's outputs, which can be precomputed and cached for the entire dataset to save time.</li>
+      </ol>
+
+      <h3>Potential Alternatives or Variations</h3>
+      <ul>
+        <li><strong>Transfer Learning or Domain Adaptation</strong>: If the teacher is pretrained on a larger, related dataset (e.g., ImageNet), it can be fine-tuned on the target dataset before distillation.</li>
+        <li><strong>Unlabeled or Augmented Data</strong>: In some cases, the student can be trained on a mix of labeled data and unlabeled data, where the teacher provides pseudo-labels for the unlabeled data.</li>
+        <li><strong>Online Distillation</strong>: If you want to avoid pretraining the teacher entirely, you could explore online knowledge distillation (e.g., Deep Mutual Learning).</li>
+      </ul>
+
+      <h3>Practical Example</h3>
+      <p>Suppose you're working on an image classification task with the CIFAR-10 dataset:</p>
+      <ul>
+        <li><strong>Teacher Training</strong>: Train a large model (e.g., ResNet-50) on CIFAR-10 until it achieves high accuracy (e.g., 95% on the test set).</li>
+        <li><strong>Student Training</strong>: Train a smaller model (e.g., MobileNet) on CIFAR-10, using a loss function that combines KL divergence between the teacher's softened logits (temperature <code>T=4</code>) and the student's logits, plus cross-entropy loss with ground-truth labels.</li>
+        <li><strong>Outcome</strong>: The student achieves accuracy close to the teacher's (e.g., 93%) while being much smaller and faster.</li>
+      </ul>
+
+      <h2>4. Cases Where Different Datasets Are Used</h2>
+
+      <h3>4.1. Transfer Learning or Domain Adaptation</h3>
+      <ul>
+        <li><strong>Scenario</strong>: The teacher is pretrained on a large, general dataset (e.g., ImageNet for images, Wikipedia or Common Crawl for text), while the student is trained on a smaller, task-specific or domain-specific dataset.</li>
+        <li><strong>Rationale</strong>: The teacher, often a large foundation model, learns broad, generalizable features from a diverse dataset. These features can be distilled into a smaller student model tailored to a specific domain or task, even if the target dataset is limited.</li>
+        <li><strong>Example</strong>: In NLP, a teacher like <strong>BERT</strong> is pretrained on a <strong>massive text corpus</strong> (e.g., Wikipedia + BookCorpus). The student (e.g., <strong>DistilBERT</strong>) is trained on a <strong>smaller, task-specific dataset</strong> (e.g., sentiment analysis on IMDb reviews), using the teacher's outputs to guide learning.</li>
+        <li><strong>Benefits</strong>: Leverages the teacher's general knowledge to improve student performance on specialized tasks with limited data.</li>
+        <li><strong>Challenges</strong>: The teacher's knowledge may not fully align with the target domain, requiring careful tuning of the distillation process.</li>
+      </ul>
+
+      <h3>4.2. Semi-Supervised Learning with Unlabeled Data</h3>
+      <ul>
+        <li><strong>Scenario</strong>: The teacher is trained on a <strong>labeled dataset</strong>, while the student is trained on a <strong>combination of the same labeled dataset and additional unlabeled data</strong>, using the teacher's predictions (pseudo-labels) for the unlabeled portion.</li>
+        <li><strong>Rationale</strong>: The teacher provides <strong>high-quality pseudo-labels</strong> for <strong>unlabeled data</strong>, effectively expanding the student's training set. Particularly useful when <strong>labeled data is scarce</strong> but <strong>unlabeled data is abundant</strong>.</li>
+        <li><strong>Example</strong>: In image classification, the teacher is trained on a labeled subset of CIFAR-100. The student is trained on both the labeled subset and a large pool of unlabeled images.</li>
+        <li><strong>Benefits</strong>: Improves student performance by leveraging unlabeled data.</li>
+        <li><strong>Challenges</strong>: The teacher's pseudo-labels may contain errors, especially for out-of-distribution unlabeled data; <strong>confidence thresholding</strong> or <strong>consistency regularization</strong> may be needed.</li>
+      </ul>
+
+      <h3>4.3. Privacy-Preserving or Data-Constrained Settings</h3>
+      <ul>
+        <li><strong>Scenario</strong>: The teacher is trained on a sensitive or proprietary dataset that cannot be shared, while the student is trained on a different, publicly available, or synthetic dataset.</li>
+        <li><strong>Rationale</strong>: Knowledge distillation allows the teacher's knowledge to be transferred without directly exposing the original training data.</li>
+        <li><strong>Example</strong>: A teacher model trained on private medical records is used to distill knowledge into a student model trained on a synthetic or public medical dataset.</li>
+        <li><strong>Benefits</strong>: Enables knowledge transfer in settings with strict data privacy or access restrictions.</li>
+        <li><strong>Challenges</strong>: The proxy dataset must be sufficiently similar to the teacher's dataset to ensure effective distillation.</li>
+      </ul>
+
+      <h3>4.4. Data Augmentation or Perturbed Datasets</h3>
+      <ul>
+        <li><strong>Scenario</strong>: The teacher is trained on the original dataset, while the student is trained on an augmented or perturbed version (e.g., with added noise, transformations, or adversarial examples).</li>
+        <li><strong>Rationale</strong>: Training the student on augmented data can improve its robustness or generalization, while the teacher provides stable, high-quality targets.</li>
+        <li><strong>Example</strong>: In computer vision, the teacher is trained on clean ImageNet images, while the student is trained on ImageNet with random augmentations (rotations, flips, color jitter).</li>
+        <li><strong>Benefits</strong>: Enhances student robustness to variations in input data.</li>
+        <li><strong>Challenges</strong>: The augmentations must be carefully chosen to avoid introducing irrelevant or harmful noise.</li>
+      </ul>
+
+      <h3>4.5. Cross-Modal or Multi-Task Distillation</h3>
+      <ul>
+        <li><strong>Scenario</strong>: The teacher is trained on one modality or task, while the student is trained on a different modality or task, using shared or aligned knowledge.</li>
+        <li><strong>Rationale</strong>: The teacher's knowledge from one domain or modality can guide the student in a related but different domain, especially when the tasks share underlying patterns.</li>
+        <li><strong>Example</strong>: In vision-language models, a teacher trained on a large image-caption dataset distills knowledge into a student trained on a text-only or image-only dataset for a specific task.</li>
+        <li><strong>Benefits</strong>: Enables knowledge transfer across modalities or tasks.</li>
+        <li><strong>Challenges</strong>: Requires alignment between the teacher's and student's output spaces, often necessitating additional mapping layers or loss functions.</li>
+      </ul>
+
+      <h3>4.6. Continual Learning or Evolving Data Distributions</h3>
+      <ul>
+        <li><strong>Scenario</strong>: The teacher is trained on an initial dataset, while the student is trained on a new dataset that reflects a shifted or updated data distribution.</li>
+        <li><strong>Rationale</strong>: The teacher provides a stable knowledge base from the original data, while the student adapts to the new distribution.</li>
+        <li><strong>Example</strong>: In a recommendation system, the teacher is trained on historical user interaction data, while the student is trained on recent data with new user behaviors or items.</li>
+        <li><strong>Benefits</strong>: Supports adaptation to changing environments while preserving prior knowledge.</li>
+        <li><strong>Challenges</strong>: The teacher's knowledge may become outdated, so techniques like fine-tuning the teacher or using an ensemble of teachers may be needed.</li>
+      </ul>
+
+      <h3>Considerations for Using Different Datasets</h3>
+      <ol>
+        <li><strong>Domain Alignment</strong>: The datasets should be sufficiently related to ensure the teacher's knowledge is relevant to the student's task. Techniques like feature alignment or adversarial training can help bridge domain differences.</li>
+        <li><strong>Teacher Output Quality</strong>: The teacher's outputs must be reliable for the student's dataset. Validate the teacher's performance on a subset of the student's dataset or use confidence-based filtering to discard low-quality predictions.</li>
+        <li><strong>Distillation Loss Design</strong>: The distillation loss should account for potential differences in data distributions. Weighting the distillation loss lower than the task-specific loss may help when the teacher's outputs are less reliable.</li>
+        <li><strong>Data Availability and Privacy</strong>: Ensure the student's dataset is sufficient for training, and in privacy-sensitive cases, verify that the distillation process complies with data regulations (e.g., GDPR or HIPAA).</li>
+        <li><strong>Evaluation and Validation</strong>: Monitor the student's performance on a validation set from its target dataset and compare against a baseline trained without distillation.</li>
+      </ol>
+
+      <h3>When to Avoid Different Datasets</h3>
+      <p>Using different datasets can introduce complexity and risks. Avoid this approach if:</p>
+      <ul>
+        <li>The datasets are unrelated or have significant domain gaps, and fine-tuning the teacher isn't feasible.</li>
+        <li>The student's dataset is large and high-quality, making distillation from a differently trained teacher unnecessary.</li>
+        <li>The teacher's performance on the student's data distribution is poor, and there's no way to validate or improve it.</li>
+      </ul>
+
+      <h2>5. Self-Training</h2>
+
+      <h3>What is Self-Training?</h3>
+      <p><strong>Self-training</strong> is a semi-supervised learning approach where a model (often called the <strong>teacher</strong>) is first trained on a <strong>labeled dataset</strong>, then used to generate <strong>pseudo-labels</strong> for an <strong>unlabeled dataset</strong>. These pseudo-labels are combined with the labeled data to train a new model (often called the <strong>student</strong>), which may be the same or a different architecture. The process can be iterative, with the student becoming the teacher in subsequent rounds.</p>
+
+      <h3>How Self-Training Works</h3>
+      <ol>
+        <li><strong>Train the Teacher</strong>: Train a model on a labeled dataset $D_L = \{(x_i, y_i)\}$, where $x_i$ are inputs and $y_i$ are ground-truth labels.</li>
+        <li><strong>Generate Pseudo-Labels</strong>: Use the trained teacher to predict labels (or probabilities) for an unlabeled dataset $D_U = \{(x_j)\}$. These predictions are called pseudo-labels, denoted $\hat{y}_j$.</li>
+        <li><strong>Select High-Confidence Pseudo-Labels</strong>: Often, only pseudo-labels with <strong>high confidence</strong> (e.g., above a threshold) are used to filter out noisy predictions.</li>
+        <li><strong>Train the Student</strong>: Train a new model on the <strong>combined dataset</strong> $D_L \cup \{(x_j, \hat{y}_j)\}$, where the student learns from both <strong>ground-truth labels</strong> and <strong>pseudo-labels</strong>.</li>
+        <li><strong>Iterate (Optional)</strong>: The student becomes the teacher, generates new pseudo-labels, and the process repeats for multiple iterations.</li>
+      </ol>
+
+      <h3>How Self-Training Improves Model Performance</h3>
+      <ul>
+        <li><strong>Leverages Unlabeled Data</strong>: Self-training makes use of abundant unlabeled data, increasing the effective training set size and helping the model learn more robust features.</li>
+        <li><strong>Regularization Effect</strong>: Pseudo-labels provide a form of regularization, encouraging the model to produce consistent predictions across labeled and unlabeled data.</li>
+        <li><strong>Improved Generalization</strong>: By exposing the model to a larger and more diverse dataset, self-training can improve performance on out-of-distribution or challenging examples.</li>
+        <li><strong>Iterative Refinement</strong>: In iterative self-training, each round refines the pseudo-labels, potentially improving their quality.</li>
+      </ul>
+
+      <h3>Challenges</h3>
+      <ul>
+        <li><strong>Error Propagation</strong>: If the teacher's pseudo-labels are incorrect, the student may learn from noisy or biased labels. Confidence thresholding or soft labels (probabilities) can mitigate this.</li>
+        <li><strong>Limited Teacher Quality</strong>: If the initial teacher is trained on a small labeled dataset, its pseudo-labels may not be reliable.</li>
+        <li><strong>Domain Shift</strong>: If the unlabeled data differs significantly from the labeled data, pseudo-labels may not align with the target task.</li>
+      </ul>
+
+      <h2>6. Noisy Student Training</h2>
+
+      <h3>What is Noisy Student Training?</h3>
+      <p>Noisy Student Training (Xie et al., 2020) is an advanced self-training method that incorporates noise and regularization to improve the student model's performance <em>beyond</em> the teacher's. Unlike standard self-training, Noisy Student explicitly adds stochastic elements (e.g., data augmentation, dropout) to the student's training process to make it more robust and prevent it from simply memorizing the teacher's predictions.</p>
+
+      <h3>How Noisy Student Training Works</h3>
+      <ol>
+        <li><strong>Train the Teacher</strong>: Train a teacher model on a labeled dataset $D_L$, similar to self-training.</li>
+        <li><strong>Generate Pseudo-Labels</strong>: Use the teacher to predict pseudo-labels for a large unlabeled dataset $D_U$. Hard labels (class predictions) are often used instead of soft labels to simplify the process.</li>
+        <li><strong>Train the Student with Noise</strong>: Train a student model (typically larger or equal in capacity to the teacher) on $D_L \cup \{(x_j, \hat{y}_j)\}$, but introduce noise and regularization during training:
+          <ul>
+            <li><strong>Data Augmentation</strong>: Apply strong augmentations (e.g., RandAugment for images) to both labeled and unlabeled inputs.</li>
+            <li><strong>Model Noise</strong>: Use techniques like dropout, stochastic depth, or random layer freezing in the student model.</li>
+            <li><strong>Balanced Dataset</strong>: Ensure the labeled and unlabeled data are balanced.</li>
+          </ul>
+        </li>
+        <li><strong>Iterate</strong>: Use the student as the new teacher, generate updated pseudo-labels, and repeat. Each iteration typically improves the model's performance.</li>
+      </ol>
+
+      <h3>Key Differences from Self-Training</h3>
+      <ul>
+        <li><strong>Noise Injection</strong>: Noisy Student deliberately adds noise to prevent overfitting to the teacher's pseudo-labels and encourage robustness.</li>
+        <li><strong>Equal or Larger Student</strong>: Unlike knowledge distillation where the student is smaller, Noisy Student often uses a student of equal or greater capacity than the teacher.</li>
+        <li><strong>Iterative Improvement</strong>: Noisy Student emphasizes multiple iterations, with each student potentially outperforming the previous teacher.</li>
+      </ul>
+
+      <h3>How Noisy Student Improves Model Performance</h3>
+      <ul>
+        <li><strong>Robustness through Noise</strong>: The added noise forces the student to learn more generalizable features, preventing overfitting to the teacher's predictions or biases in the pseudo-labels.</li>
+        <li><strong>Scales with Unlabeled Data</strong>: Noisy Student leverages large amounts of unlabeled data, which is critical for improving performance in data-scarce settings.</li>
+        <li><strong>Iterative Refinement</strong>: Each iteration refines the pseudo-labels, as the student-turned-teacher becomes more accurate, leading to a virtuous cycle of improvement.</li>
+        <li><strong>Surpassing the Teacher</strong>: By combining noise, a larger student model, and iterative training, Noisy Student can produce models that outperform the initial teacher.</li>
+      </ul>
+
+      <h3>Example</h3>
+      <p>In the Noisy Student paper, an EfficientNet teacher was trained on the labeled ImageNet dataset. It generated pseudo-labels for 300M unlabeled images from JFT-300M. A larger EfficientNet student was trained on the combined dataset with strong augmentations (RandAugment) and dropout, achieving higher accuracy than the teacher. After multiple iterations, the final model set new benchmarks on ImageNet.</p>
+
+      <h3>Challenges</h3>
+      <ul>
+        <li><strong>Computational Cost</strong>: Noisy Student requires significant computational resources, as it involves training large models and iterating multiple times over large datasets.</li>
+        <li><strong>Noise Tuning</strong>: The type and strength of noise (augmentations, dropout) must be carefully tuned to balance robustness and learning stability.</li>
+        <li><strong>Pseudo-Label Quality</strong>: As with self-training, poor pseudo-labels can harm performance, especially in early iterations.</li>
+      </ul>
+
+      <h2>7. Connection to Knowledge Distillation and Different Datasets</h2>
+      <p>Both <strong>self-training</strong> and <strong>Noisy Student</strong> are closely related to knowledge distillation, particularly in scenarios where the teacher and student are trained on different datasets (e.g., labeled vs. unlabeled data):</p>
+      <ul>
+        <li><strong>Different Datasets</strong>: In both methods, the teacher is typically trained on a labeled dataset, while the student is trained on a combination of the labeled dataset and an unlabeled dataset (or a different dataset with pseudo-labels).</li>
+        <li><strong>Knowledge Transfer</strong>: Like knowledge distillation, self-training and Noisy Student transfer knowledge from the teacher to the student via pseudo-labels (hard or soft).</li>
+        <li><strong>Improving Performance</strong>: These methods are particularly effective when the labeled dataset is small but the unlabeled data is abundant.</li>
+      </ul>
+
+      <h3>How These Techniques Improve Model Performance</h3>
+      <ol>
+        <li><strong>Increased Data Utilization</strong>: Both methods leverage unlabeled data, which is often plentiful, to expand the training set. This exposes the model to more diverse patterns, improving generalization.</li>
+        <li><strong>Regularization</strong>: Pseudo-labels and noise (in Noisy Student) act as regularizers, preventing overfitting to the labeled data.</li>
+        <li><strong>Iterative Improvement</strong>: Iterative training refines pseudo-labels, leading to progressively better models.</li>
+        <li><strong>Handling Limited Labeled Data</strong>: In settings with few labeled examples, these methods use unlabeled data to compensate, achieving performance close to fully supervised models.</li>
+        <li><strong>Domain Adaptation</strong>: When the unlabeled data comes from a slightly different distribution, these methods can help the student adapt to the target domain.</li>
+      </ol>
+
+      <h3>Practical Considerations</h3>
+      <ul>
+        <li><strong>When to Use Self-Training</strong>: Self-training is effective for small to medium unlabeled datasets and is used for simpler semi-supervised tasks with limited compute resources or when the student model is similar to the teacher.</li>
+        <li><strong>When to Use Noisy Student</strong>: Use Noisy Student when you have access to large unlabeled datasets, sufficient compute, and want to maximize performance, potentially surpassing the teacher.</li>
+        <li><strong>Implementation Tips</strong>:
+          <ul>
+            <li><strong>Confidence Thresholding</strong>: Filter pseudo-labels by confidence (e.g., keep predictions with probability &gt; 0.9) to reduce noise.</li>
+            <li><strong>Strong Teacher</strong>: Start with a high-quality teacher (e.g., pretrained on a large dataset) to ensure reliable pseudo-labels.</li>
+            <li><strong>Noise Tuning</strong>: In Noisy Student, experiment with augmentation policies (e.g., RandAugment) and regularization strength.</li>
+            <li><strong>Iteration Strategy</strong>: Limit iterations to avoid error accumulation, and monitor validation performance to stop early if needed.</li>
+          </ul>
+        </li>
+      </ul>
+
+    </div><!-- /.post-body -->
+  </div>
+</article>
+
+<div class="post-sep"></div>
+
+<!-- ============================================================
+     POST 2 — 2D VISION UTILITIES
+     ============================================================ -->
+<article id="2d-vision" class="blog-article alt-bg">
+  <div class="container">
+    <header class="post-header">
+      <span class="blog-tag">Computer Vision</span>
+      <h1>2D Vision Utilities</h1>
+      <div class="post-date">January 4, 2026</div>
+    </header>
+
+    <div class="post-body">
+
+      <h2>1. Ellipse Playground</h2>
+      <p>Given the <strong>image coordinate system</strong> $Oxy$, with $O(0, 0)$ as the <strong>coordinate center</strong>:</p>
+      <img src="assets/blog/2d-vision-coord.png" alt="Image coordinate system Oxy diagram" />
+
+      <h3>1.1. General Equation</h3>
+      <p>The general equation of a rotated ellipse:</p>
+      <div class="math-display">
+        $$\frac{[(x-c_x)\cos(-\theta)+(y-c_y)\sin(-\theta)]^2}{a^2}+\frac{[(x-c_x)\sin(-\theta)-(y-c_y)\cos(-\theta)]^2}{b^2}=1$$
+      </div>
+      <p>given:</p>
+      <ul>
+        <li>$C(c_x, c_y)$ is the ellipse center</li>
+        <li>$a, b$ are the major and minor radius</li>
+        <li>$\theta$ is the rotation angle measured from the $Cx$ axis (not $Ox$ axis) (<strong>clockwise order</strong>)</li>
+      </ul>
+
+      <h3>1.2. Parametric Equation</h3>
+      <div class="math-display">
+        $$x(\alpha) = a\cos(\alpha)\cos(\theta) - b\sin(\alpha)\sin(\theta) + c_x$$
+        $$y(\alpha) = a\cos(\alpha)\sin(\theta) + b\sin(\alpha)\cos(\theta) + c_y$$
+      </div>
+      <p>given:</p>
+      <ul>
+        <li>$C(c_x, c_y)$ is the ellipse center</li>
+        <li>$a, b$ are the major and minor radius</li>
+        <li>$\theta$ is the rotation angle measured from the $Cx$ axis (not $Ox$ axis) (<strong>clockwise order</strong>)</li>
+        <li>$\alpha$ is the parameter, which ranges (radian) from $0$ to $2\pi$</li>
+      </ul>
+      <p>Rotated ellipse illustration, with $Cx$ and $Cy$ correspondingly paralleled &amp; sharing the same direction with $Ox$ and $Oy$:</p>
+      <img src="assets/blog/2d-vision-ellipse.png" alt="Rotated ellipse illustration" />
+
+      <h2>2. Rotate Point</h2>
+      <p>If you rotate a point $B(x_B, y_B)$ around a point $A(x_A, y_A)$ by angle $\theta$ (anti-clockwise order) you'll get a point $C(x_C, y_C)$, where:</p>
+      <div class="math-display">
+        $$x_C = (x_B - x_A)\cos(\theta) - (y_B - y_A)\sin(\theta) + x_A$$
+        $$y_C = (x_B - x_A)\sin(\theta) + (y_B - y_A)\cos(\theta) + y_A$$
+      </div>
+      <p>Python implementation:</p>
+      <pre><code>def get_rotation(start_point, center_point, rad):
+    """Rotate start_point around center_point by rad radians (counterclockwise).
+
+    Args:
+        start_point:  (x, y)
+        center_point: (x, y)
+        rad:          rotation angle in radians, counterclockwise
+
+    Returns:
+        [x_T, y_T]
+    """
+    T = [0, 0]
+    T[0] = (start_point[0] - center_point[0]) * math.cos(rad) \
+         - (start_point[1] - center_point[1]) * math.sin(rad) \
+         + center_point[0]
+    T[1] = (start_point[0] - center_point[0]) * math.sin(rad) \
+         + (start_point[1] - center_point[1]) * math.cos(rad) \
+         + center_point[1]
+    return T</code></pre>
+
+    </div><!-- /.post-body -->
+  </div>
+</article>
+
+<div class="post-sep"></div>
+
+<!-- ============================================================
+     POST 3 — ROLLING IN THE DEEP
+     ============================================================ -->
+<article id="rolling-in-the-deep" class="blog-article">
+  <div class="container">
+    <header class="post-header">
+      <span class="blog-tag-depth">Depth Estimation</span>
+      <h1>Rolling in the Deep</h1>
+      <div class="post-date">January 4, 2026</div>
+    </header>
+
+    <div class="post-body">
+
+      <h2>Benchmark (Up-to-Date)</h2>
+
+      <h3>Public Benchmark</h3>
+      <p><strong>Disclaimer</strong>:</p>
+      <ul>
+        <li>This is just a benchmark on some standard datasets, which means the model does not necessarily become the actual "SOTA" for in-the-wild applications.</li>
+        <li>This benchmark focuses on <strong>accuracy</strong> metrics but no <strong>latency</strong> metrics, which are also an essential part of the real-time applications.</li>
+      </ul>
+      <div class="ref-links">
+        <a href="https://paperswithcode.com/task/monocular-depth-estimation" target="_blank" rel="noopener" class="ref-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          Papers with Code – Monocular Depth Estimation
+        </a>
+      </div>
+
+      <h2>Personal Notes</h2>
+      <div class="ref-links">
+        <a href="https://huynhthaihoa.github.io/depth-pseudolidar/" target="_blank" rel="noopener" class="ref-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          From Depth Estimation to Pseudo-LIDAR
+        </a>
+        <a href="https://huggingface.co/blog/Isayoften/monocular-depth-estimation-guide" target="_blank" rel="noopener" class="ref-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          Metric and Relative Monocular Depth Estimation: An Overview (HuggingFace)
+        </a>
+        <a href="https://github.com/jspenmar/monodepth_benchmark" target="_blank" rel="noopener" class="ref-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          jspenmar / monodepth_benchmark
+        </a>
+      </div>
+
+      <h2>Prominent Works</h2>
+      <p>These works may not be "SOTA" on some specific datasets but have high potential for real-world, in-the-wild applications.</p>
+
+      <div class="works-list">
+
+        <div class="work-item fade-up">
+          <div class="work-title">Depth Any Camera: Zero-Shot Metric Depth Estimation from Any Camera (2025)</div>
+          <div class="work-links">
+            <a href="https://yuliangguo.github.io/depth-any-camera/" target="_blank" rel="noopener" class="work-link-btn">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+              Project Page
+            </a>
+          </div>
+        </div>
+
+        <div class="work-item fade-up">
+          <div class="work-title">Prompting Depth Anything for 4K Resolution Accurate Metric Depth Estimation (PromptDA, 2024)</div>
+          <div class="work-links">
+            <a href="https://promptda.github.io/" target="_blank" rel="noopener" class="work-link-btn">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+              Project Page
+            </a>
+          </div>
+        </div>
+
+        <div class="work-item fade-up">
+          <div class="work-title">Lotus: Diffusion-based Visual Foundation Model for High-quality Dense Prediction (2024)</div>
+          <div class="work-links">
+            <a href="https://lotus3d.github.io/" target="_blank" rel="noopener" class="work-link-btn">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+              Project Page
+            </a>
+          </div>
+        </div>
+
+        <div class="work-item fade-up">
+          <div class="work-title">World-consistent Video Diffusion with Explicit 3D Modeling (WVD, 2024)</div>
+          <div class="work-links">
+            <a href="https://zqh0253.github.io/wvd/" target="_blank" rel="noopener" class="work-link-btn">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+              Project Page
+            </a>
+          </div>
+        </div>
+
+        <div class="work-item fade-up">
+          <div class="work-title">RollingDepth: Video Depth without Video Models (2024)</div>
+          <div class="work-links">
+            <a href="https://github.com/prs-eth/rollingdepth" target="_blank" rel="noopener" class="work-link-btn">
+              <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <div class="work-item fade-up">
+          <div class="work-title">Depth Anything V2 – CVPR 2024</div>
+          <div class="work-links">
+            <a href="https://github.com/DepthAnything/Depth-Anything-V2" target="_blank" rel="noopener" class="work-link-btn">
+              <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              GitHub (V2)
+            </a>
+            <a href="https://github.com/LiheYoung/Depth-Anything" target="_blank" rel="noopener" class="work-link-btn">
+              <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              GitHub (V1)
+            </a>
+          </div>
+        </div>
+
+        <div class="work-item fade-up">
+          <div class="work-title">DepthCrafter: Generating Consistent Long Depth Sequences for Open-world Videos (2024)</div>
+          <div class="work-links">
+            <a href="https://github.com/Tencent/DepthCrafter" target="_blank" rel="noopener" class="work-link-btn">
+              <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <div class="work-item fade-up">
+          <div class="work-title">Depth Anywhere: Enhancing 360 Monocular Depth Estimation via Perspective Distillation and Unlabeled Data Augmentation – NeurIPS 2024</div>
+          <div class="work-links">
+            <a href="https://github.com/albert100121/Depth-Anywhere" target="_blank" rel="noopener" class="work-link-btn">
+              <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <div class="work-item fade-up">
+          <div class="work-title">Depth Pro: Sharp Monocular Metric Depth in Less Than a Second (2024)</div>
+          <div class="work-links">
+            <a href="https://github.com/apple/ml-depth-pro" target="_blank" rel="noopener" class="work-link-btn">
+              <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <div class="work-item fade-up">
+          <div class="work-title">UniDepth: Universal Monocular Metric Depth Estimation – CVPR 2024</div>
+          <div class="work-links">
+            <a href="https://github.com/lpiccinelli-eth/UniDepth" target="_blank" rel="noopener" class="work-link-btn">
+              <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <div class="work-item fade-up">
+          <div class="work-title">Marigold: Repurposing Diffusion-Based Image Generators for Monocular Depth Estimation – CVPR 2024</div>
+          <div class="work-links">
+            <a href="https://github.com/prs-eth/marigold" target="_blank" rel="noopener" class="work-link-btn">
+              <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <div class="work-item fade-up">
+          <div class="work-title">Booster: A Benchmark for Depth from Images of Specular and Transparent Surfaces (2023)</div>
+          <div class="work-links">
+            <a href="https://arxiv.org/pdf/2301.08245" target="_blank" rel="noopener" class="work-link-btn">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+              arXiv
+            </a>
+          </div>
+        </div>
+
+        <div class="work-item fade-up">
+          <div class="work-title">Deep Depth from Focus with Differential Focus Volume – CVPR 2022</div>
+          <div class="work-links">
+            <a href="https://arxiv.org/pdf/2112.01712" target="_blank" rel="noopener" class="work-link-btn">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+              arXiv
+            </a>
+            <a href="https://github.com/fuy34/DFV" target="_blank" rel="noopener" class="work-link-btn">
+              <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <div class="work-item fade-up">
+          <div class="work-title">Towards Robust Monocular Depth Estimation: Mixing Datasets for Zero-shot Cross-dataset Transfer (MiDaS, 2020)</div>
+          <div class="work-links">
+            <a href="https://github.com/isl-org/MiDaS" target="_blank" rel="noopener" class="work-link-btn">
+              <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+      </div><!-- /.works-list -->
+
+      <h2>Datasets &amp; Simulator</h2>
+      <div class="works-list">
+        <div class="work-item fade-up">
+          <div class="work-title">RGBD Objects in the Wild: Scaling Real-World 3D Object Learning from RGB-D Videos</div>
+          <div class="work-links">
+            <a href="https://github.com/wildrgbd/wildrgbd" target="_blank" rel="noopener" class="work-link-btn">
+              <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+        <div class="work-item fade-up">
+          <div class="work-title">CARLA Simulator</div>
+          <div class="work-links">
+            <a href="https://github.com/carla-simulator/carla" target="_blank" rel="noopener" class="work-link-btn">
+              <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <h2>Other References</h2>
+      <div class="ref-links">
+        <a href="https://en.wikipedia.org/wiki/Depth_perception" target="_blank" rel="noopener" class="ref-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          Wikipedia: Depth Perception
+        </a>
+        <a href="https://github.com/jspenmar/monodepth_benchmark" target="_blank" rel="noopener" class="ref-link">
+          <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          jspenmar / monodepth_benchmark
+        </a>
+      </div>
+
+    </div><!-- /.post-body -->
+  </div>
+</article>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div class="container">
+    <p>
+      <a href="index.html">← Back to Portfolio</a>
+    </p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ],
+    throwOnError: false
+  });"></script>
+</body>
+</html>
