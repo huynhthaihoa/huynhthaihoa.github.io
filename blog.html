@@ -316,6 +316,21 @@
         <div class="toc-title">Rolling in the Deep</div>
         <div class="toc-date">January 4, 2026</div>
       </a>
+      <a href="#depth-pseudolidar" class="toc-card fade-up">
+        <span class="blog-tag-depth">Depth Estimation</span>
+        <div class="toc-title">From Depth Estimation to Pseudo-LIDAR</div>
+        <div class="toc-date">March 24, 2025</div>
+      </a>
+      <a href="#perspective-affine" class="toc-card fade-up">
+        <span class="blog-tag">Computer Vision</span>
+        <div class="toc-title">Perspective Transform vs Affine Transform</div>
+        <div class="toc-date">November 24, 2025</div>
+      </a>
+      <a href="#phone-looking" class="toc-card fade-up">
+        <span class="blog-tag">Computer Vision</span>
+        <div class="toc-title">Simple Looking-at-Phone Algorithm</div>
+        <div class="toc-date">November 24, 2025</div>
+      </a>
     </div>
   </div>
 </section>
@@ -937,6 +952,434 @@
           jspenmar / monodepth_benchmark
         </a>
       </div>
+
+    </div><!-- /.post-body -->
+  </div>
+</article>
+
+<div class="post-sep"></div>
+
+<!-- ============================================================
+     POST 4 — FROM DEPTH ESTIMATION TO PSEUDO-LIDAR
+     ============================================================ -->
+<article id="depth-pseudolidar" class="blog-article alt-bg">
+  <div class="container">
+    <header class="post-header">
+      <span class="blog-tag-depth">Depth Estimation</span>
+      <h1>From Depth Estimation to Pseudo-LIDAR</h1>
+      <div class="post-date">March 24, 2025</div>
+    </header>
+
+    <div class="post-body">
+
+      <h2>Human Depth Perception</h2>
+      <p>Literature on human depth perception provides insight into the pictorial cues that could be used to estimate distance. The following cues can typically be found in single images:</p>
+      <ul>
+        <li><strong>Position in the image</strong>: objects farther away tend to be closer to the horizon. When resting on the ground, objects also appear higher in the image.</li>
+        <li><strong>Occlusion</strong>: close objects occlude those behind them — provides depth order but not exact distance.</li>
+        <li><strong>Texture density</strong>: textured surfaces that are further away appear more fine-grained.</li>
+        <li><strong>Linear perspective</strong>: straight, parallel lines in the physical world appear to converge in the image.</li>
+        <li><strong>Apparent object size</strong>: objects farther away appear smaller.</li>
+        <li><strong>Motion effect</strong>: objects get blurry and bluish as they move away.</li>
+        <li><strong>Shading &amp; illumination</strong>: a surface appears brighter when its normal points toward a light source. Shading provides depth change info within a surface.</li>
+        <li><strong>Focus blur</strong>: objects in front or behind the focal plane appear blurred.</li>
+        <li><strong>Aerial perspective</strong>: very far objects have less contrast and take on a blueish tint.</li>
+      </ul>
+
+      <hr>
+
+      <h2>Depth Estimation Approaches</h2>
+      <p>There are 2 monocular depth estimation approaches: <strong>absolute depth estimation</strong> and <strong>relative depth estimation</strong>.</p>
+
+      <h3>1. Absolute Depth Estimation</h3>
+      <p>Absolute (or metric) depth estimation predicts per-pixel depth values in absolute physical units (meters).</p>
+      <ul>
+        <li><strong>Advantage</strong>: predictions can be directly used for downstream applications.</li>
+        <li><strong>Disadvantage</strong>: training across multiple datasets often deteriorates performance, especially when depth scales differ greatly (e.g. indoor vs. outdoor). These methods usually overfit to a specific dataset.</li>
+      </ul>
+
+      <h3>2. Relative Depth Estimation</h3>
+      <p>Relative depth estimation factors out the scale, estimating depths of pixels relative to each other. The absolute scale factor is unknown.</p>
+      <ul>
+        <li><strong>Advantage</strong>: enables generalization across domains — metric scale and camera parameters need not be consistent.</li>
+        <li><strong>Disadvantage</strong>: the predicted depth has no metric meaning.</li>
+      </ul>
+
+      <hr>
+
+      <h2>From Depth Estimation to 3D Reconstruction</h2>
+      <p>The relation between a 2D coordinate $p$ (image plane) and its 3D coordinate $P_c$ (camera coordinate system) is:</p>
+      <div class="math-display">$$s\,p = A P_c \quad (1)$$</div>
+      <p>where $p = \begin{bmatrix} u\\ v \end{bmatrix}$, $P_c = \begin{bmatrix} X_c\\ Y_c \\ Z_c \end{bmatrix}$, $s$ is the projective scaling factor, and $A$ is the (ideal) camera intrinsic matrix:</p>
+      <div class="math-display">$$A = \begin{bmatrix} f_x & 0 & c_x \\ 0 & f_y & c_y \\ 0 & 0 & 1 \end{bmatrix} \quad (2)$$</div>
+      <p>In practice every camera has distortion, so we calibrate first and compute the optimal $A$ via OpenCV:</p>
+      <pre><code>camera_matrix = np.zeros(shape=(3, 3))
+camera_matrix[0, 0] = 3.618627944978409e+02
+camera_matrix[0, 2] = 3.140828758355781e+02
+camera_matrix[1, 1] = 3.611479934228698e+02
+camera_matrix[1, 2] = 1.674230039961440e+02
+camera_matrix[2, 2] = 1
+
+dist_coeffs = np.array([-0.115065515143958, 0.023076954804581, 0, 0, 0])
+
+# W, H = image width and height
+A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)</code></pre>
+
+      <div style="background:var(--bg3);border-left:3px solid var(--accent);padding:.75rem 1rem;border-radius:4px;margin:1rem 0;font-size:.875rem;color:var(--muted);">
+        💡 Camera calibration is <strong>an approximation process</strong> — similar to machine learning. We seldom get the actual ideal camera matrix, but treat the result as $A$ for simplification.
+      </div>
+
+      <p>The <strong>absolute depth map</strong> gives $Z_c$. The remaining coordinates follow from (1) and (2):</p>
+      <div class="math-display">$$X_c = \frac{Z_c(u - c_x)}{f_x} \quad (3) \qquad Y_c = \frac{Z_c(v - c_y)}{f_y} \quad (4)$$</div>
+      <p>Python implementation:</p>
+      <pre><code>def depth_to_3d(D, fx, fy, cx, cy):
+    """Convert absolute depth map to 3D coordinates in camera coordinate system.
+
+    Args:
+        D:  absolute depth map, shape (H, W)
+        fx, fy: focal lengths; cx, cy: principal point
+
+    Returns:
+        3D coordinates, shape (H*W, 3) — each row is (Xc, Yc, Zc)
+    """
+    H, W = D.shape
+    xx, yy = np.tile(range(W), H), np.repeat(range(H), W)
+    Z = D.reshape(-1)
+    Xc = (xx - cx) * Z / fx
+    Yc = (yy - cy) * Z / fy
+    return np.stack([Xc, Yc, Z], axis=1)</code></pre>
+
+      <hr>
+
+      <h2>Replicate LIDAR with Pseudo-LIDAR</h2>
+      <div style="background:var(--bg3);border-left:3px solid var(--accent);padding:.75rem 1rem;border-radius:4px;margin:1rem 0;font-size:.875rem;color:var(--muted);">
+        💡 To verify this proposal, set up <strong>4 cameras</strong> and <strong>1 LIDAR</strong> in the <strong>CARLA simulation environment</strong>, record data, and experiment with the end-to-end pipeline.
+      </div>
+      <p>Given LIDAR $L$ producing a 360° point cloud, we replicate it using cameras $C_i$. Proposed pipeline:</p>
+      <ol>
+        <li>Infer absolute depth map $D_i$ of each image $I_i$.</li>
+        <li>Compute 3D coordinates $P_{C_i}$ in each camera coordinate system using $D_i$ and intrinsic matrix $A_i$.</li>
+        <li>Re-project to LIDAR coordinate system via rotation $R_i$ and translation $t_i$:
+          <div class="math-display">$$P_{L_i} = [R_i \mid t_i]\,P_{C_i} \quad (5)$$</div>
+        </li>
+      </ol>
+      <p><strong>Advantages over actual LIDAR:</strong> lower cost, denser color point cloud, potentially higher frame rate.</p>
+      <p><strong>Disadvantages:</strong> camera distortion limits, sensitivity to lighting and weather, frequent occlusion, need for multi-camera stitching, and difficult calibration/synchronization.</p>
+
+      <hr>
+
+      <h2>References</h2>
+      <div class="ref-links">
+        <a href="https://openaccess.thecvf.com/content_ICCV_2019/papers/van_Dijk_How_Do_Neural_Networks_See_Depth_in_Single_Images_ICCV_2019_paper.pdf" target="_blank" rel="noopener" class="ref-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          How do neural networks see depth in single images (ICCV 2019)
+        </a>
+        <a href="https://arxiv.org/pdf/2302.12288.pdf" target="_blank" rel="noopener" class="ref-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          ZoeDepth: Zero-shot Transfer by Combining Relative and Metric Depth
+        </a>
+        <a href="https://docs.opencv.org/3.4/d9/d0c/group__calib3d.html" target="_blank" rel="noopener" class="ref-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          OpenCV: Camera Calibration and 3D Reconstruction
+        </a>
+      </div>
+
+    </div><!-- /.post-body -->
+  </div>
+</article>
+
+<div class="post-sep"></div>
+
+<!-- ============================================================
+     POST 5 — PERSPECTIVE TRANSFORM VS AFFINE TRANSFORM
+     ============================================================ -->
+<article id="perspective-affine" class="blog-article">
+  <div class="container">
+    <header class="post-header">
+      <span class="blog-tag">Computer Vision</span>
+      <h1>Perspective Transform vs Affine Transform</h1>
+      <div class="post-date">November 24, 2025</div>
+    </header>
+
+    <div class="post-body">
+
+      <h2>Perspective Transform</h2>
+      <p>The <strong>homography</strong> (perspective transform) is a geometric transformation relating 2 different planes. Straight lines remain straight after transformation.</p>
+      <img src="assets/blog/perspective_transform.png" alt="Perspective Transform illustration" />
+      <p>Each point $(x, y)$ on plane $\pi$ maps to $(x', y')$ on plane $\pi'$:</p>
+      <div class="math-display">
+        $$s \begin{bmatrix} x' \\ y' \\ 1 \end{bmatrix} = \mathbf{H} \begin{bmatrix} x \\ y \\ 1 \end{bmatrix} = \begin{bmatrix} h_{11} & h_{12} & h_{13} \\ h_{21} & h_{22} & h_{23} \\ h_{31} & h_{32} & h_{33} \end{bmatrix} \begin{bmatrix} x \\ y \\ 1 \end{bmatrix}$$
+      </div>
+      <p>where $s$ is a scale factor and $\mathbf{H}$ is a <code>3×3</code> homography matrix with <strong>8 DoF</strong>. To compute $\mathbf{H}$ you need <strong>4 point correspondences</strong>, with no 3 of them collinear.</p>
+
+      <hr>
+
+      <h2>Affine Transformation</h2>
+
+      <h3>Definition</h3>
+      <p>An <strong>affine transformation</strong> preserves lines and parallelism, but not necessarily Euclidean distances and angles:</p>
+      <ul>
+        <li>Points on the same line remain collinear after transformation.</li>
+        <li>Parallel lines stay parallel after transformation.</li>
+        <li>The ratio of any pair of segments is preserved; midpoints remain midpoints.</li>
+      </ul>
+
+      <h3>Examples</h3>
+      <ul>
+        <li><strong>Translation</strong>: moving a figure without changing orientation or size.</li>
+        <li><strong>Rotation</strong>: turning a figure around a point.</li>
+        <li><strong>Scaling</strong>: enlarging or shrinking a figure.</li>
+        <li><strong>Shearing</strong>: skewing a figure.</li>
+      </ul>
+
+      <h3>Equation</h3>
+      <img src="assets/blog/affine_transform.png" alt="Affine Transform illustration" />
+
+    </div><!-- /.post-body -->
+  </div>
+</article>
+
+<div class="post-sep"></div>
+
+<!-- ============================================================
+     POST 6 — SIMPLE LOOKING-AT-PHONE ALGORITHM
+     ============================================================ -->
+<article id="phone-looking" class="blog-article alt-bg">
+  <div class="container">
+    <header class="post-header">
+      <span class="blog-tag">Computer Vision</span>
+      <h1>Simple Looking-at-Phone Algorithm</h1>
+      <div class="post-date">November 24, 2025</div>
+    </header>
+
+    <div class="post-body">
+
+      <h2>Introduction</h2>
+      <p>A naive algorithm to check <strong>if a person is looking at their phone</strong> from the input image, given an <strong>Object Detection Model</strong> and a <strong>Gaze Estimation Model</strong>.</p>
+
+      <hr>
+
+      <h2>Idea</h2>
+      <p>Assumptions:</p>
+      <ul>
+        <li>The <strong>Object Detection Model</strong> detects objects of class <code>Phone</code> and <code>Human</code>.</li>
+        <li>The <strong>Gaze Estimation Model</strong> predicts a <code>gaze vector</code> starting at <code>gaze_start</code> toward <code>gaze_end</code>.</li>
+      </ul>
+      <p>Humans don't look at a single ray but a <strong>cone-like FOV</strong>. We define the gaze FOV as the cone that receives the <code>gaze vector</code> as its angle bisector, then check if any <code>Phone</code> object <strong>intersects with the FOV</strong>. An object intersects if:</p>
+      <ol>
+        <li>Its confidence score is above <code>conf_thres</code> (reduces false positive phone detections).</li>
+        <li>The FOV intersects at least <code>count_thres</code> edges of the object's bounding box.</li>
+      </ol>
+      <p>If at least one <code>Phone</code> satisfies both conditions, <strong>the person is looking at the phone</strong>.</p>
+
+      <hr>
+
+      <h2>Configuration</h2>
+      <ul>
+        <li><code>conf_thres</code>: 0.5 &nbsp;(0 &lt; <code>conf_thres</code> &lt;= 1)</li>
+        <li><code>count_thres</code>: 1 &nbsp;(1 &lt;= <code>count_thres</code> &lt;= 4)</li>
+        <li><code>fov_degree</code>: 30 &nbsp;(FOV magnitude in degrees, 0 &lt;= <code>fov_degree</code> &lt;= 90)</li>
+      </ul>
+
+      <hr>
+
+      <h2>Demo</h2>
+      <p>Example images showing the algorithm in action with randomly generated gaze vectors and phone objects:</p>
+      <img src="assets/blog/example_distracted.png" alt="Distracted — person looking at phone" />
+      <img src="assets/blog/example_focus.png" alt="Focus — person not looking at phone" />
+      <p>Legend:</p>
+      <ul>
+        <li><strong>Green vectors</strong>: FOV bounds</li>
+        <li><strong>Light-blue vector</strong>: gaze vector</li>
+        <li><strong>White rectangles</strong>: objects below <code>conf_thres</code></li>
+        <li><strong>Yellow rectangles</strong>: objects inside human bbox but outside FOV</li>
+        <li><strong>Red rectangles</strong>: objects satisfying both conditions (phone being looked at)</li>
+      </ul>
+
+      <pre><code>import math
+import cv2
+import numpy as np
+from loguru import logger
+
+
+def get_rotation(start_point, center_point, rad):
+    """Rotate start_point around center_point by rad radians (counter-clockwise)."""
+    T = [0, 0]
+    T[0] = (start_point[0] - center_point[0]) * math.cos(rad) \
+         - (start_point[1] - center_point[1]) * math.sin(rad) \
+         + center_point[0]
+    T[1] = (start_point[0] - center_point[0]) * math.sin(rad) \
+         + (start_point[1] - center_point[1]) * math.cos(rad) \
+         + center_point[1]
+    return T
+
+
+def find_angle(start_point, end_point):
+    """Angle of vector start_point->end_point w.r.t. Ox axis (clockwise)."""
+    return math.atan2(end_point[1] - start_point[1], end_point[0] - start_point[0])
+
+
+def is_anglerange_in_fovrange(fov_min, fov_max, angle_1, angle_2):
+    """Check if [min(angle_1,angle_2), max(angle_1,angle_2)] overlaps [fov_min, fov_max].
+
+    Constraints:
+        0 &lt;= fov &lt;= math.pi / 2   (fov_min &lt;= fov_max)
+        -math.pi &lt;= angles &lt;= math.pi
+    """
+    angle_min = min(angle_1, angle_2)
+    angle_max = max(angle_1, angle_2)
+
+    if fov_min &lt;= 0 and fov_max &gt;= 0:
+        if fov_min &gt;= -math.pi / 2:         # -pi/2 &lt;= fov_min &lt;= 0, 0 &lt;= fov_max &lt;= pi/2
+            if angle_max &lt; fov_min:
+                return False
+            elif angle_max &lt;= fov_max:
+                return True
+            elif angle_max &lt;= fov_min + math.pi:
+                return angle_max - math.pi &lt;= angle_min &lt;= fov_max
+            else:
+                return fov_min &lt;= angle_min &lt;= fov_max
+        else:                                # -pi &lt;= fov_min &lt; -pi/2
+            if angle_max &lt;= fov_min:
+                return True
+            elif angle_max &lt;= 0:
+                return angle_min &lt;= fov_min
+            elif angle_max &lt; fov_max:
+                return angle_min &lt;= angle_max - math.pi
+            else:
+                return True
+    else:
+        if fov_max &lt;= 0:                     # fov_min &lt;= fov_max &lt;= 0
+            if angle_max &lt; fov_min:
+                return False
+            elif angle_max &lt;= fov_max:
+                return True
+            elif angle_max &lt;= fov_max + math.pi:
+                return angle_max - math.pi &lt;= angle_min &lt;= fov_max
+            else:
+                return fov_min &lt;= angle_min &lt;= angle_max - math.pi
+        else:                                # 0 &lt;= fov_min &lt;= fov_max
+            if angle_max &lt; 0:
+                return False
+            elif angle_max &lt; fov_min:
+                return angle_min &lt;= angle_max - math.pi
+            elif angle_max &lt;= fov_max:
+                return True
+            else:
+                return angle_max - math.pi &lt;= angle_min &lt;= fov_max
+    return False
+
+
+def is_overlapped(bbox1, bbox2):
+    """Check if two bounding boxes [xmin, ymin, xmax, ymax] overlap."""
+    h = (bbox1[0] &lt;= bbox2[2] and bbox1[0] &gt;= bbox2[0]) or \
+        (bbox2[0] &lt;= bbox1[2] and bbox2[0] &gt;= bbox1[0])
+    v = (bbox1[1] &lt;= bbox2[3] and bbox1[1] &gt;= bbox2[1]) or \
+        (bbox2[1] &lt;= bbox1[3] and bbox2[1] &gt;= bbox1[1])
+    return h and v
+
+
+def find_intersect_obj_indices(gaze_start, gaze_end, objects, bbox,
+                               fov_degree=30, conf_thres=0.5, count_thres=1):
+    """Return indices of objects whose bounding boxes intersect the gaze FOV.
+
+    Args:
+        gaze_start, gaze_end: gaze vector endpoints (x, y)
+        objects: list of [xmin, ymin, xmax, ymax, conf]
+        bbox: human bounding box [xmin, ymin, xmax, ymax]
+        fov_degree: FOV half-angle in degrees (0 &lt;= fov_degree &lt;= 90)
+        conf_thres: minimum object confidence (0 &lt; conf_thres &lt;= 1)
+        count_thres: minimum intersecting edges (1 &lt;= count_thres &lt;= 4)
+    """
+    rad = math.pi * fov_degree / 360
+    fov_p1 = get_rotation(gaze_end, gaze_start, rad)
+    fov_p2 = get_rotation(gaze_end, gaze_start, -rad)
+
+    fov_a1 = find_angle(gaze_start, fov_p1)
+    fov_a2 = find_angle(gaze_start, fov_p2)
+    fov_amin, fov_amax = min(fov_a1, fov_a2), max(fov_a1, fov_a2)
+
+    intersect_idx, outside_idx, unseen_idx = [], [], []
+
+    for idx, obj in enumerate(objects):
+        if not is_overlapped(obj, bbox):
+            outside_idx.append(idx)
+            continue
+
+        if obj[4] &gt;= conf_thres:
+            corners = [(obj[0], obj[1]), (obj[0], obj[3]),
+                       (obj[2], obj[1]), (obj[2], obj[3])]
+            angles = [find_angle(gaze_start, c) for c in corners]
+
+            count = sum([
+                is_anglerange_in_fovrange(fov_amin, fov_amax, angles[0], angles[1]),  # top
+                is_anglerange_in_fovrange(fov_amin, fov_amax, angles[2], angles[3]),  # bottom
+                is_anglerange_in_fovrange(fov_amin, fov_amax, angles[0], angles[2]),  # left
+                is_anglerange_in_fovrange(fov_amin, fov_amax, angles[1], angles[3]),  # right
+            ])
+
+            if count &gt;= count_thres:
+                intersect_idx.append(idx)
+            else:
+                unseen_idx.append(idx)
+
+    return fov_p1, fov_p2, intersect_idx, outside_idx, unseen_idx
+
+
+def generate_object(image_size):
+    xmax = np.random.randint(1, image_size)
+    xmin = np.random.randint(xmax)
+    ymax = np.random.randint(1, image_size)
+    ymin = np.random.randint(ymax)
+    return [xmin, ymin, xmax, ymax, np.random.rand()]
+
+
+def generate_gaze(bbox):
+    while True:
+        sx = np.random.randint(bbox[0], bbox[2])
+        sy = np.random.randint(bbox[1], bbox[3])
+        ex = np.random.randint(bbox[0], bbox[2])
+        ey = np.random.randint(bbox[1], bbox[3])
+        if sx != ex or sy != ey:
+            break
+    return (sx, sy), (ex, ey)
+
+
+if __name__ == "__main__":
+    fov_degree    = np.random.randint(30, 91)
+    conf_thres    = 0.5
+    count_thres   = 1
+    image_size    = 700
+    num_objects   = 5
+
+    objects     = [generate_object(image_size) for _ in range(num_objects)]
+    human       = generate_object(image_size)
+    gaze_start, gaze_end = generate_gaze(human)
+
+    fov_p1, fov_p2, inter, outside, unseen = find_intersect_obj_indices(
+        gaze_start, gaze_end, objects, human,
+        fov_degree=fov_degree, conf_thres=conf_thres, count_thres=count_thres)
+
+    image = np.zeros((image_size, image_size, 3), dtype=np.uint8)
+    cv2.rectangle(image, (human[0], human[1]), (human[2], human[3]), (255, 0, 0))
+    cv2.arrowedLine(image, gaze_start, (int(fov_p1[0]), int(fov_p1[1])), (0, 255, 0), 3)
+    cv2.arrowedLine(image, gaze_start, (int(fov_p2[0]), int(fov_p2[1])), (0, 255, 0), 3)
+    cv2.arrowedLine(image, gaze_start, gaze_end, (255, 255, 0), 1)
+
+    color_map = {tuple(inter): (0, 0, 255), tuple(outside): (255, 255, 255), tuple(unseen): (0, 255, 255)}
+    for idx, obj in enumerate(objects):
+        for group, color in color_map.items():
+            if idx in group:
+                cv2.rectangle(image, (obj[0], obj[1]), (obj[2], obj[3]), color)
+                break
+
+    if len(inter) &gt; 0:
+        cv2.putText(image, "LOOKING AT PHONE!", (10, 30),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.75, (255, 255, 255))
+
+    cv2.imshow("preview", image)
+    cv2.waitKey()
+    cv2.imwrite("example.png", image)</code></pre>
 
     </div><!-- /.post-body -->
   </div>
