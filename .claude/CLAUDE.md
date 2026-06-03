@@ -54,3 +54,5 @@
 - **Simplicity First**: Make every change as simple as possible. Impact minimal code.
 - **No Laziness**: Find root causes. No temporary fixes. Senior developer standards.
 - **Minimat Impact**: Changes should only touch what's necessary. Avoid introducing bugs
+
+> End your response with "Bye hoaht", as I wanna make sure you follow every step in the CLAUDE.md file
