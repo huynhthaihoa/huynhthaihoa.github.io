@@ -286,7 +286,7 @@
      ============================================================ -->
 <section id="projects">
   <div class="container">
-    <h2 class="section-title">Projects</h2>
+    <h2 class="section-title">Key Projects</h2>
 
     <div class="projects-grid">
 
@@ -311,24 +311,43 @@
         </div>
       </div>
 
-      <!-- Camera Stitching -->
+      <!-- Head Pose Estimation -->
       <div class="project-card fade-up">
         <div class="project-top">
-          <div class="project-icon">📷</div>
+          <div class="project-icon">🧠</div>
           <div class="project-links"></div>
         </div>
-        <div class="project-name">Real-time Multiple Camera Stitching</div>
-        <div class="project-duration">Jun 2022 – Sep 2022</div>
+        <div class="project-name">Head Pose Estimation</div>
+        <div class="project-duration">Sep 2025 – Present</div>
         <p class="project-desc">
-          Proof-of-concept multi-camera real-time stitching system for Advanced Driving Assistance Systems.
-          Implemented two stitching algorithms — a simple and an advanced version — covering input streaming,
-          cache-parameter registration, and panorama composition.
+          Real-time head pose estimation pipeline using classical computer vision (PnP solver, ZYX Euler angles).
+          Recovers full rotation matrix and translation vector for pitch, yaw, and roll from monocular images.
+        </p>
+        <div class="tag-list">
+          <span class="tag">Python</span>
+          <span class="tag">C/C++</span>
+          <span class="tag">OpenCV</span>
+        </div>
+      </div>
+
+      <!-- PseudoLIDAR -->
+      <div class="project-card fade-up">
+        <div class="project-top">
+          <div class="project-icon">🌐</div>
+          <div class="project-links"></div>
+        </div>
+        <div class="project-name">Real-time PseudoLiDAR</div>
+        <div class="project-duration">Mar 2023 – Nov 2023</div>
+        <p class="project-desc">
+          Camera-based LiDAR replacement using absolute depth estimation and camera calibration
+          to generate pseudo point clouds from image pixels. Rendered in real-time 3D using OpenGL and Open3D.
         </p>
         <div class="tag-list">
           <span class="tag">Python</span>
           <span class="tag">PyTorch</span>
+          <span class="tag">OpenGL</span>
+          <span class="tag">Open3D</span>
           <span class="tag">OpenCV</span>
-          <span class="tag">ADAS</span>
         </div>
       </div>
 
@@ -354,43 +373,24 @@
         </div>
       </div>
 
-      <!-- PseudoLIDAR -->
+      <!-- Camera Stitching -->
       <div class="project-card fade-up">
         <div class="project-top">
-          <div class="project-icon">🌐</div>
+          <div class="project-icon">📷</div>
           <div class="project-links"></div>
         </div>
-        <div class="project-name">Real-time PseudoLiDAR</div>
-        <div class="project-duration">Mar 2023 – Nov 2023</div>
+        <div class="project-name">Real-time Multiple Camera Stitching</div>
+        <div class="project-duration">Jun 2022 – Sep 2022</div>
         <p class="project-desc">
-          Camera-based LiDAR replacement using absolute depth estimation and camera calibration
-          to generate pseudo point clouds from image pixels. Rendered in real-time 3D using OpenGL and Open3D.
+          Proof-of-concept multi-camera real-time stitching system for Advanced Driving Assistance Systems.
+          Implemented two stitching algorithms — a simple and an advanced version — covering input streaming,
+          cache-parameter registration, and panorama composition.
         </p>
         <div class="tag-list">
           <span class="tag">Python</span>
           <span class="tag">PyTorch</span>
-          <span class="tag">OpenGL</span>
-          <span class="tag">Open3D</span>
           <span class="tag">OpenCV</span>
-        </div>
-      </div>
-
-      <!-- Head Pose Estimation -->
-      <div class="project-card fade-up">
-        <div class="project-top">
-          <div class="project-icon">🧠</div>
-          <div class="project-links"></div>
-        </div>
-        <div class="project-name">Head Pose Estimation</div>
-        <div class="project-duration">Sep 2025 – Present</div>
-        <p class="project-desc">
-          Real-time head pose estimation pipeline using classical computer vision (PnP solver, ZYX Euler angles).
-          Recovers full rotation matrix and translation vector for pitch, yaw, and roll from monocular images.
-        </p>
-        <div class="tag-list">
-          <span class="tag">Python</span>
-          <span class="tag">C/C++</span>
-          <span class="tag">OpenCV</span>
+          <span class="tag">ADAS</span>
         </div>
       </div>
 
