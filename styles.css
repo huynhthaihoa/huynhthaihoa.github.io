@@ -387,6 +387,7 @@ section { padding: 5rem 0; }
   font-size: .82rem; color: var(--accent); font-weight: 500; margin-bottom: .3rem;
 }
 .pub-date { font-size: .8rem; color: var(--muted); }
+.pub-desc { font-size: .82rem; color: var(--muted); margin-top: .4rem; line-height: 1.5; }
 
 .pub-actions { display: flex; gap: .5rem; align-items: center; flex-shrink: 0; }
 .pub-btn {

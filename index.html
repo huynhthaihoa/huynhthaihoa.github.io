@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hoa Huynh – AI Researcher</title>
-  <meta name="description" content="Portfolio of Hoa Huynh, AI Researcher specializing in computer vision, depth estimation, and autonomous driving systems." />
+  <title>Hoa Huynh – Development Team Lead &amp; AI Researcher</title>
+  <meta name="description" content="Portfolio of Hoa Huynh, Development Team Lead &amp; AI Researcher specializing in computer vision and deep learning for automotive safety and surveillance." />
   <link rel="stylesheet" href="styles.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -44,7 +44,7 @@
       <div class="hero-text">
         <!-- <span class="label">Available for opportunities</span> -->
         <h1>Hi, I'm <span>Hoa Huynh</span></h1>
-        <p class="hero-title">AI Researcher · Computer Vision Engineer</p>
+        <p class="hero-title">Development Team Lead · Computer Vision Engineer</p>
         <p class="hero-location">
           <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
@@ -53,11 +53,10 @@
           Seoul, South Korea
         </p>
         <p class="hero-desc">
-          AI Researcher with 7+ years of experience in academia and industry environments. I specialize in
-          <strong>computer vision</strong> and <strong>artificial intelligence</strong> for
-          <strong>automotive</strong> and <strong>surveillance</strong> applications. 
-          Author of publications in IEEE, MDPI, and CVPR Workshops.
-          Passionate about turning research into reliable real-world products.
+          7+ years bridging academic research and production engineering.
+          I build <strong>computer vision</strong> systems for <strong>automotive safety</strong> and
+          <strong>smart surveillance</strong> — from algorithm design to edge deployment.
+          Published in IEEE, MDPI, and CVPR Workshops.
         </p>
 
         <div class="hero-cta">
@@ -130,7 +129,7 @@
       <div class="timeline-item fade-up">
         <span class="timeline-dot"></span>
         <div class="timeline-date">Jun 2022 – Present</div>
-        <div class="timeline-role">AI Researcher</div>
+        <div class="timeline-role">Development Team Lead &amp; AI Researcher</div>
         <div class="timeline-org">DeltaX · Seoul, South Korea</div>
         <p style="font-size:.875rem;color:var(--muted);">
           R&amp;D on computer vision solutions for several applications, including
@@ -361,8 +360,9 @@
         <div class="project-duration">Sep 2022 – Mar 2023</div>
         <p class="project-desc">
           Detect and estimate worker positions using a single thermal (Boson LWIR) camera.
-          Combined YOLOv5 object detection with NeWCRFs monocular depth estimation;
-          performed camera calibration and Camera–LiDAR calibration using an Ouster OS0 LiDAR.
+          Combined YOLOv5 object detection with NeWCRFs monocular depth estimation.
+          As the first developer on the project, built the full calibration pipeline:
+          camera calibration, data collection, and Camera-LiDAR calibration using an Ouster OS0 LiDAR.
         </p>
         <div class="tag-list">
           <span class="tag">Python</span>
@@ -382,9 +382,10 @@
         <div class="project-name">Real-time Multiple Camera Stitching</div>
         <div class="project-duration">Jun 2022 – Sep 2022</div>
         <p class="project-desc">
-          Proof-of-concept multi-camera real-time stitching system for Advanced Driving Assistance Systems.
-          Implemented two stitching algorithms — a simple and an advanced version — covering input streaming,
+          Proof-of-concept multi-camera real-time stitching system for ADAS, built as sole end-to-end developer.
+          Implemented two stitching algorithms (simple and advanced) covering input streaming,
           cache-parameter registration, and panorama composition.
+          Requires ≥ 30% FoV IoU overlap between each camera pair for reliable feature matching.
         </p>
         <div class="tag-list">
           <span class="tag">Python</span>
@@ -507,6 +508,7 @@
           <div class="pub-title">A Railway Framework for Person (Worker) Localization based on Depth Estimation and GPS</div>
           <div class="pub-venue">2024 한국국방기술학회 추계학술대회 (Korean Defense Technology Conference)</div>
           <div class="pub-date">November 2024</div>
+          <p class="pub-desc">A GPS-calibrated framework detecting and tracking railroad workers in IR images, estimating their absolute distance from the camera.</p>
         </div>
         <div class="pub-actions">
           <a href="http://www.kidet.or.kr/index.php?page=view&pg=&idx=1259&hCode=BOARD&bo_idx=1&sfl=&stx=" target="_blank" rel="noopener" class="pub-btn">
@@ -524,6 +526,7 @@
           <div class="pub-title">The Second Monocular Depth Estimation Challenge</div>
           <div class="pub-venue">CVPR Workshop (Conference on Computer Vision and Pattern Recognition)</div>
           <div class="pub-date">April 2023</div>
+          <p class="pub-desc">Co-authored results paper documenting submissions to CVPR's second Monocular Depth Estimation Challenge on the diverse SYNS-Patches dataset.</p>
         </div>
         <div class="pub-actions">
           <a href="https://arxiv.org/abs/2304.07051" target="_blank" rel="noopener" class="pub-btn">
@@ -541,6 +544,7 @@
           <div class="pub-title">A Taillight Matching and Pairing Algorithm for Stereo-Vision-based Nighttime Vehicle Positioning</div>
           <div class="pub-venue">MDPI Applied Sciences</div>
           <div class="pub-date">September 2020</div>
+          <p class="pub-desc">Stereo-vision V2V nighttime positioning using gradient-boosted stereo matching and a neural-network taillight pairing method for urban traffic conditions.</p>
         </div>
         <div class="pub-actions">
           <a href="https://www.mdpi.com/2076-3417/10/19/6800" target="_blank" rel="noopener" class="pub-btn">
@@ -558,6 +562,7 @@
           <div class="pub-title">Nighttime LED Taillight Detection Method with Optical Camera Communication System</div>
           <div class="pub-venue">한국통신학회논문지 (Journal of KICS)</div>
           <div class="pub-date">September 2020</div>
+          <p class="pub-desc">OCC-based nighttime vehicle positioning that detects and locates taillight LEDs from high-speed camera images to estimate the position of front vehicles.</p>
         </div>
         <div class="pub-actions">
           <a href="http://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE10440000" target="_blank" rel="noopener" class="pub-btn">
@@ -575,6 +580,7 @@
           <div class="pub-title">Detection Algorithm for Overlapping LEDs in Vehicular Visible Light Communication System</div>
           <div class="pub-venue">IEEE Access</div>
           <div class="pub-date">August 2019</div>
+          <p class="pub-desc">Separates overlapping LED signals in vehicular VLC using an improved Canny edge detector and a generalized Hough transform to reduce data loss and bit-error-rate.</p>
         </div>
         <div class="pub-actions">
           <a href="https://ieeexplore.ieee.org/document/8792184" target="_blank" rel="noopener" class="pub-btn">
