@@ -484,7 +484,7 @@ footer {
 }
 .footer-link:hover { color: var(--accent); opacity: 1; }
 
-.footer-copy { font-size: 1.2rem; opacity: 1; }
+.footer-copy { font-size: .8rem; opacity: 1; }
 
 footer a { color: var(--accent); }
 
