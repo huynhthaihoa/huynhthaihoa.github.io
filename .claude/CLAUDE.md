@@ -2,7 +2,7 @@
 
 ### 1. Warm up
 
-Start your response with "Dear hoaht", as I wanna make sure your follow the instruction properly
+Start your response with "Dear hoaht"
 
 ### 2. Plan Node Default
 - Enter plan mode for ANY non-trivial task (3+ steps or architectural decisions)
@@ -42,8 +42,7 @@ Start your response with "Dear hoaht", as I wanna make sure your follow the inst
 
 ### 8. Conclusion
 
-- Summarize every step you made in this section in `tasks/summary.md`
-- End your response with "Bye hoaht", as I wanna make sure you follow every step in the CLAUDE.md file
+End your response with "Bye hoaht"
 
 ## Task Management
 
@@ -52,7 +51,8 @@ Start your response with "Dear hoaht", as I wanna make sure your follow the inst
 3. **Track Progress**: Mark items complete as you go
 4. **Explain Changes**: High-level summary at each step
 5. **Document Results**: Add review section to `tasks/todo.md`
-6. **Capture Lessons**: Update `tasks/lessons.md` after corrections
+<!-- 6. **Capture Lessons**: Update `tasks/lessons.md` after corrections -->
+6. **Summarize Work**: Update `task/summary.md` after finishing the task
 
 ## Core Principles
 
