@@ -175,6 +175,11 @@ section { padding: 5rem 0; }
 }
 
 .hero-location {
+  font-size: .9rem; color: var(--muted); margin-bottom: .4rem;
+  display: flex; align-items: center; gap: .4rem;
+}
+
+.hero-hometown {
   font-size: .9rem; color: var(--muted); margin-bottom: 2rem;
   display: flex; align-items: center; gap: .4rem;
 }
@@ -514,6 +519,7 @@ footer a { color: var(--accent); }
   .hero-desc { max-width: 100%; }
   .hero-cta, .social-row { justify-content: center; }
   .hero-location { justify-content: center; }
+  .hero-hometown { justify-content: center; }
 
   .pub-item { flex-direction: column; gap: .75rem; }
   .pub-actions { flex-direction: row; }
