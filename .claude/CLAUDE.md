@@ -51,8 +51,8 @@ End your response with "Bye hoaht"
 3. **Track Progress**: Mark items complete as you go
 4. **Explain Changes**: High-level summary at each step
 5. **Document Results**: Add review section to `tasks/todo.md`
-<!-- 6. **Capture Lessons**: Update `tasks/lessons.md` after corrections -->
-6. **Summarize Work**: Update `task/summary.md` after finishing the task
+6. **Capture Lessons**: Update `tasks/lessons.md` for lesson learned after corrections
+7. **Summarize Work**: Update `task/summary.md` for summarizing updates after finishing the task
 
 ## Core Principles
 
