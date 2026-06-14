@@ -2,13 +2,14 @@
 
 ### 1. Warm up
 
-Start your response with "Dear hoaht"
+- Start your response with "Dear hoaht"
+- Always use materials in `ref` as a reference data source
 
 ### 2. Plan Node Default
 - Enter plan mode for ANY non-trivial task (3+ steps or architectural decisions)
 - If something goes sideways, STOP and re-plan immediately - don't keep pushing
 - Use plan mode for verification steps, not just building
-- Write detailed specs upfront to reduce ambiguity
+- Write detailed specs upfront into `tasks/todo.md` to reduce ambiguity (append, not overwrite)
 
 ### 3. Subagent Strategy
 - Use subagents liberally to keep main context window clean
@@ -46,13 +47,13 @@ End your response with "Bye hoaht"
 
 ## Task Management
 
-1. **Plan First**: Write plan to `tasks/todo.md` with checkable items
+1. **Plan First**: Write plan to `tasks/todo.md` with checkable items (append, not overwrite)
 2. **Verify Plan**: Check in before starting implementation
 3. **Track Progress**: Mark items complete as you go
 4. **Explain Changes**: High-level summary at each step
-5. **Document Results**: Add review section to `tasks/todo.md`
-6. **Capture Lessons**: Update `tasks/lessons.md` for lesson learned after corrections
-7. **Summarize Work**: Update `task/summary.md` for summarizing updates after finishing the task
+5. **Document Results**: Append review section to `tasks/todo.md`
+6. **Capture Lessons**: Append `tasks/lessons.md` for lesson learned after corrections
+7. **Summarize Work**: Append `task/summary.md` for summarizing updates after finishing the task
 
 ## Core Principles
 
