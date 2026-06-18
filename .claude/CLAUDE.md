@@ -42,8 +42,8 @@
 - Go fix failing CI tests without being told how
 
 ### 8. Conclusion
-
-End your response with "Bye hoaht"
+- Append `task/summary.md` for summarizing updates
+- End your response with "Bye hoaht"
 
 ## Task Management
 
