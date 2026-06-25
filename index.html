@@ -318,6 +318,7 @@
 
       <!-- Head Pose Estimation -->
       <div class="project-card fade-up">
+        <img class="project-thumb" src="assets/projects/head-pose.png" alt="Head Pose Estimation demo">
         <div class="project-top">
           <div class="project-icon">🧠</div>
           <div class="project-links"></div>
@@ -326,8 +327,11 @@
         <div class="project-duration">Sep 2025 – Present</div>
         <p class="project-desc">
           Real-time head pose estimation pipeline using classical computer vision (PnP solver, ZYX Euler angles).
-          Recovers full rotation matrix and translation vector for pitch, yaw, and roll from monocular images.
+          Recovers full rotation matrix and translation vector for pitch, yaw, and roll from monocular images,
+          driven by a custom 2D facial-landmark model and stabilized with an Extended Kalman Filter to smooth
+          motion and handle occlusion.
         </p>
+        <a href="projects.html#head-pose-estimation" class="project-readmore">Read case study →</a>
         <div class="tag-list">
           <span class="tag">Python</span>
           <span class="tag">C/C++</span>
@@ -337,6 +341,7 @@
 
       <!-- PseudoLIDAR -->
       <div class="project-card fade-up">
+        <img class="project-thumb" src="assets/projects/pseudo-lidar.gif" alt="Real-time PseudoLiDAR demo">
         <div class="project-top">
           <div class="project-icon">🌐</div>
           <div class="project-links"></div>
@@ -346,7 +351,10 @@
         <p class="project-desc">
           Camera-based LiDAR replacement using absolute depth estimation and camera calibration
           to generate pseudo point clouds from image pixels. Rendered in real-time 3D using OpenGL and Open3D.
+          Designed a lightweight YOLOv8-based encoder-decoder depth model running at ~105 FPS with accuracy
+          competitive against SOTA methods (NeWCRFs, PixelFormer) at a fraction of the parameter count.
         </p>
+        <a href="projects.html#pseudo-lidar" class="project-readmore">Read case study →</a>
         <div class="tag-list">
           <span class="tag">Python</span>
           <span class="tag">PyTorch</span>
@@ -358,6 +366,7 @@
 
       <!-- Worker Localization -->
       <div class="project-card fade-up">
+        <img class="project-thumb" src="assets/projects/worker-localization.png" alt="Worker Localization at the Railroad demo">
         <div class="project-top">
           <div class="project-icon">🚆</div>
           <div class="project-links"></div>
@@ -369,7 +378,10 @@
           Combined YOLOv5 object detection with NeWCRFs monocular depth estimation.
           As the first developer on the project, built the full calibration pipeline:
           camera calibration, data collection, and Camera-LiDAR calibration using an Ouster OS0 LiDAR.
+          The resulting dataset and depth model helped the team place among 8 solutions worldwide to outperform
+          the SOTA baseline at the CVPRW 2023 monocular depth estimation challenge.
         </p>
+        <a href="projects.html#worker-localization" class="project-readmore">Read case study →</a>
         <div class="tag-list">
           <span class="tag">Python</span>
           <span class="tag">C++</span>
@@ -381,6 +393,7 @@
 
       <!-- Camera Stitching -->
       <div class="project-card fade-up">
+        <img class="project-thumb" src="assets/projects/camera-stitching.png" alt="Real-time Multiple Camera Stitching demo">
         <div class="project-top">
           <div class="project-icon">📷</div>
           <div class="project-links"></div>
@@ -393,6 +406,7 @@
           cache-parameter registration, and panorama composition.
           Requires ≥ 30% FoV IoU overlap between each camera pair for reliable feature matching.
         </p>
+        <a href="projects.html#camera-stitching" class="project-readmore">Read case study →</a>
         <div class="tag-list">
           <span class="tag">Python</span>
           <span class="tag">PyTorch</span>
@@ -403,6 +417,7 @@
 
       <!-- Gaze Estimation -->
       <div class="project-card fade-up">
+        <img class="project-thumb" src="assets/blog/example_distracted.png" alt="Gaze Estimation: looking at phone demo">
         <div class="project-top">
           <div class="project-icon">👁️</div>
           <div class="project-links"></div>
@@ -414,6 +429,7 @@
           with a gaze estimation model. Uses a cone-based FOV intersection algorithm with configurable
           confidence and count thresholds.
         </p>
+        <a href="blog.html#phone-looking" class="project-readmore">Read case study →</a>
         <div class="tag-list">
           <span class="tag">Computer Vision</span>
           <span class="tag">Gaze Estimation</span>
@@ -444,6 +460,31 @@
           <span class="tag">Python</span>
           <span class="tag">PyTorch</span>
           <span class="tag">Hugging Face</span>
+        </div>
+      </div>
+
+      <!-- Kaggle Notebooks -->
+      <div class="project-card fade-up">
+        <div class="project-top">
+          <div class="project-icon">📊</div>
+          <div class="project-links">
+            <a href="https://www.kaggle.com/huynhthaihoa1995" target="_blank" rel="noopener" class="project-link" title="Kaggle">
+              <img src="https://cdn.simpleicons.org/kaggle" alt="Kaggle" width="16" height="16">
+            </a>
+          </div>
+        </div>
+        <div class="project-name">My Kaggle Notebooks</div>
+        <div class="project-duration">Personal Project</div>
+        <p class="project-desc">
+          A collection of PyTorch, TensorFlow, and R tutorial notebooks plus CSC321 (Univ. of Toronto)
+          coursework, covering model building and training, transfer learning, RNNs/LSTMs, autograd,
+          and deploying models via a REST API.
+        </p>
+        <div class="tag-list">
+          <span class="tag">PyTorch</span>
+          <span class="tag">TensorFlow</span>
+          <span class="tag">R</span>
+          <span class="tag">Tutorials</span>
         </div>
       </div>
 
