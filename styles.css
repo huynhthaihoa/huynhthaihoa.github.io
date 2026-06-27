@@ -363,7 +363,7 @@ section { padding: 5rem 0; }
 .project-link:hover { color: var(--accent); opacity: 1; }
 
 .project-name { font-size: 1rem; font-weight: 700; margin-bottom: .45rem; }
-.project-duration { font-size: .78rem; color: var(--accent); font-weight: 600; margin-bottom: .6rem; }
+.project-duration { font-size: .8rem; color: var(--accent); font-weight: 600; margin-bottom: .6rem; }
 .project-desc { font-size: .875rem; color: var(--muted); line-height: 1.7; flex: 1; margin-bottom: 1rem; }
 
 .project-readmore {
@@ -476,7 +476,7 @@ section { padding: 5rem 0; }
 }
 
 .cert-name { font-size: .88rem; font-weight: 500; flex: 1; }
-.cert-date { font-size: .78rem; color: var(--muted); white-space: nowrap; }
+.cert-date { font-size: .8rem; color: var(--muted); white-space: nowrap; }
 
 /* ============================================================
    FOOTER
