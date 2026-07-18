@@ -6,11 +6,21 @@
   <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark');</script>
   <title>Case Studies – Hoa Huynh</title>
   <meta name="description" content="In-depth case studies on Hoa Huynh's computer vision projects: multi-camera stitching, worker localization, PseudoLiDAR, and head pose estimation." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://huynhthaihoa.github.io/projects.html" />
+  <meta property="og:title" content="Case Studies – Hoa Huynh" />
+  <meta property="og:description" content="In-depth case studies on Hoa Huynh's computer vision projects: multi-camera stitching, worker localization, PseudoLiDAR, and head pose estimation." />
+  <meta property="og:image" content="https://huynhthaihoa.github.io/assets/profile.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Case Studies – Hoa Huynh" />
+  <meta name="twitter:description" content="In-depth case studies on Hoa Huynh's computer vision projects: multi-camera stitching, worker localization, PseudoLiDAR, and head pose estimation." />
+  <meta name="twitter:image" content="https://huynhthaihoa.github.io/assets/profile.jpg" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -105,14 +115,14 @@
         <li><strong>Stitching</strong>: register the cache parameters needed for every camera to contribute to the estimate, then compose the panorama from the input batch and those cached parameters.</li>
         <li><strong>Postprocessing</strong>: the resulting panorama feeds downstream tasks — display, detection, depth estimation, etc.</li>
       </ul>
-      <img src="assets/projects/camera-stitching-pipeline.png" alt="Camera stitching pipeline overview">
+      <img src="assets/projects/camera-stitching-pipeline.png" width="3809" height="1628" loading="lazy" alt="Camera stitching pipeline overview">
       <div class="callout">💡 <strong>Rule of thumb</strong>: the Field-of-View Intersection-over-Union ratio between each camera pair should be at least 30% to overcome lens distortion and leave enough detectable features for stitching.</div>
 
       <hr>
 
       <h2>Stitching Algorithm</h2>
       <p>I implemented two stitching algorithms: a <strong>simple version</strong> with a lighter workflow, and an <strong>advanced version</strong> that trades higher processing latency for a smoother, more refined result.</p>
-      <img src="assets/projects/camera-stitching-algorithms.png" alt="Simple vs advanced stitching algorithm workflow">
+      <img src="assets/projects/camera-stitching-algorithms.png" width="1799" height="2328" loading="lazy" alt="Simple vs advanced stitching algorithm workflow">
 
       <h3>Feature Extraction</h3>
       <p>Used to extract the feature list from each input image:</p>
@@ -139,9 +149,9 @@
 
       <p>These three cases all relate a transformation between two planes:</p>
       <div class="img-row">
-        <img src="assets/projects/camera-stitching-homography-plane.png" alt="Planar surface and the image plane">
-        <img src="assets/projects/camera-stitching-homography-stitch.png" alt="Planar surface viewed by two camera positions">
-        <img src="assets/projects/camera-stitching-homography-rotation.png" alt="Camera rotating around its axis of projection">
+        <img src="assets/projects/camera-stitching-homography-plane.png" width="422" height="243" loading="lazy" alt="Planar surface and the image plane">
+        <img src="assets/projects/camera-stitching-homography-stitch.png" width="900" height="255" loading="lazy" alt="Planar surface viewed by two camera positions">
+        <img src="assets/projects/camera-stitching-homography-rotation.png" width="555" height="207" loading="lazy" alt="Camera rotating around its axis of projection">
       </div>
       <p class="img-caption">Left → right: a planar surface and the image plane; a planar surface viewed by two camera positions (the stitching case); a camera rotating around its axis of projection — equivalent to points lying on a plane at infinity (smartphone panorama mode), the foundational case for image stitching.</p>
 
@@ -150,16 +160,16 @@
       <h2>Demo</h2>
       <h3>Input — 3 cameras (left mirror, front, right mirror)</h3>
       <div class="img-row">
-        <img src="assets/projects/camera-stitching-input-left.png" alt="Left mirror camera input">
-        <img src="assets/projects/camera-stitching-input-front.png" alt="Front camera input">
-        <img src="assets/projects/camera-stitching-input-right.png" alt="Right mirror camera input">
+        <img src="assets/projects/camera-stitching-input-left.png" width="640" height="480" loading="lazy" alt="Left mirror camera input">
+        <img src="assets/projects/camera-stitching-input-front.png" width="640" height="480" loading="lazy" alt="Front camera input">
+        <img src="assets/projects/camera-stitching-input-right.png" width="640" height="480" loading="lazy" alt="Right mirror camera input">
       </div>
 
       <h3>Simple-algorithm output</h3>
-      <img src="assets/projects/camera-stitching-output-simple.png" alt="Simple algorithm stitched output">
+      <img src="assets/projects/camera-stitching-output-simple.png" width="1972" height="861" loading="lazy" alt="Simple algorithm stitched output">
 
       <h3>Advanced-algorithm output</h3>
-      <img src="assets/projects/camera-stitching-output-advanced.png" alt="Advanced algorithm stitched output">
+      <img src="assets/projects/camera-stitching-output-advanced.png" width="2060" height="978" loading="lazy" alt="Advanced algorithm stitched output">
 
     </div><!-- /.post-body -->
   </div>
@@ -198,12 +208,12 @@
       <h3>3. Camera-LIDAR Calibration</h3>
       <p>Estimated the rotation matrix and translation vector between the LIDAR and camera coordinate systems:</p>
       <div class="img-row">
-        <img src="assets/projects/worker-localization-calibration-1.png" alt="Camera-LIDAR calibration process diagram 1">
-        <img src="assets/projects/worker-localization-calibration-2.png" alt="Camera-LIDAR calibration process diagram 2">
+        <img src="assets/projects/worker-localization-calibration-1.png" width="1414" height="455" loading="lazy" alt="Camera-LIDAR calibration process diagram 1">
+        <img src="assets/projects/worker-localization-calibration-2.png" width="960" height="463" loading="lazy" alt="Camera-LIDAR calibration process diagram 2">
       </div>
       <p>With rotation $R$ and translation $t$, the LIDAR point cloud converts into the camera coordinate system, then projects onto the image plane to form a ground-truth-scale depth map aligned with the camera image:</p>
       <div class="math-display">$$s \begin{bmatrix} u\\ v \end{bmatrix} = \begin{bmatrix} f_x & 0 & c_x \\ 0 & f_y & c_y \\ 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} X_c\\ Y_c \\ Z_c \end{bmatrix}$$</div>
-      <img src="assets/projects/worker-localization-depthmap.png" alt="Resulting ground-truth depth map aligned with the thermal camera image">
+      <img src="assets/projects/worker-localization-depthmap.png" width="1208" height="741" loading="lazy" alt="Resulting ground-truth depth map aligned with the thermal camera image">
 
       <hr>
 
@@ -249,7 +259,7 @@
 
       <h2>Lightweight Depth Estimation Model</h2>
       <p>For real-time demonstration, we built an optimized depth model targeting low latency without giving up too much accuracy. Inspired by the YOLO family's efficiency, the model uses a customized <strong>YOLOv8 backbone + neck</strong> as a 4-scale feature encoder, connected via skip connections to a <strong>U-Net-style decoder</strong> that reconstructs the depth map.</p>
-      <img src="assets/projects/pseudo-lidar-model-arch.png" alt="Lightweight YOLOv8-based encoder-decoder depth model architecture">
+      <img src="assets/projects/pseudo-lidar-model-arch.png" width="1360" height="740" loading="lazy" alt="Lightweight YOLOv8-based encoder-decoder depth model architecture">
       <p>Fine-tuned on NYUv2 (indoor) and KITTI (outdoor), the model performs competitively against established depth-evaluation metrics while staying far smaller than SOTA methods:</p>
 
       <h3>NYUv2 dataset</h3>
@@ -289,8 +299,8 @@
     <div class="post-body">
 
       <div class="img-row">
-        <img src="assets/projects/head-pose.png" alt="Head pose estimation demo 1">
-        <img src="assets/projects/head-pose-cover-2.png" alt="Head pose estimation demo 2">
+        <img src="assets/projects/head-pose.png" width="500" height="375" loading="lazy" alt="Head pose estimation demo 1">
+        <img src="assets/projects/head-pose-cover-2.png" width="372" height="388" loading="lazy" alt="Head pose estimation demo 2">
       </div>
 
       <h2>Defining a Head Pose</h2>
@@ -313,20 +323,20 @@
 
       <h2>Idea</h2>
       <p>To estimate a human's head pose (rotation matrix + translation vector relative to the camera) in real time, the pipeline follows a classical computer-vision approach:</p>
-      <img src="assets/projects/head-pose-pipeline.png" alt="Head pose estimation pipeline diagram">
+      <img src="assets/projects/head-pose-pipeline.png" width="5404" height="1524" loading="lazy" alt="Head pose estimation pipeline diagram">
       <p>An Extended Kalman Filter "smooths" the predicted pose and mitigates failures when the model can't see the face — occlusion, extreme angles, etc.</p>
 
       <hr>
 
       <h2>Facial Landmark Estimation</h2>
       <p>I built a 2D facial landmark model with a classification-style backbone, ending in a linear (classifier) head with $(num\_keypoints \times 3)$ outputs for the with-visibility-flag variant, or $(num\_keypoints \times 2)$ for the without-visibility-flag variant:</p>
-      <img src="assets/projects/head-pose-landmark-arch.png" alt="Facial landmark model architecture">
+      <img src="assets/projects/head-pose-landmark-arch.png" width="1462" height="503" loading="lazy" alt="Facial landmark model architecture">
 
       <hr>
 
       <h2>Head Pose via SolvePnPRansac</h2>
       <p>Static points from the predicted 2D landmarks are matched against their corresponding 3D points from the Mediapipe 3D facemark template, then <code>solvePnPRansac</code> recovers the rotation matrix and translation vector. "Static" here means points that keep a fixed relative position to the face even through facial gestures — blinking, yawning, smiling, etc.</p>
-      <img src="assets/projects/head-pose-pnp-matching.png" alt="2D landmark to 3D facemark template matching">
+      <img src="assets/projects/head-pose-pnp-matching.png" width="1242" height="638" loading="lazy" alt="2D landmark to 3D facemark template matching">
 
       <hr>
 
@@ -363,8 +373,8 @@
 </footer>
 
 <script src="script.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
   onload="renderMathInElement(document.body, {
     delimiters: [
       {left: '$$', right: '$$', display: true},

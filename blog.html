@@ -6,11 +6,21 @@
   <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark');</script>
   <title>Blog &amp; Notes – Hoa Huynh</title>
   <meta name="description" content="Blog and notes by Hoa Huynh on deep learning, computer vision, and depth estimation." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://huynhthaihoa.github.io/blog.html" />
+  <meta property="og:title" content="Blog &amp; Notes – Hoa Huynh" />
+  <meta property="og:description" content="Blog and notes by Hoa Huynh on deep learning, computer vision, and depth estimation." />
+  <meta property="og:image" content="https://huynhthaihoa.github.io/assets/profile.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Blog &amp; Notes – Hoa Huynh" />
+  <meta name="twitter:description" content="Blog and notes by Hoa Huynh on deep learning, computer vision, and depth estimation." />
+  <meta name="twitter:image" content="https://huynhthaihoa.github.io/assets/profile.jpg" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -411,7 +421,7 @@
 
       <h2>1. Ellipse Playground</h2>
       <p>Given the <strong>image coordinate system</strong> $Oxy$, with $O(0, 0)$ as the <strong>coordinate center</strong>:</p>
-      <img src="assets/blog/2d-vision-coord.png" alt="Image coordinate system Oxy diagram" />
+      <img src="assets/blog/2d-vision-coord.png" width="940" height="918" loading="lazy" alt="Image coordinate system Oxy diagram" />
 
       <h3>1.1. General Equation</h3>
       <p>The general equation of a rotated ellipse:</p>
@@ -438,7 +448,7 @@
         <li>$\alpha$ is the parameter, which ranges (radian) from $0$ to $2\pi$</li>
       </ul>
       <p>Rotated ellipse illustration, with $Cx$ and $Cy$ correspondingly paralleled &amp; sharing the same direction with $Ox$ and $Oy$:</p>
-      <img src="assets/blog/2d-vision-ellipse.png" alt="Rotated ellipse illustration" />
+      <img src="assets/blog/2d-vision-ellipse.png" width="889" height="793" loading="lazy" alt="Rotated ellipse illustration" />
 
       <h2>2. Rotate Point</h2>
       <p>If you rotate a point $B(x_B, y_B)$ around a point $A(x_A, y_A)$ by angle $\theta$ (anti-clockwise order) you'll get a point $C(x_C, y_C)$, where:</p>
@@ -774,7 +784,7 @@ dist_coeffs = np.array([-0.115065515143958, 0.023076954804581, 0, 0, 0])
 # W, H = image width and height
 A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)</code></pre>
 
-      <div style="background:var(--bg3);border-left:3px solid var(--accent);padding:.75rem 1rem;border-radius:4px;margin:1rem 0;font-size:.875rem;color:var(--muted);">
+      <div class="callout">
         💡 Camera calibration is <strong>an approximation process</strong> — similar to machine learning. We seldom get the actual ideal camera matrix, but treat the result as $A$ for simplification.
       </div>
 
@@ -801,7 +811,7 @@ A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)</cod
       <hr>
 
       <h2>Replicate LIDAR with Pseudo-LIDAR</h2>
-      <div style="background:var(--bg3);border-left:3px solid var(--accent);padding:.75rem 1rem;border-radius:4px;margin:1rem 0;font-size:.875rem;color:var(--muted);">
+      <div class="callout">
         💡 To verify this proposal, set up <strong>4 cameras</strong> and <strong>1 LIDAR</strong> in the <strong>CARLA simulation environment</strong>, record data, and experiment with the end-to-end pipeline.
       </div>
       <p>Given LIDAR $L$ producing a 360° point cloud, we replicate it using cameras $C_i$. Proposed pipeline:</p>
@@ -854,7 +864,7 @@ A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)</cod
 
       <h2>Perspective Transform</h2>
       <p>The <strong>homography</strong> (perspective transform) is a geometric transformation relating 2 different planes. Straight lines remain straight after transformation.</p>
-      <img src="assets/blog/perspective_transform.png" alt="Perspective Transform illustration" />
+      <img src="assets/blog/perspective_transform.png" width="422" height="243" loading="lazy" alt="Perspective Transform illustration" />
       <p>Each point $(x, y)$ on plane $\pi$ maps to $(x', y')$ on plane $\pi'$:</p>
       <div class="math-display">
         $$s \begin{bmatrix} x' \\ y' \\ 1 \end{bmatrix} = \mathbf{H} \begin{bmatrix} x \\ y \\ 1 \end{bmatrix} = \begin{bmatrix} h_{11} & h_{12} & h_{13} \\ h_{21} & h_{22} & h_{23} \\ h_{31} & h_{32} & h_{33} \end{bmatrix} \begin{bmatrix} x \\ y \\ 1 \end{bmatrix}$$
@@ -882,7 +892,7 @@ A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)</cod
       </ul>
 
       <h3>Equation</h3>
-      <img src="assets/blog/affine_transform.png" alt="Affine Transform illustration" />
+      <img src="assets/blog/affine_transform.png" width="1042" height="1825" loading="lazy" alt="Affine Transform illustration" />
 
     </div><!-- /.post-body -->
   </div>
@@ -934,8 +944,8 @@ A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)</cod
 
       <h2>Demo</h2>
       <p>Example images showing the algorithm in action with randomly generated gaze vectors and phone objects:</p>
-      <img src="assets/blog/example_distracted.png" alt="Distracted — person looking at phone" />
-      <img src="assets/blog/example_focus.png" alt="Focus — person not looking at phone" />
+      <img src="assets/blog/example_distracted.png" width="700" height="700" loading="lazy" alt="Distracted — person looking at phone" />
+      <img src="assets/blog/example_focus.png" width="700" height="700" loading="lazy" alt="Focus — person not looking at phone" />
       <p>Legend:</p>
       <ul>
         <li><strong>Green vectors</strong>: FOV bounds</li>
@@ -1146,8 +1156,8 @@ if __name__ == "__main__":
 </footer>
 
 <script src="script.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
   onload="renderMathInElement(document.body, {
     delimiters: [
       {left: '$$', right: '$$', display: true},
