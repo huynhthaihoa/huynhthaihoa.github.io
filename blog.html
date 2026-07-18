@@ -421,7 +421,7 @@
 
       <h2>1. Ellipse Playground</h2>
       <p>Given the <strong>image coordinate system</strong> $Oxy$, with $O(0, 0)$ as the <strong>coordinate center</strong>:</p>
-      <img src="assets/blog/2d-vision-coord.png" width="940" height="918" loading="lazy" alt="Image coordinate system Oxy diagram" />
+      <img src="assets/blog/2d-vision-coord.png" loading="lazy" alt="Image coordinate system Oxy diagram" />
 
       <h3>1.1. General Equation</h3>
       <p>The general equation of a rotated ellipse:</p>
@@ -448,7 +448,7 @@
         <li>$\alpha$ is the parameter, which ranges (radian) from $0$ to $2\pi$</li>
       </ul>
       <p>Rotated ellipse illustration, with $Cx$ and $Cy$ correspondingly paralleled &amp; sharing the same direction with $Ox$ and $Oy$:</p>
-      <img src="assets/blog/2d-vision-ellipse.png" width="889" height="793" loading="lazy" alt="Rotated ellipse illustration" />
+      <img src="assets/blog/2d-vision-ellipse.png" loading="lazy" alt="Rotated ellipse illustration" />
 
       <h2>2. Rotate Point</h2>
       <p>If you rotate a point $B(x_B, y_B)$ around a point $A(x_A, y_A)$ by angle $\theta$ (anti-clockwise order) you'll get a point $C(x_C, y_C)$, where:</p>
@@ -864,7 +864,7 @@ A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)</cod
 
       <h2>Perspective Transform</h2>
       <p>The <strong>homography</strong> (perspective transform) is a geometric transformation relating 2 different planes. Straight lines remain straight after transformation.</p>
-      <img src="assets/blog/perspective_transform.png" width="422" height="243" loading="lazy" alt="Perspective Transform illustration" />
+      <img src="assets/blog/perspective_transform.png" loading="lazy" alt="Perspective Transform illustration" />
       <p>Each point $(x, y)$ on plane $\pi$ maps to $(x', y')$ on plane $\pi'$:</p>
       <div class="math-display">
         $$s \begin{bmatrix} x' \\ y' \\ 1 \end{bmatrix} = \mathbf{H} \begin{bmatrix} x \\ y \\ 1 \end{bmatrix} = \begin{bmatrix} h_{11} & h_{12} & h_{13} \\ h_{21} & h_{22} & h_{23} \\ h_{31} & h_{32} & h_{33} \end{bmatrix} \begin{bmatrix} x \\ y \\ 1 \end{bmatrix}$$
@@ -892,7 +892,7 @@ A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)</cod
       </ul>
 
       <h3>Equation</h3>
-      <img src="assets/blog/affine_transform.png" width="1042" height="1825" loading="lazy" alt="Affine Transform illustration" />
+      <img src="assets/blog/affine_transform.png" loading="lazy" alt="Affine Transform illustration" />
 
     </div><!-- /.post-body -->
   </div>
@@ -944,8 +944,8 @@ A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)</cod
 
       <h2>Demo</h2>
       <p>Example images showing the algorithm in action with randomly generated gaze vectors and phone objects:</p>
-      <img src="assets/blog/example_distracted.png" width="700" height="700" loading="lazy" alt="Distracted — person looking at phone" />
-      <img src="assets/blog/example_focus.png" width="700" height="700" loading="lazy" alt="Focus — person not looking at phone" />
+      <img src="assets/blog/example_distracted.png" loading="lazy" alt="Distracted — person looking at phone" />
+      <img src="assets/blog/example_focus.png" loading="lazy" alt="Focus — person not looking at phone" />
       <p>Legend:</p>
       <ul>
         <li><strong>Green vectors</strong>: FOV bounds</li>
