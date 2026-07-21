@@ -155,8 +155,11 @@
         <div class="timeline-role">Development Team Lead &amp; AI Researcher</div>
         <div class="timeline-org">DeltaX · Seoul, South Korea</div>
         <p style="font-size:.875rem;color:var(--muted);">
-          R&amp;D on computer vision solutions for several applications, including
-          multi-camera stitching, railway worker localization, pseudo-LiDAR generation, real-time depth estimation, and in-cabin monitoring systems.
+          Since Dec 2023, lead a Research &amp; Development team building an In-Cabin Monitoring System (ICMS) compliant
+          with Euro NCAP standards — an 8-model real-time pipeline (object detection, 2D/3D keypoints, facial landmarks,
+          gaze estimation) running at 14 FPS on TI TDA4VM/TDA4AEN and Samsung Exynos V920 SoCs. Delivered 4 PoC projects
+          for 2 major Korean automotive vendors. Also work on multi-camera stitching, railway worker
+          localization, pseudo-LiDAR generation, and real-time depth estimation.
         </p>
       </div>
 
@@ -259,12 +262,17 @@
         <div class="skill-tags">
           <span class="skill-tag">PyTorch</span>
           <span class="skill-tag">TensorFlow</span>
+          <span class="skill-tag">Darknet</span>
           <span class="skill-tag">ONNX</span>
           <span class="skill-tag">TFLite</span>
           <span class="skill-tag">TensorRT</span>
+          <span class="skill-tag">TIOVX</span>
+          <span class="skill-tag">DeepStream</span>
           <span class="skill-tag">OpenCV</span>
           <span class="skill-tag">Open3D</span>
           <span class="skill-tag">PCL</span>
+          <span class="skill-tag">FFmpeg</span>
+          <span class="skill-tag">Qt</span>
           <span class="skill-tag">NumPy</span>
           <span class="skill-tag">Pandas</span>
           <span class="skill-tag">scikit-learn</span>
@@ -282,8 +290,24 @@
           <span class="skill-tag">3D Reconstruction</span>
           <span class="skill-tag">Camera Calibration</span>
           <span class="skill-tag">Knowledge Distillation</span>
+          <span class="skill-tag">Visual SLAM</span>
+          <span class="skill-tag">Head Pose Estimation</span>
           <span class="skill-tag">ADAS</span>
           <!-- <span class="skill-tag">Large Language Models</span> -->
+        </div>
+      </div>
+
+      <div class="skill-group fade-up">
+        <div class="skill-group-label">SoCs &amp; Sensors</div>
+        <div class="skill-tags">
+          <span class="skill-tag">NVIDIA Jetson Nano/Xavier NX</span>
+          <span class="skill-tag">TI SK-TDA4VM/TDA4AEN</span>
+          <span class="skill-tag">Samsung Exynos V920</span>
+          <span class="skill-tag">FLIR Thermal Camera</span>
+          <span class="skill-tag">NIR Camera</span>
+          <span class="skill-tag">Intel RealSense</span>
+          <span class="skill-tag">LUCID Helios2 ToF Camera</span>
+          <span class="skill-tag">Ouster LiDAR</span>
         </div>
       </div>
 
@@ -292,10 +316,27 @@
         <div class="skill-tags">
           <span class="skill-tag">ROS</span>
           <span class="skill-tag">Git</span>
+          <span class="skill-tag">SVN</span>
           <span class="skill-tag">Linux</span>
           <span class="skill-tag">Docker</span>
+          <span class="skill-tag">CMake</span>
+          <span class="skill-tag">TensorBoard</span>
+          <span class="skill-tag">DVC</span>
+          <span class="skill-tag">Weights &amp; Biases</span>
+          <span class="skill-tag">MLflow</span>
           <span class="skill-tag">Kaggle</span>
           <span class="skill-tag">Hugging Face</span>
+        </div>
+      </div>
+
+      <div class="skill-group fade-up">
+        <div class="skill-group-label">Databases</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Microsoft SQL Server</span>
+          <span class="skill-tag">MySQL</span>
+          <span class="skill-tag">SQLite</span>
+          <span class="skill-tag">PostgreSQL</span>
+          <span class="skill-tag">MongoDB</span>
         </div>
       </div>
 
@@ -716,6 +757,15 @@
         <p class="blog-excerpt">
           A naive algorithm to detect if a person is looking at their phone, combining an object detection model
           and a gaze estimation model with a cone-based FOV intersection approach.
+        </p>
+      </a>
+
+      <a href="blog.html#sahi-small-objects" class="blog-card fade-up" style="text-decoration:none;color:inherit;display:block;">
+        <span class="blog-tag">Object Detection</span>
+        <div class="blog-title">Slicing-Inspired Preprocessing for Small-Object Recall</div>
+        <p class="blog-excerpt">
+          Adapting SAHI's slicing idea from inference-time to dataset preprocessing, to improve recall on small,
+          distant objects for YOLOv8-p2/YOLOv9n while keeping inference a single full-image pass.
         </p>
       </a>
 

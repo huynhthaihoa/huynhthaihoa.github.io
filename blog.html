@@ -94,6 +94,11 @@
         <div class="toc-title">Simple Looking-at-Phone Algorithm</div>
         <div class="toc-date">November 24, 2025</div>
       </a>
+      <a href="#sahi-small-objects" class="toc-card fade-up">
+        <span class="blog-tag">Object Detection</span>
+        <div class="toc-title">Slicing-Inspired Preprocessing for Small-Object Recall</div>
+        <div class="toc-date">July 21, 2026</div>
+      </a>
     </div>
   </div>
 </section>
@@ -1139,6 +1144,79 @@ if __name__ == "__main__":
     cv2.imshow("preview", image)
     cv2.waitKey()
     cv2.imwrite("example.png", image)</code></pre>
+
+    </div><!-- /.post-body -->
+  </div>
+</article>
+
+<article id="sahi-small-objects" class="blog-article">
+  <div class="container">
+    <header class="post-header">
+      <span class="blog-tag">Object Detection</span>
+      <h1>Slicing-Inspired Preprocessing for Small-Object Recall</h1>
+      <div class="post-date">July 21, 2026</div>
+    </header>
+
+    <div class="post-body">
+
+      <h2>The problem</h2>
+      <p>Standard object detectors are trained on images resized to a fixed input resolution (e.g. <code>640×640</code>). When the source
+      images are high-resolution and objects of interest are small or far from the camera — a distant pedestrian, a small container code,
+      a worker near the edge of a railway platform — that resize step shrinks them down to just a handful of pixels. Most of the training
+      signal ends up dominated by large, easy objects, and recall on the small ones suffers.</p>
+
+      <hr>
+
+      <h2>SAHI in a nutshell</h2>
+      <p><strong>SAHI</strong> (<em>Slicing Aided Hyper Inference</em>) tackles this at <strong>inference time</strong>: instead of feeding
+      the detector one downscaled image, it slices the full-resolution image into overlapping tiles, runs detection independently on each
+      tile at full resolution, then merges all tile-level detections back into original image coordinates with NMS. Small objects that
+      would've been lost to downscaling now occupy a much larger fraction of each tile, so the detector actually has pixels to work with.</p>
+
+      <hr>
+
+      <h2>Adapting the idea for training data instead</h2>
+      <p>Running multiple slice passes at inference is expensive — it multiplies the number of forward passes per image, which conflicts
+      with a real-time deployment budget. So rather than slicing at inference, I moved the same idea earlier in the pipeline: use SAHI-style
+      slicing to build a <strong>better training set</strong>, and keep inference itself as a single full-image forward pass.</p>
+
+      <p>At a high level, the preprocessing step:</p>
+      <ol>
+        <li>Slices each training image into overlapping tiles (with a configurable tile size and overlap ratio).</li>
+        <li>Remaps ground-truth boxes into tile coordinates, keeping boxes above a visibility/IoU threshold and dropping or clipping the rest.</li>
+        <li>Oversamples tiles that contain small-object instances, so the training distribution isn't dominated by easy, large-object crops.</li>
+        <li>Mixes the sliced crops back in with the original full-resolution images, so the model still sees global scene context and doesn't overfit to tile-scale statistics.</li>
+      </ol>
+
+      <p>Paired with <strong>YOLOv8-p2</strong> and <strong>YOLOv9n</strong> — both already extended with a higher-resolution P2 detection
+      head for small-object sensitivity — this preprocessing step gave a meaningful recall boost on small, distant objects, while inference
+      stayed a single full-image pass, keeping real-time latency intact.</p>
+
+      <hr>
+
+      <h2>Illustrative sketch</h2>
+      <p>A simplified sketch of the slicing + remapping step (illustrative, not the production implementation):</p>
+      <pre><code>def slice_image(image, boxes, tile_size=640, overlap=0.2, min_visibility=0.3):
+    """Slice an image into overlapping tiles, remapping ground-truth boxes."""
+    stride = int(tile_size * (1 - overlap))
+    tiles = []
+
+    for y in range(0, image.height, stride):
+        for x in range(0, image.width, stride):
+            tile_box = (x, y, x + tile_size, y + tile_size)
+            tile_img = image.crop(tile_box)
+
+            tile_boxes = []
+            for box in boxes:
+                clipped = clip_box(box, tile_box)
+                if visibility(clipped, box) >= min_visibility:
+                    tile_boxes.append(to_tile_coords(clipped, tile_box))
+
+            tiles.append((tile_img, tile_boxes))
+
+    return tiles</code></pre>
+
+      <p>Reference: Akyon et al., <a href="https://arxiv.org/abs/2202.06934" target="_blank" rel="noopener">“Slicing Aided Hyper Inference and Fine-tuning for Small Object Detection”</a> (2022).</p>
 
     </div><!-- /.post-body -->
   </div>
