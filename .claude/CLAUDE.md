@@ -2,8 +2,9 @@
 
 ### 1. Warm up
 
-- Start your response with "Dear hoaht"
-- Always use materials in `ref` as a reference data source
+- Start the response with "Hi hoaht"
+- Review the old materials in directory `tasks` (if exists) to retrieve the context of the previous sessions
+- Use materials in directories `ref` and `CV` as a reference data source
 
 ### 2. Plan Node Default
 - Enter plan mode for ANY non-trivial task (3+ steps or architectural decisions)
@@ -18,7 +19,7 @@
 - One tack per subagent for focused execution
 
 ### 4. Self-Improvement Loop
-- After ANY correction from the user: update `tasks/lessons.md` with the pattern
+- After ANY correction from the user: update `tasks/lessons.md` with the pattern (append, not overwrite)
 - Write rules for yourself that prevent the same mistake
 - Ruthlessly iterate on these lessons until mistake rate drops
 - Review lessons at session start for relevant project
@@ -42,23 +43,21 @@
 - Go fix failing CI tests without being told how
 
 ### 8. Conclusion
-- Append `task/summary.md` for summarizing updates
-- End your response with "Bye hoaht"
+- Summarize the updates and/or observations into `tasks/summary.md` (append, not overwrite)
 
 ## Task Management
 
-1. **Plan First**: Write plan to `tasks/todo.md` with checkable items (append, not overwrite)
+1. **Plan First**: Write an execution plan to `tasks/todo.md` with checkable items (append, not overwrite)
 2. **Verify Plan**: Check in before starting implementation
 3. **Track Progress**: Mark items complete as you go
 4. **Explain Changes**: High-level summary at each step
-5. **Document Results**: Append review section to `tasks/todo.md`
-6. **Capture Lessons**: Append `tasks/lessons.md` for lesson learned after corrections
-7. **Summarize Work**: Append `task/summary.md` for summarizing updates after finishing the task
+5. **Document Results**: Append a review section to `tasks/todo.md`
+6. **Capture Lessons**: Append `tasks/lessons.md` for lessons learned after corrections
+7. **Summarize Work**: Append `tasks/summary.md` for summarizing updates after finishing the task
 
 ## Core Principles
 
 - **Simplicity First**: Make every change as simple as possible. Impact minimal code.
 - **No Laziness**: Find root causes. No temporary fixes. Senior developer standards.
-- **Minimat Impact**: Changes should only touch what's necessary. Avoid introducing bugs.
+- **Minimal Impact**: Changes should only touch what's necessary. Avoid introducing bugs.
 - **Authenticity**: Avoid making up stuff without the user's explicit request.
-
