@@ -30,6 +30,7 @@
   <span class="nav-brand">Hoa Huynh</span>
 
   <ul class="nav-links">
+    <li><a href="#research-interests">Research Interests</a></li>
     <li><a href="#experience">Experience</a></li>
     <li><a href="#education">Education</a></li>
     <li><a href="#skills">Skills</a></li>
@@ -136,6 +137,23 @@
       </div>
 
       <img src="assets/profile.jpg" alt="Hoa Huynh" class="hero-photo" />
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     RESEARCH INTERESTS
+     ============================================================ -->
+<section id="research-interests">
+  <div class="container">
+    <h2 class="section-title">Research Interests</h2>
+
+    <div class="skill-tags">
+      <span class="skill-tag skill-tag--interest">Visual SLAM</span>
+      <span class="skill-tag skill-tag--interest">3D Vision</span>
+      <span class="skill-tag skill-tag--interest">Robotics</span>
+      <span class="skill-tag skill-tag--interest">Automotive</span>
+      <span class="skill-tag skill-tag--interest">Edge Deployment</span>
     </div>
   </div>
 </section>
@@ -290,7 +308,6 @@
           <span class="skill-tag">3D Reconstruction</span>
           <span class="skill-tag">Camera Calibration</span>
           <span class="skill-tag">Knowledge Distillation</span>
-          <span class="skill-tag">Visual SLAM</span>
           <span class="skill-tag">Head Pose Estimation</span>
           <span class="skill-tag">ADAS</span>
           <!-- <span class="skill-tag">Large Language Models</span> -->
@@ -482,19 +499,54 @@
         <img class="project-thumb" src="assets/blog/example_distracted.png" loading="lazy" alt="Gaze Estimation: looking at phone demo">
         <div class="project-top">
           <div class="project-icon">👁️</div>
+          <div class="project-links">
+            <a href="https://github.com/huynhthaihoa/vision-geometry-playground" target="_blank" rel="noopener" class="project-link" title="GitHub — generalized geometry toolkit">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+              </svg>
+            </a>
+          </div>
         </div>
         <div class="project-name">Gaze Estimation: Phone Distraction Detector</div>
         <div class="project-duration">Personal Project</div>
         <p class="project-desc">
           Detects whether a driver is looking at their phone by combining an object detection model
           with a gaze estimation model. Uses a cone-based FOV intersection algorithm with configurable
-          confidence and count thresholds.
+          confidence and count thresholds. The underlying intersection geometry has since been generalized
+          into a standalone toolkit (linked).
         </p>
         <a href="blog.html#phone-looking" class="project-readmore">Read case study →</a>
         <div class="tag-list">
           <span class="tag">Computer Vision</span>
           <span class="tag">Gaze Estimation</span>
           <span class="tag">Object Detection</span>
+        </div>
+      </div>
+
+      <!-- Taillight Matching -->
+      <div class="project-card fade-up">
+        <div class="project-top">
+          <div class="project-icon">🔴</div>
+          <div class="project-links">
+            <a href="https://github.com/huynhthaihoa/taillight-matching" target="_blank" rel="noopener" class="project-link" title="GitHub">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div class="project-name">Taillight Matching &amp; Pairing</div>
+        <div class="project-duration">September 2018 – August 2020</div>
+        <p class="project-desc">
+          Official implementation of the stereo-vision nighttime vehicle-to-vehicle positioning algorithm from
+          my MDPI publication: gradient-boosted stereo matching for taillight-region correspondence, paired with
+          a neural-network-based matching stage to associate left/right taillights under urban traffic conditions.
+        </p>
+        <a href="#publications" class="project-readmore">See publication →</a>
+        <div class="tag-list">
+          <span class="tag">Python</span>
+          <span class="tag">Stereo Vision</span>
+          <span class="tag">Automotive</span>
         </div>
       </div>
 
@@ -521,6 +573,33 @@
           <span class="tag">Python</span>
           <span class="tag">PyTorch</span>
           <span class="tag">Hugging Face</span>
+        </div>
+      </div>
+
+      <!-- YOLO & Calibration Utilities -->
+      <div class="project-card fade-up">
+        <div class="project-top">
+          <div class="project-icon">🧰</div>
+          <div class="project-links">
+            <a href="https://github.com/huynhthaihoa/yolo-tools" target="_blank" rel="noopener" class="project-link" title="GitHub">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div class="project-name">YOLO &amp; Calibration Utilities</div>
+        <div class="project-duration">Personal Project · Ongoing since 2022</div>
+        <p class="project-desc">
+          A growing personal toolkit reused across multiple detection and calibration projects: fisheye
+          camera calibration and undistortion, chessboard corner detection, YOLO↔Pascal VOC label conversion,
+          and video frame extraction for dataset preparation.
+        </p>
+        <div class="tag-list">
+          <span class="tag">Python</span>
+          <span class="tag">OpenCV</span>
+          <span class="tag">Camera Calibration</span>
+          <span class="tag">YOLO</span>
         </div>
       </div>
 
@@ -715,6 +794,12 @@
               <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
             </svg>
             MDPI
+          </a>
+          <a href="https://github.com/huynhthaihoa/taillight-matching" target="_blank" rel="noopener" class="pub-btn">
+            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+            </svg>
+            Code
           </a>
         </div>
       </div>
