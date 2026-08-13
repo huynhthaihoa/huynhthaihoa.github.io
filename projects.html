@@ -93,22 +93,22 @@
 <!-- ============================================================
      CASE STUDY 1 — REAL-TIME MULTIPLE CAMERA STITCHING
      ============================================================ -->
-<article id="camera-stitching" class="blog-article">
+<article id="camera-stitching" class="blog-article case-study">
   <div class="container">
     <header class="post-header">
       <span class="blog-tag">Computer Vision</span>
-      <h1>Real-time Multiple Camera Stitching</h1>
+      <h2>Real-time Multiple Camera Stitching</h2>
       <div class="post-date">Jun 2022 – Sep 2022 · Python, PyTorch, OpenCV</div>
     </header>
 
     <div class="post-body">
 
-      <h2>Introduction</h2>
+      <h3>Introduction</h3>
       <p>A proof-of-concept that performs <strong>multi-camera real-time stitching</strong> applicable to an <strong>Advanced Driving Assistance System</strong>. I was the sole developer, handling research, implementation, and testing end to end.</p>
 
       <hr>
 
-      <h2>Pipeline Overview</h2>
+      <h3>Pipeline Overview</h3>
       <p>The stitching pipeline has three phases:</p>
       <ul>
         <li><strong>Input streaming</strong>: capture frames from the camera/video sources and batch them as input for the stitching algorithm.</li>
@@ -120,11 +120,11 @@
 
       <hr>
 
-      <h2>Stitching Algorithm</h2>
+      <h3>Stitching Algorithm</h3>
       <p>I implemented two stitching algorithms: a <strong>simple version</strong> with a lighter workflow, and an <strong>advanced version</strong> that trades higher processing latency for a smoother, more refined result.</p>
       <img src="assets/projects/camera-stitching-algorithms.png" loading="lazy" alt="Simple vs advanced stitching algorithm workflow">
 
-      <h3>Feature Extraction</h3>
+      <h4>Feature Extraction</h4>
       <p>Used to extract the feature list from each input image:</p>
       <ul>
         <li><a href="http://www.bmva.org/bmvc/2013/Papers/paper0013/paper0013.pdf" target="_blank" rel="noopener">AKAZE</a></li>
@@ -134,7 +134,7 @@
         <li><a href="https://link.springer.com/article/10.1023/B:VISI.0000029664.99615.94" target="_blank" rel="noopener">SIFT</a> (default)</li>
       </ul>
 
-      <h3>Feature Matching</h3>
+      <h4>Feature Matching</h4>
       <p>Used to find matched features between each input pair, from which the <strong>homography matrix</strong> is estimated:</p>
       <ul>
         <li>Least squares method</li>
@@ -157,18 +157,18 @@
 
       <hr>
 
-      <h2>Demo</h2>
-      <h3>Input — 3 cameras (left mirror, front, right mirror)</h3>
+      <h3>Demo</h3>
+      <h4>Input — 3 cameras (left mirror, front, right mirror)</h4>
       <div class="img-row">
         <img src="assets/projects/camera-stitching-input-left.png" loading="lazy" alt="Left mirror camera input">
         <img src="assets/projects/camera-stitching-input-front.png" loading="lazy" alt="Front camera input">
         <img src="assets/projects/camera-stitching-input-right.png" loading="lazy" alt="Right mirror camera input">
       </div>
 
-      <h3>Simple-algorithm output</h3>
+      <h4>Simple-algorithm output</h4>
       <img src="assets/projects/camera-stitching-output-simple.png" loading="lazy" alt="Simple algorithm stitched output">
 
-      <h3>Advanced-algorithm output</h3>
+      <h4>Advanced-algorithm output</h4>
       <img src="assets/projects/camera-stitching-output-advanced.png" loading="lazy" alt="Advanced algorithm stitched output">
 
     </div><!-- /.post-body -->
@@ -180,36 +180,36 @@
 <!-- ============================================================
      CASE STUDY 2 — WORKER LOCALIZATION AT THE RAILROAD
      ============================================================ -->
-<article id="worker-localization" class="blog-article alt-bg">
+<article id="worker-localization" class="blog-article alt-bg case-study">
   <div class="container">
     <header class="post-header">
       <span class="blog-tag-depth">Depth Estimation</span>
-      <h1>Worker Localization at the Railroad</h1>
+      <h2>Worker Localization at the Railroad</h2>
       <div class="post-date">Sep 2022 – Mar 2023 · Python, MATLAB, C++, ROS</div>
     </header>
 
     <div class="post-body">
 
-      <h2>Introduction</h2>
+      <h3>Introduction</h3>
       <p>A proof-of-concept to <strong>detect and estimate the position of workers</strong> at the railroad using <strong>a single thermal camera</strong> (Boson LWIR).</p>
 
       <hr>
 
-      <h2>Process</h2>
+      <h3>Process</h3>
       <p>The pipeline combines two deep learning models: <strong>object detection</strong> to find the worker, and <strong>monocular depth estimation</strong> to estimate distance. We picked two SOTA models at the time — <strong>YOLOv5</strong> for detection and <strong>NeWCRFs</strong> for depth — then fine-tuned both on our own data, since the pretrained weights were trained on RGB images and our camera is thermal.</p>
       <p>As the first developer on the project, my primary task was sourcing the "depth" ground truth. Given an Ouster OS0 Ultra-Wide High-Resolution Imaging LIDAR, that broke into three sub-tasks:</p>
 
-      <h3>1. Camera Calibration</h3>
+      <h4>1. Camera Calibration</h4>
       <p>Estimating the thermal camera's intrinsic parameters and distortion coefficients via a standard checkerboard-detection approach, based on <a href="https://docs.opencv.org/3.4/d9/d0c/group__calib3d.html#ga4abc2ece9fab9398f2e560d53c8c9780" target="_blank" rel="noopener">OpenCV</a> and the ROS <a href="https://github.com/ros-perception/image_pipeline/tree/rolling/camera_calibration" target="_blank" rel="noopener">image_pipeline/camera_calibration</a> package, plus CLAHE (Contrast Limited Adaptive Histogram Equalization) to sharpen local contrast. Since a thermal camera can't visually distinguish a checkerboard's black and white squares, I held the board under a high-temperature environment (direct sun, halogen light) — black surfaces absorb more heat than white ones, which made the pattern visible to the sensor.</p>
 
-      <h3>2. Data Collection</h3>
+      <h4>2. Data Collection</h4>
       <p>Used ROS for synchronized multi-sensor recording: <code>ouster_ros</code> for the LIDAR, <code>flir_boson_usb</code> for the thermal camera, and <code>rosbag record</code> to capture both streams. Synchronization relied on the timestamps ROS attaches at recording time.</p>
 
-      <h3>3. Camera-LIDAR Calibration</h3>
+      <h4>3. Camera-LIDAR Calibration</h4>
       <p>Estimated the rotation matrix and translation vector between the LIDAR and camera coordinate systems:</p>
       <div class="img-row">
         <img src="assets/projects/worker-localization-calibration-1.png" loading="lazy" alt="Camera-LIDAR calibration process diagram 1">
-        <!-- <img src="assets/projects/worker-localization-calibration-2.png" width="960" height="463" loading="lazy" alt="Camera-LIDAR calibration process diagram 2"> -->
+        <img src="assets/projects/worker-localization-calibration-2.png" loading="lazy" alt="Camera-LIDAR calibration process diagram 2">
       </div>
       <p>With rotation $R$ and translation $t$, the LIDAR point cloud converts into the camera coordinate system, then projects onto the image plane to form a ground-truth-scale depth map aligned with the camera image:</p>
       <div class="math-display">$$s \begin{bmatrix} u\\ v \end{bmatrix} = \begin{bmatrix} f_x & 0 & c_x \\ 0 & f_y & c_y \\ 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} X_c\\ Y_c \\ Z_c \end{bmatrix}$$</div>
@@ -217,7 +217,7 @@
 
       <hr>
 
-      <h2>Lesson Learned</h2>
+      <h3>Lesson Learned</h3>
       <p>This dataset and calibration pipeline helped the team become <strong>1 of 8 solutions worldwide to outperform the provided SOTA baseline</strong> on any of the pointcloud- or image-based metrics at the CVPRW 2023 monocular depth estimation challenge. We customized <a href="https://arxiv.org/pdf/2210.09071" target="_blank" rel="noopener">PixelFormer</a> (the SOTA depth model at the time) with training-time augmentations (random crop/rotation, left-right flip, CutDepth) and a zero-padding technique at inference to preserve the training resolution.</p>
       <div class="ref-links">
         <a href="https://eprints.soton.ac.uk/481380" target="_blank" rel="noopener" class="ref-link">
@@ -235,17 +235,17 @@
 <!-- ============================================================
      CASE STUDY 3 — REAL-TIME PSEUDOLIDAR
      ============================================================ -->
-<article id="pseudo-lidar" class="blog-article">
+<article id="pseudo-lidar" class="blog-article case-study">
   <div class="container">
     <header class="post-header">
       <span class="blog-tag-depth">Depth Estimation</span>
-      <h1>Real-time PseudoLiDAR</h1>
+      <h2>Real-time PseudoLiDAR</h2>
       <div class="post-date">Mar 2023 – Nov 2023 · Python, PyTorch, OpenGL, Open3D, OpenCV</div>
     </header>
 
     <div class="post-body">
 
-      <h2>Introduction</h2>
+      <h3>Introduction</h3>
       <p>An R&amp;D project to replace LIDAR with a camera: an <strong>absolute depth estimation model</strong> combined with <strong>camera calibration parameters</strong> generates a pseudo point cloud directly from image pixels, rendered in real time with OpenGL and Open3D.</p>
       <p>The underlying theory — human depth perception cues, absolute vs. relative depth estimation, the depth-to-3D-coordinate math, and the proposed multi-camera LIDAR-replication pipeline — is written up separately:</p>
       <div class="ref-links">
@@ -257,12 +257,12 @@
 
       <hr>
 
-      <h2>Lightweight Depth Estimation Model</h2>
+      <h3>Lightweight Depth Estimation Model</h3>
       <p>For real-time demonstration, we built an optimized depth model targeting low latency without giving up too much accuracy. Inspired by the YOLO family's efficiency, the model uses a customized <strong>YOLOv8 backbone + neck</strong> as a 4-scale feature encoder, connected via skip connections to a <strong>U-Net-style decoder</strong> that reconstructs the depth map.</p>
       <img src="assets/projects/pseudo-lidar-model-arch.png" loading="lazy" alt="Lightweight YOLOv8-based encoder-decoder depth model architecture">
       <p>Fine-tuned on NYUv2 (indoor) and KITTI (outdoor), the model performs competitively against established depth-evaluation metrics while staying far smaller than SOTA methods:</p>
 
-      <h3>NYUv2 dataset</h3>
+      <h4>NYUv2 dataset</h4>
       <table>
         <tr><th>Model</th><th>Params</th><th>FPS (480×640)</th><th>Abs.Rel↓</th><th>RMSE↓</th><th>Sqr.Rel↓</th><th>δ1↑</th><th>δ2↑</th><th>δ3↑</th></tr>
         <tr><td>Ours (YOLOv8s encoder)</td><td>10,810,465</td><td>105</td><td>0.1033</td><td>0.3717</td><td>0.0578</td><td>0.8965</td><td>0.9814</td><td>0.9958</td></tr>
@@ -270,7 +270,7 @@
         <tr><td>PixelFormer</td><td>270,895,920</td><td>16</td><td>0.0905</td><td>0.3242</td><td>0.0435</td><td>0.9289</td><td>0.9906</td><td>0.9977</td></tr>
       </table>
 
-      <h3>KITTI dataset</h3>
+      <h4>KITTI dataset</h4>
       <table>
         <tr><th>Model</th><th>Params</th><th>FPS (480×640)</th><th>Abs.Rel↓</th><th>RMSE↓</th><th>Sqr.Rel↓</th><th>δ1↑</th><th>δ2↑</th><th>δ3↑</th></tr>
         <tr><td>Ours (YOLOv8s encoder)</td><td>10,810,465</td><td>105</td><td>0.0479</td><td>2.3879</td><td>0.1798</td><td>0.9721</td><td>0.9952</td><td>0.9982</td></tr>
@@ -288,11 +288,11 @@
 <!-- ============================================================
      CASE STUDY 4 — HEAD POSE ESTIMATION
      ============================================================ -->
-<article id="head-pose-estimation" class="blog-article alt-bg">
+<article id="head-pose-estimation" class="blog-article alt-bg case-study">
   <div class="container">
     <header class="post-header">
       <span class="blog-tag">Computer Vision</span>
-      <h1>Head Pose Estimation</h1>
+      <h2>Head Pose Estimation</h2>
       <div class="post-date">Sep 2025 – Present · Python, C/C++, OpenCV</div>
     </header>
 
@@ -303,7 +303,7 @@
         <img src="assets/projects/head-pose-cover-2.png" loading="lazy" alt="Head pose estimation demo 2">
       </div>
 
-      <h2>Defining a Head Pose</h2>
+      <h3>Defining a Head Pose</h3>
       <p>A head pose is defined by a starting point $p = (u_0, v_0)$ — the origin of the head-pose coordinate system — and a rotation matrix (ZYX convention) built from <strong>Pitch $Pi$</strong>, <strong>Yaw $Ya$</strong>, and <strong>Roll $Ro$</strong>:</p>
 
       <div class="math-display">$$R_z(Ro) = \begin{bmatrix} \cos{Ro} & -\sin{Ro} & 0 \\ \sin{Ro} & \cos{Ro} & 0 \\ 0 & 0 & 1 \end{bmatrix}$$</div>
@@ -321,31 +321,31 @@
 
       <hr>
 
-      <h2>Idea</h2>
+      <h3>Idea</h3>
       <p>To estimate a human's head pose (rotation matrix + translation vector relative to the camera) in real time, the pipeline follows a classical computer-vision approach:</p>
       <img src="assets/projects/head-pose-pipeline.png" loading="lazy" alt="Head pose estimation pipeline diagram">
       <p>An Extended Kalman Filter "smooths" the predicted pose and mitigates failures when the model can't see the face — occlusion, extreme angles, etc.</p>
 
       <hr>
 
-      <h2>Facial Landmark Estimation</h2>
+      <h3>Facial Landmark Estimation</h3>
       <p>I built a 2D facial landmark model with a classification-style backbone, ending in a linear (classifier) head with $(num\_keypoints \times 3)$ outputs for the with-visibility-flag variant, or $(num\_keypoints \times 2)$ for the without-visibility-flag variant:</p>
       <img src="assets/projects/head-pose-landmark-arch.png" loading="lazy" alt="Facial landmark model architecture">
 
       <hr>
 
-      <h2>Head Pose via SolvePnPRansac</h2>
+      <h3>Head Pose via SolvePnPRansac</h3>
       <p>Static points from the predicted 2D landmarks are matched against their corresponding 3D points from the Mediapipe 3D facemark template, then <code>solvePnPRansac</code> recovers the rotation matrix and translation vector. "Static" here means points that keep a fixed relative position to the face even through facial gestures — blinking, yawning, smiling, etc.</p>
       <img src="assets/projects/head-pose-pnp-matching.png" loading="lazy" alt="2D landmark to 3D facemark template matching">
 
       <hr>
 
-      <h2>Kalman Filter Stabilizer</h2>
+      <h3>Kalman Filter Stabilizer</h3>
       <p>The Extended Kalman Filter smooths head-pose motion across frames and bridges gaps when the 2D facial landmark model fails to predict a landmark — most commonly due to occlusion.</p>
 
       <hr>
 
-      <h2>References</h2>
+      <h3>References</h3>
       <div class="ref-links">
         <a href="https://d3cw3dd2w32x2b.cloudfront.net/wp-content/uploads/2015/01/matrix-to-quat.pdf" target="_blank" rel="noopener" class="ref-link">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>

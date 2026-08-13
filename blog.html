@@ -108,17 +108,17 @@
 <!-- ============================================================
      POST 1 — KNOWLEDGE DISTILLATION BRAINSTORMING
      ============================================================ -->
-<article id="knowledge-distillation" class="blog-article">
+<article id="knowledge-distillation" class="blog-article blog-post">
   <div class="container">
     <header class="post-header">
       <span class="blog-tag">Deep Learning</span>
-      <h1>Knowledge Distillation Brainstorming</h1>
+      <h2>Knowledge Distillation Brainstorming</h2>
       <div class="post-date">January 4, 2026</div>
     </header>
 
     <div class="post-body">
 
-      <h2>Good References</h2>
+      <h3>Good References</h3>
       <div class="ref-links">
         <a href="https://docs.pytorch.org/tutorials/beginner/knowledge_distillation_tutorial.html" target="_blank" rel="noopener" class="ref-link">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
@@ -126,10 +126,10 @@
         </a>
       </div>
 
-      <h2>Brainstorm</h2>
+      <h3>Brainstorm</h3>
       <p>In the context of machine learning knowledge distillation, training both the teacher model and the student model in parallel is generally not the standard or most effective approach, though it can make sense in specific scenarios depending on the goals and constraints.</p>
 
-      <h2>1. Standard Knowledge Distillation Process</h2>
+      <h3>1. Standard Knowledge Distillation Process</h3>
       <p>Knowledge distillation typically involves a two-stage process:</p>
       <ol>
         <li><strong>Teacher Model Training</strong>: A large, complex model (the teacher) is trained first on the target task using the available dataset. The teacher model is usually overparameterized and achieves high performance, but may be computationally expensive.</li>
@@ -137,7 +137,7 @@
       </ol>
       <p>The teacher is <strong>typically pre-trained and fixed</strong> during the student's training because the goal is to <strong>transfer the teacher's learned knowledge to the student</strong>. The teacher's outputs <strong>provide a richer supervision signal (e.g., capturing inter-class relationships via soft probabilities) than hard labels alone</strong>.</p>
 
-      <h2>2. Why Parallel Training Is Uncommon</h2>
+      <h3>2. Why Parallel Training Is Uncommon</h3>
       <p>Training the teacher and student models in parallel (i.e., simultaneously updating both models during training) is not standard for several reasons:</p>
       <ol>
         <li><strong>Teacher Stability</strong>: The teacher model is expected to provide reliable and high-quality outputs to guide the student. If the teacher is still training and its parameters are changing, its outputs may be noisy or inconsistent, which could destabilize the student's learning process.</li>
@@ -146,7 +146,7 @@
         <li><strong>Sequential Dependency</strong>: The student relies on the teacher's knowledge, which is most effective when the teacher has already converged on a good solution. Training them in parallel undermines this dependency, as the teacher may not yet have reliable knowledge to transfer.</li>
       </ol>
 
-      <h3>Scenarios Where Parallel Training Might Make Sense</h3>
+      <h4>Scenarios Where Parallel Training Might Make Sense</h4>
       <p>There are specific cases where training the teacher and student in parallel could be considered, though these are less common and typically involve modifications to the standard distillation framework:</p>
       <ol>
         <li>
@@ -163,7 +163,7 @@
         </li>
       </ol>
 
-      <h3>Challenges of Parallel Training</h3>
+      <h4>Challenges of Parallel Training</h4>
       <ul>
         <li><strong>Stabilizing Teacher Outputs</strong>: The teacher's outputs may be noisy early in training, so techniques like output smoothing, teacher ensembling, or delayed distillation may be needed.</li>
         <li><strong>Balancing Objectives</strong>: The teacher and student may have different learning rates, loss weights, or objectives, requiring careful tuning.</li>
@@ -171,31 +171,31 @@
         <li><strong>Evaluation Metrics</strong>: You'd need to define how to evaluate the teacher's readiness to provide useful knowledge.</li>
       </ul>
 
-      <h3>Alternative Approaches</h3>
+      <h4>Alternative Approaches</h4>
       <ul>
         <li><strong>Self-Distillation</strong>: The student model distills knowledge from itself (e.g., from earlier layers or epochs) rather than a separate teacher.</li>
         <li><strong>Pre-Trained Teacher Reuse</strong>: Use an existing pre-trained model (e.g., a foundation model like BERT or a publicly available checkpoint) as the teacher.</li>
         <li><strong>Online Distillation Variants</strong>: Explore methods like Deep Mutual Learning or Collaborative Learning, where multiple models learn together without a fixed teacher-student hierarchy.</li>
       </ul>
 
-      <h3>Practical Recommendation</h3>
+      <h4>Practical Recommendation</h4>
       <p>In most cases, <strong>sequential training</strong> (pre-training the teacher, then training the student) is the most effective and straightforward approach for knowledge distillation. It ensures the teacher provides stable, high-quality outputs and aligns to produce an efficient student model. <strong>Parallel training</strong> could be explored in research settings or specific use cases (e.g., <strong>online distillation</strong> or <strong>continual learning</strong>), but it requires careful design to manage the challenges outlined above.</p>
 
-      <h2>3. Why Pretraining the Teacher and Training the Student on the Same Dataset Makes Sense</h2>
+      <h3>3. Why Pretraining the Teacher and Training the Student on the Same Dataset Makes Sense</h3>
 
-      <h4>Consistency in Data Distribution</h4>
+      <h5>Consistency in Data Distribution</h5>
       <p>Using the same dataset for both the teacher and student ensures that <strong>the knowledge being transferred is relevant to the task and data distribution that the student will encounter</strong>. The teacher learns the patterns, relationships, and structure of the dataset, and the student benefits from mimicking these learned representations. If the teacher were trained on a different dataset, its knowledge might not generalize well to the student's target dataset, leading to suboptimal performance.</p>
 
-      <h4>Teacher as a High-Quality Reference</h4>
+      <h5>Teacher as a High-Quality Reference</h5>
       <p>Pretraining the teacher model on the same dataset allows it to <strong>converge to a high-performing solution, capturing rich information about the task</strong> (e.g., class probabilities, feature representations, or decision boundaries). The student can then leverage this high-quality knowledge via the teacher's soft outputs (e.g., softened logits or intermediate features), which provide more information than hard labels alone. For example, in classification tasks, the teacher's softmax outputs (with a temperature parameter) reveal inter-class relationships, helping the student learn nuanced decision boundaries.</p>
 
-      <h4>Standard Practice in Knowledge Distillation</h4>
+      <h5>Standard Practice in Knowledge Distillation</h5>
       <p>The canonical knowledge distillation framework, as introduced by Hinton et al. (2015), assumes the teacher is pretrained on the target dataset, and the student is trained to match the teacher's outputs on the same dataset. This setup is widely used in applications like model compression for image classification, natural language processing, and speech recognition. The student typically optimizes a combination of the distillation loss (e.g., KL divergence between the teacher's and student's logits) and the task-specific loss (e.g., cross-entropy with ground-truth labels) on the same dataset.</p>
 
-      <h4>Efficient Use of Data</h4>
+      <h5>Efficient Use of Data</h5>
       <p>In many real-world scenarios, the dataset is fixed and limited. Using the same dataset for both models avoids the need for additional data collection or the risk of domain mismatch. The teacher extracts as much knowledge as possible from the dataset, and the student distills this knowledge into a more compact model.</p>
 
-      <h3>Benefits of This Approach</h3>
+      <h4>Benefits of This Approach</h4>
       <ul>
         <li><strong>Improved Student Performance</strong>: The student benefits from the teacher's learned knowledge, often achieving better performance than if trained solely on ground-truth labels.</li>
         <li><strong>Generalization</strong>: The teacher's soft targets act as a form of regularization, helping the student generalize better by learning smoother decision boundaries.</li>
@@ -203,7 +203,7 @@
         <li><strong>Data Efficiency</strong>: Even with limited labeled data, the teacher's outputs provide additional supervision, making it easier for the student to learn effectively.</li>
       </ul>
 
-      <h3>Considerations and Best Practices</h3>
+      <h4>Considerations and Best Practices</h4>
       <ol>
         <li><strong>Teacher Quality</strong>: The teacher must be <strong>well-trained</strong> and <strong>perform well on the dataset</strong>. A poorly trained teacher will provide <strong>noisy</strong> or <strong>unreliable outputs</strong>, leading to suboptimal student performance.</li>
         <li><strong>Distillation Loss Design</strong>: The student's loss function typically combines the <strong>distillation loss</strong> (matching the teacher's outputs) and the <strong>task-specific loss</strong> (matching ground-truth labels). The balance (controlled by a weighting hyperparameter, e.g., <code>α</code> in <code>L = α * L_distillation + (1-α) * L_task</code>) is critical. The <strong>temperature parameter</strong> in the softmax function also needs tuning — a higher temperature (e.g., <code>T = 2</code> or <code>T = 4</code>) makes the teacher's outputs smoother.</li>
@@ -213,14 +213,14 @@
         <li><strong>Computational Efficiency</strong>: Since the teacher is pretrained, its parameters are fixed during student training. The student only needs the teacher's outputs, which can be precomputed and cached for the entire dataset to save time.</li>
       </ol>
 
-      <h3>Potential Alternatives or Variations</h3>
+      <h4>Potential Alternatives or Variations</h4>
       <ul>
         <li><strong>Transfer Learning or Domain Adaptation</strong>: If the teacher is pretrained on a larger, related dataset (e.g., ImageNet), it can be fine-tuned on the target dataset before distillation.</li>
         <li><strong>Unlabeled or Augmented Data</strong>: In some cases, the student can be trained on a mix of labeled data and unlabeled data, where the teacher provides pseudo-labels for the unlabeled data.</li>
         <li><strong>Online Distillation</strong>: If you want to avoid pretraining the teacher entirely, you could explore online knowledge distillation (e.g., Deep Mutual Learning).</li>
       </ul>
 
-      <h3>Practical Example</h3>
+      <h4>Practical Example</h4>
       <p>Suppose you're working on an image classification task with the CIFAR-10 dataset:</p>
       <ul>
         <li><strong>Teacher Training</strong>: Train a large model (e.g., ResNet-50) on CIFAR-10 until it achieves high accuracy (e.g., 95% on the test set).</li>
@@ -228,9 +228,9 @@
         <li><strong>Outcome</strong>: The student achieves accuracy close to the teacher's (e.g., 93%) while being much smaller and faster.</li>
       </ul>
 
-      <h2>4. Cases Where Different Datasets Are Used</h2>
+      <h3>4. Cases Where Different Datasets Are Used</h3>
 
-      <h3>4.1. Transfer Learning or Domain Adaptation</h3>
+      <h4>4.1. Transfer Learning or Domain Adaptation</h4>
       <ul>
         <li><strong>Scenario</strong>: The teacher is pretrained on a large, general dataset (e.g., ImageNet for images, Wikipedia or Common Crawl for text), while the student is trained on a smaller, task-specific or domain-specific dataset.</li>
         <li><strong>Rationale</strong>: The teacher, often a large foundation model, learns broad, generalizable features from a diverse dataset. These features can be distilled into a smaller student model tailored to a specific domain or task, even if the target dataset is limited.</li>
@@ -239,7 +239,7 @@
         <li><strong>Challenges</strong>: The teacher's knowledge may not fully align with the target domain, requiring careful tuning of the distillation process.</li>
       </ul>
 
-      <h3>4.2. Semi-Supervised Learning with Unlabeled Data</h3>
+      <h4>4.2. Semi-Supervised Learning with Unlabeled Data</h4>
       <ul>
         <li><strong>Scenario</strong>: The teacher is trained on a <strong>labeled dataset</strong>, while the student is trained on a <strong>combination of the same labeled dataset and additional unlabeled data</strong>, using the teacher's predictions (pseudo-labels) for the unlabeled portion.</li>
         <li><strong>Rationale</strong>: The teacher provides <strong>high-quality pseudo-labels</strong> for <strong>unlabeled data</strong>, effectively expanding the student's training set. Particularly useful when <strong>labeled data is scarce</strong> but <strong>unlabeled data is abundant</strong>.</li>
@@ -248,7 +248,7 @@
         <li><strong>Challenges</strong>: The teacher's pseudo-labels may contain errors, especially for out-of-distribution unlabeled data; <strong>confidence thresholding</strong> or <strong>consistency regularization</strong> may be needed.</li>
       </ul>
 
-      <h3>4.3. Privacy-Preserving or Data-Constrained Settings</h3>
+      <h4>4.3. Privacy-Preserving or Data-Constrained Settings</h4>
       <ul>
         <li><strong>Scenario</strong>: The teacher is trained on a sensitive or proprietary dataset that cannot be shared, while the student is trained on a different, publicly available, or synthetic dataset.</li>
         <li><strong>Rationale</strong>: Knowledge distillation allows the teacher's knowledge to be transferred without directly exposing the original training data.</li>
@@ -257,7 +257,7 @@
         <li><strong>Challenges</strong>: The proxy dataset must be sufficiently similar to the teacher's dataset to ensure effective distillation.</li>
       </ul>
 
-      <h3>4.4. Data Augmentation or Perturbed Datasets</h3>
+      <h4>4.4. Data Augmentation or Perturbed Datasets</h4>
       <ul>
         <li><strong>Scenario</strong>: The teacher is trained on the original dataset, while the student is trained on an augmented or perturbed version (e.g., with added noise, transformations, or adversarial examples).</li>
         <li><strong>Rationale</strong>: Training the student on augmented data can improve its robustness or generalization, while the teacher provides stable, high-quality targets.</li>
@@ -266,7 +266,7 @@
         <li><strong>Challenges</strong>: The augmentations must be carefully chosen to avoid introducing irrelevant or harmful noise.</li>
       </ul>
 
-      <h3>4.5. Cross-Modal or Multi-Task Distillation</h3>
+      <h4>4.5. Cross-Modal or Multi-Task Distillation</h4>
       <ul>
         <li><strong>Scenario</strong>: The teacher is trained on one modality or task, while the student is trained on a different modality or task, using shared or aligned knowledge.</li>
         <li><strong>Rationale</strong>: The teacher's knowledge from one domain or modality can guide the student in a related but different domain, especially when the tasks share underlying patterns.</li>
@@ -275,7 +275,7 @@
         <li><strong>Challenges</strong>: Requires alignment between the teacher's and student's output spaces, often necessitating additional mapping layers or loss functions.</li>
       </ul>
 
-      <h3>4.6. Continual Learning or Evolving Data Distributions</h3>
+      <h4>4.6. Continual Learning or Evolving Data Distributions</h4>
       <ul>
         <li><strong>Scenario</strong>: The teacher is trained on an initial dataset, while the student is trained on a new dataset that reflects a shifted or updated data distribution.</li>
         <li><strong>Rationale</strong>: The teacher provides a stable knowledge base from the original data, while the student adapts to the new distribution.</li>
@@ -284,7 +284,7 @@
         <li><strong>Challenges</strong>: The teacher's knowledge may become outdated, so techniques like fine-tuning the teacher or using an ensemble of teachers may be needed.</li>
       </ul>
 
-      <h3>Considerations for Using Different Datasets</h3>
+      <h4>Considerations for Using Different Datasets</h4>
       <ol>
         <li><strong>Domain Alignment</strong>: The datasets should be sufficiently related to ensure the teacher's knowledge is relevant to the student's task. Techniques like feature alignment or adversarial training can help bridge domain differences.</li>
         <li><strong>Teacher Output Quality</strong>: The teacher's outputs must be reliable for the student's dataset. Validate the teacher's performance on a subset of the student's dataset or use confidence-based filtering to discard low-quality predictions.</li>
@@ -293,7 +293,7 @@
         <li><strong>Evaluation and Validation</strong>: Monitor the student's performance on a validation set from its target dataset and compare against a baseline trained without distillation.</li>
       </ol>
 
-      <h3>When to Avoid Different Datasets</h3>
+      <h4>When to Avoid Different Datasets</h4>
       <p>Using different datasets can introduce complexity and risks. Avoid this approach if:</p>
       <ul>
         <li>The datasets are unrelated or have significant domain gaps, and fine-tuning the teacher isn't feasible.</li>
@@ -301,12 +301,12 @@
         <li>The teacher's performance on the student's data distribution is poor, and there's no way to validate or improve it.</li>
       </ul>
 
-      <h2>5. Self-Training</h2>
+      <h3>5. Self-Training</h3>
 
-      <h3>What is Self-Training?</h3>
+      <h4>What is Self-Training?</h4>
       <p><strong>Self-training</strong> is a semi-supervised learning approach where a model (often called the <strong>teacher</strong>) is first trained on a <strong>labeled dataset</strong>, then used to generate <strong>pseudo-labels</strong> for an <strong>unlabeled dataset</strong>. These pseudo-labels are combined with the labeled data to train a new model (often called the <strong>student</strong>), which may be the same or a different architecture. The process can be iterative, with the student becoming the teacher in subsequent rounds.</p>
 
-      <h3>How Self-Training Works</h3>
+      <h4>How Self-Training Works</h4>
       <ol>
         <li><strong>Train the Teacher</strong>: Train a model on a labeled dataset $D_L = \{(x_i, y_i)\}$, where $x_i$ are inputs and $y_i$ are ground-truth labels.</li>
         <li><strong>Generate Pseudo-Labels</strong>: Use the trained teacher to predict labels (or probabilities) for an unlabeled dataset $D_U = \{(x_j)\}$. These predictions are called pseudo-labels, denoted $\hat{y}_j$.</li>
@@ -315,7 +315,7 @@
         <li><strong>Iterate (Optional)</strong>: The student becomes the teacher, generates new pseudo-labels, and the process repeats for multiple iterations.</li>
       </ol>
 
-      <h3>How Self-Training Improves Model Performance</h3>
+      <h4>How Self-Training Improves Model Performance</h4>
       <ul>
         <li><strong>Leverages Unlabeled Data</strong>: Self-training makes use of abundant unlabeled data, increasing the effective training set size and helping the model learn more robust features.</li>
         <li><strong>Regularization Effect</strong>: Pseudo-labels provide a form of regularization, encouraging the model to produce consistent predictions across labeled and unlabeled data.</li>
@@ -323,19 +323,19 @@
         <li><strong>Iterative Refinement</strong>: In iterative self-training, each round refines the pseudo-labels, potentially improving their quality.</li>
       </ul>
 
-      <h3>Challenges</h3>
+      <h4>Challenges</h4>
       <ul>
         <li><strong>Error Propagation</strong>: If the teacher's pseudo-labels are incorrect, the student may learn from noisy or biased labels. Confidence thresholding or soft labels (probabilities) can mitigate this.</li>
         <li><strong>Limited Teacher Quality</strong>: If the initial teacher is trained on a small labeled dataset, its pseudo-labels may not be reliable.</li>
         <li><strong>Domain Shift</strong>: If the unlabeled data differs significantly from the labeled data, pseudo-labels may not align with the target task.</li>
       </ul>
 
-      <h2>6. Noisy Student Training</h2>
+      <h3>6. Noisy Student Training</h3>
 
-      <h3>What is Noisy Student Training?</h3>
+      <h4>What is Noisy Student Training?</h4>
       <p>Noisy Student Training (Xie et al., 2020) is an advanced self-training method that incorporates noise and regularization to improve the student model's performance <em>beyond</em> the teacher's. Unlike standard self-training, Noisy Student explicitly adds stochastic elements (e.g., data augmentation, dropout) to the student's training process to make it more robust and prevent it from simply memorizing the teacher's predictions.</p>
 
-      <h3>How Noisy Student Training Works</h3>
+      <h4>How Noisy Student Training Works</h4>
       <ol>
         <li><strong>Train the Teacher</strong>: Train a teacher model on a labeled dataset $D_L$, similar to self-training.</li>
         <li><strong>Generate Pseudo-Labels</strong>: Use the teacher to predict pseudo-labels for a large unlabeled dataset $D_U$. Hard labels (class predictions) are often used instead of soft labels to simplify the process.</li>
@@ -349,14 +349,14 @@
         <li><strong>Iterate</strong>: Use the student as the new teacher, generate updated pseudo-labels, and repeat. Each iteration typically improves the model's performance.</li>
       </ol>
 
-      <h3>Key Differences from Self-Training</h3>
+      <h4>Key Differences from Self-Training</h4>
       <ul>
         <li><strong>Noise Injection</strong>: Noisy Student deliberately adds noise to prevent overfitting to the teacher's pseudo-labels and encourage robustness.</li>
         <li><strong>Equal or Larger Student</strong>: Unlike knowledge distillation where the student is smaller, Noisy Student often uses a student of equal or greater capacity than the teacher.</li>
         <li><strong>Iterative Improvement</strong>: Noisy Student emphasizes multiple iterations, with each student potentially outperforming the previous teacher.</li>
       </ul>
 
-      <h3>How Noisy Student Improves Model Performance</h3>
+      <h4>How Noisy Student Improves Model Performance</h4>
       <ul>
         <li><strong>Robustness through Noise</strong>: The added noise forces the student to learn more generalizable features, preventing overfitting to the teacher's predictions or biases in the pseudo-labels.</li>
         <li><strong>Scales with Unlabeled Data</strong>: Noisy Student leverages large amounts of unlabeled data, which is critical for improving performance in data-scarce settings.</li>
@@ -364,17 +364,17 @@
         <li><strong>Surpassing the Teacher</strong>: By combining noise, a larger student model, and iterative training, Noisy Student can produce models that outperform the initial teacher.</li>
       </ul>
 
-      <h3>Example</h3>
+      <h4>Example</h4>
       <p>In the Noisy Student paper, an EfficientNet teacher was trained on the labeled ImageNet dataset. It generated pseudo-labels for 300M unlabeled images from JFT-300M. A larger EfficientNet student was trained on the combined dataset with strong augmentations (RandAugment) and dropout, achieving higher accuracy than the teacher. After multiple iterations, the final model set new benchmarks on ImageNet.</p>
 
-      <h3>Challenges</h3>
+      <h4>Challenges</h4>
       <ul>
         <li><strong>Computational Cost</strong>: Noisy Student requires significant computational resources, as it involves training large models and iterating multiple times over large datasets.</li>
         <li><strong>Noise Tuning</strong>: The type and strength of noise (augmentations, dropout) must be carefully tuned to balance robustness and learning stability.</li>
         <li><strong>Pseudo-Label Quality</strong>: As with self-training, poor pseudo-labels can harm performance, especially in early iterations.</li>
       </ul>
 
-      <h2>7. Connection to Knowledge Distillation and Different Datasets</h2>
+      <h3>7. Connection to Knowledge Distillation and Different Datasets</h3>
       <p>Both <strong>self-training</strong> and <strong>Noisy Student</strong> are closely related to knowledge distillation, particularly in scenarios where the teacher and student are trained on different datasets (e.g., labeled vs. unlabeled data):</p>
       <ul>
         <li><strong>Different Datasets</strong>: In both methods, the teacher is typically trained on a labeled dataset, while the student is trained on a combination of the labeled dataset and an unlabeled dataset (or a different dataset with pseudo-labels).</li>
@@ -382,7 +382,7 @@
         <li><strong>Improving Performance</strong>: These methods are particularly effective when the labeled dataset is small but the unlabeled data is abundant.</li>
       </ul>
 
-      <h3>How These Techniques Improve Model Performance</h3>
+      <h4>How These Techniques Improve Model Performance</h4>
       <ol>
         <li><strong>Increased Data Utilization</strong>: Both methods leverage unlabeled data, which is often plentiful, to expand the training set. This exposes the model to more diverse patterns, improving generalization.</li>
         <li><strong>Regularization</strong>: Pseudo-labels and noise (in Noisy Student) act as regularizers, preventing overfitting to the labeled data.</li>
@@ -391,7 +391,7 @@
         <li><strong>Domain Adaptation</strong>: When the unlabeled data comes from a slightly different distribution, these methods can help the student adapt to the target domain.</li>
       </ol>
 
-      <h3>Practical Considerations</h3>
+      <h4>Practical Considerations</h4>
       <ul>
         <li><strong>When to Use Self-Training</strong>: Self-training is effective for small to medium unlabeled datasets and is used for simpler semi-supervised tasks with limited compute resources or when the student model is similar to the teacher.</li>
         <li><strong>When to Use Noisy Student</strong>: Use Noisy Student when you have access to large unlabeled datasets, sufficient compute, and want to maximize performance, potentially surpassing the teacher.</li>
@@ -414,21 +414,21 @@
 <!-- ============================================================
      POST 2 — 2D VISION UTILITIES
      ============================================================ -->
-<article id="2d-vision" class="blog-article alt-bg">
+<article id="2d-vision" class="blog-article alt-bg blog-post">
   <div class="container">
     <header class="post-header">
       <span class="blog-tag">Computer Vision</span>
-      <h1>2D Vision Utilities</h1>
+      <h2>2D Vision Utilities</h2>
       <div class="post-date">January 4, 2026</div>
     </header>
 
     <div class="post-body">
 
-      <h2>1. Ellipse Playground</h2>
+      <h3>1. Ellipse Playground</h3>
       <p>Given the <strong>image coordinate system</strong> $Oxy$, with $O(0, 0)$ as the <strong>coordinate center</strong>:</p>
       <img src="assets/blog/2d-vision-coord.png" loading="lazy" alt="Image coordinate system Oxy diagram" />
 
-      <h3>1.1. General Equation</h3>
+      <h4>1.1. General Equation</h4>
       <p>The general equation of a rotated ellipse:</p>
       <div class="math-display">
         $$\frac{[(x-c_x)\cos(-\theta)+(y-c_y)\sin(-\theta)]^2}{a^2}+\frac{[(x-c_x)\sin(-\theta)-(y-c_y)\cos(-\theta)]^2}{b^2}=1$$
@@ -440,7 +440,7 @@
         <li>$\theta$ is the rotation angle measured from the $Cx$ axis (not $Ox$ axis) (<strong>clockwise order</strong>)</li>
       </ul>
 
-      <h3>1.2. Parametric Equation</h3>
+      <h4>1.2. Parametric Equation</h4>
       <div class="math-display">
         $$x(\alpha) = a\cos(\alpha)\cos(\theta) - b\sin(\alpha)\sin(\theta) + c_x$$
         $$y(\alpha) = a\cos(\alpha)\sin(\theta) + b\sin(\alpha)\cos(\theta) + c_y$$
@@ -455,7 +455,7 @@
       <p>Rotated ellipse illustration, with $Cx$ and $Cy$ correspondingly paralleled &amp; sharing the same direction with $Ox$ and $Oy$:</p>
       <img src="assets/blog/2d-vision-ellipse.png" loading="lazy" alt="Rotated ellipse illustration" />
 
-      <h2>2. Rotate Point</h2>
+      <h3>2. Rotate Point</h3>
       <p>If you rotate a point $B(x_B, y_B)$ around a point $A(x_A, y_A)$ by angle $\theta$ (anti-clockwise order) you'll get a point $C(x_C, y_C)$, where:</p>
       <div class="math-display">
         $$x_C = (x_B - x_A)\cos(\theta) - (y_B - y_A)\sin(\theta) + x_A$$
@@ -491,19 +491,19 @@
 <!-- ============================================================
      POST 3 — ROLLING IN THE DEEP
      ============================================================ -->
-<article id="rolling-in-the-deep" class="blog-article">
+<article id="rolling-in-the-deep" class="blog-article blog-post">
   <div class="container">
     <header class="post-header">
       <span class="blog-tag-depth">Depth Estimation</span>
-      <h1>Rolling in the Deep</h1>
+      <h2>Rolling in the Deep</h2>
       <div class="post-date">January 4, 2026</div>
     </header>
 
     <div class="post-body">
 
-      <h2>Benchmark (Up-to-Date)</h2>
+      <h3>Benchmark (Up-to-Date)</h3>
 
-      <h3>Public Benchmark</h3>
+      <h4>Public Benchmark</h4>
       <p><strong>Disclaimer</strong>:</p>
       <ul>
         <li>This is just a benchmark on some standard datasets, which means the model does not necessarily become the actual "SOTA" for in-the-wild applications.</li>
@@ -516,7 +516,7 @@
         </a>
       </div>
 
-      <h2>Personal Notes</h2>
+      <h3>Personal Notes</h3>
       <div class="ref-links">
         <a href="https://huynhthaihoa.github.io/depth-pseudolidar/" target="_blank" rel="noopener" class="ref-link">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
@@ -528,7 +528,7 @@
         </a>
       </div>
 
-      <h2>Prominent Works</h2>
+      <h3>Prominent Works</h3>
       <p>These works may not be "SOTA" on some specific datasets but have high potential for real-world, in-the-wild applications.</p>
 
       <div class="works-list">
@@ -683,7 +683,7 @@
 
       </div><!-- /.works-list -->
 
-      <h2>Datasets &amp; Simulator</h2>
+      <h3>Datasets &amp; Simulator</h3>
       <div class="works-list">
         <div class="work-item fade-up">
           <div class="work-title">RGBD Objects in the Wild: Scaling Real-World 3D Object Learning from RGB-D Videos</div>
@@ -705,7 +705,7 @@
         </div>
       </div>
 
-      <h2>Other References</h2>
+      <h3>Other References</h3>
       <div class="ref-links">
         <a href="https://en.wikipedia.org/wiki/Depth_perception" target="_blank" rel="noopener" class="ref-link">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
@@ -726,17 +726,17 @@
 <!-- ============================================================
      POST 4 — FROM DEPTH ESTIMATION TO PSEUDO-LIDAR
      ============================================================ -->
-<article id="depth-pseudolidar" class="blog-article alt-bg">
+<article id="depth-pseudolidar" class="blog-article alt-bg blog-post">
   <div class="container">
     <header class="post-header">
       <span class="blog-tag-depth">Depth Estimation</span>
-      <h1>From Depth Estimation to Pseudo-LIDAR</h1>
+      <h2>From Depth Estimation to Pseudo-LIDAR</h2>
       <div class="post-date">March 24, 2025</div>
     </header>
 
     <div class="post-body">
 
-      <h2>Human Depth Perception</h2>
+      <h3>Human Depth Perception</h3>
       <p>Literature on human depth perception provides insight into the pictorial cues that could be used to estimate distance. The following cues can typically be found in single images:</p>
       <ul>
         <li><strong>Position in the image</strong>: objects farther away tend to be closer to the horizon. When resting on the ground, objects also appear higher in the image.</li>
@@ -752,17 +752,17 @@
 
       <hr>
 
-      <h2>Depth Estimation Approaches</h2>
+      <h3>Depth Estimation Approaches</h3>
       <p>There are 2 monocular depth estimation approaches: <strong>absolute depth estimation</strong> and <strong>relative depth estimation</strong>.</p>
 
-      <h3>1. Absolute Depth Estimation</h3>
+      <h4>1. Absolute Depth Estimation</h4>
       <p>Absolute (or metric) depth estimation predicts per-pixel depth values in absolute physical units (meters).</p>
       <ul>
         <li><strong>Advantage</strong>: predictions can be directly used for downstream applications.</li>
         <li><strong>Disadvantage</strong>: training across multiple datasets often deteriorates performance, especially when depth scales differ greatly (e.g. indoor vs. outdoor). These methods usually overfit to a specific dataset.</li>
       </ul>
 
-      <h3>2. Relative Depth Estimation</h3>
+      <h4>2. Relative Depth Estimation</h4>
       <p>Relative depth estimation factors out the scale, estimating depths of pixels relative to each other. The absolute scale factor is unknown.</p>
       <ul>
         <li><strong>Advantage</strong>: enables generalization across domains — metric scale and camera parameters need not be consistent.</li>
@@ -771,7 +771,7 @@
 
       <hr>
 
-      <h2>From Depth Estimation to 3D Reconstruction</h2>
+      <h3>From Depth Estimation to 3D Reconstruction</h3>
       <p>The relation between a 2D coordinate $p$ (image plane) and its 3D coordinate $P_c$ (camera coordinate system) is:</p>
       <div class="math-display">$$s\,p = A P_c \quad (1)$$</div>
       <p>where $p = \begin{bmatrix} u\\ v \end{bmatrix}$, $P_c = \begin{bmatrix} X_c\\ Y_c \\ Z_c \end{bmatrix}$, $s$ is the projective scaling factor, and $A$ is the (ideal) camera intrinsic matrix:</p>
@@ -815,7 +815,7 @@ A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)</cod
 
       <hr>
 
-      <h2>Replicate LIDAR with Pseudo-LIDAR</h2>
+      <h3>Replicate LIDAR with Pseudo-LIDAR</h3>
       <div class="callout">
         💡 To verify this proposal, set up <strong>4 cameras</strong> and <strong>1 LIDAR</strong> in the <strong>CARLA simulation environment</strong>, record data, and experiment with the end-to-end pipeline.
       </div>
@@ -832,7 +832,7 @@ A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)</cod
 
       <hr>
 
-      <h2>References</h2>
+      <h3>References</h3>
       <div class="ref-links">
         <a href="https://openaccess.thecvf.com/content_ICCV_2019/papers/van_Dijk_How_Do_Neural_Networks_See_Depth_in_Single_Images_ICCV_2019_paper.pdf" target="_blank" rel="noopener" class="ref-link">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
@@ -857,17 +857,17 @@ A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)</cod
 <!-- ============================================================
      POST 5 — PERSPECTIVE TRANSFORM VS AFFINE TRANSFORM
      ============================================================ -->
-<article id="perspective-affine" class="blog-article">
+<article id="perspective-affine" class="blog-article blog-post">
   <div class="container">
     <header class="post-header">
       <span class="blog-tag">Computer Vision</span>
-      <h1>Perspective Transform vs Affine Transform</h1>
+      <h2>Perspective Transform vs Affine Transform</h2>
       <div class="post-date">November 24, 2025</div>
     </header>
 
     <div class="post-body">
 
-      <h2>Perspective Transform</h2>
+      <h3>Perspective Transform</h3>
       <p>The <strong>homography</strong> (perspective transform) is a geometric transformation relating 2 different planes. Straight lines remain straight after transformation.</p>
       <img src="assets/blog/perspective_transform.png" loading="lazy" alt="Perspective Transform illustration" />
       <p>Each point $(x, y)$ on plane $\pi$ maps to $(x', y')$ on plane $\pi'$:</p>
@@ -878,9 +878,9 @@ A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)</cod
 
       <hr>
 
-      <h2>Affine Transformation</h2>
+      <h3>Affine Transformation</h3>
 
-      <h3>Definition</h3>
+      <h4>Definition</h4>
       <p>An <strong>affine transformation</strong> preserves lines and parallelism, but not necessarily Euclidean distances and angles:</p>
       <ul>
         <li>Points on the same line remain collinear after transformation.</li>
@@ -888,7 +888,7 @@ A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)</cod
         <li>The ratio of any pair of segments is preserved; midpoints remain midpoints.</li>
       </ul>
 
-      <h3>Examples</h3>
+      <h4>Examples</h4>
       <ul>
         <li><strong>Translation</strong>: moving a figure without changing orientation or size.</li>
         <li><strong>Rotation</strong>: turning a figure around a point.</li>
@@ -896,7 +896,7 @@ A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)</cod
         <li><strong>Shearing</strong>: skewing a figure.</li>
       </ul>
 
-      <h3>Equation</h3>
+      <h4>Equation</h4>
       <img src="assets/blog/affine_transform.png" loading="lazy" alt="Affine Transform illustration" />
 
     </div><!-- /.post-body -->
@@ -908,22 +908,22 @@ A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)</cod
 <!-- ============================================================
      POST 6 — SIMPLE LOOKING-AT-PHONE ALGORITHM
      ============================================================ -->
-<article id="phone-looking" class="blog-article alt-bg">
+<article id="phone-looking" class="blog-article alt-bg blog-post">
   <div class="container">
     <header class="post-header">
       <span class="blog-tag">Computer Vision</span>
-      <h1>Simple Looking-at-Phone Algorithm</h1>
+      <h2>Simple Looking-at-Phone Algorithm</h2>
       <div class="post-date">November 24, 2025</div>
     </header>
 
     <div class="post-body">
 
-      <h2>Introduction</h2>
+      <h3>Introduction</h3>
       <p>A naive algorithm to check <strong>if a person is looking at their phone</strong> from the input image, given an <strong>Object Detection Model</strong> and a <strong>Gaze Estimation Model</strong>.</p>
 
       <hr>
 
-      <h2>Idea</h2>
+      <h3>Idea</h3>
       <p>Assumptions:</p>
       <ul>
         <li>The <strong>Object Detection Model</strong> detects objects of class <code>Phone</code> and <code>Human</code>.</li>
@@ -938,7 +938,7 @@ A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)</cod
 
       <hr>
 
-      <h2>Configuration</h2>
+      <h3>Configuration</h3>
       <ul>
         <li><code>conf_thres</code>: 0.5 &nbsp;(0 &lt; <code>conf_thres</code> &lt;= 1)</li>
         <li><code>count_thres</code>: 1 &nbsp;(1 &lt;= <code>count_thres</code> &lt;= 4)</li>
@@ -947,7 +947,7 @@ A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)</cod
 
       <hr>
 
-      <h2>Demo</h2>
+      <h3>Demo</h3>
       <p>Example images showing the algorithm in action with randomly generated gaze vectors and phone objects:</p>
       <img src="assets/blog/example_distracted.png" loading="lazy" alt="Distracted — person looking at phone" />
       <img src="assets/blog/example_focus.png" loading="lazy" alt="Focus — person not looking at phone" />
@@ -1149,17 +1149,17 @@ if __name__ == "__main__":
   </div>
 </article>
 
-<article id="sahi-small-objects" class="blog-article">
+<article id="sahi-small-objects" class="blog-article blog-post">
   <div class="container">
     <header class="post-header">
       <span class="blog-tag">Object Detection</span>
-      <h1>Slicing-Inspired Preprocessing for Small-Object Recall</h1>
+      <h2>Slicing-Inspired Preprocessing for Small-Object Recall</h2>
       <div class="post-date">July 21, 2026</div>
     </header>
 
     <div class="post-body">
 
-      <h2>The problem</h2>
+      <h3>The problem</h3>
       <p>Standard object detectors are trained on images resized to a fixed input resolution (e.g. <code>640×640</code>). When the source
       images are high-resolution and objects of interest are small or far from the camera — a distant pedestrian, a small container code,
       a worker near the edge of a railway platform — that resize step shrinks them down to just a handful of pixels. Most of the training
@@ -1167,7 +1167,7 @@ if __name__ == "__main__":
 
       <hr>
 
-      <h2>SAHI in a nutshell</h2>
+      <h3>SAHI in a nutshell</h3>
       <p><strong>SAHI</strong> (<em>Slicing Aided Hyper Inference</em>) tackles this at <strong>inference time</strong>: instead of feeding
       the detector one downscaled image, it slices the full-resolution image into overlapping tiles, runs detection independently on each
       tile at full resolution, then merges all tile-level detections back into original image coordinates with NMS. Small objects that
@@ -1175,7 +1175,7 @@ if __name__ == "__main__":
 
       <hr>
 
-      <h2>Adapting the idea for training data instead</h2>
+      <h3>Adapting the idea for training data instead</h3>
       <p>Running multiple slice passes at inference is expensive — it multiplies the number of forward passes per image, which conflicts
       with a real-time deployment budget. So rather than slicing at inference, I moved the same idea earlier in the pipeline: use SAHI-style
       slicing to build a <strong>better training set</strong>, and keep inference itself as a single full-image forward pass.</p>
@@ -1194,7 +1194,7 @@ if __name__ == "__main__":
 
       <hr>
 
-      <h2>Illustrative sketch</h2>
+      <h3>Illustrative sketch</h3>
       <p>A simplified sketch of the slicing + remapping step (illustrative, not the production implementation):</p>
       <pre><code>def slice_image(image, boxes, tile_size=640, overlap=0.2, min_visibility=0.3):
     """Slice an image into overlapping tiles, remapping ground-truth boxes."""

@@ -564,18 +564,23 @@ footer a { color: var(--accent); }
 
 .post-header { margin-bottom: 2.5rem; }
 .post-header .blog-tag { margin-bottom: .75rem; }
-.post-header h1 {
+.post-date { font-size: .82rem; color: var(--muted); }
+
+.post-body { max-width: 820px; }
+
+/* Case-study (projects.html) and blog-post (blog.html) articles each nest one
+   heading tier below the page's own <h1>, so every page keeps a single <h1>.
+   blog-post goes one tier deeper still (h5) since some posts have real 4-level nesting. */
+.case-study .post-header h2,
+.blog-post .post-header h2 {
   font-size: clamp(1.6rem, 3vw, 2.2rem);
   font-weight: 800;
   letter-spacing: -.02em;
   line-height: 1.2;
   margin-bottom: .5rem;
 }
-.post-date { font-size: .82rem; color: var(--muted); }
-
-.post-body { max-width: 820px; }
-
-.post-body h2 {
+.case-study .post-body h3,
+.blog-post .post-body h3 {
   font-size: 1.3rem;
   font-weight: 700;
   margin: 2.5rem 0 .8rem;
@@ -583,13 +588,14 @@ footer a { color: var(--accent); }
   padding-bottom: .5rem;
   border-bottom: 1px solid var(--border);
 }
-.post-body h3 {
+.case-study .post-body h4,
+.blog-post .post-body h4 {
   font-size: 1.05rem;
   font-weight: 700;
   margin: 1.75rem 0 .5rem;
   color: var(--accent);
 }
-.post-body h4 {
+.blog-post .post-body h5 {
   font-size: .95rem;
   font-weight: 600;
   margin: 1.5rem 0 .4rem;
