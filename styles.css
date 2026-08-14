@@ -227,7 +227,7 @@ section { padding: 5rem 0; }
 /* ============================================================
    EXPERIENCE
    ============================================================ */
-#experience { background: var(--bg2); }
+#experience { background: var(--bg); }
 
 .timeline { position: relative; padding-left: 2rem; }
 .timeline::before {
@@ -263,6 +263,8 @@ section { padding: 5rem 0; }
 /* ============================================================
    EDUCATION
    ============================================================ */
+#education { background: var(--bg2); }
+
 .edu-grid {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1.25rem;
