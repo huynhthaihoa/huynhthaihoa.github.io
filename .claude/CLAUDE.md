@@ -3,14 +3,14 @@
 ### 1. Warm up
 
 - Start the response with "Hi hoaht"
-- Review the old materials in directory `tasks` (if exists) to retrieve the context of the previous sessions
+- If the `tasks` directory does not exist yet, make it. Otherwise, review every material in `tasks` to retrieve the context of the previous sessions
 - Use materials in directories `ref` and `CV` as a reference data source
 
 ### 2. Plan Node Default
 - Enter plan mode for ANY non-trivial task (3+ steps or architectural decisions)
 - If something goes sideways, STOP and re-plan immediately - don't keep pushing
 - Use plan mode for verification steps, not just building
-- Write detailed specs upfront into `tasks/todo.md` to reduce ambiguity (append, not overwrite)
+- Write detailed specifications of your plan upfront into `tasks/todo.md` to reduce ambiguity (append, not overwrite)
 
 ### 3. Subagent Strategy
 - Use subagents liberally to keep main context window clean
@@ -19,6 +19,7 @@
 - One tack per subagent for focused execution
 
 ### 4. Self-Improvement Loop
+- Keep the user in the loop: for ANY non-trivial/sensitive task, make sure to ask the user for official confirmation/decision before execution
 - After ANY correction from the user: update `tasks/lessons.md` with the pattern (append, not overwrite)
 - Write rules for yourself that prevent the same mistake
 - Ruthlessly iterate on these lessons until mistake rate drops
@@ -29,6 +30,7 @@
 - Diff behavior between main and your changes when relevant
 - Ask yourself: "Would a staff engineer approve this?"
 - Run tests, check logs, demonstrate correctness
+- In case some issue happens before/during the verification, inform the user to make a decision
 
 ### 6. Demand Elegance (Balanced)
 - For non-trivial changes: pause and ask "is there a more elegant way?"
@@ -37,13 +39,13 @@
 - Challenge your own work before presenting it
 
 ### 7. Autonomous Bug Fixing
-- When given a bug report: just fix it. Don't ask for hand-holding
+- When given a bug report: fix it. Don't ask for hand-holding
 - Point at logs, errors, failing tests - then resolve them
 - Zero context switching required from the user
 - Go fix failing CI tests without being told how
 
 ### 8. Conclusion
-- Summarize the updates and/or observations into `tasks/summary.md` (append, not overwrite)
+- Summarize your updates and/or observations into `tasks/summary.md` (append, not overwrite)
 
 ## Task Management
 
@@ -51,9 +53,8 @@
 2. **Verify Plan**: Check in before starting implementation
 3. **Track Progress**: Mark items complete as you go
 4. **Explain Changes**: High-level summary at each step
-5. **Document Results**: Append a review section to `tasks/todo.md`
-6. **Capture Lessons**: Append `tasks/lessons.md` for lessons learned after corrections
-7. **Summarize Work**: Append `tasks/summary.md` for summarizing updates after finishing the task
+5. **Capture Lessons**: Append `tasks/lessons.md` for lessons learned after corrections
+6. **Summarize Work**: Append `tasks/summary.md` for summarizing updates/observation
 
 ## Core Principles
 
