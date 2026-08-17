@@ -23,11 +23,33 @@ const hamburger = document.querySelector('.hamburger');
 const navLinks  = document.querySelector('.nav-links');
 
 hamburger.addEventListener('click', () => {
-  navLinks.classList.toggle('open');
+  const isOpen = navLinks.classList.toggle('open');
+  hamburger.setAttribute('aria-expanded', isOpen);
 });
 
 navLinks.querySelectorAll('a').forEach(a => {
-  a.addEventListener('click', () => navLinks.classList.remove('open'));
+  a.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+  });
+});
+
+// ============================================================
+// Collapsible "show more" lists (e.g. Certifications)
+// ============================================================
+document.querySelectorAll('.cert-toggle').forEach(btn => {
+  const target = document.getElementById(btn.getAttribute('aria-controls'));
+  if (!target) return;
+  const count = target.querySelectorAll('.cert-item').length;
+
+  btn.textContent = `Show ${count} more`;
+
+  btn.addEventListener('click', () => {
+    const willShow = target.hasAttribute('hidden');
+    target.toggleAttribute('hidden', !willShow);
+    btn.setAttribute('aria-expanded', willShow);
+    btn.textContent = willShow ? 'Show less' : `Show ${count} more`;
+  });
 });
 
 // ============================================================

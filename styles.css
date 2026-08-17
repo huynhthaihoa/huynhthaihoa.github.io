@@ -317,6 +317,11 @@ section { padding: 5rem 0; }
 }
 .skill-tag--interest svg { flex-shrink: 0; }
 .skill-tag--interest:hover { background: rgba(56,189,248,.1); color: var(--tag-col); }
+.skill-tag--familiar {
+  background: transparent; color: var(--muted);
+  border-color: rgba(148,163,184,.25); font-weight: 400;
+}
+.skill-tag--familiar:hover { background: rgba(56,189,248,.08); color: var(--tag-col); }
 
 /* ============================================================
    PROJECTS
@@ -327,6 +332,16 @@ section { padding: 5rem 0; }
   display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 1.25rem;
 }
+
+.projects-subhead {
+  grid-column: 1 / -1;
+  display: flex; align-items: center; gap: .75rem;
+  font-size: .8rem; font-weight: 600; color: var(--muted);
+  text-transform: uppercase; letter-spacing: .08em;
+  margin: 1.5rem 0 -.25rem;
+}
+.projects-subhead::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.projects-subhead:first-child { margin-top: 0; }
 
 .project-card {
   background: var(--card); border: 1px solid var(--border);
@@ -372,6 +387,15 @@ section { padding: 5rem 0; }
 .project-duration { font-size: .8rem; color: var(--accent); font-weight: 600; margin-bottom: .6rem; }
 .project-desc { font-size: .875rem; color: var(--muted); line-height: 1.7; flex: 1; margin-bottom: 1rem; }
 
+.stat-strip { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: .75rem; }
+.stat-chip {
+  font-size: .78rem; color: var(--text); background: var(--tag-bg);
+  padding: .3rem .65rem; border-radius: 8px;
+}
+.stat-chip strong { color: var(--accent); font-weight: 700; }
+
+.project-note { font-size: .74rem; color: var(--muted); font-style: italic; margin: -.4rem 0 .75rem; }
+
 .project-readmore {
   display: inline-flex; align-items: center; gap: .35rem;
   color: var(--accent); font-size: .82rem; font-weight: 600;
@@ -413,6 +437,13 @@ section { padding: 5rem 0; }
   font-size: .82rem; color: var(--accent); font-weight: 500; margin-bottom: .3rem;
 }
 .pub-date { font-size: .8rem; color: var(--muted); }
+.pub-tier {
+  display: inline-flex; align-items: center;
+  font-size: .68rem; font-weight: 600;
+  padding: .12rem .55rem; border-radius: 100px;
+  background: var(--tag-bg); color: var(--tag-col);
+  margin-left: .6rem; text-transform: uppercase; letter-spacing: .03em;
+}
 .pub-desc { font-size: .82rem; color: var(--muted); margin-top: .4rem; line-height: 1.5; }
 
 .pub-actions { display: flex; gap: .5rem; align-items: center; flex-shrink: 0; }
@@ -483,6 +514,19 @@ section { padding: 5rem 0; }
 
 .cert-name { font-size: .88rem; font-weight: 500; flex: 1; }
 .cert-date { font-size: .8rem; color: var(--muted); white-space: nowrap; }
+
+.cert-extra { display: flex; flex-direction: column; gap: .6rem; }
+.cert-extra[hidden] { display: none; }
+
+.cert-toggle {
+  display: flex; align-items: center; justify-content: center;
+  padding: .55rem 1rem; width: 100%;
+  background: transparent; color: var(--muted);
+  border: 1px dashed var(--border); border-radius: 8px;
+  font-size: .82rem; font-weight: 500; cursor: pointer;
+  transition: all .2s;
+}
+.cert-toggle:hover { border-color: var(--accent); color: var(--tag-col); }
 
 /* ============================================================
    FOOTER
