@@ -70,12 +70,14 @@ document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 const sections = document.querySelectorAll('section[id]');
 const navAs    = document.querySelectorAll('.nav-links a[href^="#"]');
 
-window.addEventListener('scroll', () => {
-  let current = '';
-  sections.forEach(s => {
-    if (window.scrollY >= s.offsetTop - 120) current = s.id;
-  });
-  navAs.forEach(a => {
-    a.style.color = a.getAttribute('href') === `#${current}` ? 'var(--text)' : '';
-  });
-}, { passive: true });
+if (navAs.length) {
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    navAs.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === `#${current}`);
+    });
+  }, { passive: true });
+}

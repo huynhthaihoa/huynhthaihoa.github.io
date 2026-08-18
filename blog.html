@@ -17,12 +17,19 @@
   <meta name="twitter:image" content="https://huynhthaihoa.github.io/assets/profile.jpg" />
   <link rel="stylesheet" href="styles.css" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <meta name="theme-color" content="#0f172a" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous" />
 </head>
 <body>
+<svg style="display:none" aria-hidden="true">
+  <symbol id="icon-github" viewBox="0 0 24 24">
+    <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+  </symbol>
+</svg>
 
 <!-- ============================================================
      NAVIGATION
@@ -38,7 +45,7 @@
     <li><a href="index.html#skills">Skills</a></li>
     <li><a href="index.html#projects">Projects</a></li>
     <li><a href="index.html#publications">Publications</a></li>
-    <li><a href="index.html#blog" style="color:var(--text)">Blog</a></li>
+    <li><a href="index.html#blog" class="active">Blog</a></li>
     <li><a href="index.html#certifications">Certifications</a></li>
   </ul>
 
@@ -426,7 +433,7 @@
 
       <h3>1. Ellipse Playground</h3>
       <p>Given the <strong>image coordinate system</strong> $Oxy$, with $O(0, 0)$ as the <strong>coordinate center</strong>:</p>
-      <img src="assets/blog/2d-vision-coord.png" loading="lazy" alt="Image coordinate system Oxy diagram" />
+      <img src="assets/blog/2d-vision-coord.png" width="940" height="918" loading="lazy" alt="Image coordinate system Oxy diagram" />
 
       <h4>1.1. General Equation</h4>
       <p>The general equation of a rotated ellipse:</p>
@@ -453,7 +460,7 @@
         <li>$\alpha$ is the parameter, which ranges (radian) from $0$ to $2\pi$</li>
       </ul>
       <p>Rotated ellipse illustration, with $Cx$ and $Cy$ correspondingly paralleled &amp; sharing the same direction with $Ox$ and $Oy$:</p>
-      <img src="assets/blog/2d-vision-ellipse.png" loading="lazy" alt="Rotated ellipse illustration" />
+      <img src="assets/blog/2d-vision-ellipse.png" width="889" height="793" loading="lazy" alt="Rotated ellipse illustration" />
 
       <h3>2. Rotate Point</h3>
       <p>If you rotate a point $B(x_B, y_B)$ around a point $A(x_A, y_A)$ by angle $\theta$ (anti-clockwise order) you'll get a point $C(x_C, y_C)$, where:</p>
@@ -577,7 +584,7 @@
           <div class="work-title">RollingDepth: Video Depth without Video Models (2024)</div>
           <div class="work-links">
             <a href="https://github.com/prs-eth/rollingdepth" target="_blank" rel="noopener" class="work-link-btn">
-              <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              <svg width="12" height="12" fill="currentColor"><use href="#icon-github"></use></svg>
               GitHub
             </a>
           </div>
@@ -587,11 +594,11 @@
           <div class="work-title">Depth Anything V2 – CVPR 2024</div>
           <div class="work-links">
             <a href="https://github.com/DepthAnything/Depth-Anything-V2" target="_blank" rel="noopener" class="work-link-btn">
-              <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              <svg width="12" height="12" fill="currentColor"><use href="#icon-github"></use></svg>
               GitHub (V2)
             </a>
             <a href="https://github.com/LiheYoung/Depth-Anything" target="_blank" rel="noopener" class="work-link-btn">
-              <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              <svg width="12" height="12" fill="currentColor"><use href="#icon-github"></use></svg>
               GitHub (V1)
             </a>
           </div>
@@ -601,7 +608,7 @@
           <div class="work-title">DepthCrafter: Generating Consistent Long Depth Sequences for Open-world Videos (2024)</div>
           <div class="work-links">
             <a href="https://github.com/Tencent/DepthCrafter" target="_blank" rel="noopener" class="work-link-btn">
-              <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              <svg width="12" height="12" fill="currentColor"><use href="#icon-github"></use></svg>
               GitHub
             </a>
           </div>
@@ -611,7 +618,7 @@
           <div class="work-title">Depth Anywhere: Enhancing 360 Monocular Depth Estimation via Perspective Distillation and Unlabeled Data Augmentation – NeurIPS 2024</div>
           <div class="work-links">
             <a href="https://github.com/albert100121/Depth-Anywhere" target="_blank" rel="noopener" class="work-link-btn">
-              <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              <svg width="12" height="12" fill="currentColor"><use href="#icon-github"></use></svg>
               GitHub
             </a>
           </div>
@@ -621,7 +628,7 @@
           <div class="work-title">Depth Pro: Sharp Monocular Metric Depth in Less Than a Second (2024)</div>
           <div class="work-links">
             <a href="https://github.com/apple/ml-depth-pro" target="_blank" rel="noopener" class="work-link-btn">
-              <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              <svg width="12" height="12" fill="currentColor"><use href="#icon-github"></use></svg>
               GitHub
             </a>
           </div>
@@ -631,7 +638,7 @@
           <div class="work-title">UniDepth: Universal Monocular Metric Depth Estimation – CVPR 2024</div>
           <div class="work-links">
             <a href="https://github.com/lpiccinelli-eth/UniDepth" target="_blank" rel="noopener" class="work-link-btn">
-              <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              <svg width="12" height="12" fill="currentColor"><use href="#icon-github"></use></svg>
               GitHub
             </a>
           </div>
@@ -641,7 +648,7 @@
           <div class="work-title">Marigold: Repurposing Diffusion-Based Image Generators for Monocular Depth Estimation – CVPR 2024</div>
           <div class="work-links">
             <a href="https://github.com/prs-eth/marigold" target="_blank" rel="noopener" class="work-link-btn">
-              <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              <svg width="12" height="12" fill="currentColor"><use href="#icon-github"></use></svg>
               GitHub
             </a>
           </div>
@@ -665,7 +672,7 @@
               arXiv
             </a>
             <a href="https://github.com/fuy34/DFV" target="_blank" rel="noopener" class="work-link-btn">
-              <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              <svg width="12" height="12" fill="currentColor"><use href="#icon-github"></use></svg>
               GitHub
             </a>
           </div>
@@ -675,7 +682,7 @@
           <div class="work-title">Towards Robust Monocular Depth Estimation: Mixing Datasets for Zero-shot Cross-dataset Transfer (MiDaS, 2020)</div>
           <div class="work-links">
             <a href="https://github.com/isl-org/MiDaS" target="_blank" rel="noopener" class="work-link-btn">
-              <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              <svg width="12" height="12" fill="currentColor"><use href="#icon-github"></use></svg>
               GitHub
             </a>
           </div>
@@ -689,7 +696,7 @@
           <div class="work-title">RGBD Objects in the Wild: Scaling Real-World 3D Object Learning from RGB-D Videos</div>
           <div class="work-links">
             <a href="https://github.com/wildrgbd/wildrgbd" target="_blank" rel="noopener" class="work-link-btn">
-              <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              <svg width="12" height="12" fill="currentColor"><use href="#icon-github"></use></svg>
               GitHub
             </a>
           </div>
@@ -698,7 +705,7 @@
           <div class="work-title">CARLA Simulator</div>
           <div class="work-links">
             <a href="https://github.com/carla-simulator/carla" target="_blank" rel="noopener" class="work-link-btn">
-              <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              <svg width="12" height="12" fill="currentColor"><use href="#icon-github"></use></svg>
               GitHub
             </a>
           </div>
@@ -712,7 +719,7 @@
           Wikipedia: Depth Perception
         </a>
         <a href="https://github.com/jspenmar/monodepth_benchmark" target="_blank" rel="noopener" class="ref-link">
-          <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          <svg width="14" height="14" fill="currentColor"><use href="#icon-github"></use></svg>
           jspenmar / monodepth_benchmark
         </a>
       </div>
@@ -869,7 +876,7 @@ A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)</cod
 
       <h3>Perspective Transform</h3>
       <p>The <strong>homography</strong> (perspective transform) is a geometric transformation relating 2 different planes. Straight lines remain straight after transformation.</p>
-      <img src="assets/blog/perspective_transform.png" loading="lazy" alt="Perspective Transform illustration" />
+      <img src="assets/blog/perspective_transform.png" width="422" height="243" loading="lazy" alt="Perspective Transform illustration" />
       <p>Each point $(x, y)$ on plane $\pi$ maps to $(x', y')$ on plane $\pi'$:</p>
       <div class="math-display">
         $$s \begin{bmatrix} x' \\ y' \\ 1 \end{bmatrix} = \mathbf{H} \begin{bmatrix} x \\ y \\ 1 \end{bmatrix} = \begin{bmatrix} h_{11} & h_{12} & h_{13} \\ h_{21} & h_{22} & h_{23} \\ h_{31} & h_{32} & h_{33} \end{bmatrix} \begin{bmatrix} x \\ y \\ 1 \end{bmatrix}$$
@@ -897,7 +904,7 @@ A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)</cod
       </ul>
 
       <h4>Equation</h4>
-      <img src="assets/blog/affine_transform.png" loading="lazy" alt="Affine Transform illustration" />
+      <img src="assets/blog/affine_transform.png" width="1042" height="1825" loading="lazy" alt="Affine Transform illustration" />
 
     </div><!-- /.post-body -->
   </div>
@@ -949,8 +956,8 @@ A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)</cod
 
       <h3>Demo</h3>
       <p>Example images showing the algorithm in action with randomly generated gaze vectors and phone objects:</p>
-      <img src="assets/blog/example_distracted.png" loading="lazy" alt="Distracted — person looking at phone" />
-      <img src="assets/blog/example_focus.png" loading="lazy" alt="Focus — person not looking at phone" />
+      <img src="assets/blog/example_distracted.png" width="700" height="700" loading="lazy" alt="Distracted — person looking at phone" />
+      <img src="assets/blog/example_focus.png" width="700" height="700" loading="lazy" alt="Focus — person not looking at phone" />
       <p>Legend:</p>
       <ul>
         <li><strong>Green vectors</strong>: FOV bounds</li>

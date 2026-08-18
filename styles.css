@@ -93,6 +93,7 @@ nav {
   transition: color .2s;
 }
 .nav-links a:hover { color: var(--text); opacity: 1; }
+.nav-links a.active { color: var(--text); }
 
 .nav-right { display: flex; align-items: center; gap: .75rem; }
 
@@ -265,6 +266,8 @@ section { padding: 5rem 0; }
   font-size: .9rem; color: var(--muted); margin-bottom: .5rem;
 }
 
+.timeline-desc { font-size: .875rem; color: var(--muted); }
+
 /* ============================================================
    EDUCATION
    ============================================================ */
@@ -285,6 +288,7 @@ section { padding: 5rem 0; }
 .edu-degree { font-size: 1rem; font-weight: 700; margin-bottom: .4rem; }
 .edu-school { font-size: .9rem; color: var(--accent); font-weight: 500; margin-bottom: .25rem; }
 .edu-date { font-size: .8rem; color: var(--muted); }
+.edu-note { font-size: .85rem; color: var(--muted); margin-top: .65rem; }
 .edu-badge {
   display: inline-block;
   background: var(--tag-bg); color: var(--tag-col);
@@ -363,6 +367,7 @@ section { padding: 5rem 0; }
   border-radius: var(--radius) var(--radius) 0 0;
   display: block;
 }
+.post-body img { height: auto; }
 
 .project-top {
   display: flex; justify-content: space-between;
@@ -375,6 +380,7 @@ section { padding: 5rem 0; }
   display: flex; align-items: center; justify-content: center;
   font-size: 1.1rem; flex-shrink: 0;
 }
+.project-icon svg { color: var(--accent); }
 
 .project-links { display: flex; gap: .4rem; }
 .project-link {

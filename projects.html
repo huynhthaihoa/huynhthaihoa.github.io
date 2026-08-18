@@ -17,12 +17,19 @@
   <meta name="twitter:image" content="https://huynhthaihoa.github.io/assets/profile.jpg" />
   <link rel="stylesheet" href="styles.css" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <meta name="theme-color" content="#0f172a" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous" />
 </head>
 <body>
+<svg style="display:none" aria-hidden="true">
+  <symbol id="icon-github" viewBox="0 0 24 24">
+    <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+  </symbol>
+</svg>
 
 <!-- ============================================================
      NAVIGATION
@@ -36,7 +43,7 @@
     <li><a href="index.html#experience">Experience</a></li>
     <li><a href="index.html#education">Education</a></li>
     <li><a href="index.html#skills">Skills</a></li>
-    <li><a href="index.html#projects" style="color:var(--text)">Projects</a></li>
+    <li><a href="index.html#projects" class="active">Projects</a></li>
     <li><a href="index.html#publications">Publications</a></li>
     <li><a href="index.html#blog">Blog</a></li>
     <li><a href="index.html#certifications">Certifications</a></li>
@@ -115,14 +122,14 @@
         <li><strong>Stitching</strong>: register the cache parameters needed for every camera to contribute to the estimate, then compose the panorama from the input batch and those cached parameters.</li>
         <li><strong>Postprocessing</strong>: the resulting panorama feeds downstream tasks — display, detection, depth estimation, etc.</li>
       </ul>
-      <img src="assets/projects/camera-stitching-pipeline.png" loading="lazy" alt="Camera stitching pipeline overview">
+      <img src="assets/projects/camera-stitching-pipeline.webp" width="1800" height="769" loading="lazy" alt="Camera stitching pipeline overview">
       <div class="callout">💡 <strong>Rule of thumb</strong>: the Field-of-View Intersection-over-Union ratio between each camera pair should be at least 30% to overcome lens distortion and leave enough detectable features for stitching.</div>
 
       <hr>
 
       <h3>Stitching Algorithm</h3>
       <p>I implemented two stitching algorithms: a <strong>simple version</strong> with a lighter workflow, and an <strong>advanced version</strong> that trades higher processing latency for a smoother, more refined result.</p>
-      <img src="assets/projects/camera-stitching-algorithms.png" loading="lazy" alt="Simple vs advanced stitching algorithm workflow">
+      <img src="assets/projects/camera-stitching-algorithms.webp" width="1799" height="2328" loading="lazy" alt="Simple vs advanced stitching algorithm workflow">
 
       <h4>Feature Extraction</h4>
       <p>Used to extract the feature list from each input image:</p>
@@ -149,9 +156,9 @@
 
       <p>These three cases all relate a transformation between two planes:</p>
       <div class="img-row">
-        <img src="assets/projects/camera-stitching-homography-plane.png" loading="lazy" alt="Planar surface and the image plane">
-        <img src="assets/projects/camera-stitching-homography-stitch.png" loading="lazy" alt="Planar surface viewed by two camera positions">
-        <img src="assets/projects/camera-stitching-homography-rotation.png" loading="lazy" alt="Camera rotating around its axis of projection">
+        <img src="assets/projects/camera-stitching-homography-plane.webp" width="422" height="243" loading="lazy" alt="Planar surface and the image plane">
+        <img src="assets/projects/camera-stitching-homography-stitch.webp" width="900" height="255" loading="lazy" alt="Planar surface viewed by two camera positions">
+        <img src="assets/projects/camera-stitching-homography-rotation.webp" width="555" height="207" loading="lazy" alt="Camera rotating around its axis of projection">
       </div>
       <p class="img-caption">Left → right: a planar surface and the image plane; a planar surface viewed by two camera positions (the stitching case); a camera rotating around its axis of projection — equivalent to points lying on a plane at infinity (smartphone panorama mode), the foundational case for image stitching.</p>
 
@@ -160,16 +167,16 @@
       <h3>Demo</h3>
       <h4>Input — 3 cameras (left mirror, front, right mirror)</h4>
       <div class="img-row">
-        <img src="assets/projects/camera-stitching-input-left.png" loading="lazy" alt="Left mirror camera input">
-        <img src="assets/projects/camera-stitching-input-front.png" loading="lazy" alt="Front camera input">
-        <img src="assets/projects/camera-stitching-input-right.png" loading="lazy" alt="Right mirror camera input">
+        <img src="assets/projects/camera-stitching-input-left.webp" width="640" height="480" loading="lazy" alt="Left mirror camera input">
+        <img src="assets/projects/camera-stitching-input-front.webp" width="640" height="480" loading="lazy" alt="Front camera input">
+        <img src="assets/projects/camera-stitching-input-right.webp" width="640" height="480" loading="lazy" alt="Right mirror camera input">
       </div>
 
       <h4>Simple-algorithm output</h4>
-      <img src="assets/projects/camera-stitching-output-simple.png" loading="lazy" alt="Simple algorithm stitched output">
+      <img src="assets/projects/camera-stitching-output-simple.webp" width="1800" height="786" loading="lazy" alt="Simple algorithm stitched output">
 
       <h4>Advanced-algorithm output</h4>
-      <img src="assets/projects/camera-stitching-output-advanced.png" loading="lazy" alt="Advanced algorithm stitched output">
+      <img src="assets/projects/camera-stitching-output-advanced.webp" width="1800" height="855" loading="lazy" alt="Advanced algorithm stitched output">
 
     </div><!-- /.post-body -->
   </div>
@@ -208,12 +215,12 @@
       <h4>3. Camera-LIDAR Calibration</h4>
       <p>Estimated the rotation matrix and translation vector between the LIDAR and camera coordinate systems:</p>
       <div class="img-row">
-        <img src="assets/projects/worker-localization-calibration-1.png" loading="lazy" alt="Camera-LIDAR calibration process diagram 1">
-        <img src="assets/projects/worker-localization-calibration-2.png" loading="lazy" alt="Camera-LIDAR calibration process diagram 2">
+        <img src="assets/projects/worker-localization-calibration-1.webp" width="1414" height="455" loading="lazy" alt="Camera-LIDAR calibration process diagram 1">
+        <img src="assets/projects/worker-localization-calibration-2.webp" width="960" height="463" loading="lazy" alt="Camera-LIDAR calibration process diagram 2">
       </div>
       <p>With rotation $R$ and translation $t$, the LIDAR point cloud converts into the camera coordinate system, then projects onto the image plane to form a ground-truth-scale depth map aligned with the camera image:</p>
       <div class="math-display">$$s \begin{bmatrix} u\\ v \end{bmatrix} = \begin{bmatrix} f_x & 0 & c_x \\ 0 & f_y & c_y \\ 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} X_c\\ Y_c \\ Z_c \end{bmatrix}$$</div>
-      <img src="assets/projects/worker-localization-depthmap.png" loading="lazy" alt="Resulting ground-truth depth map aligned with the thermal camera image">
+      <img src="assets/projects/worker-localization-depthmap.webp" width="1208" height="741" loading="lazy" alt="Resulting ground-truth depth map aligned with the thermal camera image">
 
       <hr>
 
@@ -259,7 +266,7 @@
 
       <h3>Lightweight Depth Estimation Model</h3>
       <p>For real-time demonstration, we built an optimized depth model targeting low latency without giving up too much accuracy. Inspired by the YOLO family's efficiency, the model uses a customized <strong>YOLOv8 backbone + neck</strong> as a 4-scale feature encoder, connected via skip connections to a <strong>U-Net-style decoder</strong> that reconstructs the depth map.</p>
-      <img src="assets/projects/pseudo-lidar-model-arch.png" loading="lazy" alt="Lightweight YOLOv8-based encoder-decoder depth model architecture">
+      <img src="assets/projects/pseudo-lidar-model-arch.webp" width="1360" height="740" loading="lazy" alt="Lightweight YOLOv8-based encoder-decoder depth model architecture">
       <p>Fine-tuned on NYUv2 (indoor) and KITTI (outdoor), the model performs competitively against established depth-evaluation metrics while staying far smaller than SOTA methods:</p>
 
       <h4>NYUv2 dataset</h4>
@@ -299,8 +306,8 @@
     <div class="post-body">
 
       <div class="img-row">
-        <img src="assets/projects/head-pose.png" loading="lazy" alt="Head pose estimation demo 1">
-        <img src="assets/projects/head-pose-cover-2.png" loading="lazy" alt="Head pose estimation demo 2">
+        <img src="assets/projects/head-pose.webp" width="500" height="375" loading="lazy" alt="Head pose estimation demo 1">
+        <img src="assets/projects/head-pose-cover-2.webp" width="372" height="388" loading="lazy" alt="Head pose estimation demo 2">
       </div>
 
       <h3>Defining a Head Pose</h3>
@@ -323,20 +330,20 @@
 
       <h3>Idea</h3>
       <p>To estimate a human's head pose (rotation matrix + translation vector relative to the camera) in real time, the pipeline follows a classical computer-vision approach:</p>
-      <img src="assets/projects/head-pose-pipeline.png" loading="lazy" alt="Head pose estimation pipeline diagram">
+      <img src="assets/projects/head-pose-pipeline.webp" width="1800" height="508" loading="lazy" alt="Head pose estimation pipeline diagram">
       <p>An Extended Kalman Filter "smooths" the predicted pose and mitigates failures when the model can't see the face — occlusion, extreme angles, etc.</p>
 
       <hr>
 
       <h3>Facial Landmark Estimation</h3>
       <p>I built a 2D facial landmark model with a classification-style backbone, ending in a linear (classifier) head with $(num\_keypoints \times 3)$ outputs for the with-visibility-flag variant, or $(num\_keypoints \times 2)$ for the without-visibility-flag variant:</p>
-      <img src="assets/projects/head-pose-landmark-arch.png" loading="lazy" alt="Facial landmark model architecture">
+      <img src="assets/projects/head-pose-landmark-arch.webp" width="1462" height="503" loading="lazy" alt="Facial landmark model architecture">
 
       <hr>
 
       <h3>Head Pose via SolvePnPRansac</h3>
       <p>Static points from the predicted 2D landmarks are matched against their corresponding 3D points from the Mediapipe 3D facemark template, then <code>solvePnPRansac</code> recovers the rotation matrix and translation vector. "Static" here means points that keep a fixed relative position to the face even through facial gestures — blinking, yawning, smiling, etc.</p>
-      <img src="assets/projects/head-pose-pnp-matching.png" loading="lazy" alt="2D landmark to 3D facemark template matching">
+      <img src="assets/projects/head-pose-pnp-matching.webp" width="1242" height="638" loading="lazy" alt="2D landmark to 3D facemark template matching">
 
       <hr>
 
@@ -352,7 +359,7 @@
           Conversion between Rotation Matrix and Quaternion
         </a>
         <a href="https://github.com/piercus/kalman-filter/issues/37" target="_blank" rel="noopener" class="ref-link">
-          <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          <svg width="14" height="14" fill="currentColor"><use href="#icon-github"></use></svg>
           piercus/kalman-filter#37 — idea inspiration for the EKF implementation
         </a>
       </div>
