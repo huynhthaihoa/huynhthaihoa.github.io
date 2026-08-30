@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark');</script>
+  <title>Nghiên cứu điển hình – Hoa Huynh</title>
+  <meta name="description" content="Các nghiên cứu điển hình chuyên sâu về những dự án thị giác máy tính của Hoa Huynh: ghép ảnh đa camera, định vị công nhân, PseudoLiDAR và ước lượng tư thế đầu." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://huynhthaihoa.github.io/projects-vi.html" />
+  <meta property="og:title" content="Nghiên cứu điển hình – Hoa Huynh" />
+  <meta property="og:description" content="Các nghiên cứu điển hình chuyên sâu về những dự án thị giác máy tính của Hoa Huynh: ghép ảnh đa camera, định vị công nhân, PseudoLiDAR và ước lượng tư thế đầu." />
+  <meta property="og:image" content="https://huynhthaihoa.github.io/assets/profile.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Nghiên cứu điển hình – Hoa Huynh" />
+  <meta name="twitter:description" content="Các nghiên cứu điển hình chuyên sâu về những dự án thị giác máy tính của Hoa Huynh: ghép ảnh đa camera, định vị công nhân, PseudoLiDAR và ước lượng tư thế đầu." />
+  <meta name="twitter:image" content="https://huynhthaihoa.github.io/assets/profile.jpg" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <meta name="theme-color" content="#0f172a" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous" />
+  <link rel="alternate" hreflang="en" href="https://huynhthaihoa.github.io/projects.html" />
+  <link rel="alternate" hreflang="vi" href="https://huynhthaihoa.github.io/projects-vi.html" />
+  <link rel="alternate" hreflang="x-default" href="https://huynhthaihoa.github.io/projects.html" />
+</head>
+<body>
+<svg style="display:none" aria-hidden="true">
+  <symbol id="icon-github" viewBox="0 0 24 24">
+    <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+  </symbol>
+</svg>
+
+<!-- ============================================================
+     NAVIGATION
+     ============================================================ -->
+<nav>
+  <a href="index-vi.html" style="text-decoration:none;">
+    <span class="nav-brand">Hoa Huynh</span>
+  </a>
+
+  <ul class="nav-links" id="nav-links">
+    <li><a href="index-vi.html#experience">Kinh nghiệm</a></li>
+    <li><a href="index-vi.html#education">Học vấn</a></li>
+    <li><a href="index-vi.html#skills">Kỹ năng</a></li>
+    <li><a href="index-vi.html#projects" class="active">Dự án</a></li>
+    <li><a href="index-vi.html#publications">Công bố khoa học</a></li>
+    <li><a href="index-vi.html#blog">Blog</a></li>
+    <li><a href="index-vi.html#certifications">Chứng chỉ</a></li>
+  </ul>
+
+  <div class="nav-right">
+    <a href="projects.html" class="lang-switch" title="View in English">EN</a>
+    <button id="theme-toggle" aria-label="Chuyển đổi giao diện">☀️</button>
+    <button class="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">☰</button>
+  </div>
+</nav>
+
+<!-- ============================================================
+     PAGE HEADER
+     ============================================================ -->
+<section id="blog-hero">
+  <div class="container">
+    <a href="index-vi.html" class="back-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+      </svg>
+      Quay lại Hồ sơ
+    </a>
+
+    <h1>Nghiên cứu điển hình</h1>
+    <p class="page-subtitle">Bài viết đi sâu hơn về một số dự án trong hồ sơ: quy trình xử lý (pipeline), toán học, và bản demo.</p>
+
+    <div class="post-toc">
+      <a href="#camera-stitching" class="toc-card fade-up">
+        <span class="blog-tag">Thị giác máy tính</span>
+        <div class="toc-title">Ghép ảnh đa camera thời gian thực</div>
+        <div class="toc-date">Tháng 6/2022 – Tháng 9/2022</div>
+      </a>
+      <a href="#worker-localization" class="toc-card fade-up">
+        <span class="blog-tag-depth">Ước lượng độ sâu</span>
+        <div class="toc-title">Định vị công nhân tại đường sắt</div>
+        <div class="toc-date">Tháng 9/2022 – Tháng 3/2023</div>
+      </a>
+      <a href="#pseudo-lidar" class="toc-card fade-up">
+        <span class="blog-tag-depth">Ước lượng độ sâu</span>
+        <div class="toc-title">PseudoLiDAR thời gian thực</div>
+        <div class="toc-date">Tháng 3/2023 – Tháng 11/2023</div>
+      </a>
+      <a href="#head-pose-estimation" class="toc-card fade-up">
+        <span class="blog-tag">Thị giác máy tính</span>
+        <div class="toc-title">Ước lượng tư thế đầu</div>
+        <div class="toc-date">Tháng 9/2025 – Hiện tại</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="post-sep"></div>
+
+<!-- ============================================================
+     CASE STUDY 1 — REAL-TIME MULTIPLE CAMERA STITCHING
+     ============================================================ -->
+<article id="camera-stitching" class="blog-article case-study">
+  <div class="container">
+    <header class="post-header">
+      <span class="blog-tag">Thị giác máy tính</span>
+      <h2>Ghép ảnh đa camera thời gian thực</h2>
+      <div class="post-date">Tháng 6/2022 – Tháng 9/2022 · Python, PyTorch, OpenCV</div>
+    </header>
+
+    <div class="post-body">
+
+      <h3>Giới thiệu</h3>
+      <p>Một bằng chứng khái niệm (proof-of-concept) thực hiện <strong>ghép ảnh đa camera thời gian thực</strong>, có thể áp dụng cho <strong>Hệ thống Hỗ trợ Lái xe Tiên tiến (Advanced Driving Assistance System)</strong>. Tôi là nhà phát triển duy nhất, đảm nhiệm toàn bộ từ nghiên cứu, triển khai đến kiểm thử.</p>
+
+      <hr>
+
+      <h3>Tổng quan quy trình xử lý</h3>
+      <p>Quy trình ghép ảnh gồm ba giai đoạn:</p>
+      <ul>
+        <li><strong>Nhận luồng đầu vào</strong>: thu khung hình từ camera/nguồn video và gộp thành lô (batch) làm đầu vào cho thuật toán ghép ảnh.</li>
+        <li><strong>Ghép ảnh</strong>: đăng ký (register) các tham số cache cần thiết để mỗi camera đóng góp vào phép ước lượng, sau đó tổng hợp ảnh toàn cảnh (panorama) từ lô đầu vào và các tham số đã cache đó.</li>
+        <li><strong>Hậu xử lý</strong>: ảnh toàn cảnh thu được sẽ được đưa vào các tác vụ phía sau — hiển thị, phát hiện đối tượng, ước lượng độ sâu, v.v.</li>
+      </ul>
+      <img src="assets/projects/camera-stitching-pipeline.webp" width="1800" height="769" loading="lazy" alt="Tổng quan quy trình ghép ảnh camera">
+      <div class="callout">💡 <strong>Quy tắc kinh nghiệm</strong>: tỷ lệ Intersection-over-Union (IoU) giữa trường nhìn (Field-of-View) của mỗi cặp camera nên đạt tối thiểu 30% để khắc phục méo ống kính và giữ đủ đặc trưng (feature) có thể phát hiện được cho việc ghép ảnh.</div>
+
+      <hr>
+
+      <h3>Thuật toán ghép ảnh</h3>
+      <p>Tôi đã triển khai hai thuật toán ghép ảnh: một <strong>phiên bản đơn giản</strong> với quy trình xử lý nhẹ hơn, và một <strong>phiên bản nâng cao</strong> đánh đổi độ trễ xử lý cao hơn để lấy kết quả mượt mà, tinh chỉnh hơn.</p>
+      <img src="assets/projects/camera-stitching-algorithms.webp" width="1799" height="2328" loading="lazy" alt="So sánh quy trình thuật toán ghép ảnh đơn giản và nâng cao">
+
+      <h4>Trích xuất đặc trưng</h4>
+      <p>Dùng để trích xuất danh sách đặc trưng (feature) từ mỗi ảnh đầu vào:</p>
+      <ul>
+        <li><a href="http://www.bmva.org/bmvc/2013/Papers/paper0013/paper0013.pdf" target="_blank" rel="noopener">AKAZE</a></li>
+        <li><a href="https://margaritachli.com/papers/ICCV2011paper.pdf" target="_blank" rel="noopener">BRISK</a></li>
+        <li><a href="https://www.doc.ic.ac.uk/~ajd/Publications/alcantarilla_etal_eccv2012.pdf" target="_blank" rel="noopener">KAZE</a></li>
+        <li><a href="https://ieeexplore.ieee.org/document/6126544" target="_blank" rel="noopener">ORB</a></li>
+        <li><a href="https://link.springer.com/article/10.1023/B:VISI.0000029664.99615.94" target="_blank" rel="noopener">SIFT</a> (mặc định)</li>
+      </ul>
+
+      <h4>Khớp đặc trưng</h4>
+      <p>Dùng để tìm các đặc trưng khớp nhau giữa mỗi cặp ảnh đầu vào, từ đó ước lượng <strong>ma trận homography</strong>:</p>
+      <ul>
+        <li>Phương pháp bình phương tối thiểu (least squares)</li>
+        <li><a href="https://dl.acm.org/doi/10.1145/358669.358692" target="_blank" rel="noopener">Phương pháp mạnh (robust) dựa trên RANSAC</a> (mặc định)</li>
+        <li><a href="https://web.ipac.caltech.edu/staff/fmasci/home/astro_refs/LeastMedianOfSquares.pdf" target="_blank" rel="noopener">Phương pháp mạnh (robust) Least-Median</a></li>
+        <li><a href="https://link.springer.com/article/10.1007/BF01933667" target="_blank" rel="noopener">Phương pháp mạnh (robust) dựa trên PROSAC</a></li>
+      </ul>
+
+      <p>Ma trận homography $H$ xác định phép biến đổi giữa hai mặt phẳng, sai khác một hệ số tỷ lệ:</p>
+      <div class="math-display">$$s \begin{bmatrix} x' \\ y' \\ 1 \end{bmatrix} = \mathbf{H} \begin{bmatrix} x \\ y \\ 1 \end{bmatrix} = \begin{bmatrix} h_{11} & h_{12} & h_{13} \\ h_{21} & h_{22} & h_{23} \\ h_{31} & h_{32} & h_{33} \end{bmatrix} \begin{bmatrix} x \\ y \\ 1 \end{bmatrix}$$</div>
+      <p>$H$ là ma trận $3 \times 3$ với 8 bậc tự do, vì nó chỉ được ước lượng sai khác một hệ số tỷ lệ — thường được chuẩn hóa với $h_{33} = 1$.</p>
+
+      <p>Ba trường hợp sau đều liên quan đến phép biến đổi giữa hai mặt phẳng:</p>
+      <div class="img-row">
+        <img src="assets/projects/camera-stitching-homography-plane.webp" width="422" height="243" loading="lazy" alt="Mặt phẳng vật thể và mặt phẳng ảnh">
+        <img src="assets/projects/camera-stitching-homography-stitch.webp" width="900" height="255" loading="lazy" alt="Mặt phẳng vật thể quan sát từ hai vị trí camera">
+        <img src="assets/projects/camera-stitching-homography-rotation.webp" width="555" height="207" loading="lazy" alt="Camera xoay quanh trục chiếu của nó">
+      </div>
+      <p class="img-caption">Trái → phải: mặt phẳng vật thể và mặt phẳng ảnh; mặt phẳng vật thể quan sát từ hai vị trí camera (trường hợp ghép ảnh); camera xoay quanh trục chiếu của nó — tương đương với các điểm nằm trên một mặt phẳng ở vô cực (chế độ chụp toàn cảnh trên điện thoại), trường hợp nền tảng cho việc ghép ảnh.</p>
+
+      <hr>
+
+      <h3>Demo</h3>
+      <h4>Đầu vào — 3 camera (gương trái, phía trước, gương phải)</h4>
+      <div class="img-row">
+        <img src="assets/projects/camera-stitching-input-left.webp" width="640" height="480" loading="lazy" alt="Đầu vào camera gương trái">
+        <img src="assets/projects/camera-stitching-input-front.webp" width="640" height="480" loading="lazy" alt="Đầu vào camera phía trước">
+        <img src="assets/projects/camera-stitching-input-right.webp" width="640" height="480" loading="lazy" alt="Đầu vào camera gương phải">
+      </div>
+
+      <h4>Kết quả thuật toán đơn giản</h4>
+      <img src="assets/projects/camera-stitching-output-simple.webp" width="1800" height="786" loading="lazy" alt="Ảnh ghép từ thuật toán đơn giản">
+
+      <h4>Kết quả thuật toán nâng cao</h4>
+      <img src="assets/projects/camera-stitching-output-advanced.webp" width="1800" height="855" loading="lazy" alt="Ảnh ghép từ thuật toán nâng cao">
+
+    </div><!-- /.post-body -->
+  </div>
+</article>
+
+<div class="post-sep"></div>
+
+<!-- ============================================================
+     CASE STUDY 2 — WORKER LOCALIZATION AT THE RAILROAD
+     ============================================================ -->
+<article id="worker-localization" class="blog-article alt-bg case-study">
+  <div class="container">
+    <header class="post-header">
+      <span class="blog-tag-depth">Ước lượng độ sâu</span>
+      <h2>Định vị công nhân tại đường sắt</h2>
+      <div class="post-date">Tháng 9/2022 – Tháng 3/2023 · Python, MATLAB, C++, ROS</div>
+    </header>
+
+    <div class="post-body">
+
+      <h3>Giới thiệu</h3>
+      <p>Một bằng chứng khái niệm nhằm <strong>phát hiện và ước lượng vị trí của công nhân</strong> tại đường sắt, sử dụng <strong>một camera nhiệt (thermal camera) duy nhất</strong> (Boson LWIR).</p>
+
+      <hr>
+
+      <h3>Quy trình</h3>
+      <p>Quy trình xử lý kết hợp hai mô hình học sâu: <strong>phát hiện đối tượng (object detection)</strong> để tìm công nhân, và <strong>ước lượng độ sâu đơn mắt (monocular depth estimation)</strong> để ước lượng khoảng cách. Chúng tôi chọn hai mô hình SOTA (state-of-the-art) tốt nhất tại thời điểm đó — <strong>YOLOv5</strong> cho phát hiện đối tượng và <strong>NeWCRFs</strong> cho ước lượng độ sâu — sau đó tinh chỉnh (fine-tune) cả hai trên dữ liệu của riêng chúng tôi, vì trọng số huấn luyện sẵn (pretrained weights) được huấn luyện trên ảnh RGB trong khi camera của chúng tôi là camera nhiệt.</p>
+      <p>Là nhà phát triển đầu tiên của dự án, nhiệm vụ chính của tôi là thu thập dữ liệu chuẩn (ground truth) về "độ sâu". Với một LIDAR hình ảnh độ phân giải cao góc rộng Ouster OS0 (Ouster OS0 Ultra-Wide High-Resolution Imaging LIDAR), nhiệm vụ này được chia thành ba nhiệm vụ con:</p>
+
+      <h4>1. Hiệu chỉnh camera (Camera Calibration)</h4>
+      <p>Ước lượng các tham số nội tại (intrinsic parameters) và hệ số méo (distortion coefficients) của camera nhiệt thông qua phương pháp phát hiện bàn cờ (checkerboard) tiêu chuẩn, dựa trên <a href="https://docs.opencv.org/3.4/d9/d0c/group__calib3d.html#ga4abc2ece9fab9398f2e560d53c8c9780" target="_blank" rel="noopener">OpenCV</a> và gói <a href="https://github.com/ros-perception/image_pipeline/tree/rolling/camera_calibration" target="_blank" rel="noopener">image_pipeline/camera_calibration</a> của ROS, kết hợp thêm CLAHE (Contrast Limited Adaptive Histogram Equalization) để làm sắc nét độ tương phản cục bộ. Vì camera nhiệt không thể phân biệt trực quan các ô đen trắng trên bàn cờ, tôi đã đặt bàn cờ trong môi trường nhiệt độ cao (ánh nắng trực tiếp, đèn halogen) — bề mặt màu đen hấp thụ nhiệt nhiều hơn bề mặt màu trắng, khiến hoa văn trở nên rõ ràng đối với cảm biến.</p>
+
+      <h4>2. Thu thập dữ liệu</h4>
+      <p>Sử dụng ROS để ghi dữ liệu đồng bộ từ nhiều cảm biến: <code>ouster_ros</code> cho LIDAR, <code>flir_boson_usb</code> cho camera nhiệt, và <code>rosbag record</code> để ghi lại cả hai luồng dữ liệu. Việc đồng bộ dựa trên dấu thời gian (timestamp) mà ROS gắn vào lúc ghi.</p>
+
+      <h4>3. Hiệu chỉnh Camera-LIDAR</h4>
+      <p>Ước lượng ma trận xoay (rotation matrix) và vector tịnh tiến (translation vector) giữa hệ tọa độ của LIDAR và camera:</p>
+      <div class="img-row">
+        <img src="assets/projects/worker-localization-calibration-1.webp" width="1414" height="455" loading="lazy" alt="Sơ đồ quy trình hiệu chỉnh Camera-LIDAR 1">
+        <img src="assets/projects/worker-localization-calibration-2.webp" width="960" height="463" loading="lazy" alt="Sơ đồ quy trình hiệu chỉnh Camera-LIDAR 2">
+      </div>
+      <p>Với ma trận xoay $R$ và vector tịnh tiến $t$, đám mây điểm (point cloud) từ LIDAR được chuyển đổi sang hệ tọa độ camera, sau đó chiếu lên mặt phẳng ảnh để tạo thành bản đồ độ sâu (depth map) ở tỷ lệ chuẩn (ground-truth), khớp với ảnh camera:</p>
+      <div class="math-display">$$s \begin{bmatrix} u\\ v \end{bmatrix} = \begin{bmatrix} f_x & 0 & c_x \\ 0 & f_y & c_y \\ 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} X_c\\ Y_c \\ Z_c \end{bmatrix}$$</div>
+      <img src="assets/projects/worker-localization-depthmap.webp" width="1208" height="741" loading="lazy" alt="Bản đồ độ sâu chuẩn (ground-truth) thu được, khớp với ảnh camera nhiệt">
+
+      <hr>
+
+      <h3>Bài học rút ra</h3>
+      <p>Bộ dữ liệu và quy trình hiệu chỉnh này đã giúp nhóm trở thành <strong>1 trong 8 giải pháp trên thế giới vượt qua được baseline SOTA</strong> được cung cấp, trên bất kỳ chỉ số nào dựa trên point cloud hoặc ảnh, tại cuộc thi ước lượng độ sâu đơn mắt CVPRW 2023. Chúng tôi đã tùy biến <a href="https://arxiv.org/pdf/2210.09071" target="_blank" rel="noopener">PixelFormer</a> (mô hình ước lượng độ sâu SOTA tại thời điểm đó) với các kỹ thuật tăng cường dữ liệu (data augmentation) trong lúc huấn luyện (cắt/xoay ngẫu nhiên, lật trái-phải, CutDepth) và kỹ thuật đệm không (zero-padding) khi suy luận (inference) để giữ nguyên độ phân giải huấn luyện.</p>
+      <div class="ref-links">
+        <a href="https://eprints.soton.ac.uk/481380" target="_blank" rel="noopener" class="ref-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          Cuộc thi ước lượng độ sâu đơn mắt lần thứ hai — CVPRW 2023
+        </a>
+      </div>
+
+    </div><!-- /.post-body -->
+  </div>
+</article>
+
+<div class="post-sep"></div>
+
+<!-- ============================================================
+     CASE STUDY 3 — REAL-TIME PSEUDOLIDAR
+     ============================================================ -->
+<article id="pseudo-lidar" class="blog-article case-study">
+  <div class="container">
+    <header class="post-header">
+      <span class="blog-tag-depth">Ước lượng độ sâu</span>
+      <h2>PseudoLiDAR thời gian thực</h2>
+      <div class="post-date">Tháng 3/2023 – Tháng 11/2023 · Python, PyTorch, OpenGL, Open3D, OpenCV</div>
+    </header>
+
+    <div class="post-body">
+
+      <h3>Giới thiệu</h3>
+      <p>Một dự án R&amp;D nhằm thay thế LIDAR bằng camera: một <strong>mô hình ước lượng độ sâu tuyệt đối (absolute depth estimation)</strong> kết hợp với <strong>các tham số hiệu chỉnh camera (camera calibration)</strong> tạo ra một đám mây điểm giả (pseudo point cloud) trực tiếp từ các pixel ảnh, được kết xuất (render) theo thời gian thực bằng OpenGL và Open3D.</p>
+      <p>Phần lý thuyết nền tảng — các tín hiệu cảm nhận độ sâu của con người, ước lượng độ sâu tuyệt đối so với tương đối, phần toán học chuyển đổi từ độ sâu sang tọa độ 3D, và quy trình đề xuất để thay thế LIDAR bằng nhiều camera — được trình bày riêng trong bài viết sau:</p>
+      <div class="ref-links">
+        <a href="blog-vi.html#depth-pseudolidar" class="ref-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          Từ Ước lượng Độ sâu đến Pseudo-LIDAR
+        </a>
+      </div>
+
+      <hr>
+
+      <h3>Mô hình ước lượng độ sâu nhẹ</h3>
+      <p>Để phục vụ demo thời gian thực, chúng tôi đã xây dựng một mô hình ước lượng độ sâu được tối ưu hóa, hướng tới độ trễ thấp mà không đánh đổi quá nhiều độ chính xác. Lấy cảm hứng từ hiệu suất của họ mô hình YOLO, mô hình sử dụng <strong>backbone + neck YOLOv8</strong> được tùy biến làm bộ mã hóa (encoder) đặc trưng 4 tỷ lệ (4-scale), kết nối qua các skip connection tới một <strong>bộ giải mã (decoder) kiểu U-Net</strong> để tái tạo bản đồ độ sâu.</p>
+      <img src="assets/projects/pseudo-lidar-model-arch.webp" width="1360" height="740" loading="lazy" alt="Kiến trúc mô hình độ sâu encoder-decoder nhẹ dựa trên YOLOv8">
+      <p>Sau khi tinh chỉnh (fine-tune) trên NYUv2 (trong nhà) và KITTI (ngoài trời), mô hình đạt hiệu năng cạnh tranh trên các chỉ số đánh giá độ sâu đã được thiết lập, trong khi kích thước nhỏ hơn nhiều so với các phương pháp SOTA:</p>
+
+      <h4>Bộ dữ liệu NYUv2</h4>
+      <table>
+        <tr><th>Mô hình</th><th>Tham số</th><th>FPS (480×640)</th><th>Abs.Rel↓</th><th>RMSE↓</th><th>Sqr.Rel↓</th><th>δ1↑</th><th>δ2↑</th><th>δ3↑</th></tr>
+        <tr><td>Của chúng tôi (encoder YOLOv8s)</td><td>10,810,465</td><td>105</td><td>0.1033</td><td>0.3717</td><td>0.0578</td><td>0.8965</td><td>0.9814</td><td>0.9958</td></tr>
+        <tr><td>NeWCRFs</td><td>270,444,877</td><td>14</td><td>0.0958</td><td>0.3331</td><td>0.0451</td><td>0.9215</td><td>0.9915</td><td>0.9980</td></tr>
+        <tr><td>PixelFormer</td><td>270,895,920</td><td>16</td><td>0.0905</td><td>0.3242</td><td>0.0435</td><td>0.9289</td><td>0.9906</td><td>0.9977</td></tr>
+      </table>
+
+      <h4>Bộ dữ liệu KITTI</h4>
+      <table>
+        <tr><th>Mô hình</th><th>Tham số</th><th>FPS (480×640)</th><th>Abs.Rel↓</th><th>RMSE↓</th><th>Sqr.Rel↓</th><th>δ1↑</th><th>δ2↑</th><th>δ3↑</th></tr>
+        <tr><td>Của chúng tôi (encoder YOLOv8s)</td><td>10,810,465</td><td>105</td><td>0.0479</td><td>2.3879</td><td>0.1798</td><td>0.9721</td><td>0.9952</td><td>0.9982</td></tr>
+        <tr><td>NeWCRFs</td><td>270,444,877</td><td>14</td><td>0.0509</td><td>2.1871</td><td>0.1608</td><td>0.9762</td><td>0.9963</td><td>0.9987</td></tr>
+        <tr><td>PixelFormer</td><td>270,895,920</td><td>16</td><td>0.0542</td><td>2.3748</td><td>0.1817</td><td>0.9724</td><td>0.9955</td><td>0.9984</td></tr>
+      </table>
+      <p>Với tốc độ khung hình (FPS) gấp khoảng 7 lần so với NeWCRFs/PixelFormer và chỉ khoảng 4% số lượng tham số của chúng, mô hình đánh đổi một phần nhỏ độ chính xác để đạt được thông lượng (throughput) mà một quy trình PseudoLiDAR thời gian thực cần.</p>
+
+    </div><!-- /.post-body -->
+  </div>
+</article>
+
+<div class="post-sep"></div>
+
+<!-- ============================================================
+     CASE STUDY 4 — HEAD POSE ESTIMATION
+     ============================================================ -->
+<article id="head-pose-estimation" class="blog-article alt-bg case-study">
+  <div class="container">
+    <header class="post-header">
+      <span class="blog-tag">Thị giác máy tính</span>
+      <h2>Ước lượng tư thế đầu</h2>
+      <div class="post-date">Tháng 9/2025 – Hiện tại · Python, C/C++, OpenCV</div>
+    </header>
+
+    <div class="post-body">
+
+      <div class="img-row">
+        <img src="assets/projects/head-pose.webp" width="500" height="375" loading="lazy" alt="Demo ước lượng tư thế đầu 1">
+        <img src="assets/projects/head-pose-cover-2.webp" width="372" height="388" loading="lazy" alt="Demo ước lượng tư thế đầu 2">
+      </div>
+
+      <h3>Định nghĩa tư thế đầu</h3>
+      <p>Một tư thế đầu được xác định bởi một điểm xuất phát $p = (u_0, v_0)$ — gốc của hệ tọa độ tư thế đầu — và một ma trận xoay (theo quy ước ZYX) được xây dựng từ <strong>góc chúc ngóc (Pitch) $Pi$</strong>, <strong>góc lệch hướng (Yaw) $Ya$</strong>, và <strong>góc nghiêng (Roll) $Ro$</strong>:</p>
+
+      <div class="math-display">$$R_z(Ro) = \begin{bmatrix} \cos{Ro} & -\sin{Ro} & 0 \\ \sin{Ro} & \cos{Ro} & 0 \\ 0 & 0 & 1 \end{bmatrix}$$</div>
+      <div class="math-display">$$R_y(Ya) = \begin{bmatrix} \cos{Ya} & 0 & \sin{Ya} \\ 0 & 1 & 0 \\ -\sin{Ya} & 0 & \cos{Ya} \end{bmatrix}$$</div>
+      <div class="math-display">$$R_x(Pi) = \begin{bmatrix} 1 & 0 & 0 \\ 0 & \cos{Pi} & -\sin{Pi} \\ 0 & \sin{Pi} & \cos{Pi} \end{bmatrix}$$</div>
+
+      <p>Ma trận xoay tổng hợp của tư thế đầu so với camera là:</p>
+      <div class="math-display">$$R = \begin{bmatrix} \cos{Ro}\cos{Ya} & \cos{Ro}\sin{Ya}\sin{Pi} - \sin{Ro}\cos{Pi} & \cos{Ro}\sin{Ya}\cos{Pi} + \sin{Ro}\sin{Pi} \\ \sin{Ro}\cos{Ya} & \sin{Ro}\sin{Ya}\sin{Pi} + \cos{Ro}\cos{Pi} & \sin{Ro}\sin{Ya}\cos{Pi} - \cos{Ro}\sin{Pi} \\ -\sin{Ya} & \cos{Ya}\sin{Pi} & \cos{Ya}\cos{Pi} \end{bmatrix}$$</div>
+
+      <p>Mọi điểm $(x, y, z)$ trên tia tư thế đầu (head-pose ray) đều thỏa mãn:</p>
+      <div class="math-display">$$\begin{cases} t \geq 0 \\ x = x_0 + t\cos(Ro)\cos(Ya) \\ y = y_0 + t\sin(Ro)\cos(Ya) \\ z = z_0 - t\sin(Ya) \end{cases}$$</div>
+
+      <p>Ngược lại, có thể khôi phục Pitch, Yaw, và Roll từ $R$:</p>
+      <div class="math-display">$$\tan(Pi) = \frac{R_{2,1}}{R_{2,2}} \qquad \tan(Ya) = -\frac{R_{2,0}}{\sqrt{R_{2,1}^2 + R_{2,2}^2}} \qquad \tan(Ro) = \frac{R_{1,0}}{R_{0,0}}$$</div>
+
+      <hr>
+
+      <h3>Ý tưởng</h3>
+      <p>Để ước lượng tư thế đầu của con người (ma trận xoay + vector tịnh tiến so với camera) theo thời gian thực, quy trình xử lý áp dụng một phương pháp thị giác máy tính cổ điển:</p>
+      <img src="assets/projects/head-pose-pipeline.webp" width="1800" height="508" loading="lazy" alt="Sơ đồ quy trình ước lượng tư thế đầu">
+      <p>Bộ lọc Kalman mở rộng (Extended Kalman Filter) "làm mượt" tư thế dự đoán và giảm thiểu các trường hợp lỗi khi mô hình không thể nhìn thấy khuôn mặt — bị che khuất, góc nhìn quá lớn, v.v.</p>
+
+      <hr>
+
+      <h3>Ước lượng điểm mốc khuôn mặt (Facial Landmark)</h3>
+      <p>Tôi đã xây dựng một mô hình điểm mốc khuôn mặt (facial landmark) 2D với backbone kiểu phân loại (classification), kết thúc bằng một lớp tuyến tính (linear/classifier head) với $(num\_keypoints \times 3)$ đầu ra cho phiên bản có cờ khả kiến (visibility flag), hoặc $(num\_keypoints \times 2)$ cho phiên bản không có cờ khả kiến:</p>
+      <img src="assets/projects/head-pose-landmark-arch.webp" width="1462" height="503" loading="lazy" alt="Kiến trúc mô hình điểm mốc khuôn mặt">
+
+      <hr>
+
+      <h3>Ước lượng tư thế đầu qua SolvePnPRansac</h3>
+      <p>Các điểm tĩnh (static points) từ các điểm mốc 2D dự đoán được khớp với các điểm 3D tương ứng từ mẫu khuôn mặt 3D Mediapipe (Mediapipe 3D facemark template), sau đó <code>solvePnPRansac</code> khôi phục ma trận xoay và vector tịnh tiến. "Tĩnh" ở đây nghĩa là các điểm giữ vị trí tương đối cố định so với khuôn mặt ngay cả khi có các biểu cảm — nháy mắt, ngáp, cười, v.v.</p>
+      <img src="assets/projects/head-pose-pnp-matching.webp" width="1242" height="638" loading="lazy" alt="Khớp điểm mốc 2D với mẫu khuôn mặt 3D">
+
+      <hr>
+
+      <h3>Bộ ổn định bằng bộ lọc Kalman</h3>
+      <p>Bộ lọc Kalman mở rộng làm mượt chuyển động của tư thế đầu qua các khung hình và lấp đầy khoảng trống khi mô hình điểm mốc khuôn mặt 2D không dự đoán được điểm mốc — phổ biến nhất là do bị che khuất.</p>
+
+      <hr>
+
+      <h3>Tài liệu tham khảo</h3>
+      <div class="ref-links">
+        <a href="https://d3cw3dd2w32x2b.cloudfront.net/wp-content/uploads/2015/01/matrix-to-quat.pdf" target="_blank" rel="noopener" class="ref-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          Chuyển đổi giữa Ma trận Xoay và Quaternion
+        </a>
+        <a href="https://github.com/piercus/kalman-filter/issues/37" target="_blank" rel="noopener" class="ref-link">
+          <svg width="14" height="14" fill="currentColor"><use href="#icon-github"></use></svg>
+          piercus/kalman-filter#37 — ý tưởng tham khảo cho việc triển khai EKF
+        </a>
+      </div>
+
+    </div><!-- /.post-body -->
+  </div>
+</article>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div class="container">
+    <p>
+      <a href="index-vi.html">← Quay lại Hồ sơ</a>
+    </p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ],
+    throwOnError: false
+  });"></script>
+</body>
+</html>

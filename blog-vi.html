@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark');</script>
+  <title>Blog &amp; Ghi chú – Hoa Huynh</title>
+  <meta name="description" content="Blog và ghi chú của Hoa Huynh về học sâu, thị giác máy tính và ước lượng độ sâu." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://huynhthaihoa.github.io/blog-vi.html" />
+  <meta property="og:title" content="Blog &amp; Ghi chú – Hoa Huynh" />
+  <meta property="og:description" content="Blog và ghi chú của Hoa Huynh về học sâu, thị giác máy tính và ước lượng độ sâu." />
+  <meta property="og:image" content="https://huynhthaihoa.github.io/assets/profile.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Blog &amp; Ghi chú – Hoa Huynh" />
+  <meta name="twitter:description" content="Blog và ghi chú của Hoa Huynh về học sâu, thị giác máy tính và ước lượng độ sâu." />
+  <meta name="twitter:image" content="https://huynhthaihoa.github.io/assets/profile.jpg" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <meta name="theme-color" content="#0f172a" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous" />
+  <link rel="alternate" hreflang="en" href="https://huynhthaihoa.github.io/blog.html" />
+  <link rel="alternate" hreflang="vi" href="https://huynhthaihoa.github.io/blog-vi.html" />
+  <link rel="alternate" hreflang="x-default" href="https://huynhthaihoa.github.io/blog.html" />
+</head>
+<body>
+<svg style="display:none" aria-hidden="true">
+  <symbol id="icon-github" viewBox="0 0 24 24">
+    <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+  </symbol>
+</svg>
+
+<!-- ============================================================
+     NAVIGATION
+     ============================================================ -->
+<nav>
+  <a href="index-vi.html" style="text-decoration:none;">
+    <span class="nav-brand">Hoa Huynh</span>
+  </a>
+
+  <ul class="nav-links" id="nav-links">
+    <li><a href="index-vi.html#experience">Kinh nghiệm</a></li>
+    <li><a href="index-vi.html#education">Học vấn</a></li>
+    <li><a href="index-vi.html#skills">Kỹ năng</a></li>
+    <li><a href="index-vi.html#projects">Dự án</a></li>
+    <li><a href="index-vi.html#publications">Công bố khoa học</a></li>
+    <li><a href="index-vi.html#blog" class="active">Blog</a></li>
+    <li><a href="index-vi.html#certifications">Chứng chỉ</a></li>
+  </ul>
+
+  <div class="nav-right">
+    <a href="blog.html" class="lang-switch" title="View in English">EN</a>
+    <button id="theme-toggle" aria-label="Chuyển đổi giao diện">☀️</button>
+    <button class="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">☰</button>
+  </div>
+</nav>
+
+<!-- ============================================================
+     PAGE HEADER
+     ============================================================ -->
+<section id="blog-hero">
+  <div class="container">
+    <a href="index-vi.html" class="back-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+      </svg>
+      Quay lại Portfolio
+    </a>
+
+    <h1>Blog &amp; Ghi chú</h1>
+    <p class="page-subtitle">Khám phá về học sâu, thị giác máy tính và ước lượng độ sâu.</p>
+
+    <div class="post-toc">
+      <a href="#knowledge-distillation" class="toc-card fade-up">
+        <span class="blog-tag">Học sâu</span>
+        <div class="toc-title">Brainstorm về Knowledge Distillation</div>
+        <div class="toc-date">4 Tháng 1, 2026</div>
+      </a>
+      <a href="#2d-vision" class="toc-card fade-up">
+        <span class="blog-tag">Thị giác máy tính</span>
+        <div class="toc-title">Các công cụ Thị giác 2D</div>
+        <div class="toc-date">4 Tháng 1, 2026</div>
+      </a>
+      <a href="#rolling-in-the-deep" class="toc-card fade-up">
+        <span class="blog-tag-depth">Ước lượng độ sâu</span>
+        <div class="toc-title">Rolling in the Deep</div>
+        <div class="toc-date">4 Tháng 1, 2026</div>
+      </a>
+      <a href="#depth-pseudolidar" class="toc-card fade-up">
+        <span class="blog-tag-depth">Ước lượng độ sâu</span>
+        <div class="toc-title">Từ Ước lượng Độ sâu đến Pseudo-LIDAR</div>
+        <div class="toc-date">24 Tháng 3, 2025</div>
+      </a>
+      <a href="#perspective-affine" class="toc-card fade-up">
+        <span class="blog-tag">Thị giác máy tính</span>
+        <div class="toc-title">Perspective Transform và Affine Transform</div>
+        <div class="toc-date">24 Tháng 11, 2025</div>
+      </a>
+      <a href="#phone-looking" class="toc-card fade-up">
+        <span class="blog-tag">Thị giác máy tính</span>
+        <div class="toc-title">Thuật toán đơn giản Phát hiện Nhìn Điện thoại</div>
+        <div class="toc-date">24 Tháng 11, 2025</div>
+      </a>
+      <a href="#sahi-small-objects" class="toc-card fade-up">
+        <span class="blog-tag">Phát hiện đối tượng</span>
+        <div class="toc-title">Tiền xử lý lấy cảm hứng từ Slicing cho Recall Vật thể Nhỏ</div>
+        <div class="toc-date">21 Tháng 7, 2026</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="post-sep"></div>
+
+<!-- ============================================================
+     POST 1 — KNOWLEDGE DISTILLATION BRAINSTORMING
+     ============================================================ -->
+<article id="knowledge-distillation" class="blog-article blog-post">
+  <div class="container">
+    <header class="post-header">
+      <span class="blog-tag">Học sâu</span>
+      <h2>Brainstorm về Knowledge Distillation</h2>
+      <div class="post-date">4 Tháng 1, 2026</div>
+    </header>
+
+    <div class="post-body">
+
+      <h3>Tài liệu tham khảo hữu ích</h3>
+      <div class="ref-links">
+        <a href="https://docs.pytorch.org/tutorials/beginner/knowledge_distillation_tutorial.html" target="_blank" rel="noopener" class="ref-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          PyTorch Knowledge Distillation Tutorial
+        </a>
+      </div>
+
+      <h3>Brainstorm</h3>
+      <p>Trong bối cảnh knowledge distillation của machine learning, việc huấn luyện song song cả mô hình giáo viên (teacher model) và mô hình học sinh (student model) nhìn chung không phải là cách tiếp cận chuẩn hay hiệu quả nhất, mặc dù nó có thể hợp lý trong một số kịch bản cụ thể tùy vào mục tiêu và ràng buộc.</p>
+
+      <h3>1. Quy trình Knowledge Distillation chuẩn</h3>
+      <p>Knowledge distillation thường bao gồm một quy trình hai giai đoạn:</p>
+      <ol>
+        <li><strong>Huấn luyện mô hình giáo viên</strong>: Một mô hình lớn, phức tạp (giáo viên) được huấn luyện trước trên tác vụ mục tiêu bằng tập dữ liệu sẵn có. Mô hình giáo viên thường được tham số hóa dư thừa (overparameterized) và đạt hiệu năng cao, nhưng có thể tốn kém về mặt tính toán.</li>
+        <li><strong>Huấn luyện mô hình học sinh</strong>: Một mô hình nhỏ hơn, hiệu quả hơn (học sinh) sau đó được huấn luyện để bắt chước hành vi của giáo viên. Việc này được thực hiện bằng cách dùng đầu ra của giáo viên (ví dụ: logit đã làm mềm hoặc biểu diễn đặc trưng) làm mục tiêu mềm (soft targets), thêm vào hoặc thay cho nhãn ground-truth. Học sinh được huấn luyện để tối thiểu hóa một hàm mất mát bao gồm mất mát chưng cất (distillation loss, ví dụ: phân kỳ Kullback-Leibler giữa đầu ra của giáo viên và học sinh) và, thường là, một mất mát riêng cho tác vụ (ví dụ: cross-entropy với nhãn ground-truth).</li>
+      </ol>
+      <p>Giáo viên <strong>thường được huấn luyện trước và giữ cố định</strong> trong quá trình huấn luyện học sinh vì mục tiêu là <strong>truyền tri thức đã học của giáo viên sang học sinh</strong>. Đầu ra của giáo viên <strong>cung cấp tín hiệu giám sát phong phú hơn (ví dụ: nắm bắt mối quan hệ giữa các lớp thông qua xác suất mềm) so với chỉ dùng nhãn cứng</strong>.</p>
+
+      <h3>2. Vì sao huấn luyện song song không phổ biến</h3>
+      <p>Huấn luyện đồng thời mô hình giáo viên và học sinh (tức cập nhật cả hai mô hình cùng lúc trong quá trình huấn luyện) không phải là cách làm chuẩn vì một số lý do sau:</p>
+      <ol>
+        <li><strong>Tính ổn định của giáo viên</strong>: Mô hình giáo viên được kỳ vọng cung cấp đầu ra đáng tin cậy và chất lượng cao để dẫn dắt học sinh. Nếu giáo viên vẫn đang huấn luyện và các tham số của nó vẫn đang thay đổi, đầu ra của nó có thể nhiễu hoặc không nhất quán, gây mất ổn định cho quá trình học của học sinh.</li>
+        <li><strong>Chi phí tính toán</strong>: Huấn luyện đồng thời cả hai mô hình làm tăng yêu cầu tính toán, vì cả hai mô hình đều cần thực hiện lượt truyền xuôi và truyền ngược. Knowledge distillation nhằm tạo ra một mô hình học sinh nhẹ để tăng hiệu quả, nên việc thêm chi phí huấn luyện song song một giáo viên lớn đi ngược lại mục tiêu này.</li>
+        <li><strong>Lệch mục tiêu</strong>: Giáo viên thường được tối ưu cho hiệu năng tác vụ (ví dụ: tối thiểu hóa mất mát cross-entropy), trong khi học sinh được tối ưu để bắt chước đầu ra của giáo viên (mất mát chưng cất) và, tùy chọn, nhãn ground-truth. Tối ưu đồng thời cả hai mô hình có thể dẫn đến gradient hoặc mục tiêu xung đột, khiến việc hội tụ khó khăn hơn.</li>
+        <li><strong>Phụ thuộc tuần tự</strong>: Học sinh phụ thuộc vào tri thức của giáo viên, điều này hiệu quả nhất khi giáo viên đã hội tụ về một lời giải tốt. Huấn luyện song song làm suy yếu sự phụ thuộc này, vì giáo viên có thể chưa có tri thức đáng tin cậy để truyền đạt.</li>
+      </ol>
+
+      <h4>Các kịch bản mà huấn luyện song song có thể hợp lý</h4>
+      <p>Có một số trường hợp cụ thể mà việc huấn luyện song song giáo viên và học sinh có thể được xem xét, dù ít phổ biến hơn và thường đòi hỏi thay đổi so với khung distillation chuẩn:</p>
+      <ol>
+        <li>
+          <strong>Online Knowledge Distillation (OKD)</strong>: Trong <strong>online distillation</strong> (ví dụ: như được đề xuất trong các phương pháp như <a href="https://arxiv.org/abs/1706.00384" target="_blank" rel="noopener">Deep Mutual Learning</a>), nhiều mô hình (có thể xem như các <strong>đồng đẳng (peers)</strong> thay vì một hệ thống phân cấp giáo viên-học sinh nghiêm ngặt) được huấn luyện đồng thời và học lẫn nhau từ đầu ra của nhau. Thay vì một giáo viên đã huấn luyện trước, tất cả các mô hình đều đóng vai trò vừa là giáo viên vừa là học sinh, chia sẻ tri thức qua các dự đoán của chúng. <strong>Trường hợp sử dụng</strong>: Các kịch bản có quyền truy cập hạn chế vào một giáo viên đã huấn luyện trước, hoặc khi huấn luyện nhiều mô hình có năng lực tương đương để cải thiện khả năng tổng quát hóa.
+        </li>
+        <li>
+          <strong>Cập nhật giáo viên động</strong>: Trong một số thiết lập, mô hình giáo viên có thể được tinh chỉnh (fine-tune) hoặc cập nhật trong quá trình huấn luyện để thích ứng với nhu cầu của học sinh hoặc để tiếp nhận dữ liệu mới. Điều này đòi hỏi thiết kế cẩn thận để đảm bảo giáo viên vẫn là một nguồn tri thức ổn định, chẳng hạn dùng tốc độ học chậm hơn cho giáo viên hoặc luân phiên cập nhật. <strong>Trường hợp sử dụng</strong>: Continual learning, online learning, hoặc các kịch bản với dữ liệu dạng luồng (streaming) mà việc huấn luyện trước một giáo viên là không khả thi.
+        </li>
+        <li>
+          <strong>Co-Training để tăng hiệu quả</strong>: Nếu tài nguyên tính toán cho phép, huấn luyện song song có thể được khám phá để giảm tổng thời gian huấn luyện so với huấn luyện tuần tự. Ví dụ, giáo viên và học sinh có thể chia sẻ một số đồ thị tính toán (ví dụ: trong một backbone trích xuất đặc trưng dùng chung) để tiết kiệm tài nguyên. <strong>Trường hợp sử dụng</strong>: Môi trường giàu tài nguyên tính toán, nơi thời gian huấn luyện là nút thắt cổ chai.
+        </li>
+        <li>
+          <strong>Học tăng cường hoặc thiết lập đối kháng</strong>: Trong một số thiết lập nâng cao, chẳng hạn lấy cảm hứng từ GAN hoặc học tăng cường (reinforcement learning), giáo viên và học sinh có thể được huấn luyện theo kiểu cạnh tranh hoặc hợp tác. <strong>Trường hợp sử dụng</strong>: Các thiết lập nghiên cứu khám phá động lực huấn luyện mới hoặc truyền tri thức đối kháng.
+        </li>
+      </ol>
+
+      <h4>Thách thức của huấn luyện song song</h4>
+      <ul>
+        <li><strong>Ổn định hóa đầu ra của giáo viên</strong>: Đầu ra của giáo viên có thể nhiễu ở giai đoạn đầu huấn luyện, nên cần các kỹ thuật như làm mượt đầu ra, ensemble giáo viên, hoặc trì hoãn distillation.</li>
+        <li><strong>Cân bằng mục tiêu</strong>: Giáo viên và học sinh có thể có tốc độ học, trọng số mất mát, hoặc mục tiêu khác nhau, đòi hỏi điều chỉnh cẩn thận.</li>
+        <li><strong>Tăng độ phức tạp</strong>: Huấn luyện song song đòi hỏi nhiều bộ nhớ và tính toán hơn, điều này có thể không khả thi với các mô hình giáo viên lớn.</li>
+        <li><strong>Chỉ số đánh giá</strong>: Bạn cần định nghĩa cách đánh giá mức độ sẵn sàng của giáo viên trong việc cung cấp tri thức hữu ích.</li>
+      </ul>
+
+      <h4>Các cách tiếp cận thay thế</h4>
+      <ul>
+        <li><strong>Self-Distillation</strong>: Mô hình học sinh chưng cất tri thức từ chính nó (ví dụ: từ các lớp hoặc epoch trước đó) thay vì từ một giáo viên riêng biệt.</li>
+        <li><strong>Tái sử dụng giáo viên đã huấn luyện trước</strong>: Dùng một mô hình đã huấn luyện trước có sẵn (ví dụ: một foundation model như BERT hoặc một checkpoint công khai) làm giáo viên.</li>
+        <li><strong>Các biến thể Online Distillation</strong>: Khám phá các phương pháp như Deep Mutual Learning hoặc Collaborative Learning, trong đó nhiều mô hình học cùng nhau mà không có một hệ thống phân cấp giáo viên-học sinh cố định.</li>
+      </ul>
+
+      <h4>Khuyến nghị thực tiễn</h4>
+      <p>Trong hầu hết các trường hợp, <strong>huấn luyện tuần tự</strong> (huấn luyện trước giáo viên, rồi huấn luyện học sinh) là cách tiếp cận hiệu quả và đơn giản nhất cho knowledge distillation. Nó đảm bảo giáo viên cung cấp đầu ra ổn định, chất lượng cao và phù hợp để tạo ra một mô hình học sinh hiệu quả. <strong>Huấn luyện song song</strong> có thể được khám phá trong các thiết lập nghiên cứu hoặc trường hợp sử dụng cụ thể (ví dụ: <strong>online distillation</strong> hoặc <strong>continual learning</strong>), nhưng đòi hỏi thiết kế cẩn thận để xử lý các thách thức đã nêu ở trên.</p>
+
+      <h3>3. Vì sao huấn luyện trước giáo viên và huấn luyện học sinh trên cùng một tập dữ liệu là hợp lý</h3>
+
+      <h5>Tính nhất quán trong phân bố dữ liệu</h5>
+      <p>Sử dụng cùng một tập dữ liệu cho cả giáo viên và học sinh đảm bảo rằng <strong>tri thức được truyền đạt là phù hợp với tác vụ và phân bố dữ liệu mà học sinh sẽ gặp phải</strong>. Giáo viên học các mẫu hình, mối quan hệ và cấu trúc của tập dữ liệu, và học sinh hưởng lợi từ việc bắt chước các biểu diễn đã học này. Nếu giáo viên được huấn luyện trên một tập dữ liệu khác, tri thức của nó có thể không tổng quát hóa tốt sang tập dữ liệu mục tiêu của học sinh, dẫn đến hiệu năng dưới mức tối ưu.</p>
+
+      <h5>Giáo viên như một tham chiếu chất lượng cao</h5>
+      <p>Huấn luyện trước mô hình giáo viên trên cùng một tập dữ liệu cho phép nó <strong>hội tụ về một lời giải hiệu năng cao, nắm bắt thông tin phong phú về tác vụ</strong> (ví dụ: xác suất lớp, biểu diễn đặc trưng, hoặc ranh giới quyết định). Học sinh sau đó có thể tận dụng tri thức chất lượng cao này thông qua đầu ra mềm của giáo viên (ví dụ: logit đã làm mềm hoặc đặc trưng trung gian), cung cấp nhiều thông tin hơn so với chỉ dùng nhãn cứng. Ví dụ, trong các tác vụ phân loại, đầu ra softmax của giáo viên (với một tham số nhiệt độ) tiết lộ mối quan hệ giữa các lớp, giúp học sinh học được các ranh giới quyết định tinh tế hơn.</p>
+
+      <h5>Thực hành chuẩn trong Knowledge Distillation</h5>
+      <p>Khung knowledge distillation kinh điển, được giới thiệu bởi Hinton et al. (2015), giả định giáo viên được huấn luyện trước trên tập dữ liệu mục tiêu, và học sinh được huấn luyện để khớp với đầu ra của giáo viên trên cùng tập dữ liệu đó. Thiết lập này được sử dụng rộng rãi trong các ứng dụng như nén mô hình cho phân loại ảnh, xử lý ngôn ngữ tự nhiên, và nhận dạng giọng nói. Học sinh thường tối ưu một tổ hợp của mất mát chưng cất (ví dụ: phân kỳ KL giữa logit của giáo viên và học sinh) và mất mát riêng cho tác vụ (ví dụ: cross-entropy với nhãn ground-truth) trên cùng tập dữ liệu.</p>
+
+      <h5>Sử dụng dữ liệu hiệu quả</h5>
+      <p>Trong nhiều kịch bản thực tế, tập dữ liệu là cố định và có giới hạn. Sử dụng cùng một tập dữ liệu cho cả hai mô hình tránh được nhu cầu thu thập dữ liệu bổ sung hoặc nguy cơ lệch miền (domain mismatch). Giáo viên trích xuất càng nhiều tri thức càng tốt từ tập dữ liệu, và học sinh chưng cất tri thức này vào một mô hình gọn nhẹ hơn.</p>
+
+      <h4>Lợi ích của cách tiếp cận này</h4>
+      <ul>
+        <li><strong>Cải thiện hiệu năng học sinh</strong>: Học sinh hưởng lợi từ tri thức đã học của giáo viên, thường đạt hiệu năng tốt hơn so với chỉ huấn luyện trên nhãn ground-truth.</li>
+        <li><strong>Khả năng tổng quát hóa</strong>: Mục tiêu mềm của giáo viên đóng vai trò như một hình thức chính quy hóa (regularization), giúp học sinh tổng quát hóa tốt hơn bằng cách học các ranh giới quyết định mượt hơn.</li>
+        <li><strong>Tính linh hoạt</strong>: Cách tiếp cận này hoạt động trên nhiều tác vụ khác nhau (ví dụ: phân loại, hồi quy, mô hình hóa chuỗi) và kiến trúc mô hình.</li>
+        <li><strong>Hiệu quả dữ liệu</strong>: Ngay cả với dữ liệu gán nhãn hạn chế, đầu ra của giáo viên cung cấp thêm giám sát, giúp học sinh học hiệu quả hơn.</li>
+      </ul>
+
+      <h4>Cân nhắc và thực hành tốt nhất</h4>
+      <ol>
+        <li><strong>Chất lượng giáo viên</strong>: Giáo viên phải được <strong>huấn luyện tốt</strong> và <strong>hoạt động tốt trên tập dữ liệu</strong>. Một giáo viên huấn luyện kém sẽ cung cấp đầu ra <strong>nhiễu</strong> hoặc <strong>không đáng tin cậy</strong>, dẫn đến hiệu năng học sinh dưới mức tối ưu.</li>
+        <li><strong>Thiết kế mất mát chưng cất</strong>: Hàm mất mát của học sinh thường kết hợp <strong>mất mát chưng cất</strong> (khớp với đầu ra của giáo viên) và <strong>mất mát riêng cho tác vụ</strong> (khớp với nhãn ground-truth). Sự cân bằng (được kiểm soát bởi một siêu tham số trọng số, ví dụ: <code>α</code> trong <code>L = α * L_distillation + (1-α) * L_task</code>) là yếu tố then chốt. <strong>Tham số nhiệt độ</strong> trong hàm softmax cũng cần được điều chỉnh — nhiệt độ cao hơn (ví dụ: <code>T = 2</code> hoặc <code>T = 4</code>) làm cho đầu ra của giáo viên mượt hơn.</li>
+        <li><strong>Nguy cơ overfitting</strong>: Nếu tập dữ liệu nhỏ, giáo viên có thể bị overfit. Hãy dùng các <strong>kỹ thuật chính quy hóa</strong> khi huấn luyện giáo viên (ví dụ: dropout, weight decay), <strong>tăng cường dữ liệu (data augmentation)</strong>, và theo dõi hiệu năng tổng quát hóa của giáo viên.</li>
+        <li><strong>Kích thước và tính đa dạng của tập dữ liệu</strong>: Với các tập dữ liệu rất nhỏ, tri thức của giáo viên có thể bị hạn chế. Cân nhắc dùng một giáo viên đã huấn luyện trước hoặc tăng cường tập dữ liệu.</li>
+        <li><strong>Tính tương thích kiến trúc mô hình</strong>: Đảm bảo mô hình giáo viên và học sinh tương thích về không gian đầu ra. Nếu học sinh có kiến trúc khác, có thể cần thêm các kỹ thuật như distillation dựa trên đặc trưng (feature-based distillation).</li>
+        <li><strong>Hiệu quả tính toán</strong>: Vì giáo viên đã được huấn luyện trước, các tham số của nó cố định trong khi huấn luyện học sinh. Học sinh chỉ cần đầu ra của giáo viên, có thể được tính trước và lưu cache cho toàn bộ tập dữ liệu để tiết kiệm thời gian.</li>
+      </ol>
+
+      <h4>Các phương án thay thế hoặc biến thể tiềm năng</h4>
+      <ul>
+        <li><strong>Transfer Learning hoặc Domain Adaptation</strong>: Nếu giáo viên được huấn luyện trước trên một tập dữ liệu lớn hơn, có liên quan (ví dụ: ImageNet), nó có thể được tinh chỉnh trên tập dữ liệu mục tiêu trước khi distillation.</li>
+        <li><strong>Dữ liệu không nhãn hoặc đã tăng cường</strong>: Trong một số trường hợp, học sinh có thể được huấn luyện trên một hỗn hợp dữ liệu có nhãn và dữ liệu không nhãn, trong đó giáo viên cung cấp nhãn giả (pseudo-labels) cho phần không nhãn.</li>
+        <li><strong>Online Distillation</strong>: Nếu bạn muốn tránh hoàn toàn việc huấn luyện trước giáo viên, bạn có thể khám phá online knowledge distillation (ví dụ: Deep Mutual Learning).</li>
+      </ul>
+
+      <h4>Ví dụ thực tế</h4>
+      <p>Giả sử bạn đang làm việc với một tác vụ phân loại ảnh trên tập dữ liệu CIFAR-10:</p>
+      <ul>
+        <li><strong>Huấn luyện giáo viên</strong>: Huấn luyện một mô hình lớn (ví dụ: ResNet-50) trên CIFAR-10 cho đến khi đạt độ chính xác cao (ví dụ: 95% trên tập test).</li>
+        <li><strong>Huấn luyện học sinh</strong>: Huấn luyện một mô hình nhỏ hơn (ví dụ: MobileNet) trên CIFAR-10, dùng một hàm mất mát kết hợp phân kỳ KL giữa logit đã làm mềm của giáo viên (nhiệt độ <code>T=4</code>) và logit của học sinh, cộng với mất mát cross-entropy với nhãn ground-truth.</li>
+        <li><strong>Kết quả</strong>: Học sinh đạt độ chính xác gần bằng giáo viên (ví dụ: 93%) trong khi nhỏ hơn và nhanh hơn nhiều.</li>
+      </ul>
+
+      <h3>4. Các trường hợp sử dụng tập dữ liệu khác nhau</h3>
+
+      <h4>4.1. Transfer Learning hoặc Domain Adaptation</h4>
+      <ul>
+        <li><strong>Kịch bản</strong>: Giáo viên được huấn luyện trước trên một tập dữ liệu lớn, tổng quát (ví dụ: ImageNet cho ảnh, Wikipedia hoặc Common Crawl cho văn bản), trong khi học sinh được huấn luyện trên một tập dữ liệu nhỏ hơn, đặc thù cho tác vụ hoặc miền.</li>
+        <li><strong>Cơ sở lý luận</strong>: Giáo viên, thường là một foundation model lớn, học các đặc trưng rộng, có thể tổng quát hóa từ một tập dữ liệu đa dạng. Các đặc trưng này có thể được chưng cất vào một mô hình học sinh nhỏ hơn, phù hợp với một miền hoặc tác vụ cụ thể, ngay cả khi tập dữ liệu mục tiêu bị giới hạn.</li>
+        <li><strong>Ví dụ</strong>: Trong NLP, một giáo viên như <strong>BERT</strong> được huấn luyện trước trên một <strong>kho ngữ liệu văn bản khổng lồ</strong> (ví dụ: Wikipedia + BookCorpus). Học sinh (ví dụ: <strong>DistilBERT</strong>) được huấn luyện trên một <strong>tập dữ liệu nhỏ hơn, đặc thù cho tác vụ</strong> (ví dụ: phân tích cảm xúc trên các đánh giá IMDb), dùng đầu ra của giáo viên để dẫn dắt việc học.</li>
+        <li><strong>Lợi ích</strong>: Tận dụng tri thức tổng quát của giáo viên để cải thiện hiệu năng học sinh trên các tác vụ chuyên biệt với dữ liệu hạn chế.</li>
+        <li><strong>Thách thức</strong>: Tri thức của giáo viên có thể không hoàn toàn phù hợp với miền mục tiêu, đòi hỏi điều chỉnh cẩn thận quá trình distillation.</li>
+      </ul>
+
+      <h4>4.2. Semi-Supervised Learning với dữ liệu không nhãn</h4>
+      <ul>
+        <li><strong>Kịch bản</strong>: Giáo viên được huấn luyện trên một <strong>tập dữ liệu có nhãn</strong>, trong khi học sinh được huấn luyện trên một <strong>kết hợp giữa cùng tập dữ liệu có nhãn đó và dữ liệu không nhãn bổ sung</strong>, dùng dự đoán của giáo viên (nhãn giả) cho phần không nhãn.</li>
+        <li><strong>Cơ sở lý luận</strong>: Giáo viên cung cấp <strong>nhãn giả chất lượng cao</strong> cho <strong>dữ liệu không nhãn</strong>, mở rộng hiệu quả tập huấn luyện của học sinh. Đặc biệt hữu ích khi <strong>dữ liệu có nhãn khan hiếm</strong> nhưng <strong>dữ liệu không nhãn dồi dào</strong>.</li>
+        <li><strong>Ví dụ</strong>: Trong phân loại ảnh, giáo viên được huấn luyện trên một tập con có nhãn của CIFAR-100. Học sinh được huấn luyện trên cả tập con có nhãn và một tập lớn ảnh không nhãn.</li>
+        <li><strong>Lợi ích</strong>: Cải thiện hiệu năng học sinh bằng cách tận dụng dữ liệu không nhãn.</li>
+        <li><strong>Thách thức</strong>: Nhãn giả của giáo viên có thể chứa lỗi, đặc biệt với dữ liệu không nhãn nằm ngoài phân bố (out-of-distribution); có thể cần <strong>ngưỡng độ tin cậy (confidence thresholding)</strong> hoặc <strong>chính quy hóa nhất quán (consistency regularization)</strong>.</li>
+      </ul>
+
+      <h4>4.3. Thiết lập bảo mật quyền riêng tư hoặc ràng buộc dữ liệu</h4>
+      <ul>
+        <li><strong>Kịch bản</strong>: Giáo viên được huấn luyện trên một tập dữ liệu nhạy cảm hoặc độc quyền không thể chia sẻ, trong khi học sinh được huấn luyện trên một tập dữ liệu khác, công khai, hoặc tổng hợp.</li>
+        <li><strong>Cơ sở lý luận</strong>: Knowledge distillation cho phép truyền tri thức của giáo viên mà không trực tiếp phơi bày dữ liệu huấn luyện gốc.</li>
+        <li><strong>Ví dụ</strong>: Một mô hình giáo viên được huấn luyện trên hồ sơ y tế riêng tư được dùng để chưng cất tri thức vào một mô hình học sinh được huấn luyện trên một tập dữ liệu y tế tổng hợp hoặc công khai.</li>
+        <li><strong>Lợi ích</strong>: Cho phép truyền tri thức trong các thiết lập có ràng buộc nghiêm ngặt về quyền riêng tư hoặc quyền truy cập dữ liệu.</li>
+        <li><strong>Thách thức</strong>: Tập dữ liệu proxy phải đủ tương đồng với tập dữ liệu của giáo viên để đảm bảo distillation hiệu quả.</li>
+      </ul>
+
+      <h4>4.4. Tăng cường dữ liệu hoặc tập dữ liệu nhiễu loạn</h4>
+      <ul>
+        <li><strong>Kịch bản</strong>: Giáo viên được huấn luyện trên tập dữ liệu gốc, trong khi học sinh được huấn luyện trên một phiên bản đã tăng cường hoặc nhiễu loạn (ví dụ: có thêm nhiễu, phép biến đổi, hoặc mẫu đối kháng).</li>
+        <li><strong>Cơ sở lý luận</strong>: Huấn luyện học sinh trên dữ liệu đã tăng cường có thể cải thiện độ bền vững hoặc khả năng tổng quát hóa, trong khi giáo viên cung cấp mục tiêu ổn định, chất lượng cao.</li>
+        <li><strong>Ví dụ</strong>: Trong thị giác máy tính, giáo viên được huấn luyện trên ảnh ImageNet sạch, trong khi học sinh được huấn luyện trên ImageNet với các phép tăng cường ngẫu nhiên (xoay, lật, jitter màu).</li>
+        <li><strong>Lợi ích</strong>: Tăng cường độ bền vững của học sinh trước các biến thể trong dữ liệu đầu vào.</li>
+        <li><strong>Thách thức</strong>: Các phép tăng cường phải được lựa chọn cẩn thận để tránh đưa vào nhiễu không liên quan hoặc có hại.</li>
+      </ul>
+
+      <h4>4.5. Distillation đa phương thức hoặc đa nhiệm vụ</h4>
+      <ul>
+        <li><strong>Kịch bản</strong>: Giáo viên được huấn luyện trên một phương thức hoặc tác vụ, trong khi học sinh được huấn luyện trên một phương thức hoặc tác vụ khác, dùng tri thức chung hoặc đã được căn chỉnh (aligned).</li>
+        <li><strong>Cơ sở lý luận</strong>: Tri thức của giáo viên từ một miền hoặc phương thức có thể dẫn dắt học sinh trong một miền liên quan nhưng khác, đặc biệt khi các tác vụ chia sẻ các mẫu hình nền tảng.</li>
+        <li><strong>Ví dụ</strong>: Trong các mô hình thị giác-ngôn ngữ, một giáo viên được huấn luyện trên một tập dữ liệu ảnh-chú thích lớn chưng cất tri thức vào một học sinh được huấn luyện trên một tập dữ liệu chỉ-văn-bản hoặc chỉ-ảnh cho một tác vụ cụ thể.</li>
+        <li><strong>Lợi ích</strong>: Cho phép truyền tri thức giữa các phương thức hoặc tác vụ.</li>
+        <li><strong>Thách thức</strong>: Đòi hỏi sự căn chỉnh giữa không gian đầu ra của giáo viên và học sinh, thường cần thêm các lớp ánh xạ hoặc hàm mất mát.</li>
+      </ul>
+
+      <h4>4.6. Continual Learning hoặc phân bố dữ liệu thay đổi theo thời gian</h4>
+      <ul>
+        <li><strong>Kịch bản</strong>: Giáo viên được huấn luyện trên tập dữ liệu ban đầu, trong khi học sinh được huấn luyện trên một tập dữ liệu mới phản ánh sự dịch chuyển hoặc cập nhật trong phân bố dữ liệu.</li>
+        <li><strong>Cơ sở lý luận</strong>: Giáo viên cung cấp một nền tảng tri thức ổn định từ dữ liệu gốc, trong khi học sinh thích ứng với phân bố mới.</li>
+        <li><strong>Ví dụ</strong>: Trong một hệ thống gợi ý, giáo viên được huấn luyện trên dữ liệu tương tác người dùng trong quá khứ, trong khi học sinh được huấn luyện trên dữ liệu gần đây với hành vi người dùng hoặc mặt hàng mới.</li>
+        <li><strong>Lợi ích</strong>: Hỗ trợ thích ứng với môi trường thay đổi trong khi vẫn giữ được tri thức trước đó.</li>
+        <li><strong>Thách thức</strong>: Tri thức của giáo viên có thể trở nên lỗi thời, nên có thể cần các kỹ thuật như tinh chỉnh giáo viên hoặc dùng một ensemble các giáo viên.</li>
+      </ul>
+
+      <h4>Cân nhắc khi sử dụng các tập dữ liệu khác nhau</h4>
+      <ol>
+        <li><strong>Căn chỉnh miền (Domain Alignment)</strong>: Các tập dữ liệu nên đủ liên quan để đảm bảo tri thức của giáo viên phù hợp với tác vụ của học sinh. Các kỹ thuật như căn chỉnh đặc trưng (feature alignment) hoặc huấn luyện đối kháng (adversarial training) có thể giúp thu hẹp khác biệt miền.</li>
+        <li><strong>Chất lượng đầu ra của giáo viên</strong>: Đầu ra của giáo viên phải đáng tin cậy đối với tập dữ liệu của học sinh. Kiểm chứng hiệu năng của giáo viên trên một tập con dữ liệu của học sinh, hoặc dùng lọc dựa trên độ tin cậy để loại bỏ các dự đoán chất lượng thấp.</li>
+        <li><strong>Thiết kế mất mát chưng cất</strong>: Mất mát chưng cất nên tính đến các khác biệt tiềm ẩn trong phân bố dữ liệu. Giảm trọng số của mất mát chưng cất so với mất mát riêng cho tác vụ có thể hữu ích khi đầu ra của giáo viên kém tin cậy hơn.</li>
+        <li><strong>Tính sẵn có của dữ liệu và quyền riêng tư</strong>: Đảm bảo tập dữ liệu của học sinh đủ để huấn luyện, và trong các trường hợp nhạy cảm về quyền riêng tư, xác minh rằng quy trình distillation tuân thủ các quy định về dữ liệu (ví dụ: GDPR hoặc HIPAA).</li>
+        <li><strong>Đánh giá và kiểm chứng</strong>: Theo dõi hiệu năng của học sinh trên một tập kiểm chứng từ tập dữ liệu mục tiêu của nó và so sánh với một baseline được huấn luyện không có distillation.</li>
+      </ol>
+
+      <h4>Khi nào nên tránh dùng các tập dữ liệu khác nhau</h4>
+      <p>Sử dụng các tập dữ liệu khác nhau có thể tạo ra sự phức tạp và rủi ro. Tránh cách tiếp cận này nếu:</p>
+      <ul>
+        <li>Các tập dữ liệu không liên quan hoặc có khoảng cách miền đáng kể, và việc tinh chỉnh giáo viên là không khả thi.</li>
+        <li>Tập dữ liệu của học sinh lớn và chất lượng cao, khiến việc distillation từ một giáo viên được huấn luyện khác trở nên không cần thiết.</li>
+        <li>Hiệu năng của giáo viên trên phân bố dữ liệu của học sinh kém, và không có cách nào để kiểm chứng hoặc cải thiện nó.</li>
+      </ul>
+
+      <h3>5. Self-Training</h3>
+
+      <h4>Self-Training là gì?</h4>
+      <p><strong>Self-Training</strong> là một cách tiếp cận học bán giám sát (semi-supervised learning) trong đó một mô hình (thường được gọi là <strong>giáo viên</strong>) được huấn luyện trước trên một <strong>tập dữ liệu có nhãn</strong>, sau đó được dùng để tạo <strong>nhãn giả</strong> cho một <strong>tập dữ liệu không nhãn</strong>. Các nhãn giả này được kết hợp với dữ liệu có nhãn để huấn luyện một mô hình mới (thường được gọi là <strong>học sinh</strong>), có thể cùng hoặc khác kiến trúc. Quá trình này có thể lặp lại, với học sinh trở thành giáo viên ở các vòng tiếp theo.</p>
+
+      <h4>Self-Training hoạt động như thế nào</h4>
+      <ol>
+        <li><strong>Huấn luyện giáo viên</strong>: Huấn luyện một mô hình trên tập dữ liệu có nhãn $D_L = \{(x_i, y_i)\}$, trong đó $x_i$ là đầu vào và $y_i$ là nhãn ground-truth.</li>
+        <li><strong>Tạo nhãn giả</strong>: Dùng giáo viên đã huấn luyện để dự đoán nhãn (hoặc xác suất) cho một tập dữ liệu không nhãn $D_U = \{(x_j)\}$. Các dự đoán này được gọi là nhãn giả, ký hiệu $\hat{y}_j$.</li>
+        <li><strong>Chọn nhãn giả có độ tin cậy cao</strong>: Thường chỉ các nhãn giả có <strong>độ tin cậy cao</strong> (ví dụ: trên một ngưỡng) mới được dùng để lọc bỏ các dự đoán nhiễu.</li>
+        <li><strong>Huấn luyện học sinh</strong>: Huấn luyện một mô hình mới trên <strong>tập dữ liệu kết hợp</strong> $D_L \cup \{(x_j, \hat{y}_j)\}$, trong đó học sinh học từ cả <strong>nhãn ground-truth</strong> và <strong>nhãn giả</strong>.</li>
+        <li><strong>Lặp lại (tùy chọn)</strong>: Học sinh trở thành giáo viên, tạo ra các nhãn giả mới, và quá trình lặp lại qua nhiều vòng.</li>
+      </ol>
+
+      <h4>Self-Training cải thiện hiệu năng mô hình như thế nào</h4>
+      <ul>
+        <li><strong>Tận dụng dữ liệu không nhãn</strong>: Self-Training tận dụng nguồn dữ liệu không nhãn dồi dào, tăng kích thước tập huấn luyện hiệu quả và giúp mô hình học các đặc trưng bền vững hơn.</li>
+        <li><strong>Hiệu ứng chính quy hóa</strong>: Nhãn giả cung cấp một hình thức chính quy hóa, khuyến khích mô hình đưa ra các dự đoán nhất quán trên cả dữ liệu có nhãn và không nhãn.</li>
+        <li><strong>Cải thiện khả năng tổng quát hóa</strong>: Bằng cách cho mô hình tiếp xúc với một tập dữ liệu lớn hơn và đa dạng hơn, Self-Training có thể cải thiện hiệu năng trên các mẫu ngoài phân bố hoặc khó.</li>
+        <li><strong>Tinh chỉnh lặp lại</strong>: Trong Self-Training lặp lại, mỗi vòng tinh chỉnh các nhãn giả, có khả năng cải thiện chất lượng của chúng.</li>
+      </ul>
+
+      <h4>Thách thức</h4>
+      <ul>
+        <li><strong>Lan truyền lỗi</strong>: Nếu nhãn giả của giáo viên sai, học sinh có thể học từ các nhãn nhiễu hoặc thiên lệch. Ngưỡng độ tin cậy hoặc nhãn mềm (xác suất) có thể giảm thiểu điều này.</li>
+        <li><strong>Chất lượng giáo viên hạn chế</strong>: Nếu giáo viên ban đầu được huấn luyện trên một tập dữ liệu có nhãn nhỏ, nhãn giả của nó có thể không đáng tin cậy.</li>
+        <li><strong>Dịch chuyển miền (Domain Shift)</strong>: Nếu dữ liệu không nhãn khác biệt đáng kể so với dữ liệu có nhãn, nhãn giả có thể không phù hợp với tác vụ mục tiêu.</li>
+      </ul>
+
+      <h3>6. Noisy Student Training</h3>
+
+      <h4>Noisy Student Training là gì?</h4>
+      <p>Noisy Student Training (Xie et al., 2020) là một phương pháp self-training nâng cao, kết hợp nhiễu và chính quy hóa để cải thiện hiệu năng của mô hình học sinh <em>vượt trên</em> giáo viên. Không giống Self-Training thông thường, Noisy Student chủ động thêm các yếu tố ngẫu nhiên (ví dụ: tăng cường dữ liệu, dropout) vào quá trình huấn luyện học sinh để làm cho nó bền vững hơn và ngăn nó chỉ đơn thuần ghi nhớ các dự đoán của giáo viên.</p>
+
+      <h4>Noisy Student Training hoạt động như thế nào</h4>
+      <ol>
+        <li><strong>Huấn luyện giáo viên</strong>: Huấn luyện một mô hình giáo viên trên tập dữ liệu có nhãn $D_L$, tương tự như Self-Training.</li>
+        <li><strong>Tạo nhãn giả</strong>: Dùng giáo viên để dự đoán nhãn giả cho một tập dữ liệu không nhãn lớn $D_U$. Nhãn cứng (dự đoán lớp) thường được dùng thay vì nhãn mềm để đơn giản hóa quá trình.</li>
+        <li><strong>Huấn luyện học sinh với nhiễu</strong>: Huấn luyện một mô hình học sinh (thường có năng lực lớn hơn hoặc bằng giáo viên) trên $D_L \cup \{(x_j, \hat{y}_j)\}$, nhưng đưa thêm nhiễu và chính quy hóa trong quá trình huấn luyện:
+          <ul>
+            <li><strong>Tăng cường dữ liệu</strong>: Áp dụng các phép tăng cường mạnh (ví dụ: RandAugment cho ảnh) cho cả đầu vào có nhãn và không nhãn.</li>
+            <li><strong>Nhiễu mô hình</strong>: Dùng các kỹ thuật như dropout, stochastic depth, hoặc đóng băng lớp ngẫu nhiên trong mô hình học sinh.</li>
+            <li><strong>Tập dữ liệu cân bằng</strong>: Đảm bảo dữ liệu có nhãn và không nhãn được cân bằng.</li>
+          </ul>
+        </li>
+        <li><strong>Lặp lại</strong>: Dùng học sinh làm giáo viên mới, tạo ra các nhãn giả cập nhật, và lặp lại. Mỗi vòng lặp thường cải thiện hiệu năng mô hình.</li>
+      </ol>
+
+      <h4>Khác biệt chính so với Self-Training</h4>
+      <ul>
+        <li><strong>Đưa thêm nhiễu (Noise Injection)</strong>: Noisy Student chủ động thêm nhiễu để tránh overfitting với nhãn giả của giáo viên và khuyến khích độ bền vững.</li>
+        <li><strong>Học sinh có năng lực bằng hoặc lớn hơn</strong>: Không giống knowledge distillation, nơi học sinh nhỏ hơn, Noisy Student thường dùng một học sinh có năng lực bằng hoặc lớn hơn giáo viên.</li>
+        <li><strong>Cải thiện lặp lại</strong>: Noisy Student nhấn mạnh vào nhiều vòng lặp, với mỗi học sinh có khả năng vượt trội hơn giáo viên trước đó.</li>
+      </ul>
+
+      <h4>Noisy Student cải thiện hiệu năng mô hình như thế nào</h4>
+      <ul>
+        <li><strong>Độ bền vững nhờ nhiễu</strong>: Nhiễu được thêm vào buộc học sinh học các đặc trưng tổng quát hơn, ngăn overfitting với các dự đoán hoặc thiên lệch trong nhãn giả của giáo viên.</li>
+        <li><strong>Mở rộng theo dữ liệu không nhãn</strong>: Noisy Student tận dụng lượng lớn dữ liệu không nhãn, điều quan trọng để cải thiện hiệu năng trong các thiết lập khan hiếm dữ liệu.</li>
+        <li><strong>Tinh chỉnh lặp lại</strong>: Mỗi vòng lặp tinh chỉnh các nhãn giả, khi học sinh-trở-thành-giáo-viên trở nên chính xác hơn, dẫn đến một vòng lặp cải thiện tích cực (virtuous cycle).</li>
+        <li><strong>Vượt qua giáo viên</strong>: Bằng cách kết hợp nhiễu, một mô hình học sinh lớn hơn, và huấn luyện lặp lại, Noisy Student có thể tạo ra các mô hình vượt trội hơn giáo viên ban đầu.</li>
+      </ul>
+
+      <h4>Ví dụ</h4>
+      <p>Trong bài báo Noisy Student, một giáo viên EfficientNet được huấn luyện trên tập dữ liệu ImageNet có nhãn. Nó tạo ra nhãn giả cho 300 triệu ảnh không nhãn từ JFT-300M. Một học sinh EfficientNet lớn hơn được huấn luyện trên tập dữ liệu kết hợp với các phép tăng cường mạnh (RandAugment) và dropout, đạt độ chính xác cao hơn giáo viên. Sau nhiều vòng lặp, mô hình cuối cùng thiết lập các benchmark mới trên ImageNet.</p>
+
+      <h4>Thách thức</h4>
+      <ul>
+        <li><strong>Chi phí tính toán</strong>: Noisy Student đòi hỏi tài nguyên tính toán đáng kể, vì nó liên quan đến việc huấn luyện các mô hình lớn và lặp lại nhiều lần trên các tập dữ liệu lớn.</li>
+        <li><strong>Điều chỉnh nhiễu</strong>: Loại và cường độ nhiễu (tăng cường, dropout) phải được điều chỉnh cẩn thận để cân bằng giữa độ bền vững và tính ổn định khi học.</li>
+        <li><strong>Chất lượng nhãn giả</strong>: Cũng như Self-Training, nhãn giả kém chất lượng có thể gây hại cho hiệu năng, đặc biệt ở các vòng lặp đầu.</li>
+      </ul>
+
+      <h3>7. Liên hệ với Knowledge Distillation và các tập dữ liệu khác nhau</h3>
+      <p>Cả <strong>Self-Training</strong> và <strong>Noisy Student</strong> đều có liên hệ chặt chẽ với knowledge distillation, đặc biệt trong các kịch bản mà giáo viên và học sinh được huấn luyện trên các tập dữ liệu khác nhau (ví dụ: dữ liệu có nhãn so với không nhãn):</p>
+      <ul>
+        <li><strong>Các tập dữ liệu khác nhau</strong>: Trong cả hai phương pháp, giáo viên thường được huấn luyện trên một tập dữ liệu có nhãn, trong khi học sinh được huấn luyện trên một kết hợp giữa tập dữ liệu có nhãn và một tập dữ liệu không nhãn (hoặc một tập dữ liệu khác với nhãn giả).</li>
+        <li><strong>Truyền tri thức</strong>: Giống như knowledge distillation, Self-Training và Noisy Student truyền tri thức từ giáo viên sang học sinh thông qua nhãn giả (cứng hoặc mềm).</li>
+        <li><strong>Cải thiện hiệu năng</strong>: Các phương pháp này đặc biệt hiệu quả khi tập dữ liệu có nhãn nhỏ nhưng dữ liệu không nhãn dồi dào.</li>
+      </ul>
+
+      <h4>Các kỹ thuật này cải thiện hiệu năng mô hình như thế nào</h4>
+      <ol>
+        <li><strong>Tăng cường sử dụng dữ liệu</strong>: Cả hai phương pháp đều tận dụng dữ liệu không nhãn, thường dồi dào, để mở rộng tập huấn luyện. Điều này giúp mô hình tiếp xúc với các mẫu hình đa dạng hơn, cải thiện khả năng tổng quát hóa.</li>
+        <li><strong>Chính quy hóa</strong>: Nhãn giả và nhiễu (trong Noisy Student) đóng vai trò như các bộ chính quy hóa, ngăn overfitting với dữ liệu có nhãn.</li>
+        <li><strong>Cải thiện lặp lại</strong>: Huấn luyện lặp lại tinh chỉnh nhãn giả, dẫn đến các mô hình ngày càng tốt hơn.</li>
+        <li><strong>Xử lý dữ liệu có nhãn hạn chế</strong>: Trong các thiết lập có ít mẫu có nhãn, các phương pháp này dùng dữ liệu không nhãn để bù đắp, đạt hiệu năng gần với các mô hình được giám sát đầy đủ.</li>
+        <li><strong>Thích ứng miền</strong>: Khi dữ liệu không nhãn đến từ một phân bố hơi khác, các phương pháp này có thể giúp học sinh thích ứng với miền mục tiêu.</li>
+      </ol>
+
+      <h4>Cân nhắc thực tiễn</h4>
+      <ul>
+        <li><strong>Khi nào dùng Self-Training</strong>: Self-Training hiệu quả cho các tập dữ liệu không nhãn nhỏ đến trung bình và được dùng cho các tác vụ bán giám sát đơn giản hơn với tài nguyên tính toán hạn chế hoặc khi mô hình học sinh tương tự giáo viên.</li>
+        <li><strong>Khi nào dùng Noisy Student</strong>: Dùng Noisy Student khi bạn có quyền truy cập vào các tập dữ liệu không nhãn lớn, đủ tài nguyên tính toán, và muốn tối đa hóa hiệu năng, có khả năng vượt qua giáo viên.</li>
+        <li><strong>Mẹo triển khai</strong>:
+          <ul>
+            <li><strong>Ngưỡng độ tin cậy</strong>: Lọc nhãn giả theo độ tin cậy (ví dụ: giữ các dự đoán có xác suất &gt; 0.9) để giảm nhiễu.</li>
+            <li><strong>Giáo viên mạnh</strong>: Bắt đầu với một giáo viên chất lượng cao (ví dụ: đã huấn luyện trước trên một tập dữ liệu lớn) để đảm bảo nhãn giả đáng tin cậy.</li>
+            <li><strong>Điều chỉnh nhiễu</strong>: Trong Noisy Student, thử nghiệm với các chính sách tăng cường (ví dụ: RandAugment) và cường độ chính quy hóa.</li>
+            <li><strong>Chiến lược lặp lại</strong>: Giới hạn số vòng lặp để tránh tích lũy lỗi, và theo dõi hiệu năng kiểm chứng để dừng sớm nếu cần.</li>
+          </ul>
+        </li>
+      </ul>
+
+    </div><!-- /.post-body -->
+  </div>
+</article>
+
+<div class="post-sep"></div>
+
+<!-- ============================================================
+     POST 2 — 2D VISION UTILITIES
+     ============================================================ -->
+<article id="2d-vision" class="blog-article alt-bg blog-post">
+  <div class="container">
+    <header class="post-header">
+      <span class="blog-tag">Thị giác máy tính</span>
+      <h2>Các công cụ Thị giác 2D</h2>
+      <div class="post-date">4 Tháng 1, 2026</div>
+    </header>
+
+    <div class="post-body">
+
+      <h3>1. Sân chơi hình Ellipse (Ellipse Playground)</h3>
+      <p>Cho <strong>hệ tọa độ ảnh</strong> $Oxy$, với $O(0, 0)$ là <strong>tâm tọa độ</strong>:</p>
+      <img src="assets/blog/2d-vision-coord.png" width="940" height="918" loading="lazy" alt="Sơ đồ hệ tọa độ ảnh Oxy" />
+
+      <h4>1.1. Phương trình tổng quát</h4>
+      <p>Phương trình tổng quát của một hình ellipse đã xoay:</p>
+      <div class="math-display">
+        $$\frac{[(x-c_x)\cos(-\theta)+(y-c_y)\sin(-\theta)]^2}{a^2}+\frac{[(x-c_x)\sin(-\theta)-(y-c_y)\cos(-\theta)]^2}{b^2}=1$$
+      </div>
+      <p>trong đó:</p>
+      <ul>
+        <li>$C(c_x, c_y)$ là tâm của hình ellipse</li>
+        <li>$a, b$ là bán trục lớn và bán trục nhỏ</li>
+        <li>$\theta$ là góc xoay đo từ trục $Cx$ (không phải trục $Ox$) (<strong>theo chiều kim đồng hồ</strong>)</li>
+      </ul>
+
+      <h4>1.2. Phương trình tham số</h4>
+      <div class="math-display">
+        $$x(\alpha) = a\cos(\alpha)\cos(\theta) - b\sin(\alpha)\sin(\theta) + c_x$$
+        $$y(\alpha) = a\cos(\alpha)\sin(\theta) + b\sin(\alpha)\cos(\theta) + c_y$$
+      </div>
+      <p>trong đó:</p>
+      <ul>
+        <li>$C(c_x, c_y)$ là tâm của hình ellipse</li>
+        <li>$a, b$ là bán trục lớn và bán trục nhỏ</li>
+        <li>$\theta$ là góc xoay đo từ trục $Cx$ (không phải trục $Ox$) (<strong>theo chiều kim đồng hồ</strong>)</li>
+        <li>$\alpha$ là tham số, có giá trị (radian) từ $0$ đến $2\pi$</li>
+      </ul>
+      <p>Minh họa hình ellipse đã xoay, với $Cx$ và $Cy$ tương ứng song song và cùng hướng với $Ox$ và $Oy$:</p>
+      <img src="assets/blog/2d-vision-ellipse.png" width="889" height="793" loading="lazy" alt="Minh họa hình ellipse đã xoay" />
+
+      <h3>2. Xoay điểm (Rotate Point)</h3>
+      <p>Nếu bạn xoay một điểm $B(x_B, y_B)$ quanh một điểm $A(x_A, y_A)$ theo góc $\theta$ (ngược chiều kim đồng hồ), bạn sẽ được một điểm $C(x_C, y_C)$, trong đó:</p>
+      <div class="math-display">
+        $$x_C = (x_B - x_A)\cos(\theta) - (y_B - y_A)\sin(\theta) + x_A$$
+        $$y_C = (x_B - x_A)\sin(\theta) + (y_B - y_A)\cos(\theta) + y_A$$
+      </div>
+      <p>Triển khai Python:</p>
+      <pre><code>def get_rotation(start_point, center_point, rad):
+    """Rotate start_point around center_point by rad radians (counterclockwise).
+
+    Args:
+        start_point:  (x, y)
+        center_point: (x, y)
+        rad:          rotation angle in radians, counterclockwise
+
+    Returns:
+        [x_T, y_T]
+    """
+    T = [0, 0]
+    T[0] = (start_point[0] - center_point[0]) * math.cos(rad) \
+         - (start_point[1] - center_point[1]) * math.sin(rad) \
+         + center_point[0]
+    T[1] = (start_point[0] - center_point[0]) * math.sin(rad) \
+         + (start_point[1] - center_point[1]) * math.cos(rad) \
+         + center_point[1]
+    return T</code></pre>
+
+    </div><!-- /.post-body -->
+  </div>
+</article>
+
+<div class="post-sep"></div>
+
+<!-- ============================================================
+     POST 3 — ROLLING IN THE DEEP
+     ============================================================ -->
+<article id="rolling-in-the-deep" class="blog-article blog-post">
+  <div class="container">
+    <header class="post-header">
+      <span class="blog-tag-depth">Ước lượng độ sâu</span>
+      <h2>Rolling in the Deep</h2>
+      <div class="post-date">4 Tháng 1, 2026</div>
+    </header>
+
+    <div class="post-body">
+
+      <h3>Benchmark (Cập nhật mới nhất)</h3>
+
+      <h4>Benchmark công khai</h4>
+      <p><strong>Tuyên bố miễn trừ trách nhiệm</strong>:</p>
+      <ul>
+        <li>Đây chỉ là một benchmark trên một số tập dữ liệu chuẩn, nghĩa là mô hình không nhất thiết trở thành "SOTA" thực sự cho các ứng dụng trong-thực-tế (in-the-wild).</li>
+        <li>Benchmark này tập trung vào các chỉ số <strong>độ chính xác</strong> nhưng không có chỉ số <strong>độ trễ (latency)</strong>, vốn cũng là một phần thiết yếu của các ứng dụng thời gian thực.</li>
+      </ul>
+      <div class="ref-links">
+        <a href="https://paperswithcode.com/task/monocular-depth-estimation" target="_blank" rel="noopener" class="ref-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          Papers with Code – Monocular Depth Estimation
+        </a>
+      </div>
+
+      <h3>Ghi chú cá nhân</h3>
+      <div class="ref-links">
+        <a href="https://huynhthaihoa.github.io/depth-pseudolidar/" target="_blank" rel="noopener" class="ref-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          From Depth Estimation to Pseudo-LIDAR
+        </a>
+        <a href="https://huggingface.co/blog/Isayoften/monocular-depth-estimation-guide" target="_blank" rel="noopener" class="ref-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          Metric and Relative Monocular Depth Estimation: An Overview (HuggingFace)
+        </a>
+      </div>
+
+      <h3>Các công trình nổi bật</h3>
+      <p>Các công trình này có thể không phải là "SOTA" trên một số tập dữ liệu cụ thể nhưng có tiềm năng cao cho các ứng dụng thực tế, trong-thực-tế.</p>
+
+      <div class="works-list">
+
+        <div class="work-item fade-up">
+          <div class="work-title">Depth Any Camera: Zero-Shot Metric Depth Estimation from Any Camera (2025)</div>
+          <div class="work-links">
+            <a href="https://yuliangguo.github.io/depth-any-camera/" target="_blank" rel="noopener" class="work-link-btn">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+              Trang dự án
+            </a>
+          </div>
+        </div>
+
+        <div class="work-item fade-up">
+          <div class="work-title">Prompting Depth Anything for 4K Resolution Accurate Metric Depth Estimation (PromptDA, 2024)</div>
+          <div class="work-links">
+            <a href="https://promptda.github.io/" target="_blank" rel="noopener" class="work-link-btn">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+              Trang dự án
+            </a>
+          </div>
+        </div>
+
+        <div class="work-item fade-up">
+          <div class="work-title">Lotus: Diffusion-based Visual Foundation Model for High-quality Dense Prediction (2024)</div>
+          <div class="work-links">
+            <a href="https://lotus3d.github.io/" target="_blank" rel="noopener" class="work-link-btn">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+              Trang dự án
+            </a>
+          </div>
+        </div>
+
+        <div class="work-item fade-up">
+          <div class="work-title">World-consistent Video Diffusion with Explicit 3D Modeling (WVD, 2024)</div>
+          <div class="work-links">
+            <a href="https://zqh0253.github.io/wvd/" target="_blank" rel="noopener" class="work-link-btn">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+              Trang dự án
+            </a>
+          </div>
+        </div>
+
+        <div class="work-item fade-up">
+          <div class="work-title">RollingDepth: Video Depth without Video Models (2024)</div>
+          <div class="work-links">
+            <a href="https://github.com/prs-eth/rollingdepth" target="_blank" rel="noopener" class="work-link-btn">
+              <svg width="12" height="12" fill="currentColor"><use href="#icon-github"></use></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <div class="work-item fade-up">
+          <div class="work-title">Depth Anything V2 – CVPR 2024</div>
+          <div class="work-links">
+            <a href="https://github.com/DepthAnything/Depth-Anything-V2" target="_blank" rel="noopener" class="work-link-btn">
+              <svg width="12" height="12" fill="currentColor"><use href="#icon-github"></use></svg>
+              GitHub (V2)
+            </a>
+            <a href="https://github.com/LiheYoung/Depth-Anything" target="_blank" rel="noopener" class="work-link-btn">
+              <svg width="12" height="12" fill="currentColor"><use href="#icon-github"></use></svg>
+              GitHub (V1)
+            </a>
+          </div>
+        </div>
+
+        <div class="work-item fade-up">
+          <div class="work-title">DepthCrafter: Generating Consistent Long Depth Sequences for Open-world Videos (2024)</div>
+          <div class="work-links">
+            <a href="https://github.com/Tencent/DepthCrafter" target="_blank" rel="noopener" class="work-link-btn">
+              <svg width="12" height="12" fill="currentColor"><use href="#icon-github"></use></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <div class="work-item fade-up">
+          <div class="work-title">Depth Anywhere: Enhancing 360 Monocular Depth Estimation via Perspective Distillation and Unlabeled Data Augmentation – NeurIPS 2024</div>
+          <div class="work-links">
+            <a href="https://github.com/albert100121/Depth-Anywhere" target="_blank" rel="noopener" class="work-link-btn">
+              <svg width="12" height="12" fill="currentColor"><use href="#icon-github"></use></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <div class="work-item fade-up">
+          <div class="work-title">Depth Pro: Sharp Monocular Metric Depth in Less Than a Second (2024)</div>
+          <div class="work-links">
+            <a href="https://github.com/apple/ml-depth-pro" target="_blank" rel="noopener" class="work-link-btn">
+              <svg width="12" height="12" fill="currentColor"><use href="#icon-github"></use></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <div class="work-item fade-up">
+          <div class="work-title">UniDepth: Universal Monocular Metric Depth Estimation – CVPR 2024</div>
+          <div class="work-links">
+            <a href="https://github.com/lpiccinelli-eth/UniDepth" target="_blank" rel="noopener" class="work-link-btn">
+              <svg width="12" height="12" fill="currentColor"><use href="#icon-github"></use></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <div class="work-item fade-up">
+          <div class="work-title">Marigold: Repurposing Diffusion-Based Image Generators for Monocular Depth Estimation – CVPR 2024</div>
+          <div class="work-links">
+            <a href="https://github.com/prs-eth/marigold" target="_blank" rel="noopener" class="work-link-btn">
+              <svg width="12" height="12" fill="currentColor"><use href="#icon-github"></use></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <div class="work-item fade-up">
+          <div class="work-title">Booster: A Benchmark for Depth from Images of Specular and Transparent Surfaces (2023)</div>
+          <div class="work-links">
+            <a href="https://arxiv.org/pdf/2301.08245" target="_blank" rel="noopener" class="work-link-btn">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+              arXiv
+            </a>
+          </div>
+        </div>
+
+        <div class="work-item fade-up">
+          <div class="work-title">Deep Depth from Focus with Differential Focus Volume – CVPR 2022</div>
+          <div class="work-links">
+            <a href="https://arxiv.org/pdf/2112.01712" target="_blank" rel="noopener" class="work-link-btn">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+              arXiv
+            </a>
+            <a href="https://github.com/fuy34/DFV" target="_blank" rel="noopener" class="work-link-btn">
+              <svg width="12" height="12" fill="currentColor"><use href="#icon-github"></use></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <div class="work-item fade-up">
+          <div class="work-title">Towards Robust Monocular Depth Estimation: Mixing Datasets for Zero-shot Cross-dataset Transfer (MiDaS, 2020)</div>
+          <div class="work-links">
+            <a href="https://github.com/isl-org/MiDaS" target="_blank" rel="noopener" class="work-link-btn">
+              <svg width="12" height="12" fill="currentColor"><use href="#icon-github"></use></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+      </div><!-- /.works-list -->
+
+      <h3>Tập dữ liệu &amp; Trình mô phỏng</h3>
+      <div class="works-list">
+        <div class="work-item fade-up">
+          <div class="work-title">RGBD Objects in the Wild: Scaling Real-World 3D Object Learning from RGB-D Videos</div>
+          <div class="work-links">
+            <a href="https://github.com/wildrgbd/wildrgbd" target="_blank" rel="noopener" class="work-link-btn">
+              <svg width="12" height="12" fill="currentColor"><use href="#icon-github"></use></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+        <div class="work-item fade-up">
+          <div class="work-title">CARLA Simulator</div>
+          <div class="work-links">
+            <a href="https://github.com/carla-simulator/carla" target="_blank" rel="noopener" class="work-link-btn">
+              <svg width="12" height="12" fill="currentColor"><use href="#icon-github"></use></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <h3>Tài liệu tham khảo khác</h3>
+      <div class="ref-links">
+        <a href="https://en.wikipedia.org/wiki/Depth_perception" target="_blank" rel="noopener" class="ref-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          Wikipedia: Depth Perception
+        </a>
+        <a href="https://github.com/jspenmar/monodepth_benchmark" target="_blank" rel="noopener" class="ref-link">
+          <svg width="14" height="14" fill="currentColor"><use href="#icon-github"></use></svg>
+          jspenmar / monodepth_benchmark
+        </a>
+      </div>
+
+    </div><!-- /.post-body -->
+  </div>
+</article>
+
+<div class="post-sep"></div>
+
+<!-- ============================================================
+     POST 4 — FROM DEPTH ESTIMATION TO PSEUDO-LIDAR
+     ============================================================ -->
+<article id="depth-pseudolidar" class="blog-article alt-bg blog-post">
+  <div class="container">
+    <header class="post-header">
+      <span class="blog-tag-depth">Ước lượng độ sâu</span>
+      <h2>Từ Ước lượng Độ sâu đến Pseudo-LIDAR</h2>
+      <div class="post-date">24 Tháng 3, 2025</div>
+    </header>
+
+    <div class="post-body">
+
+      <h3>Nhận thức độ sâu ở con người</h3>
+      <p>Các nghiên cứu về nhận thức độ sâu ở con người cung cấp cái nhìn sâu sắc về các gợi ý hình ảnh (pictorial cues) có thể dùng để ước lượng khoảng cách. Các gợi ý sau thường có thể tìm thấy trong ảnh đơn:</p>
+      <ul>
+        <li><strong>Vị trí trong ảnh</strong>: các vật thể ở xa hơn có xu hướng gần đường chân trời hơn. Khi nằm trên mặt đất, các vật thể cũng xuất hiện cao hơn trong ảnh.</li>
+        <li><strong>Sự che khuất (Occlusion)</strong>: các vật thể gần che khuất các vật thể phía sau — cho biết thứ tự độ sâu nhưng không cho biết khoảng cách chính xác.</li>
+        <li><strong>Mật độ họa tiết (Texture density)</strong>: các bề mặt có họa tiết ở xa hơn xuất hiện mịn hơn (chi tiết nhỏ hơn).</li>
+        <li><strong>Phối cảnh tuyến tính (Linear perspective)</strong>: các đường thẳng, song song trong thế giới thực xuất hiện hội tụ trong ảnh.</li>
+        <li><strong>Kích thước biểu kiến của vật thể</strong>: các vật thể ở xa hơn xuất hiện nhỏ hơn.</li>
+        <li><strong>Hiệu ứng chuyển động</strong>: các vật thể trở nên mờ và ngả xanh khi chúng di chuyển ra xa.</li>
+        <li><strong>Bóng đổ &amp; chiếu sáng</strong>: một bề mặt xuất hiện sáng hơn khi pháp tuyến của nó hướng về phía nguồn sáng. Bóng đổ cung cấp thông tin về sự thay đổi độ sâu trong một bề mặt.</li>
+        <li><strong>Độ mờ do lấy nét (Focus blur)</strong>: các vật thể ở phía trước hoặc phía sau mặt phẳng lấy nét xuất hiện mờ.</li>
+        <li><strong>Phối cảnh khí quyển (Aerial perspective)</strong>: các vật thể rất xa có độ tương phản thấp hơn và ngả sắc xanh.</li>
+      </ul>
+
+      <hr>
+
+      <h3>Các cách tiếp cận Ước lượng Độ sâu</h3>
+      <p>Có 2 cách tiếp cận ước lượng độ sâu đơn mắt (monocular): <strong>ước lượng độ sâu tuyệt đối</strong> và <strong>ước lượng độ sâu tương đối</strong>.</p>
+
+      <h4>1. Ước lượng độ sâu tuyệt đối</h4>
+      <p>Ước lượng độ sâu tuyệt đối (hay theo đơn vị mét - metric) dự đoán giá trị độ sâu cho từng pixel theo đơn vị vật lý tuyệt đối (mét).</p>
+      <ul>
+        <li><strong>Ưu điểm</strong>: các dự đoán có thể được dùng trực tiếp cho các ứng dụng downstream.</li>
+        <li><strong>Nhược điểm</strong>: huấn luyện trên nhiều tập dữ liệu thường làm giảm hiệu năng, đặc biệt khi thang độ sâu khác nhau nhiều (ví dụ trong nhà so với ngoài trời). Các phương pháp này thường bị overfit với một tập dữ liệu cụ thể.</li>
+      </ul>
+
+      <h4>2. Ước lượng độ sâu tương đối</h4>
+      <p>Ước lượng độ sâu tương đối loại bỏ yếu tố thang đo (scale), ước lượng độ sâu của các pixel tương đối với nhau. Hệ số thang đo tuyệt đối là không xác định.</p>
+      <ul>
+        <li><strong>Ưu điểm</strong>: cho phép tổng quát hóa trên nhiều miền dữ liệu — thang đo mét và tham số camera không cần nhất quán.</li>
+        <li><strong>Nhược điểm</strong>: độ sâu dự đoán không có ý nghĩa theo đơn vị mét.</li>
+      </ul>
+
+      <hr>
+
+      <h3>Từ Ước lượng Độ sâu đến Tái tạo 3D</h3>
+      <p>Mối quan hệ giữa một tọa độ 2D $p$ (mặt phẳng ảnh) và tọa độ 3D tương ứng $P_c$ (hệ tọa độ camera) là:</p>
+      <div class="math-display">$$s\,p = A P_c \quad (1)$$</div>
+      <p>trong đó $p = \begin{bmatrix} u\\ v \end{bmatrix}$, $P_c = \begin{bmatrix} X_c\\ Y_c \\ Z_c \end{bmatrix}$, $s$ là hệ số thang đo phối cảnh (projective scaling factor), và $A$ là ma trận nội tại (intrinsic) camera (lý tưởng):</p>
+      <div class="math-display">$$A = \begin{bmatrix} f_x & 0 & c_x \\ 0 & f_y & c_y \\ 0 & 0 & 1 \end{bmatrix} \quad (2)$$</div>
+      <p>Trong thực tế, mọi camera đều có hiện tượng méo ảnh (distortion), vì vậy ta cần hiệu chỉnh (calibrate) trước và tính toán $A$ tối ưu bằng OpenCV:</p>
+      <pre><code>camera_matrix = np.zeros(shape=(3, 3))
+camera_matrix[0, 0] = 3.618627944978409e+02
+camera_matrix[0, 2] = 3.140828758355781e+02
+camera_matrix[1, 1] = 3.611479934228698e+02
+camera_matrix[1, 2] = 1.674230039961440e+02
+camera_matrix[2, 2] = 1
+
+dist_coeffs = np.array([-0.115065515143958, 0.023076954804581, 0, 0, 0])
+
+# W, H = image width and height
+A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)</code></pre>
+
+      <div class="callout">
+        💡 Hiệu chỉnh camera là <strong>một quá trình xấp xỉ</strong> — tương tự như machine learning. Chúng ta hiếm khi có được ma trận camera lý tưởng thực sự, nhưng xem kết quả thu được là $A$ để đơn giản hóa.
+      </div>
+
+      <p><strong>Bản đồ độ sâu tuyệt đối</strong> cho ta $Z_c$. Các tọa độ còn lại được suy ra từ (1) và (2):</p>
+      <div class="math-display">$$X_c = \frac{Z_c(u - c_x)}{f_x} \quad (3) \qquad Y_c = \frac{Z_c(v - c_y)}{f_y} \quad (4)$$</div>
+      <p>Triển khai Python:</p>
+      <pre><code>def depth_to_3d(D, fx, fy, cx, cy):
+    """Convert absolute depth map to 3D coordinates in camera coordinate system.
+
+    Args:
+        D:  absolute depth map, shape (H, W)
+        fx, fy: focal lengths; cx, cy: principal point
+
+    Returns:
+        3D coordinates, shape (H*W, 3) — each row is (Xc, Yc, Zc)
+    """
+    H, W = D.shape
+    xx, yy = np.tile(range(W), H), np.repeat(range(H), W)
+    Z = D.reshape(-1)
+    Xc = (xx - cx) * Z / fx
+    Yc = (yy - cy) * Z / fy
+    return np.stack([Xc, Yc, Z], axis=1)</code></pre>
+
+      <hr>
+
+      <h3>Tái tạo LIDAR bằng Pseudo-LIDAR</h3>
+      <div class="callout">
+        💡 Để kiểm chứng đề xuất này, thiết lập <strong>4 camera</strong> và <strong>1 LIDAR</strong> trong <strong>môi trường mô phỏng CARLA</strong>, ghi lại dữ liệu, và thử nghiệm với pipeline đầu-cuối (end-to-end).
+      </div>
+      <p>Cho một LIDAR $L$ tạo ra một point cloud 360°, ta tái tạo nó bằng các camera $C_i$. Pipeline đề xuất:</p>
+      <ol>
+        <li>Suy luận bản đồ độ sâu tuyệt đối $D_i$ của mỗi ảnh $I_i$.</li>
+        <li>Tính toán tọa độ 3D $P_{C_i}$ trong hệ tọa độ mỗi camera bằng $D_i$ và ma trận nội tại $A_i$.</li>
+        <li>Chiếu lại (re-project) sang hệ tọa độ LIDAR thông qua phép quay $R_i$ và phép tịnh tiến $t_i$:
+          <div class="math-display">$$P_{L_i} = [R_i \mid t_i]\,P_{C_i} \quad (5)$$</div>
+        </li>
+      </ol>
+      <p><strong>Ưu điểm so với LIDAR thực:</strong> chi phí thấp hơn, point cloud màu dày đặc hơn, tiềm năng tốc độ khung hình cao hơn.</p>
+      <p><strong>Nhược điểm:</strong> giới hạn do méo ảnh camera, nhạy cảm với ánh sáng và thời tiết, hiện tượng che khuất thường xuyên, cần ghép nhiều camera (multi-camera stitching), và việc hiệu chỉnh/đồng bộ hóa khó khăn.</p>
+
+      <hr>
+
+      <h3>Tài liệu tham khảo</h3>
+      <div class="ref-links">
+        <a href="https://openaccess.thecvf.com/content_ICCV_2019/papers/van_Dijk_How_Do_Neural_Networks_See_Depth_in_Single_Images_ICCV_2019_paper.pdf" target="_blank" rel="noopener" class="ref-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          How do neural networks see depth in single images (ICCV 2019)
+        </a>
+        <a href="https://arxiv.org/pdf/2302.12288.pdf" target="_blank" rel="noopener" class="ref-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          ZoeDepth: Zero-shot Transfer by Combining Relative and Metric Depth
+        </a>
+        <a href="https://docs.opencv.org/3.4/d9/d0c/group__calib3d.html" target="_blank" rel="noopener" class="ref-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          OpenCV: Camera Calibration and 3D Reconstruction
+        </a>
+      </div>
+
+    </div><!-- /.post-body -->
+  </div>
+</article>
+
+<div class="post-sep"></div>
+
+<!-- ============================================================
+     POST 5 — PERSPECTIVE TRANSFORM VS AFFINE TRANSFORM
+     ============================================================ -->
+<article id="perspective-affine" class="blog-article blog-post">
+  <div class="container">
+    <header class="post-header">
+      <span class="blog-tag">Thị giác máy tính</span>
+      <h2>Perspective Transform và Affine Transform</h2>
+      <div class="post-date">24 Tháng 11, 2025</div>
+    </header>
+
+    <div class="post-body">
+
+      <h3>Perspective Transform</h3>
+      <p><strong>Homography</strong> (perspective transform) là một phép biến đổi hình học liên hệ giữa 2 mặt phẳng khác nhau. Các đường thẳng vẫn giữ thẳng sau khi biến đổi.</p>
+      <img src="assets/blog/perspective_transform.png" width="422" height="243" loading="lazy" alt="Minh họa Perspective Transform" />
+      <p>Mỗi điểm $(x, y)$ trên mặt phẳng $\pi$ ánh xạ sang $(x', y')$ trên mặt phẳng $\pi'$:</p>
+      <div class="math-display">
+        $$s \begin{bmatrix} x' \\ y' \\ 1 \end{bmatrix} = \mathbf{H} \begin{bmatrix} x \\ y \\ 1 \end{bmatrix} = \begin{bmatrix} h_{11} & h_{12} & h_{13} \\ h_{21} & h_{22} & h_{23} \\ h_{31} & h_{32} & h_{33} \end{bmatrix} \begin{bmatrix} x \\ y \\ 1 \end{bmatrix}$$
+      </div>
+      <p>trong đó $s$ là hệ số thang đo và $\mathbf{H}$ là ma trận homography <code>3×3</code> với <strong>8 bậc tự do (DoF)</strong>. Để tính $\mathbf{H}$ bạn cần <strong>4 cặp điểm tương ứng</strong>, trong đó không có 3 điểm nào thẳng hàng.</p>
+
+      <hr>
+
+      <h3>Affine Transform</h3>
+
+      <h4>Định nghĩa</h4>
+      <p>Một <strong>phép biến đổi affine (affine transformation)</strong> bảo toàn đường thẳng và tính song song, nhưng không nhất thiết bảo toàn khoảng cách Euclid và góc:</p>
+      <ul>
+        <li>Các điểm nằm trên cùng một đường thẳng vẫn thẳng hàng sau khi biến đổi.</li>
+        <li>Các đường thẳng song song vẫn song song sau khi biến đổi.</li>
+        <li>Tỉ lệ của bất kỳ cặp đoạn thẳng nào được bảo toàn; trung điểm vẫn là trung điểm.</li>
+      </ul>
+
+      <h4>Ví dụ</h4>
+      <ul>
+        <li><strong>Tịnh tiến (Translation)</strong>: di chuyển một hình mà không thay đổi hướng hoặc kích thước.</li>
+        <li><strong>Xoay (Rotation)</strong>: xoay một hình quanh một điểm.</li>
+        <li><strong>Co giãn (Scaling)</strong>: phóng to hoặc thu nhỏ một hình.</li>
+        <li><strong>Cắt xén (Shearing)</strong>: làm nghiêng một hình.</li>
+      </ul>
+
+      <h4>Phương trình</h4>
+      <img src="assets/blog/affine_transform.png" width="1042" height="1825" loading="lazy" alt="Minh họa Affine Transform" />
+
+    </div><!-- /.post-body -->
+  </div>
+</article>
+
+<div class="post-sep"></div>
+
+<!-- ============================================================
+     POST 6 — SIMPLE LOOKING-AT-PHONE ALGORITHM
+     ============================================================ -->
+<article id="phone-looking" class="blog-article alt-bg blog-post">
+  <div class="container">
+    <header class="post-header">
+      <span class="blog-tag">Thị giác máy tính</span>
+      <h2>Thuật toán đơn giản Phát hiện Nhìn Điện thoại</h2>
+      <div class="post-date">24 Tháng 11, 2025</div>
+    </header>
+
+    <div class="post-body">
+
+      <h3>Giới thiệu</h3>
+      <p>Một thuật toán đơn giản (naive) để kiểm tra <strong>liệu một người có đang nhìn vào điện thoại của họ hay không</strong> từ ảnh đầu vào, cho trước một <strong>Mô hình Phát hiện Đối tượng (Object Detection Model)</strong> và một <strong>Mô hình Ước lượng Ánh nhìn (Gaze Estimation Model)</strong>.</p>
+
+      <hr>
+
+      <h3>Ý tưởng</h3>
+      <p>Giả định:</p>
+      <ul>
+        <li><strong>Mô hình Phát hiện Đối tượng</strong> phát hiện các đối tượng thuộc lớp <code>Phone</code> (Điện thoại) và <code>Human</code> (Người).</li>
+        <li><strong>Mô hình Ước lượng Ánh nhìn</strong> dự đoán một <code>vector ánh nhìn (gaze vector)</code> bắt đầu tại <code>gaze_start</code> hướng đến <code>gaze_end</code>.</li>
+      </ul>
+      <p>Con người không nhìn theo một tia đơn lẻ mà theo một <strong>trường nhìn hình nón (cone-like FOV)</strong>. Ta định nghĩa FOV ánh nhìn là hình nón nhận <code>vector ánh nhìn</code> làm đường phân giác góc của nó, sau đó kiểm tra xem có đối tượng <code>Phone</code> nào <strong>giao với FOV</strong> hay không. Một đối tượng được xem là giao nếu:</p>
+      <ol>
+        <li>Điểm tin cậy (confidence score) của nó cao hơn <code>conf_thres</code> (giảm các phát hiện điện thoại dương tính giả).</li>
+        <li>FOV giao với ít nhất <code>count_thres</code> cạnh của bounding box của đối tượng.</li>
+      </ol>
+      <p>Nếu có ít nhất một <code>Phone</code> thỏa cả hai điều kiện, <strong>người đó đang nhìn vào điện thoại</strong>.</p>
+
+      <hr>
+
+      <h3>Cấu hình</h3>
+      <ul>
+        <li><code>conf_thres</code>: 0.5 &nbsp;(0 &lt; <code>conf_thres</code> &lt;= 1)</li>
+        <li><code>count_thres</code>: 1 &nbsp;(1 &lt;= <code>count_thres</code> &lt;= 4)</li>
+        <li><code>fov_degree</code>: 30 &nbsp;(độ lớn FOV tính bằng độ, 0 &lt;= <code>fov_degree</code> &lt;= 90)</li>
+      </ul>
+
+      <hr>
+
+      <h3>Demo</h3>
+      <p>Ảnh minh họa thuật toán hoạt động với các vector ánh nhìn và đối tượng điện thoại được sinh ngẫu nhiên:</p>
+      <img src="assets/blog/example_distracted.png" width="700" height="700" loading="lazy" alt="Mất tập trung — người đang nhìn vào điện thoại" />
+      <img src="assets/blog/example_focus.png" width="700" height="700" loading="lazy" alt="Tập trung — người không nhìn vào điện thoại" />
+      <p>Chú thích:</p>
+      <ul>
+        <li><strong>Vector xanh lá</strong>: ranh giới FOV</li>
+        <li><strong>Vector xanh dương nhạt</strong>: vector ánh nhìn</li>
+        <li><strong>Hình chữ nhật trắng</strong>: đối tượng dưới ngưỡng <code>conf_thres</code></li>
+        <li><strong>Hình chữ nhật vàng</strong>: đối tượng nằm trong bbox của người nhưng ngoài FOV</li>
+        <li><strong>Hình chữ nhật đỏ</strong>: đối tượng thỏa cả hai điều kiện (điện thoại đang được nhìn vào)</li>
+      </ul>
+
+      <pre><code>import math
+import cv2
+import numpy as np
+from loguru import logger
+
+
+def get_rotation(start_point, center_point, rad):
+    """Rotate start_point around center_point by rad radians (counter-clockwise)."""
+    T = [0, 0]
+    T[0] = (start_point[0] - center_point[0]) * math.cos(rad) \
+         - (start_point[1] - center_point[1]) * math.sin(rad) \
+         + center_point[0]
+    T[1] = (start_point[0] - center_point[0]) * math.sin(rad) \
+         + (start_point[1] - center_point[1]) * math.cos(rad) \
+         + center_point[1]
+    return T
+
+
+def find_angle(start_point, end_point):
+    """Angle of vector start_point->end_point w.r.t. Ox axis (clockwise)."""
+    return math.atan2(end_point[1] - start_point[1], end_point[0] - start_point[0])
+
+
+def is_anglerange_in_fovrange(fov_min, fov_max, angle_1, angle_2):
+    """Check if [min(angle_1,angle_2), max(angle_1,angle_2)] overlaps [fov_min, fov_max].
+
+    Constraints:
+        0 &lt;= fov &lt;= math.pi / 2   (fov_min &lt;= fov_max)
+        -math.pi &lt;= angles &lt;= math.pi
+    """
+    angle_min = min(angle_1, angle_2)
+    angle_max = max(angle_1, angle_2)
+
+    if fov_min &lt;= 0 and fov_max &gt;= 0:
+        if fov_min &gt;= -math.pi / 2:         # -pi/2 &lt;= fov_min &lt;= 0, 0 &lt;= fov_max &lt;= pi/2
+            if angle_max &lt; fov_min:
+                return False
+            elif angle_max &lt;= fov_max:
+                return True
+            elif angle_max &lt;= fov_min + math.pi:
+                return angle_max - math.pi &lt;= angle_min &lt;= fov_max
+            else:
+                return fov_min &lt;= angle_min &lt;= fov_max
+        else:                                # -pi &lt;= fov_min &lt; -pi/2
+            if angle_max &lt;= fov_min:
+                return True
+            elif angle_max &lt;= 0:
+                return angle_min &lt;= fov_min
+            elif angle_max &lt; fov_max:
+                return angle_min &lt;= angle_max - math.pi
+            else:
+                return True
+    else:
+        if fov_max &lt;= 0:                     # fov_min &lt;= fov_max &lt;= 0
+            if angle_max &lt; fov_min:
+                return False
+            elif angle_max &lt;= fov_max:
+                return True
+            elif angle_max &lt;= fov_max + math.pi:
+                return angle_max - math.pi &lt;= angle_min &lt;= fov_max
+            else:
+                return fov_min &lt;= angle_min &lt;= angle_max - math.pi
+        else:                                # 0 &lt;= fov_min &lt;= fov_max
+            if angle_max &lt; 0:
+                return False
+            elif angle_max &lt; fov_min:
+                return angle_min &lt;= angle_max - math.pi
+            elif angle_max &lt;= fov_max:
+                return True
+            else:
+                return angle_max - math.pi &lt;= angle_min &lt;= fov_max
+    return False
+
+
+def is_overlapped(bbox1, bbox2):
+    """Check if two bounding boxes [xmin, ymin, xmax, ymax] overlap."""
+    h = (bbox1[0] &lt;= bbox2[2] and bbox1[0] &gt;= bbox2[0]) or \
+        (bbox2[0] &lt;= bbox1[2] and bbox2[0] &gt;= bbox1[0])
+    v = (bbox1[1] &lt;= bbox2[3] and bbox1[1] &gt;= bbox2[1]) or \
+        (bbox2[1] &lt;= bbox1[3] and bbox2[1] &gt;= bbox1[1])
+    return h and v
+
+
+def find_intersect_obj_indices(gaze_start, gaze_end, objects, bbox,
+                               fov_degree=30, conf_thres=0.5, count_thres=1):
+    """Return indices of objects whose bounding boxes intersect the gaze FOV.
+
+    Args:
+        gaze_start, gaze_end: gaze vector endpoints (x, y)
+        objects: list of [xmin, ymin, xmax, ymax, conf]
+        bbox: human bounding box [xmin, ymin, xmax, ymax]
+        fov_degree: FOV half-angle in degrees (0 &lt;= fov_degree &lt;= 90)
+        conf_thres: minimum object confidence (0 &lt; conf_thres &lt;= 1)
+        count_thres: minimum intersecting edges (1 &lt;= count_thres &lt;= 4)
+    """
+    rad = math.pi * fov_degree / 360
+    fov_p1 = get_rotation(gaze_end, gaze_start, rad)
+    fov_p2 = get_rotation(gaze_end, gaze_start, -rad)
+
+    fov_a1 = find_angle(gaze_start, fov_p1)
+    fov_a2 = find_angle(gaze_start, fov_p2)
+    fov_amin, fov_amax = min(fov_a1, fov_a2), max(fov_a1, fov_a2)
+
+    intersect_idx, outside_idx, unseen_idx = [], [], []
+
+    for idx, obj in enumerate(objects):
+        if not is_overlapped(obj, bbox):
+            outside_idx.append(idx)
+            continue
+
+        if obj[4] &gt;= conf_thres:
+            corners = [(obj[0], obj[1]), (obj[0], obj[3]),
+                       (obj[2], obj[1]), (obj[2], obj[3])]
+            angles = [find_angle(gaze_start, c) for c in corners]
+
+            count = sum([
+                is_anglerange_in_fovrange(fov_amin, fov_amax, angles[0], angles[1]),  # top
+                is_anglerange_in_fovrange(fov_amin, fov_amax, angles[2], angles[3]),  # bottom
+                is_anglerange_in_fovrange(fov_amin, fov_amax, angles[0], angles[2]),  # left
+                is_anglerange_in_fovrange(fov_amin, fov_amax, angles[1], angles[3]),  # right
+            ])
+
+            if count &gt;= count_thres:
+                intersect_idx.append(idx)
+            else:
+                unseen_idx.append(idx)
+
+    return fov_p1, fov_p2, intersect_idx, outside_idx, unseen_idx
+
+
+def generate_object(image_size):
+    xmax = np.random.randint(1, image_size)
+    xmin = np.random.randint(xmax)
+    ymax = np.random.randint(1, image_size)
+    ymin = np.random.randint(ymax)
+    return [xmin, ymin, xmax, ymax, np.random.rand()]
+
+
+def generate_gaze(bbox):
+    while True:
+        sx = np.random.randint(bbox[0], bbox[2])
+        sy = np.random.randint(bbox[1], bbox[3])
+        ex = np.random.randint(bbox[0], bbox[2])
+        ey = np.random.randint(bbox[1], bbox[3])
+        if sx != ex or sy != ey:
+            break
+    return (sx, sy), (ex, ey)
+
+
+if __name__ == "__main__":
+    fov_degree    = np.random.randint(30, 91)
+    conf_thres    = 0.5
+    count_thres   = 1
+    image_size    = 700
+    num_objects   = 5
+
+    objects     = [generate_object(image_size) for _ in range(num_objects)]
+    human       = generate_object(image_size)
+    gaze_start, gaze_end = generate_gaze(human)
+
+    fov_p1, fov_p2, inter, outside, unseen = find_intersect_obj_indices(
+        gaze_start, gaze_end, objects, human,
+        fov_degree=fov_degree, conf_thres=conf_thres, count_thres=count_thres)
+
+    image = np.zeros((image_size, image_size, 3), dtype=np.uint8)
+    cv2.rectangle(image, (human[0], human[1]), (human[2], human[3]), (255, 0, 0))
+    cv2.arrowedLine(image, gaze_start, (int(fov_p1[0]), int(fov_p1[1])), (0, 255, 0), 3)
+    cv2.arrowedLine(image, gaze_start, (int(fov_p2[0]), int(fov_p2[1])), (0, 255, 0), 3)
+    cv2.arrowedLine(image, gaze_start, gaze_end, (255, 255, 0), 1)
+
+    color_map = {tuple(inter): (0, 0, 255), tuple(outside): (255, 255, 255), tuple(unseen): (0, 255, 255)}
+    for idx, obj in enumerate(objects):
+        for group, color in color_map.items():
+            if idx in group:
+                cv2.rectangle(image, (obj[0], obj[1]), (obj[2], obj[3]), color)
+                break
+
+    if len(inter) &gt; 0:
+        cv2.putText(image, "LOOKING AT PHONE!", (10, 30),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.75, (255, 255, 255))
+
+    cv2.imshow("preview", image)
+    cv2.waitKey()
+    cv2.imwrite("example.png", image)</code></pre>
+
+    </div><!-- /.post-body -->
+  </div>
+</article>
+
+<article id="sahi-small-objects" class="blog-article blog-post">
+  <div class="container">
+    <header class="post-header">
+      <span class="blog-tag">Phát hiện đối tượng</span>
+      <h2>Tiền xử lý lấy cảm hứng từ Slicing cho Recall Vật thể Nhỏ</h2>
+      <div class="post-date">21 Tháng 7, 2026</div>
+    </header>
+
+    <div class="post-body">
+
+      <h3>Vấn đề</h3>
+      <p>Các bộ phát hiện đối tượng (object detector) tiêu chuẩn được huấn luyện trên ảnh đã resize về một độ phân giải đầu vào cố định (ví dụ <code>640×640</code>). Khi ảnh nguồn có độ phân giải cao và các đối tượng quan tâm nhỏ hoặc ở xa camera — một người đi bộ ở xa, một mã container nhỏ,
+      một công nhân gần rìa sân ga đường sắt — bước resize đó thu nhỏ chúng xuống chỉ còn vài pixel. Phần lớn tín hiệu huấn luyện bị chi phối bởi các đối tượng lớn, dễ nhận diện, và recall trên các đối tượng nhỏ bị suy giảm.</p>
+
+      <hr>
+
+      <h3>SAHI trong một câu</h3>
+      <p><strong>SAHI</strong> (<em>Slicing Aided Hyper Inference</em>) giải quyết vấn đề này tại <strong>thời điểm suy luận (inference time)</strong>: thay vì đưa cho bộ phát hiện một ảnh đã giảm độ phân giải, nó cắt ảnh độ phân giải đầy đủ thành các tile chồng lấp nhau, chạy phát hiện độc lập trên mỗi
+      tile ở độ phân giải đầy đủ, sau đó gộp tất cả các phát hiện cấp-tile trở lại tọa độ ảnh gốc bằng NMS. Các đối tượng nhỏ vốn sẽ bị mất khi giảm độ phân giải giờ đây chiếm một phần lớn hơn nhiều trong mỗi tile, nên bộ phát hiện thực sự có đủ pixel để xử lý.</p>
+
+      <hr>
+
+      <h3>Điều chỉnh ý tưởng này cho dữ liệu huấn luyện thay vì suy luận</h3>
+      <p>Chạy nhiều lượt cắt (slice) tại thời điểm suy luận rất tốn kém — nó nhân số lượt truyền xuôi (forward pass) trên mỗi ảnh lên nhiều lần, điều này xung đột
+      với ngân sách triển khai thời gian thực. Vì vậy, thay vì cắt tại thời điểm suy luận, tôi đã chuyển ý tưởng tương tự lên sớm hơn trong pipeline: dùng cách cắt kiểu
+      SAHI để xây dựng một <strong>tập huấn luyện tốt hơn</strong>, và giữ cho bản thân bước suy luận vẫn là một lượt truyền xuôi ảnh-đầy-đủ duy nhất.</p>
+
+      <p>Ở mức tổng quan, bước tiền xử lý:</p>
+      <ol>
+        <li>Cắt mỗi ảnh huấn luyện thành các tile chồng lấp nhau (với kích thước tile và tỉ lệ chồng lấp có thể cấu hình).</li>
+        <li>Ánh xạ lại các bounding box ground-truth vào tọa độ tile, giữ lại các box trên một ngưỡng khả kiến/IoU và loại bỏ hoặc cắt xén phần còn lại.</li>
+        <li>Lấy mẫu vượt mức (oversample) các tile chứa các thực thể đối tượng nhỏ, để phân bố huấn luyện không bị chi phối bởi các crop đối tượng lớn, dễ nhận diện.</li>
+        <li>Trộn các crop đã cắt trở lại với ảnh gốc độ phân giải đầy đủ, để mô hình vẫn thấy được ngữ cảnh cảnh toàn cục (global scene context) và không bị overfit với các thống kê ở thang đo tile.</li>
+      </ol>
+
+      <p>Kết hợp với <strong>YOLOv8-p2</strong> và <strong>YOLOv9n</strong> — cả hai đều đã được mở rộng với một đầu phát hiện P2 độ phân giải
+      cao hơn để tăng độ nhạy với đối tượng nhỏ — bước tiền xử lý này mang lại một mức tăng recall đáng kể trên các đối tượng nhỏ, ở xa, trong khi suy luận
+      vẫn là một lượt truyền xuôi ảnh-đầy-đủ duy nhất, giữ nguyên độ trễ thời gian thực.</p>
+
+      <hr>
+
+      <h3>Phác thảo minh họa</h3>
+      <p>Một phác thảo đơn giản hóa của bước cắt + ánh xạ lại (minh họa, không phải triển khai thực tế):</p>
+      <pre><code>def slice_image(image, boxes, tile_size=640, overlap=0.2, min_visibility=0.3):
+    """Slice an image into overlapping tiles, remapping ground-truth boxes."""
+    stride = int(tile_size * (1 - overlap))
+    tiles = []
+
+    for y in range(0, image.height, stride):
+        for x in range(0, image.width, stride):
+            tile_box = (x, y, x + tile_size, y + tile_size)
+            tile_img = image.crop(tile_box)
+
+            tile_boxes = []
+            for box in boxes:
+                clipped = clip_box(box, tile_box)
+                if visibility(clipped, box) >= min_visibility:
+                    tile_boxes.append(to_tile_coords(clipped, tile_box))
+
+            tiles.append((tile_img, tile_boxes))
+
+    return tiles</code></pre>
+
+      <p>Tài liệu tham khảo: Akyon et al., <a href="https://arxiv.org/abs/2202.06934" target="_blank" rel="noopener">“Slicing Aided Hyper Inference and Fine-tuning for Small Object Detection”</a> (2022).</p>
+
+    </div><!-- /.post-body -->
+  </div>
+</article>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div class="container">
+    <p>
+      <a href="index-vi.html">← Quay lại Portfolio</a>
+    </p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ],
+    throwOnError: false
+  });"></script>
+</body>
+</html>
