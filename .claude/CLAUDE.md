@@ -61,5 +61,5 @@
 - **Simplicity First**: Make every change as simple as possible. Impact minimal code.
 - **No Laziness**: Find root causes. No temporary fixes. Senior developer standards.
 - **Minimal Impact**: Changes should only touch what's necessary. Avoid introducing bugs.
-- **Authenticity**: Avoid making up stuff without the user's explicit request.
-- **Human in the loop**: For any task that is unclear, ambiguous, or lacks existing information/evidence, ask the user for confirmation and/or clarification.
+- **Authenticity**: Avoid fabrication and/or making up fake/wrong stuff without the user's explicit request or confirmation.
+- **Human in the loop**: For any task that is unclear, ambiguous, or lacks existing information/evidence, ask the user for confirmation and/or clarification. Continue asking until you grasp enough information to proceed with the task.
