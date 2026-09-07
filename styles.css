@@ -9,6 +9,7 @@
   --bg:        #0f172a;
   --bg2:       #1e293b;
   --bg3:       #0d1526;
+  --chrome:    #060b16;
   --card:      #1e293b;
   --card-hover:#253049;
   --border:    #334155;
@@ -29,6 +30,7 @@
   --bg:        #f8fafc;
   --bg2:       #f1f5f9;
   --bg3:       #e2e8f0;
+  --chrome:    #dbe3ec;
   --card:      #ffffff;
   --card-hover:#f0f9ff;
   --border:    #cbd5e1;
@@ -66,7 +68,7 @@ nav {
   height: var(--nav-h);
   display: flex; align-items: center; justify-content: space-between;
   padding: 0 2rem;
-  background: rgba(15,23,42,.88);
+  background: rgba(6,11,22,.92);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
@@ -74,7 +76,7 @@ nav {
 }
 
 [data-theme="light"] nav {
-  background: rgba(248,250,252,.9);
+  background: rgba(219,227,236,.92);
 }
 
 .nav-brand {
@@ -547,7 +549,7 @@ section { padding: 5rem 0; }
    FOOTER
    ============================================================ */
 footer {
-  background: var(--bg3);
+  background: var(--chrome);
   border-top: 2px solid transparent;
   border-image: linear-gradient(90deg, var(--accent), var(--accent2)) 1;
   padding: 3rem 0; text-align: center;
