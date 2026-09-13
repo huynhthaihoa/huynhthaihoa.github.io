@@ -688,16 +688,19 @@
         <p class="project-desc">
           From-scratch simulations spanning the recursive-vs-batch spectrum of state estimation on the
           SO(3)/SE(3) manifolds: IMU integration/pre-integration, point-cloud pose tracking (EKF vs.
-          Invariant EKF vs. batch Gauss-Newton), pose-graph optimization with loop closure, and full bundle
-          adjustment (joint camera-pose + landmark refinement, Umeyama-aligned to ground truth). Every method
-          implemented twice — hand-rolled NumPy Lie-algebra math, and via the manif Lie-theory library —
-          backed by a structured set of theory notes spanning math foundations, the Kalman-filter family, and
-          the factor-graph/smoothing family.
+          Invariant EKF vs. UKF vs. batch Gauss-Newton), pose-graph optimization (batch vs. incremental
+          square-root SAM) with loop closure, a from-scratch Bayes tree construction (iSAM2's core data
+          structure), full and sliding-window Local+Global bundle adjustment with a live loop-closure demo,
+          and Perspective-n-Point pose recovery. Every method implemented twice — hand-rolled NumPy
+          Lie-algebra math, and via the manif Lie-theory library — with a pytest regression suite and a
+          structured set of theory notes spanning math foundations, the Kalman-filter family, and the
+          factor-graph/smoothing family.
         </p>
         <div class="tag-list">
           <span class="tag">Python</span>
           <span class="tag">NumPy</span>
           <span class="tag">SLAM</span>
+          <span class="tag">iSAM</span>
           <span class="tag">Bundle Adjustment</span>
         </div>
       </div>

@@ -688,16 +688,19 @@
         <p class="project-desc">
           Các mô phỏng xây dựng từ đầu, bao quát cả hai hướng đệ quy và theo lô trong ước lượng trạng thái
           trên các đa tạp (manifold) SO(3)/SE(3): tích hợp/tiền tích hợp IMU, theo dõi tư thế đám
-          mây điểm (so sánh EKF, Invariant EKF, và bộ làm mượt Gauss-Newton theo lô), tối ưu hóa pose graph
-          có vòng lặp khép kín (loop closure), và bundle adjustment đầy đủ (tinh chỉnh đồng thời tư thế
-          camera và điểm mốc 3D, căn chỉnh Umeyama về ground truth). Mỗi phương pháp được cài đặt hai lần —
-          toán đại số Lie NumPy tự viết tay, và qua thư viện lý thuyết Lie manif — cùng với một bộ ghi chú
+          mây điểm (so sánh EKF, Invariant EKF, UKF, và bộ làm mượt Gauss-Newton theo lô), tối ưu hóa pose
+          graph (theo lô và theo kiểu incremental square-root SAM) có vòng lặp khép kín (loop closure), xây
+          dựng Bayes tree từ đầu (cấu trúc dữ liệu cốt lõi của iSAM2), bundle adjustment đầy đủ lẫn Local+Global
+          theo cửa sổ trượt kèm minh họa loop closure trực tiếp, và ước lượng tư thế camera bằng
+          Perspective-n-Point (PnP). Mỗi phương pháp được cài đặt hai lần — toán đại số Lie NumPy tự viết
+          tay, và qua thư viện lý thuyết Lie manif — cùng với bộ kiểm thử hồi quy pytest và một bộ ghi chú
           lý thuyết có cấu trúc, bao quát nền tảng toán học, họ bộ lọc Kalman, và họ factor-graph/smoothing.
         </p>
         <div class="tag-list">
           <span class="tag">Python</span>
           <span class="tag">NumPy</span>
           <span class="tag">SLAM</span>
+          <span class="tag">iSAM</span>
           <span class="tag">Bundle Adjustment</span>
         </div>
       </div>
