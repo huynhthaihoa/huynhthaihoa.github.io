@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark');</script>
+  <title>사례 연구 – Hoa Huynh</title>
+  <meta name="description" content="Hoa Huynh의 컴퓨터 비전 프로젝트에 대한 심층 사례 연구: 다중 카메라 스티칭, 작업자 위치 추정, PseudoLiDAR, 헤드 포즈 추정." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://huynhthaihoa.github.io/projects-ko.html" />
+  <meta property="og:title" content="사례 연구 – Hoa Huynh" />
+  <meta property="og:description" content="Hoa Huynh의 컴퓨터 비전 프로젝트에 대한 심층 사례 연구: 다중 카메라 스티칭, 작업자 위치 추정, PseudoLiDAR, 헤드 포즈 추정." />
+  <meta property="og:image" content="https://huynhthaihoa.github.io/assets/profile.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="사례 연구 – Hoa Huynh" />
+  <meta name="twitter:description" content="Hoa Huynh의 컴퓨터 비전 프로젝트에 대한 심층 사례 연구: 다중 카메라 스티칭, 작업자 위치 추정, PseudoLiDAR, 헤드 포즈 추정." />
+  <meta name="twitter:image" content="https://huynhthaihoa.github.io/assets/profile.jpg" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <meta name="theme-color" content="#0f172a" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous" />
+  <link rel="alternate" hreflang="en" href="https://huynhthaihoa.github.io/projects.html" />
+  <link rel="alternate" hreflang="vi" href="https://huynhthaihoa.github.io/projects-vi.html" />
+  <link rel="alternate" hreflang="ko" href="https://huynhthaihoa.github.io/projects-ko.html" />
+  <link rel="alternate" hreflang="x-default" href="https://huynhthaihoa.github.io/projects.html" />
+</head>
+<body>
+<svg style="display:none" aria-hidden="true">
+  <symbol id="icon-github" viewBox="0 0 24 24">
+    <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+  </symbol>
+</svg>
+
+<!-- ============================================================
+     NAVIGATION
+     ============================================================ -->
+<nav>
+  <a href="index-ko.html" style="text-decoration:none;">
+    <span class="nav-brand">Hoa Huynh</span>
+  </a>
+
+  <ul class="nav-links" id="nav-links">
+    <li><a href="index-ko.html#experience">경력</a></li>
+    <li><a href="index-ko.html#education">학력</a></li>
+    <li><a href="index-ko.html#skills">기술</a></li>
+    <li><a href="index-ko.html#projects" class="active">프로젝트</a></li>
+    <li><a href="index-ko.html#publications">논문</a></li>
+    <li><a href="index-ko.html#blog">블로그</a></li>
+    <li><a href="index-ko.html#certifications">자격증</a></li>
+  </ul>
+
+  <div class="nav-right">
+    <a href="projects.html" class="lang-switch" title="View in English">EN</a>
+    <a href="projects-vi.html" class="lang-switch" title="Xem bằng tiếng Việt">VI</a>
+    <button id="theme-toggle" aria-label="테마 전환">☀️</button>
+    <button class="hamburger" aria-label="메뉴" aria-expanded="false" aria-controls="nav-links">☰</button>
+  </div>
+</nav>
+
+<!-- ============================================================
+     PAGE HEADER
+     ============================================================ -->
+<section id="blog-hero">
+  <div class="container">
+    <a href="index-ko.html" class="back-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+      </svg>
+      포트폴리오로 돌아가기
+    </a>
+
+    <h1>사례 연구</h1>
+    <p class="page-subtitle">포트폴리오에 담긴 몇몇 프로젝트를 더 깊이 다룬 글입니다: 파이프라인, 수식, 데모.</p>
+
+    <div class="post-toc">
+      <a href="#camera-stitching" class="toc-card fade-up">
+        <span class="blog-tag">컴퓨터 비전</span>
+        <div class="toc-title">실시간 다중 카메라 스티칭</div>
+        <div class="toc-date">2022년 6월 – 2022년 9월</div>
+      </a>
+      <a href="#worker-localization" class="toc-card fade-up">
+        <span class="blog-tag-depth">깊이 추정</span>
+        <div class="toc-title">철도 작업자 위치 추정</div>
+        <div class="toc-date">2022년 9월 – 2023년 3월</div>
+      </a>
+      <a href="#pseudo-lidar" class="toc-card fade-up">
+        <span class="blog-tag-depth">깊이 추정</span>
+        <div class="toc-title">실시간 PseudoLiDAR</div>
+        <div class="toc-date">2023년 3월 – 2023년 11월</div>
+      </a>
+      <a href="#head-pose-estimation" class="toc-card fade-up">
+        <span class="blog-tag">컴퓨터 비전</span>
+        <div class="toc-title">헤드 포즈 추정</div>
+        <div class="toc-date">2025년 9월 – 현재</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="post-sep"></div>
+
+<!-- ============================================================
+     CASE STUDY 1 — REAL-TIME MULTIPLE CAMERA STITCHING
+     ============================================================ -->
+<article id="camera-stitching" class="blog-article case-study">
+  <div class="container">
+    <header class="post-header">
+      <span class="blog-tag">컴퓨터 비전</span>
+      <h2>실시간 다중 카메라 스티칭</h2>
+      <div class="post-date">2022년 6월 – 2022년 9월 · Python, PyTorch, OpenCV</div>
+    </header>
+
+    <div class="post-body">
+
+      <h3>소개</h3>
+      <p><strong>고급 운전자 보조 시스템(Advanced Driving Assistance System)</strong>에 적용 가능한 <strong>다중 카메라 실시간 스티칭</strong>을 수행하는 개념 증명(proof-of-concept)입니다. 저는 유일한 개발자로서 연구, 구현, 테스트를 처음부터 끝까지 전담했습니다.</p>
+
+      <hr>
+
+      <h3>파이프라인 개요</h3>
+      <p>스티칭 파이프라인은 세 단계로 구성됩니다:</p>
+      <ul>
+        <li><strong>입력 스트리밍</strong>: 카메라/비디오 소스로부터 프레임을 캡처하고, 이를 스티칭 알고리즘의 입력으로 배치(batch)합니다.</li>
+        <li><strong>스티칭</strong>: 각 카메라가 추정에 기여하는 데 필요한 캐시 매개변수를 등록한 뒤, 입력 배치와 캐시된 매개변수로부터 파노라마를 합성합니다.</li>
+        <li><strong>후처리</strong>: 생성된 파노라마는 디스플레이, 검출, 깊이 추정 등 후속 작업에 사용됩니다.</li>
+      </ul>
+      <img src="assets/projects/camera-stitching-pipeline.webp" width="1800" height="769" loading="lazy" alt="카메라 스티칭 파이프라인 개요">
+      <div class="callout">💡 <strong>경험칙</strong>: 렌즈 왜곡을 극복하고 스티칭에 충분히 검출 가능한 특징(feature)을 확보하려면, 각 카메라 쌍 사이의 시야(Field-of-View) IoU(Intersection-over-Union) 비율이 최소 30% 이상이어야 합니다.</div>
+
+      <hr>
+
+      <h3>스티칭 알고리즘</h3>
+      <p>저는 두 가지 스티칭 알고리즘을 구현했습니다: 처리 과정이 더 가벼운 <strong>단순 버전(simple version)</strong>과, 처리 지연 시간을 늘리는 대신 더 매끄럽고 정교한 결과를 얻는 <strong>고급 버전(advanced version)</strong>입니다.</p>
+      <img src="assets/projects/camera-stitching-algorithms.webp" width="1799" height="2328" loading="lazy" alt="단순 및 고급 스티칭 알고리즘 워크플로 비교">
+
+      <h4>특징 추출</h4>
+      <p>각 입력 이미지에서 특징(feature) 목록을 추출하는 데 사용됩니다:</p>
+      <ul>
+        <li><a href="http://www.bmva.org/bmvc/2013/Papers/paper0013/paper0013.pdf" target="_blank" rel="noopener">AKAZE</a></li>
+        <li><a href="https://margaritachli.com/papers/ICCV2011paper.pdf" target="_blank" rel="noopener">BRISK</a></li>
+        <li><a href="https://www.doc.ic.ac.uk/~ajd/Publications/alcantarilla_etal_eccv2012.pdf" target="_blank" rel="noopener">KAZE</a></li>
+        <li><a href="https://ieeexplore.ieee.org/document/6126544" target="_blank" rel="noopener">ORB</a></li>
+        <li><a href="https://link.springer.com/article/10.1023/B:VISI.0000029664.99615.94" target="_blank" rel="noopener">SIFT</a> (기본값)</li>
+      </ul>
+
+      <h4>특징 매칭</h4>
+      <p>각 입력 쌍 사이에서 매칭된 특징을 찾아, 이를 통해 <strong>호모그래피 행렬(homography matrix)</strong>을 추정하는 데 사용됩니다:</p>
+      <ul>
+        <li>최소제곱법(least squares method)</li>
+        <li><a href="https://dl.acm.org/doi/10.1145/358669.358692" target="_blank" rel="noopener">RANSAC 기반 강건(robust) 방법</a> (기본값)</li>
+        <li><a href="https://web.ipac.caltech.edu/staff/fmasci/home/astro_refs/LeastMedianOfSquares.pdf" target="_blank" rel="noopener">Least-Median 강건(robust) 방법</a></li>
+        <li><a href="https://link.springer.com/article/10.1007/BF01933667" target="_blank" rel="noopener">PROSAC 기반 강건(robust) 방법</a></li>
+      </ul>
+
+      <p>호모그래피 행렬 $H$는 스케일 인자(scale factor)를 제외하고 두 평면 사이의 변환을 정의합니다:</p>
+      <div class="math-display">$$s \begin{bmatrix} x' \\ y' \\ 1 \end{bmatrix} = \mathbf{H} \begin{bmatrix} x \\ y \\ 1 \end{bmatrix} = \begin{bmatrix} h_{11} & h_{12} & h_{13} \\ h_{21} & h_{22} & h_{23} \\ h_{31} & h_{32} & h_{33} \end{bmatrix} \begin{bmatrix} x \\ y \\ 1 \end{bmatrix}$$</div>
+      <p>$H$는 스케일까지만 추정되므로 8개의 자유도를 갖는 $3 \times 3$ 행렬이며, 일반적으로 $h_{33} = 1$로 정규화합니다.</p>
+
+      <p>다음 세 가지 경우는 모두 두 평면 사이의 변환과 관련이 있습니다:</p>
+      <div class="img-row">
+        <img src="assets/projects/camera-stitching-homography-plane.webp" width="422" height="243" loading="lazy" alt="평면과 이미지 평면">
+        <img src="assets/projects/camera-stitching-homography-stitch.webp" width="900" height="255" loading="lazy" alt="두 카메라 위치에서 바라본 평면">
+        <img src="assets/projects/camera-stitching-homography-rotation.webp" width="555" height="207" loading="lazy" alt="투영 축을 중심으로 회전하는 카메라">
+      </div>
+      <p class="img-caption">왼쪽 → 오른쪽: 평면과 이미지 평면; 두 카메라 위치에서 바라본 평면(스티칭에 해당하는 경우); 투영 축을 중심으로 회전하는 카메라 — 무한 평면(plane at infinity) 위의 점들과 동일한 경우(스마트폰의 파노라마 모드)로, 이미지 스티칭의 기초가 되는 사례입니다.</p>
+
+      <hr>
+
+      <h3>데모</h3>
+      <h4>입력 — 카메라 3대 (좌측 미러, 전방, 우측 미러)</h4>
+      <div class="img-row">
+        <img src="assets/projects/camera-stitching-input-left.webp" width="640" height="480" loading="lazy" alt="좌측 미러 카메라 입력">
+        <img src="assets/projects/camera-stitching-input-front.webp" width="640" height="480" loading="lazy" alt="전방 카메라 입력">
+        <img src="assets/projects/camera-stitching-input-right.webp" width="640" height="480" loading="lazy" alt="우측 미러 카메라 입력">
+      </div>
+
+      <h4>단순 알고리즘 결과</h4>
+      <img src="assets/projects/camera-stitching-output-simple.webp" width="1800" height="786" loading="lazy" alt="단순 알고리즘 스티칭 결과">
+
+      <h4>고급 알고리즘 결과</h4>
+      <img src="assets/projects/camera-stitching-output-advanced.webp" width="1800" height="855" loading="lazy" alt="고급 알고리즘 스티칭 결과">
+
+    </div><!-- /.post-body -->
+  </div>
+</article>
+
+<div class="post-sep"></div>
+
+<!-- ============================================================
+     CASE STUDY 2 — WORKER LOCALIZATION AT THE RAILROAD
+     ============================================================ -->
+<article id="worker-localization" class="blog-article alt-bg case-study">
+  <div class="container">
+    <header class="post-header">
+      <span class="blog-tag-depth">깊이 추정</span>
+      <h2>철도 작업자 위치 추정</h2>
+      <div class="post-date">2022년 9월 – 2023년 3월 · Python, MATLAB, C++, ROS</div>
+    </header>
+
+    <div class="post-body">
+
+      <h3>소개</h3>
+      <p>철도에서 <strong>작업자를 검출하고 위치를 추정</strong>하기 위해 <strong>단일 열화상 카메라</strong>(Boson LWIR)를 사용하는 개념 증명입니다.</p>
+
+      <hr>
+
+      <h3>프로세스</h3>
+      <p>파이프라인은 두 가지 딥러닝 모델을 결합합니다: 작업자를 찾기 위한 <strong>객체 검출(object detection)</strong>과 거리를 추정하기 위한 <strong>단안 깊이 추정(monocular depth estimation)</strong>입니다. 당시 최고 수준(SOTA)의 모델 두 가지, 즉 검출용 <strong>YOLOv5</strong>와 깊이 추정용 <strong>NeWCRFs</strong>를 선정한 뒤, 사전 학습된 가중치가 RGB 이미지로 학습된 반면 저희 카메라는 열화상 카메라였기 때문에 두 모델 모두를 자체 데이터로 파인튜닝했습니다.</p>
+      <p>프로젝트의 첫 번째 개발자로서, 제 주요 임무는 "깊이(depth)" 그라운드 트루스(ground truth)를 확보하는 것이었습니다. Ouster OS0 Ultra-Wide High-Resolution Imaging LIDAR가 주어진 상황에서, 이는 세 가지 하위 작업으로 나뉘었습니다:</p>
+
+      <h4>1. 카메라 캘리브레이션</h4>
+      <p>표준 체커보드(checkerboard) 검출 방식을 기반으로 열화상 카메라의 내부 파라미터(intrinsic parameters)와 왜곡 계수(distortion coefficients)를 추정했습니다. 이는 <a href="https://docs.opencv.org/3.4/d9/d0c/group__calib3d.html#ga4abc2ece9fab9398f2e560d53c8c9780" target="_blank" rel="noopener">OpenCV</a>와 ROS의 <a href="https://github.com/ros-perception/image_pipeline/tree/rolling/camera_calibration" target="_blank" rel="noopener">image_pipeline/camera_calibration</a> 패키지, 그리고 국소 대비를 선명하게 하기 위한 CLAHE(Contrast Limited Adaptive Histogram Equalization)를 기반으로 합니다. 열화상 카메라는 체커보드의 흑백 사각형을 시각적으로 구분할 수 없기 때문에, 저는 보드를 고온 환경(직사광선, 할로겐 조명)에 두었습니다 — 검은색 표면은 흰색 표면보다 더 많은 열을 흡수하므로, 이를 통해 센서가 패턴을 인식할 수 있게 되었습니다.</p>
+
+      <h4>2. 데이터 수집</h4>
+      <p>ROS를 사용해 여러 센서를 동기화하여 기록했습니다: LIDAR용 <code>ouster_ros</code>, 열화상 카메라용 <code>flir_boson_usb</code>, 그리고 두 스트림을 함께 캡처하기 위한 <code>rosbag record</code>. 동기화는 ROS가 기록 시점에 부여하는 타임스탬프를 기반으로 이루어졌습니다.</p>
+
+      <h4>3. 카메라-LIDAR 캘리브레이션</h4>
+      <p>LIDAR와 카메라 좌표계 사이의 회전 행렬과 이동 벡터를 추정했습니다:</p>
+      <div class="img-row">
+        <img src="assets/projects/worker-localization-calibration-1.webp" width="1414" height="455" loading="lazy" alt="카메라-LIDAR 캘리브레이션 과정 다이어그램 1">
+        <img src="assets/projects/worker-localization-calibration-2.webp" width="960" height="463" loading="lazy" alt="카메라-LIDAR 캘리브레이션 과정 다이어그램 2">
+      </div>
+      <p>회전 $R$과 이동 $t$를 통해 LIDAR 포인트 클라우드를 카메라 좌표계로 변환한 뒤, 이를 이미지 평면에 투영하여 카메라 이미지와 정렬된 그라운드 트루스 스케일의 깊이 맵을 생성합니다:</p>
+      <div class="math-display">$$s \begin{bmatrix} u\\ v \end{bmatrix} = \begin{bmatrix} f_x & 0 & c_x \\ 0 & f_y & c_y \\ 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} X_c\\ Y_c \\ Z_c \end{bmatrix}$$</div>
+      <img src="assets/projects/worker-localization-depthmap.webp" width="1208" height="741" loading="lazy" alt="카메라 이미지와 정렬된 결과 그라운드 트루스 깊이 맵">
+
+      <hr>
+
+      <h3>배운 점</h3>
+      <p>이 데이터셋과 캘리브레이션 파이프라인 덕분에 저희 팀은 CVPRW 2023 단안 깊이 추정 챌린지에서 포인트 클라우드 또는 이미지 기반 지표 중 어느 하나라도 제공된 SOTA 베이스라인을 능가한 <strong>전 세계 8개 솔루션 중 하나</strong>가 되었습니다. 저희는 당시 SOTA 깊이 모델이었던 <a href="https://arxiv.org/pdf/2210.09071" target="_blank" rel="noopener">PixelFormer</a>를 학습 시점의 증강(랜덤 크롭/회전, 좌우 반전, CutDepth)과 학습 해상도를 유지하기 위한 추론 시점의 제로 패딩(zero-padding) 기법으로 커스터마이즈했습니다.</p>
+      <div class="ref-links">
+        <a href="https://eprints.soton.ac.uk/481380" target="_blank" rel="noopener" class="ref-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          제2회 단안 깊이 추정 챌린지 — CVPRW 2023
+        </a>
+      </div>
+
+    </div><!-- /.post-body -->
+  </div>
+</article>
+
+<div class="post-sep"></div>
+
+<!-- ============================================================
+     CASE STUDY 3 — REAL-TIME PSEUDOLIDAR
+     ============================================================ -->
+<article id="pseudo-lidar" class="blog-article case-study">
+  <div class="container">
+    <header class="post-header">
+      <span class="blog-tag-depth">깊이 추정</span>
+      <h2>실시간 PseudoLiDAR</h2>
+      <div class="post-date">2023년 3월 – 2023년 11월 · Python, PyTorch, OpenGL, Open3D, OpenCV</div>
+    </header>
+
+    <div class="post-body">
+
+      <h3>소개</h3>
+      <p>LIDAR를 카메라로 대체하기 위한 R&amp;D 프로젝트입니다: <strong>절대 깊이 추정(absolute depth estimation)</strong> 모델과 <strong>카메라 캘리브레이션 파라미터</strong>를 결합하여 이미지 픽셀로부터 직접 의사 포인트 클라우드(pseudo point cloud)를 생성하고, 이를 OpenGL과 Open3D로 실시간 렌더링합니다.</p>
+      <p>기반이 되는 이론 — 인간의 깊이 지각 단서, 절대 깊이 추정과 상대 깊이 추정의 비교, 깊이에서 3D 좌표로의 변환 수식, 그리고 제안된 다중 카메라 LIDAR 대체 파이프라인 — 은 별도로 다음 글에 정리되어 있습니다:</p>
+      <div class="ref-links">
+        <a href="blog-ko.html#depth-pseudolidar" class="ref-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          깊이 추정에서 Pseudo-LIDAR까지
+        </a>
+      </div>
+
+      <hr>
+
+      <h3>경량 깊이 추정 모델</h3>
+      <p>실시간 데모를 위해, 정확도를 크게 희생하지 않으면서도 낮은 지연 시간을 목표로 하는 최적화된 깊이 모델을 구축했습니다. YOLO 계열의 효율성에서 영감을 받아, 이 모델은 4단계(4-scale) 특징 인코더로 커스터마이즈된 <strong>YOLOv8 백본 + 넥(neck)</strong>을 사용하며, 스킵 커넥션(skip connection)을 통해 깊이 맵을 복원하는 <strong>U-Net 스타일 디코더</strong>와 연결됩니다.</p>
+      <img src="assets/projects/pseudo-lidar-model-arch.webp" width="1360" height="740" loading="lazy" alt="경량 YOLOv8 기반 인코더-디코더 깊이 모델 아키텍처">
+      <p>NYUv2(실내)와 KITTI(실외)에 대해 파인튜닝한 결과, 이 모델은 기존 SOTA 방법 대비 훨씬 작은 크기를 유지하면서도 확립된 깊이 평가 지표에서 경쟁력 있는 성능을 보입니다:</p>
+
+      <h4>NYUv2 데이터셋</h4>
+      <table>
+        <tr><th>모델</th><th>파라미터 수</th><th>FPS (480×640)</th><th>Abs.Rel↓</th><th>RMSE↓</th><th>Sqr.Rel↓</th><th>δ1↑</th><th>δ2↑</th><th>δ3↑</th></tr>
+        <tr><td>제안 모델 (YOLOv8s 인코더)</td><td>10,810,465</td><td>105</td><td>0.1033</td><td>0.3717</td><td>0.0578</td><td>0.8965</td><td>0.9814</td><td>0.9958</td></tr>
+        <tr><td>NeWCRFs</td><td>270,444,877</td><td>14</td><td>0.0958</td><td>0.3331</td><td>0.0451</td><td>0.9215</td><td>0.9915</td><td>0.9980</td></tr>
+        <tr><td>PixelFormer</td><td>270,895,920</td><td>16</td><td>0.0905</td><td>0.3242</td><td>0.0435</td><td>0.9289</td><td>0.9906</td><td>0.9977</td></tr>
+      </table>
+
+      <h4>KITTI 데이터셋</h4>
+      <table>
+        <tr><th>모델</th><th>파라미터 수</th><th>FPS (480×640)</th><th>Abs.Rel↓</th><th>RMSE↓</th><th>Sqr.Rel↓</th><th>δ1↑</th><th>δ2↑</th><th>δ3↑</th></tr>
+        <tr><td>제안 모델 (YOLOv8s 인코더)</td><td>10,810,465</td><td>105</td><td>0.0479</td><td>2.3879</td><td>0.1798</td><td>0.9721</td><td>0.9952</td><td>0.9982</td></tr>
+        <tr><td>NeWCRFs</td><td>270,444,877</td><td>14</td><td>0.0509</td><td>2.1871</td><td>0.1608</td><td>0.9762</td><td>0.9963</td><td>0.9987</td></tr>
+        <tr><td>PixelFormer</td><td>270,895,920</td><td>16</td><td>0.0542</td><td>2.3748</td><td>0.1817</td><td>0.9724</td><td>0.9955</td><td>0.9984</td></tr>
+      </table>
+      <p>NeWCRFs/PixelFormer 대비 약 7배의 FPS와 약 4%의 파라미터 수만으로, 이 모델은 실시간 PseudoLiDAR 파이프라인에 필요한 처리량(throughput)을 위해 약간의 정확도를 희생합니다.</p>
+
+    </div><!-- /.post-body -->
+  </div>
+</article>
+
+<div class="post-sep"></div>
+
+<!-- ============================================================
+     CASE STUDY 4 — HEAD POSE ESTIMATION
+     ============================================================ -->
+<article id="head-pose-estimation" class="blog-article alt-bg case-study">
+  <div class="container">
+    <header class="post-header">
+      <span class="blog-tag">컴퓨터 비전</span>
+      <h2>헤드 포즈 추정</h2>
+      <div class="post-date">2025년 9월 – 현재 · Python, C/C++, OpenCV</div>
+    </header>
+
+    <div class="post-body">
+
+      <div class="img-row">
+        <img src="assets/projects/head-pose.webp" width="500" height="375" loading="lazy" alt="헤드 포즈 추정 데모 1">
+        <img src="assets/projects/head-pose-cover-2.webp" width="372" height="388" loading="lazy" alt="헤드 포즈 추정 데모 2">
+      </div>
+
+      <h3>헤드 포즈의 정의</h3>
+      <p>헤드 포즈는 헤드 포즈 좌표계의 원점인 시작점 $p = (u_0, v_0)$과, <strong>피치(Pitch) $Pi$</strong>, <strong>요(Yaw) $Ya$</strong>, <strong>롤(Roll) $Ro$</strong>로 구성된 회전 행렬(ZYX 컨벤션)로 정의됩니다:</p>
+
+      <div class="math-display">$$R_z(Ro) = \begin{bmatrix} \cos{Ro} & -\sin{Ro} & 0 \\ \sin{Ro} & \cos{Ro} & 0 \\ 0 & 0 & 1 \end{bmatrix}$$</div>
+      <div class="math-display">$$R_y(Ya) = \begin{bmatrix} \cos{Ya} & 0 & \sin{Ya} \\ 0 & 1 & 0 \\ -\sin{Ya} & 0 & \cos{Ya} \end{bmatrix}$$</div>
+      <div class="math-display">$$R_x(Pi) = \begin{bmatrix} 1 & 0 & 0 \\ 0 & \cos{Pi} & -\sin{Pi} \\ 0 & \sin{Pi} & \cos{Pi} \end{bmatrix}$$</div>
+
+      <p>카메라 기준 헤드 포즈의 결합 회전 행렬은 다음과 같습니다:</p>
+      <div class="math-display">$$R = \begin{bmatrix} \cos{Ro}\cos{Ya} & \cos{Ro}\sin{Ya}\sin{Pi} - \sin{Ro}\cos{Pi} & \cos{Ro}\sin{Ya}\cos{Pi} + \sin{Ro}\sin{Pi} \\ \sin{Ro}\cos{Ya} & \sin{Ro}\sin{Ya}\sin{Pi} + \cos{Ro}\cos{Pi} & \sin{Ro}\sin{Ya}\cos{Pi} - \cos{Ro}\sin{Pi} \\ -\sin{Ya} & \cos{Ya}\sin{Pi} & \cos{Ya}\cos{Pi} \end{bmatrix}$$</div>
+
+      <p>헤드 포즈 광선(ray) 위의 모든 점 $(x, y, z)$는 다음을 만족합니다:</p>
+      <div class="math-display">$$\begin{cases} t \geq 0 \\ x = x_0 + t\cos(Ro)\cos(Ya) \\ y = y_0 + t\sin(Ro)\cos(Ya) \\ z = z_0 - t\sin(Ya) \end{cases}$$</div>
+
+      <p>반대로, $R$로부터 피치, 요, 롤을 복원할 수 있습니다:</p>
+      <div class="math-display">$$\tan(Pi) = \frac{R_{2,1}}{R_{2,2}} \qquad \tan(Ya) = -\frac{R_{2,0}}{\sqrt{R_{2,1}^2 + R_{2,2}^2}} \qquad \tan(Ro) = \frac{R_{1,0}}{R_{0,0}}$$</div>
+
+      <hr>
+
+      <h3>아이디어</h3>
+      <p>카메라 기준 인간의 헤드 포즈(회전 행렬 + 이동 벡터)를 실시간으로 추정하기 위해, 파이프라인은 다음과 같은 고전적인 컴퓨터 비전 접근 방식을 따릅니다:</p>
+      <img src="assets/projects/head-pose-pipeline.webp" width="1800" height="508" loading="lazy" alt="헤드 포즈 추정 파이프라인 다이어그램">
+      <p>확장 칼만 필터(Extended Kalman Filter)는 예측된 포즈를 "평활화(smooth)"하고, 가림(occlusion)이나 극단적인 각도 등 모델이 얼굴을 인식하지 못하는 상황에서의 실패를 완화합니다.</p>
+
+      <hr>
+
+      <h3>얼굴 랜드마크 추정</h3>
+      <p>저는 분류(classification) 스타일 백본을 사용하는 2D 얼굴 랜드마크 모델을 구축했으며, 가시성 플래그(visibility flag)가 있는 버전은 $(num\_keypoints \times 3)$개의 출력을, 없는 버전은 $(num\_keypoints \times 2)$개의 출력을 갖는 선형(분류기) 헤드로 마무리됩니다:</p>
+      <img src="assets/projects/head-pose-landmark-arch.webp" width="1462" height="503" loading="lazy" alt="얼굴 랜드마크 모델 아키텍처">
+
+      <hr>
+
+      <h3>SolvePnPRansac을 통한 헤드 포즈 추정</h3>
+      <p>예측된 2D 랜드마크의 정적(static) 포인트들을 Mediapipe 3D 페이스마크 템플릿의 대응하는 3D 포인트와 매칭한 뒤, <code>solvePnPRansac</code>이 회전 행렬과 이동 벡터를 복원합니다. 여기서 "정적"이란 눈 깜빡임, 하품, 미소 등 얼굴 표정이 변하더라도 얼굴에 대해 상대적으로 고정된 위치를 유지하는 포인트를 의미합니다.</p>
+      <img src="assets/projects/head-pose-pnp-matching.webp" width="1242" height="638" loading="lazy" alt="2D 랜드마크와 3D 페이스마크 템플릿 매칭">
+
+      <hr>
+
+      <h3>칼만 필터 안정화기</h3>
+      <p>확장 칼만 필터는 프레임 간 헤드 포즈의 움직임을 평활화하고, 2D 얼굴 랜드마크 모델이 랜드마크를 예측하지 못할 때 — 주로 가림 때문에 — 발생하는 공백을 메웁니다.</p>
+
+      <hr>
+
+      <h3>참고 자료</h3>
+      <div class="ref-links">
+        <a href="https://d3cw3dd2w32x2b.cloudfront.net/wp-content/uploads/2015/01/matrix-to-quat.pdf" target="_blank" rel="noopener" class="ref-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          회전 행렬과 쿼터니언(Quaternion) 간의 변환
+        </a>
+        <a href="https://github.com/piercus/kalman-filter/issues/37" target="_blank" rel="noopener" class="ref-link">
+          <svg width="14" height="14" fill="currentColor"><use href="#icon-github"></use></svg>
+          piercus/kalman-filter#37 — EKF 구현을 위한 아이디어 참고
+        </a>
+      </div>
+
+    </div><!-- /.post-body -->
+  </div>
+</article>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div class="container">
+    <p>
+      <a href="index-ko.html">← 포트폴리오로 돌아가기</a>
+    </p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ],
+    throwOnError: false
+  });"></script>
+</body>
+</html>
