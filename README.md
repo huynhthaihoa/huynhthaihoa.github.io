@@ -1,6 +1,6 @@
 # Hoa Huynh Portfolio & Blog
 
-This repository hosts the personal portfolio and technical blog for Hoa Huynh, a computer vision engineer and AI researcher.
+This repository hosts the personal portfolio and technical blog for Hoa Huynh at [huynhthaihoa.github.io](https://huynhthaihoa.github.io)
 
 It is a static website published through GitHub Pages, with multilingual pages for English, Vietnamese, and Korean, plus an archive of technical notes, case studies, publications, and project highlights.
 
@@ -107,12 +107,3 @@ This makes the site easy to maintain for content updates, portfolio changes, and
 ## License
 
 See [LICENSE](LICENSE) for details.
-
-## Contact
-
-For professional inquiries or collaboration opportunities:
-
-- Email: huynhthaihoa1995@gmail.com
-- GitHub: https://github.com/huynhthaihoa
-- LinkedIn: https://linkedin.com/in/huynhthaihoa/
-- Google Scholar: https://scholar.google.com/citations?user=abuFJTkAAAAJ&hl=en
