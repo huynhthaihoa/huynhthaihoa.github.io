@@ -140,8 +140,8 @@
       <h4>Feature Extraction</h4>
       <p>Used to extract the feature list from each input image:</p>
       <ul>
-        <li><a href="http://www.bmva.org/bmvc/2013/Papers/paper0013/paper0013.pdf" target="_blank" rel="noopener">AKAZE</a></li>
-        <li><a href="https://margaritachli.com/papers/ICCV2011paper.pdf" target="_blank" rel="noopener">BRISK</a></li>
+        <li><a href="https://bmva-archive.org.uk/bmvc/2013/Papers/paper0013/paper0013.pdf" target="_blank" rel="noopener">AKAZE</a></li>
+        <li><a href="https://ieeexplore.ieee.org/document/6126542" target="_blank" rel="noopener">BRISK</a></li>
         <li><a href="https://www.doc.ic.ac.uk/~ajd/Publications/alcantarilla_etal_eccv2012.pdf" target="_blank" rel="noopener">KAZE</a></li>
         <li><a href="https://ieeexplore.ieee.org/document/6126544" target="_blank" rel="noopener">ORB</a></li>
         <li><a href="https://link.springer.com/article/10.1023/B:VISI.0000029664.99615.94" target="_blank" rel="noopener">SIFT</a> (default)</li>
@@ -152,7 +152,7 @@
       <ul>
         <li>Least squares method</li>
         <li><a href="https://dl.acm.org/doi/10.1145/358669.358692" target="_blank" rel="noopener">RANSAC-based robust method</a> (default)</li>
-        <li><a href="https://web.ipac.caltech.edu/staff/fmasci/home/astro_refs/LeastMedianOfSquares.pdf" target="_blank" rel="noopener">Least-Median robust method</a></li>
+        <li><a href="https://www.eecs.yorku.ca/course_archive/2012-13/F/6338/lectures/LeastMedianOfSquares.pdf" target="_blank" rel="noopener">Least-Median robust method</a></li>
         <li><a href="https://link.springer.com/article/10.1007/BF01933667" target="_blank" rel="noopener">PROSAC-based robust method</a></li>
       </ul>
 
@@ -233,7 +233,7 @@
       <h3>Lesson Learned</h3>
       <p>This dataset and calibration pipeline helped the team become <strong>1 of 8 solutions worldwide to outperform the provided SOTA baseline</strong> on any of the pointcloud- or image-based metrics at the CVPRW 2023 monocular depth estimation challenge. We customized <a href="https://arxiv.org/pdf/2210.09071" target="_blank" rel="noopener">PixelFormer</a> (the SOTA depth model at the time) with training-time augmentations (random crop/rotation, left-right flip, CutDepth) and a zero-padding technique at inference to preserve the training resolution.</p>
       <div class="ref-links">
-        <a href="https://eprints.soton.ac.uk/481380" target="_blank" rel="noopener" class="ref-link">
+        <a href="https://arxiv.org/abs/2304.07051" target="_blank" rel="noopener" class="ref-link">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
           The second monocular depth estimation challenge — CVPRW 2023
         </a>
@@ -360,7 +360,7 @@
 
       <h3>References</h3>
       <div class="ref-links">
-        <a href="https://d3cw3dd2w32x2b.cloudfront.net/wp-content/uploads/2015/01/matrix-to-quat.pdf" target="_blank" rel="noopener" class="ref-link">
+        <a href="https://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/" target="_blank" rel="noopener" class="ref-link">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
           Conversion between Rotation Matrix and Quaternion
         </a>

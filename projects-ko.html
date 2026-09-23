@@ -140,8 +140,8 @@
       <h4>특징 추출</h4>
       <p>각 입력 이미지에서 특징(feature) 목록을 추출하는 데 사용됩니다:</p>
       <ul>
-        <li><a href="http://www.bmva.org/bmvc/2013/Papers/paper0013/paper0013.pdf" target="_blank" rel="noopener">AKAZE</a></li>
-        <li><a href="https://margaritachli.com/papers/ICCV2011paper.pdf" target="_blank" rel="noopener">BRISK</a></li>
+        <li><a href="https://bmva-archive.org.uk/bmvc/2013/Papers/paper0013/paper0013.pdf" target="_blank" rel="noopener">AKAZE</a></li>
+        <li><a href="https://ieeexplore.ieee.org/document/6126542" target="_blank" rel="noopener">BRISK</a></li>
         <li><a href="https://www.doc.ic.ac.uk/~ajd/Publications/alcantarilla_etal_eccv2012.pdf" target="_blank" rel="noopener">KAZE</a></li>
         <li><a href="https://ieeexplore.ieee.org/document/6126544" target="_blank" rel="noopener">ORB</a></li>
         <li><a href="https://link.springer.com/article/10.1023/B:VISI.0000029664.99615.94" target="_blank" rel="noopener">SIFT</a> (기본값)</li>
@@ -152,7 +152,7 @@
       <ul>
         <li>최소제곱법(least squares method)</li>
         <li><a href="https://dl.acm.org/doi/10.1145/358669.358692" target="_blank" rel="noopener">RANSAC 기반 강건(robust) 방법</a> (기본값)</li>
-        <li><a href="https://web.ipac.caltech.edu/staff/fmasci/home/astro_refs/LeastMedianOfSquares.pdf" target="_blank" rel="noopener">Least-Median 강건(robust) 방법</a></li>
+        <li><a href="https://www.eecs.yorku.ca/course_archive/2012-13/F/6338/lectures/LeastMedianOfSquares.pdf" target="_blank" rel="noopener">Least-Median 강건(robust) 방법</a></li>
         <li><a href="https://link.springer.com/article/10.1007/BF01933667" target="_blank" rel="noopener">PROSAC 기반 강건(robust) 방법</a></li>
       </ul>
 
@@ -233,7 +233,7 @@
       <h3>배운 점</h3>
       <p>이 데이터셋과 캘리브레이션 파이프라인 덕분에 저희 팀은 CVPRW 2023 단안 깊이 추정 챌린지에서 포인트 클라우드 또는 이미지 기반 지표 중 어느 하나라도 제공된 SOTA 베이스라인을 능가한 <strong>전 세계 8개 솔루션 중 하나</strong>가 되었습니다. 저희는 당시 SOTA 깊이 모델이었던 <a href="https://arxiv.org/pdf/2210.09071" target="_blank" rel="noopener">PixelFormer</a>를 학습 시점의 증강(랜덤 크롭/회전, 좌우 반전, CutDepth)과 학습 해상도를 유지하기 위한 추론 시점의 제로 패딩(zero-padding) 기법으로 커스터마이즈했습니다.</p>
       <div class="ref-links">
-        <a href="https://eprints.soton.ac.uk/481380" target="_blank" rel="noopener" class="ref-link">
+        <a href="https://arxiv.org/abs/2304.07051" target="_blank" rel="noopener" class="ref-link">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
           제2회 단안 깊이 추정 챌린지 — CVPRW 2023
         </a>
@@ -360,7 +360,7 @@
 
       <h3>참고 자료</h3>
       <div class="ref-links">
-        <a href="https://d3cw3dd2w32x2b.cloudfront.net/wp-content/uploads/2015/01/matrix-to-quat.pdf" target="_blank" rel="noopener" class="ref-link">
+        <a href="https://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/" target="_blank" rel="noopener" class="ref-link">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
           회전 행렬과 쿼터니언(Quaternion) 간의 변환
         </a>
