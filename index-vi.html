@@ -676,7 +676,7 @@
           </div>
         </div>
         <div class="project-name">Mô phỏng Ước lượng Trạng thái</div>
-        <div class="project-duration">Dự án cá nhân · Đang phát triển từ Tháng 8/2026</div>
+        <div class="project-duration">Dự án cá nhân</div>
         <p class="project-desc">
           Các mô phỏng xây dựng từ đầu, bao quát cả hai hướng đệ quy và theo lô trong ước lượng trạng thái
           trên các đa tạp (manifold) SO(3)/SE(3): tích hợp/tiền tích hợp IMU, theo dõi tư thế đám
@@ -727,6 +727,42 @@
         </div>
       </div>
 
+      <!-- Monocular Metric Depth Estimation -->
+      <div class="project-card fade-up">
+        <div class="project-top">
+          <div class="project-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z"/>
+              <path d="M12 3v18M4 7.5l8 4.5 8-4.5"/>
+            </svg>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/huynhthaihoa/leres-depth-estimation" target="_blank" rel="noopener" class="project-link" title="GitHub">
+              <svg width="16" height="16" fill="currentColor"><use href="#icon-github"></use></svg>
+            </a>
+          </div>
+        </div>
+        <div class="project-name">Ước Lượng Độ Sâu Đơn Ảnh (Metric)</div>
+        <div class="project-duration">Dự án cá nhân</div>
+        <p class="project-desc">
+          Một pipeline PyTorch xây dựng từ đầu, dự đoán giá trị độ sâu tuyệt đối (theo mét) cho từng pixel
+          từ một ảnh RGB duy nhất, với kiến trúc encoder-decoder có thể hoán đổi linh hoạt: các encoder
+          gồm EfficientNet, ResNet/RegNet, ConvNeXt, DINOv2, và các backbone dựa trên YOLO, kết hợp với
+          các depth decoder gồm NeWCRFs, DPT, FPN, và PixelFormer, huấn luyện và đánh giá trên NYUv2 và
+          KITTI. Bao phủ toàn bộ luồng triển khai từ PyTorch sang ONNX/TFLite, huấn luyện nhận biết lượng
+          tử hóa (quantization-aware training), và các công cụ chuyển đổi hướng đến triển khai trên thiết
+          bị biên (TI TIDL).
+        </p>
+        <div class="tag-list">
+          <span class="tag">Python</span>
+          <span class="tag">PyTorch</span>
+          <span class="tag">ONNX</span>
+          <span class="tag">TFLite</span>
+          <span class="tag">Depth Estimation</span>
+          <span class="tag">Quantization</span>
+        </div>
+      </div>
+
       <!-- YOLO & Calibration Utilities -->
       <div class="project-card fade-up">
         <div class="project-top">
@@ -743,7 +779,7 @@
           </div>
         </div>
         <div class="project-name">Tiện ích YOLO &amp; Hiệu chỉnh</div>
-        <div class="project-duration">Dự án cá nhân · Đang phát triển từ 2022</div>
+        <div class="project-duration">Dự án cá nhân</div>
         <p class="project-desc">
           Một bộ công cụ cá nhân ngày càng phát triển, được tái sử dụng qua nhiều dự án phát hiện và hiệu chỉnh: hiệu chỉnh
           camera fisheye và khử méo, phát hiện góc bàn cờ, chuyển đổi nhãn YOLO↔Pascal VOC,
