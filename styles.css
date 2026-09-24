@@ -300,6 +300,7 @@ section { padding: 5rem 0; }
 .edu-school { font-size: .9rem; color: var(--accent); font-weight: 500; margin-bottom: .25rem; }
 .edu-date { font-size: .8rem; color: var(--muted); }
 .edu-note { font-size: .85rem; color: var(--muted); margin-top: .65rem; }
+.edu-links { display: flex; flex-wrap: wrap; column-gap: 1.25rem; }
 .edu-badge {
   display: inline-block;
   background: var(--tag-bg); color: var(--tag-col);
