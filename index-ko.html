@@ -680,15 +680,10 @@
         <div class="project-name">상태 추정 시뮬레이션</div>
         <div class="project-duration">개인 프로젝트</div>
         <p class="project-desc">
-          SO(3)/SE(3) 다양체(manifold) 위에서 재귀 방식과 배치 방식을 아우르는 상태 추정을 처음부터 직접 구현한 시뮬레이션 모음입니다: IMU 적분/사전
-          적분, 포인트 클라우드 포즈 추적(EKF, Invariant EKF, UKF, 일반 KF, 배치 Gauss-Newton 비교), 루프 클로저를 포함한 포즈 그래프
-          최적화(배치 방식 대 incremental square-root SAM), iSAM2의 핵심 자료구조인 Bayes tree를 처음부터 구축, Schur 보수를
-          이용한 슬라이딩 윈도우 주변화(marginalization), 실시간 루프 클로저 데모를 포함한 전체 및 Local+Global 번들 조정(bundle
-          adjustment), Perspective-n-Point 포즈 복원, 그리고 접촉이 많은 운동을 위한 EKF 변형(충돌 시 saltation 행렬 보정,
-          기어가는 보행을 위한 영속도 갱신(ZUPT), 마찰 이방성 프로세스 노이즈)과 Monte Carlo NEES 일관성 검증까지 다룹니다. 14개 시뮬레이션 모두
-          필요한 리 군(Lie-group) 수학을 직접 작성한 NumPy로 구현했고, 그중 8개는 manif 리 이론(Lie-theory) 라이브러리로도 다시 구현했으며,
-          모든 스크립트를 다루는 pytest 회귀 테스트 스위트와 수학적 기초, 프런트엔드 기하, 칼만 필터 계열, factor-graph/smoothing 계열을
-          아우르는 체계적인 이론 노트를 함께 정리했습니다.
+          로봇이 잡음이 섞인 운동·센서 데이터로부터 자신의 포즈를 추정하는 방법을 처음부터 직접 구현한 Python 시뮬레이션 모음으로, SO(3)/SE(3) 위에서 재귀
+          필터링(EKF, Invariant EKF, UKF)과 배치·증분 최적화(포즈 그래프, iSAM, 번들 조정)를 비교합니다. PnP, 슬라이딩 윈도우
+          주변화(marginalization), 접촉이 많은 운동을 위한 EKF도 다룹니다. pytest 테스트 스위트와 체계적인 이론 노트를 함께 정리했으며, 14개
+          시뮬레이션 중 8개는 manif 리 이론(Lie-theory) 라이브러리로도 구현했습니다.
         </p>
         <div class="tag-list">
           <span class="tag">Python</span>
