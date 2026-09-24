@@ -682,15 +682,20 @@
         <div class="project-name">State Estimation Simulations</div>
         <div class="project-duration">Personal Project</div>
         <p class="project-desc">
-          From-scratch simulations spanning the recursive-vs-batch spectrum of state estimation on the
-          SO(3)/SE(3) manifolds: IMU integration/pre-integration, point-cloud pose tracking (EKF vs.
-          Invariant EKF vs. UKF vs. batch Gauss-Newton), pose-graph optimization (batch vs. incremental
-          square-root SAM) with loop closure, a from-scratch Bayes tree construction (iSAM2's core data
-          structure), full and sliding-window Local+Global bundle adjustment with a live loop-closure demo,
-          and Perspective-n-Point pose recovery. Every method implemented twice — hand-rolled NumPy
-          Lie-algebra math, and via the manif Lie-theory library — with a pytest regression suite and a
-          structured set of theory notes spanning math foundations, the Kalman-filter family, and the
-          factor-graph/smoothing family.
+          From-scratch simulations spanning the recursive-vs-batch spectrum of state estimation on
+          the SO(3)/SE(3) manifolds: IMU integration/pre-integration, point-cloud pose tracking (EKF
+          vs. Invariant EKF vs. UKF vs. vanilla KF vs. batch Gauss-Newton), pose-graph optimization
+          (batch vs. incremental square-root SAM) with loop closure, a from-scratch Bayes tree
+          construction (iSAM2's core data structure), sliding-window marginalization via the Schur
+          complement, full and Local+Global bundle adjustment with a live loop-closure demo,
+          Perspective-n-Point pose recovery, and EKF variants for contact-rich motion
+          (saltation-matrix correction for impacts, zero-velocity updates for a crawling gait,
+          friction-anisotropic process noise) with Monte Carlo NEES consistency checks. All 14
+          simulations are written in plain NumPy with hand-rolled Lie-group math where needed, and 8
+          of them are also re-implemented via the manif Lie-theory library, with a pytest regression
+          suite covering every script and a structured set of theory notes spanning math
+          foundations, front-end geometry, the Kalman-filter family, and the factor-graph/smoothing
+          family.
         </p>
         <div class="tag-list">
           <span class="tag">Python</span>

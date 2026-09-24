@@ -682,15 +682,20 @@
         <div class="project-name">Mô phỏng Ước lượng Trạng thái</div>
         <div class="project-duration">Dự án cá nhân</div>
         <p class="project-desc">
-          Các mô phỏng xây dựng từ đầu, bao quát cả hai hướng đệ quy và theo lô trong ước lượng trạng thái
-          trên các đa tạp (manifold) SO(3)/SE(3): tích hợp/tiền tích hợp IMU, theo dõi tư thế đám
-          mây điểm (so sánh EKF, Invariant EKF, UKF, và bộ làm mượt Gauss-Newton theo lô), tối ưu hóa pose
-          graph (theo lô và theo kiểu incremental square-root SAM) có vòng lặp khép kín (loop closure), xây
-          dựng Bayes tree từ đầu (cấu trúc dữ liệu cốt lõi của iSAM2), bundle adjustment đầy đủ lẫn Local+Global
-          theo cửa sổ trượt kèm minh họa loop closure trực tiếp, và ước lượng tư thế camera bằng
-          Perspective-n-Point (PnP). Mỗi phương pháp được cài đặt hai lần — toán đại số Lie NumPy tự viết
-          tay, và qua thư viện lý thuyết Lie manif — cùng với bộ kiểm thử hồi quy pytest và một bộ ghi chú
-          lý thuyết có cấu trúc, bao quát nền tảng toán học, họ bộ lọc Kalman, và họ factor-graph/smoothing.
+          Các mô phỏng xây dựng từ đầu, bao quát cả hai hướng đệ quy và theo lô trong ước lượng
+          trạng thái trên các đa tạp (manifold) SO(3)/SE(3): tích hợp/tiền tích hợp IMU, theo dõi tư
+          thế đám mây điểm (so sánh EKF, Invariant EKF, UKF, KF thông thường, và bộ làm mượt
+          Gauss-Newton theo lô), tối ưu hóa pose graph (theo lô và theo kiểu incremental square-root
+          SAM) có vòng lặp khép kín (loop closure), xây dựng Bayes tree từ đầu (cấu trúc dữ liệu cốt
+          lõi của iSAM2), marginalization theo cửa sổ trượt bằng phần bù Schur, bundle adjustment
+          đầy đủ lẫn Local+Global kèm minh họa loop closure trực tiếp, ước lượng tư thế camera bằng
+          Perspective-n-Point (PnP), và các biến thể EKF cho chuyển động có tiếp xúc (hiệu chỉnh
+          bằng ma trận saltation khi va chạm, cập nhật vận tốc bằng không (ZUPT) cho dáng bò, nhiễu
+          quá trình dị hướng theo ma sát) kèm kiểm tra tính nhất quán NEES bằng Monte Carlo. Cả 14
+          mô phỏng đều được viết bằng NumPy thuần với toán nhóm Lie tự viết tay khi cần, trong đó 8
+          mô phỏng được cài đặt lại qua thư viện lý thuyết Lie manif, cùng với bộ kiểm thử hồi quy
+          pytest bao phủ mọi script và một bộ ghi chú lý thuyết có cấu trúc, bao quát nền tảng toán
+          học, hình học front-end, họ bộ lọc Kalman, và họ factor-graph/smoothing.
         </p>
         <div class="tag-list">
           <span class="tag">Python</span>
