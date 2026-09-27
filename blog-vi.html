@@ -146,7 +146,7 @@
       <p>Knowledge distillation thường bao gồm một quy trình hai giai đoạn:</p>
       <ol>
         <li><strong>Huấn luyện mô hình giáo viên</strong>: Một mô hình lớn, phức tạp (giáo viên) được huấn luyện trước trên tác vụ mục tiêu bằng tập dữ liệu sẵn có. Mô hình giáo viên thường được tham số hóa dư thừa (overparameterized) và đạt hiệu năng cao, nhưng có thể tốn kém về mặt tính toán.</li>
-        <li><strong>Huấn luyện mô hình học sinh</strong>: Một mô hình nhỏ hơn, hiệu quả hơn (học sinh) sau đó được huấn luyện để bắt chước hành vi của giáo viên. Việc này được thực hiện bằng cách dùng đầu ra của giáo viên (ví dụ: logit đã làm mềm hoặc biểu diễn đặc trưng) làm mục tiêu mềm (soft targets), thêm vào hoặc thay cho nhãn ground-truth. Học sinh được huấn luyện để tối thiểu hóa một hàm mất mát bao gồm mất mát chưng cất (distillation loss, ví dụ: phân kỳ Kullback-Leibler giữa đầu ra của giáo viên và học sinh) và, thường là, một mất mát riêng cho tác vụ (ví dụ: cross-entropy với nhãn ground-truth).</li>
+        <li><strong>Huấn luyện mô hình học sinh</strong>: Một mô hình nhỏ hơn, hiệu quả hơn (học sinh) sau đó được huấn luyện để bắt chước hành vi của giáo viên. Việc này được thực hiện bằng cách dùng đầu ra của giáo viên (ví dụ: logit đã làm mềm hoặc biểu diễn đặc trưng) làm mục tiêu mềm (soft targets), thêm vào hoặc thay cho nhãn ground-truth. Học sinh được huấn luyện để tối thiểu hóa một hàm mất mát bao gồm mất mát chưng cất (distillation loss, ví dụ: phân kỳ Kullback–Leibler giữa đầu ra của giáo viên và học sinh) và, thường là, một mất mát riêng cho tác vụ (ví dụ: cross-entropy với nhãn ground-truth).</li>
       </ol>
       <p>Giáo viên <strong>thường được huấn luyện trước và giữ cố định</strong> trong quá trình huấn luyện học sinh vì mục tiêu là <strong>truyền tri thức đã học của giáo viên sang học sinh</strong>. Đầu ra của giáo viên <strong>cung cấp tín hiệu giám sát phong phú hơn (ví dụ: nắm bắt mối quan hệ giữa các lớp thông qua xác suất mềm) so với chỉ dùng nhãn cứng</strong>.</p>
 
@@ -196,16 +196,16 @@
 
       <h3>3. Vì sao huấn luyện trước giáo viên và huấn luyện học sinh trên cùng một tập dữ liệu là hợp lý</h3>
 
-      <h5>Tính nhất quán trong phân bố dữ liệu</h5>
+      <h4>Tính nhất quán trong phân bố dữ liệu</h4>
       <p>Sử dụng cùng một tập dữ liệu cho cả giáo viên và học sinh đảm bảo rằng <strong>tri thức được truyền đạt là phù hợp với tác vụ và phân bố dữ liệu mà học sinh sẽ gặp phải</strong>. Giáo viên học các mẫu hình, mối quan hệ và cấu trúc của tập dữ liệu, và học sinh hưởng lợi từ việc bắt chước các biểu diễn đã học này. Nếu giáo viên được huấn luyện trên một tập dữ liệu khác, tri thức của nó có thể không tổng quát hóa tốt sang tập dữ liệu mục tiêu của học sinh, dẫn đến hiệu năng dưới mức tối ưu.</p>
 
-      <h5>Giáo viên như một tham chiếu chất lượng cao</h5>
+      <h4>Giáo viên như một tham chiếu chất lượng cao</h4>
       <p>Huấn luyện trước mô hình giáo viên trên cùng một tập dữ liệu cho phép nó <strong>hội tụ về một lời giải hiệu năng cao, nắm bắt thông tin phong phú về tác vụ</strong> (ví dụ: xác suất lớp, biểu diễn đặc trưng, hoặc ranh giới quyết định). Học sinh sau đó có thể tận dụng tri thức chất lượng cao này thông qua đầu ra mềm của giáo viên (ví dụ: logit đã làm mềm hoặc đặc trưng trung gian), cung cấp nhiều thông tin hơn so với chỉ dùng nhãn cứng. Ví dụ, trong các tác vụ phân loại, đầu ra softmax của giáo viên (với một tham số nhiệt độ) tiết lộ mối quan hệ giữa các lớp, giúp học sinh học được các ranh giới quyết định tinh tế hơn.</p>
 
-      <h5>Thực hành chuẩn trong Knowledge Distillation</h5>
+      <h4>Thực hành chuẩn trong Knowledge Distillation</h4>
       <p>Khung knowledge distillation kinh điển, được giới thiệu bởi Hinton et al. (2015), huấn luyện học sinh để khớp với đầu ra đã được làm mềm bằng nhiệt độ của giáo viên (đã huấn luyện trước) trên một <strong>tập chuyển giao (transfer set)</strong>. Tập chuyển giao có thể là dữ liệu không nhãn hoặc chính tập huấn luyện gốc, và các tác giả nhận thấy dùng tập huấn luyện gốc cho kết quả tốt. Thiết lập này được sử dụng rộng rãi trong các ứng dụng như nén mô hình cho phân loại ảnh, xử lý ngôn ngữ tự nhiên, và nhận dạng giọng nói. Học sinh thường tối ưu một tổ hợp của mất mát chưng cất (ví dụ: cross-entropy, hoặc phân kỳ KL vốn tương đương sai khác một hằng số, giữa đầu ra đã làm mềm của giáo viên và học sinh) và mất mát riêng cho tác vụ (ví dụ: cross-entropy với nhãn ground-truth).</p>
 
-      <h5>Sử dụng dữ liệu hiệu quả</h5>
+      <h4>Sử dụng dữ liệu hiệu quả</h4>
       <p>Trong nhiều kịch bản thực tế, tập dữ liệu là cố định và có giới hạn. Sử dụng cùng một tập dữ liệu cho cả hai mô hình tránh được nhu cầu thu thập dữ liệu bổ sung hoặc nguy cơ lệch miền (domain mismatch). Giáo viên trích xuất càng nhiều tri thức càng tốt từ tập dữ liệu, và học sinh chưng cất tri thức này vào một mô hình gọn nhẹ hơn.</p>
 
       <h4>Lợi ích của cách tiếp cận này</h4>
@@ -451,7 +451,7 @@
       <ul>
         <li>$C(c_x, c_y)$ là tâm của hình elip</li>
         <li>$a, b$ là bán trục lớn và bán trục nhỏ</li>
-        <li>$\theta$ là góc xoay đo từ trục $Cx$ (không phải trục $Ox$) (<strong>theo chiều kim đồng hồ</strong>)</li>
+        <li>$\theta$ là góc xoay của trục lớn, đo từ trục $Cx$ (đi qua $C$, song song với $Ox$) (<strong>theo chiều kim đồng hồ</strong>)</li>
       </ul>
 
       <h4>1.2. Phương trình tham số</h4>
@@ -463,7 +463,7 @@
       <ul>
         <li>$C(c_x, c_y)$ là tâm của hình elip</li>
         <li>$a, b$ là bán trục lớn và bán trục nhỏ</li>
-        <li>$\theta$ là góc xoay đo từ trục $Cx$ (không phải trục $Ox$) (<strong>theo chiều kim đồng hồ</strong>)</li>
+        <li>$\theta$ là góc xoay của trục lớn, đo từ trục $Cx$ (đi qua $C$, song song với $Ox$) (<strong>theo chiều kim đồng hồ</strong>)</li>
         <li>$\alpha$ là tham số, có giá trị (radian) từ $0$ đến $2\pi$</li>
       </ul>
       <p>Minh họa hình elip đã xoay, với $Cx$ và $Cy$ tương ứng song song và cùng hướng với $Ox$ và $Oy$:</p>
@@ -476,7 +476,9 @@
         $$y_C = (x_B - x_A)\sin(\theta) + (y_B - y_A)\cos(\theta) + y_A$$
       </div>
       <p>Triển khai Python:</p>
-      <pre><code>def get_rotation(start_point, center_point, rad):
+      <pre><code>import math
+
+def get_rotation(start_point, center_point, rad):
     """Rotate start_point around center_point by rad radians (clockwise in image coordinates, y-axis down).
 
     Args:
@@ -485,16 +487,16 @@
         rad:          rotation angle in radians, clockwise in image coordinates
 
     Returns:
-        [x_T, y_T]
+        [x_C, y_C]
     """
-    T = [0, 0]
-    T[0] = (start_point[0] - center_point[0]) * math.cos(rad) \
+    C = [0, 0]
+    C[0] = (start_point[0] - center_point[0]) * math.cos(rad) \
          - (start_point[1] - center_point[1]) * math.sin(rad) \
          + center_point[0]
-    T[1] = (start_point[0] - center_point[0]) * math.sin(rad) \
+    C[1] = (start_point[0] - center_point[0]) * math.sin(rad) \
          + (start_point[1] - center_point[1]) * math.cos(rad) \
          + center_point[1]
-    return T</code></pre>
+    return C</code></pre>
 
     </div><!-- /.post-body -->
   </div>
@@ -809,7 +811,7 @@ undistorted = cv2.undistort(image, camera_matrix, dist_coeffs, None, A)</code></
         💡 Hiệu chỉnh camera là <strong>một quá trình xấp xỉ</strong> — tương tự như machine learning. Chúng ta hiếm khi có được ma trận camera lý tưởng thực sự, nhưng xem kết quả thu được là $A$ để đơn giản hóa.
       </div>
 
-      <p><strong>Bản đồ độ sâu tuyệt đối</strong> cho ta $Z_c$. Các tọa độ còn lại được suy ra từ (1) và (2):</p>
+      <p><strong>Bản đồ độ sâu tuyệt đối</strong> cho ta $Z_c$ (độ sâu dọc theo trục quang học, không phải khoảng cách Euclid tới camera). Các tọa độ còn lại được suy ra từ (1) và (2):</p>
       <div class="math-display">$$X_c = \frac{Z_c(u - c_x)}{f_x} \quad (3) \qquad Y_c = \frac{Z_c(v - c_y)}{f_y} \quad (4)$$</div>
       <p>Triển khai Python:</p>
       <pre><code>def depth_to_3d(D, fx, fy, cx, cy):
@@ -833,7 +835,7 @@ undistorted = cv2.undistort(image, camera_matrix, dist_coeffs, None, A)</code></
 
       <h3>Tái tạo LiDAR bằng Pseudo-LiDAR</h3>
       <div class="callout">
-        💡 Để kiểm chứng đề xuất này, thiết lập <strong>4 camera</strong> và <strong>1 LiDAR</strong> trong <strong>môi trường mô phỏng CARLA</strong>, ghi lại dữ liệu, và thử nghiệm với pipeline đầu-cuối (end-to-end).
+        💡 Một cách để kiểm chứng đề xuất này: thiết lập <strong>4 camera</strong> và <strong>1 LiDAR</strong> trong <strong>môi trường mô phỏng CARLA</strong>, ghi lại dữ liệu, và thử nghiệm với pipeline đầu-cuối (end-to-end).
       </div>
       <p>Cho một LiDAR $L$ tạo ra một point cloud 360°, ta tái tạo nó bằng các camera $C_i$. Pipeline đề xuất:</p>
       <ol>
@@ -852,7 +854,7 @@ undistorted = cv2.undistort(image, camera_matrix, dist_coeffs, None, A)</code></
       <div class="ref-links">
         <a href="https://openaccess.thecvf.com/content_ICCV_2019/papers/van_Dijk_How_Do_Neural_Networks_See_Depth_in_Single_Images_ICCV_2019_paper.pdf" target="_blank" rel="noopener" class="ref-link">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-          How do neural networks see depth in single images (ICCV 2019)
+          How Do Neural Networks See Depth in Single Images? (ICCV 2019)
         </a>
         <a href="https://arxiv.org/pdf/2302.12288.pdf" target="_blank" rel="noopener" class="ref-link">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
@@ -913,7 +915,12 @@ undistorted = cv2.undistort(image, camera_matrix, dist_coeffs, None, A)</code></
       </ul>
 
       <h4>Phương trình</h4>
-      <img src="assets/blog/affine_transform.png" width="1042" height="1825" loading="lazy" alt="Minh họa Affine Transform" />
+      <p>Trong tọa độ thuần nhất, một phép biến đổi affine là một ma trận $3 \times 3$ có hàng cuối cố định là $[0\ 0\ 1]$:</p>
+      <div class="math-display">
+        $$\begin{bmatrix} x' \\ y' \\ 1 \end{bmatrix} = \begin{bmatrix} a_{11} & a_{12} & t_x \\ a_{21} & a_{22} & t_y \\ 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} x \\ y \\ 1 \end{bmatrix}$$
+      </div>
+      <p>Nó có <strong>6 bậc tự do</strong>, nên <strong>3 cặp điểm tương ứng không thẳng hàng</strong> là đủ để xác định nó. Homography (8 bậc tự do) là trường hợp tổng quát hơn: nó giữ đường thẳng vẫn thẳng nhưng không bảo toàn tính song song.</p>
+      <img src="assets/blog/affine_transform.png" width="1042" height="1825" loading="lazy" alt="Bảng các ma trận affine kèm ví dụ: đồng nhất, tịnh tiến, phản xạ, co giãn, xoay và trượt" />
 
     </div><!-- /.post-body -->
   </div>
@@ -959,7 +966,7 @@ undistorted = cv2.undistort(image, camera_matrix, dist_coeffs, None, A)</code></
       <ul>
         <li><code>conf_thres</code>: 0.5 &nbsp;(0 &lt; <code>conf_thres</code> &lt;= 1)</li>
         <li><code>count_thres</code>: 1 &nbsp;(1 &lt;= <code>count_thres</code> &lt;= 4)</li>
-        <li><code>fov_degree</code>: 30 &nbsp;(độ lớn FOV tính bằng độ, 0 &lt;= <code>fov_degree</code> &lt;= 90)</li>
+        <li><code>fov_degree</code>: 30 &nbsp;(toàn bộ góc FOV tính bằng độ, 0 &lt;= <code>fov_degree</code> &lt;= 90; bản demo bên dưới lấy ngẫu nhiên giá trị từ 30 đến 90)</li>
       </ul>
 
       <hr>

@@ -146,7 +146,7 @@
       <p>Knowledge distillation typically involves a two-stage process:</p>
       <ol>
         <li><strong>Teacher Model Training</strong>: A large, complex model (the teacher) is trained first on the target task using the available dataset. The teacher model is usually overparameterized and achieves high performance, but may be computationally expensive.</li>
-        <li><strong>Student Model Training</strong>: A smaller, more efficient model (the student) is then trained to mimic the teacher's behavior. This is done by using the teacher's outputs (e.g., softened logits or feature representations) as soft targets, in addition to or instead of the ground-truth labels. The student is trained to minimize a loss function that includes a distillation loss (e.g., Kullback-Leibler divergence between the teacher's and student's outputs) and, often, a task-specific loss (e.g., cross-entropy with ground-truth labels).</li>
+        <li><strong>Student Model Training</strong>: A smaller, more efficient model (the student) is then trained to mimic the teacher's behavior. This is done by using the teacher's outputs (e.g., softened logits or feature representations) as soft targets, in addition to or instead of the ground-truth labels. The student is trained to minimize a loss function that includes a distillation loss (e.g., Kullback–Leibler divergence between the teacher's and student's outputs) and, often, a task-specific loss (e.g., cross-entropy with ground-truth labels).</li>
       </ol>
       <p>The teacher is <strong>typically pre-trained and fixed</strong> during the student's training because the goal is to <strong>transfer the teacher's learned knowledge to the student</strong>. The teacher's outputs <strong>provide a richer supervision signal (e.g., capturing inter-class relationships via soft probabilities) than hard labels alone</strong>.</p>
 
@@ -192,20 +192,20 @@
       </ul>
 
       <h4>Practical Recommendation</h4>
-      <p>In most cases, <strong>sequential training</strong> (pre-training the teacher, then training the student) is the most effective and straightforward approach for knowledge distillation. It ensures the teacher provides stable, high-quality outputs and aligns to produce an efficient student model. <strong>Parallel training</strong> could be explored in research settings or specific use cases (e.g., <strong>online distillation</strong> or <strong>continual learning</strong>), but it requires careful design to manage the challenges outlined above.</p>
+      <p>In most cases, <strong>sequential training</strong> (pre-training the teacher, then training the student) is the most effective and straightforward approach for knowledge distillation. It ensures the teacher provides stable, high-quality targets for training an efficient student model. <strong>Parallel training</strong> could be explored in research settings or specific use cases (e.g., <strong>online distillation</strong> or <strong>continual learning</strong>), but it requires careful design to manage the challenges outlined above.</p>
 
       <h3>3. Why Pretraining the Teacher and Training the Student on the Same Dataset Makes Sense</h3>
 
-      <h5>Consistency in Data Distribution</h5>
+      <h4>Consistency in Data Distribution</h4>
       <p>Using the same dataset for both the teacher and student ensures that <strong>the knowledge being transferred is relevant to the task and data distribution that the student will encounter</strong>. The teacher learns the patterns, relationships, and structure of the dataset, and the student benefits from mimicking these learned representations. If the teacher were trained on a different dataset, its knowledge might not generalize well to the student's target dataset, leading to suboptimal performance.</p>
 
-      <h5>Teacher as a High-Quality Reference</h5>
+      <h4>Teacher as a High-Quality Reference</h4>
       <p>Pretraining the teacher model on the same dataset allows it to <strong>converge to a high-performing solution, capturing rich information about the task</strong> (e.g., class probabilities, feature representations, or decision boundaries). The student can then leverage this high-quality knowledge via the teacher's soft outputs (e.g., softened logits or intermediate features), which provide more information than hard labels alone. For example, in classification tasks, the teacher's softmax outputs (with a temperature parameter) reveal inter-class relationships, helping the student learn nuanced decision boundaries.</p>
 
-      <h5>Standard Practice in Knowledge Distillation</h5>
+      <h4>Standard Practice in Knowledge Distillation</h4>
       <p>The canonical knowledge distillation framework, as introduced by Hinton et al. (2015), trains the student to match the pretrained teacher's temperature-softened outputs on a <strong>transfer set</strong>. The transfer set can be unlabeled data or the original training set, and the authors found that using the original training set works well. This setup is widely used in applications like model compression for image classification, natural language processing, and speech recognition. The student typically optimizes a combination of the distillation loss (e.g., cross-entropy or, equivalently up to a constant, KL divergence between the teacher's and student's softened outputs) and the task-specific loss (e.g., cross-entropy with ground-truth labels).</p>
 
-      <h5>Efficient Use of Data</h5>
+      <h4>Efficient Use of Data</h4>
       <p>In many real-world scenarios, the dataset is fixed and limited. Using the same dataset for both models avoids the need for additional data collection or the risk of domain mismatch. The teacher extracts as much knowledge as possible from the dataset, and the student distills this knowledge into a more compact model.</p>
 
       <h4>Benefits of This Approach</h4>
@@ -450,8 +450,8 @@
       <p>given:</p>
       <ul>
         <li>$C(c_x, c_y)$ is the ellipse center</li>
-        <li>$a, b$ are the major and minor radius</li>
-        <li>$\theta$ is the rotation angle measured from the $Cx$ axis (not $Ox$ axis) (<strong>clockwise order</strong>)</li>
+        <li>$a, b$ are the semi-major and semi-minor axes</li>
+        <li>$\theta$ is the rotation angle of the major axis, measured from the $Cx$ axis (through $C$, parallel to $Ox$) (<strong>clockwise order</strong>)</li>
       </ul>
 
       <h4>1.2. Parametric Equation</h4>
@@ -462,11 +462,11 @@
       <p>given:</p>
       <ul>
         <li>$C(c_x, c_y)$ is the ellipse center</li>
-        <li>$a, b$ are the major and minor radius</li>
-        <li>$\theta$ is the rotation angle measured from the $Cx$ axis (not $Ox$ axis) (<strong>clockwise order</strong>)</li>
+        <li>$a, b$ are the semi-major and semi-minor axes</li>
+        <li>$\theta$ is the rotation angle of the major axis, measured from the $Cx$ axis (through $C$, parallel to $Ox$) (<strong>clockwise order</strong>)</li>
         <li>$\alpha$ is the parameter, which ranges (radian) from $0$ to $2\pi$</li>
       </ul>
-      <p>Rotated ellipse illustration, with $Cx$ and $Cy$ correspondingly paralleled &amp; sharing the same direction with $Ox$ and $Oy$:</p>
+      <p>Rotated ellipse illustration, with $Cx$ and $Cy$ parallel to, and pointing the same way as, $Ox$ and $Oy$:</p>
       <img src="assets/blog/2d-vision-ellipse.png" width="889" height="793" loading="lazy" alt="Rotated ellipse illustration" />
 
       <h3>2. Rotate Point</h3>
@@ -476,7 +476,9 @@
         $$y_C = (x_B - x_A)\sin(\theta) + (y_B - y_A)\cos(\theta) + y_A$$
       </div>
       <p>Python implementation:</p>
-      <pre><code>def get_rotation(start_point, center_point, rad):
+      <pre><code>import math
+
+def get_rotation(start_point, center_point, rad):
     """Rotate start_point around center_point by rad radians (clockwise in image coordinates, y-axis down).
 
     Args:
@@ -485,16 +487,16 @@
         rad:          rotation angle in radians, clockwise in image coordinates
 
     Returns:
-        [x_T, y_T]
+        [x_C, y_C]
     """
-    T = [0, 0]
-    T[0] = (start_point[0] - center_point[0]) * math.cos(rad) \
+    C = [0, 0]
+    C[0] = (start_point[0] - center_point[0]) * math.cos(rad) \
          - (start_point[1] - center_point[1]) * math.sin(rad) \
          + center_point[0]
-    T[1] = (start_point[0] - center_point[0]) * math.sin(rad) \
+    C[1] = (start_point[0] - center_point[0]) * math.sin(rad) \
          + (start_point[1] - center_point[1]) * math.cos(rad) \
          + center_point[1]
-    return T</code></pre>
+    return C</code></pre>
 
     </div><!-- /.post-body -->
   </div>
@@ -520,8 +522,8 @@
       <h4>Public Benchmark</h4>
       <p><strong>Disclaimer</strong>:</p>
       <ul>
-        <li>This is just a benchmark on some standard datasets, which means the model does not necessarily become the actual "SOTA" for in-the-wild applications.</li>
-        <li>This benchmark focuses on <strong>accuracy</strong> metrics but no <strong>latency</strong> metrics, which are also an essential part of the real-time applications.</li>
+        <li>This is a benchmark on a few standard datasets: the top-ranked model isn't necessarily the best one in the wild.</li>
+        <li>It covers <strong>accuracy</strong> but not <strong>latency</strong>, which is essential for real-time applications.</li>
       </ul>
       <div class="ref-links">
         <a href="https://www.cvlibs.net/datasets/kitti/eval_depth.php?benchmark=depth_prediction" target="_blank" rel="noopener" class="ref-link">
@@ -755,12 +757,12 @@
       <ul>
         <li><strong>Position in the image</strong>: objects farther away tend to be closer to the horizon. When resting on the ground, objects also appear higher in the image.</li>
         <li><strong>Occlusion</strong>: close objects occlude those behind them — provides depth order but not exact distance.</li>
-        <li><strong>Texture density</strong>: textured surfaces that are further away appear more fine-grained.</li>
+        <li><strong>Texture density</strong>: textured surfaces that are farther away appear more fine-grained.</li>
         <li><strong>Linear perspective</strong>: straight, parallel lines in the physical world appear to converge in the image.</li>
         <li><strong>Apparent object size</strong>: objects farther away appear smaller.</li>
         <li><strong>Shading &amp; illumination</strong>: a surface appears brighter when its normal points toward a light source. Shading provides depth change info within a surface.</li>
         <li><strong>Focus blur</strong>: objects in front or behind the focal plane appear blurred.</li>
-        <li><strong>Aerial perspective</strong>: very far objects have less contrast and take on a blueish tint.</li>
+        <li><strong>Aerial perspective</strong>: very far objects have less contrast and take on a bluish tint.</li>
       </ul>
 
       <hr>
@@ -809,7 +811,7 @@ undistorted = cv2.undistort(image, camera_matrix, dist_coeffs, None, A)</code></
         💡 Camera calibration is <strong>an approximation process</strong> — similar to machine learning. We seldom get the actual ideal camera matrix, but treat the result as $A$ for simplification.
       </div>
 
-      <p>The <strong>absolute depth map</strong> gives $Z_c$. The remaining coordinates follow from (1) and (2):</p>
+      <p>The <strong>absolute depth map</strong> gives $Z_c$ (the depth along the optical axis, not the Euclidean distance to the camera). The remaining coordinates follow from (1) and (2):</p>
       <div class="math-display">$$X_c = \frac{Z_c(u - c_x)}{f_x} \quad (3) \qquad Y_c = \frac{Z_c(v - c_y)}{f_y} \quad (4)$$</div>
       <p>Python implementation:</p>
       <pre><code>def depth_to_3d(D, fx, fy, cx, cy):
@@ -833,7 +835,7 @@ undistorted = cv2.undistort(image, camera_matrix, dist_coeffs, None, A)</code></
 
       <h3>Replicate LiDAR with Pseudo-LiDAR</h3>
       <div class="callout">
-        💡 To verify this proposal, set up <strong>4 cameras</strong> and <strong>1 LiDAR</strong> in the <strong>CARLA simulation environment</strong>, record data, and experiment with the end-to-end pipeline.
+        💡 A way to validate this proposal: set up <strong>4 cameras</strong> and <strong>1 LiDAR</strong> in the <strong>CARLA simulation environment</strong>, record data, and experiment with the end-to-end pipeline.
       </div>
       <p>Given LiDAR $L$ producing a 360° point cloud, we replicate it using cameras $C_i$. Proposed pipeline:</p>
       <ol>
@@ -852,7 +854,7 @@ undistorted = cv2.undistort(image, camera_matrix, dist_coeffs, None, A)</code></
       <div class="ref-links">
         <a href="https://openaccess.thecvf.com/content_ICCV_2019/papers/van_Dijk_How_Do_Neural_Networks_See_Depth_in_Single_Images_ICCV_2019_paper.pdf" target="_blank" rel="noopener" class="ref-link">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-          How do neural networks see depth in single images (ICCV 2019)
+          How Do Neural Networks See Depth in Single Images? (ICCV 2019)
         </a>
         <a href="https://arxiv.org/pdf/2302.12288.pdf" target="_blank" rel="noopener" class="ref-link">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
@@ -913,7 +915,12 @@ undistorted = cv2.undistort(image, camera_matrix, dist_coeffs, None, A)</code></
       </ul>
 
       <h4>Equation</h4>
-      <img src="assets/blog/affine_transform.png" width="1042" height="1825" loading="lazy" alt="Affine Transform illustration" />
+      <p>In homogeneous coordinates, an affine transform is a $3 \times 3$ matrix whose last row is fixed to $[0\ 0\ 1]$:</p>
+      <div class="math-display">
+        $$\begin{bmatrix} x' \\ y' \\ 1 \end{bmatrix} = \begin{bmatrix} a_{11} & a_{12} & t_x \\ a_{21} & a_{22} & t_y \\ 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} x \\ y \\ 1 \end{bmatrix}$$
+      </div>
+      <p>It has <strong>6 DoF</strong>, so <strong>3 non-collinear point correspondences</strong> determine it. The homography (8 DoF) is the more general case: it keeps straight lines straight but does not preserve parallelism.</p>
+      <img src="assets/blog/affine_transform.png" width="1042" height="1825" loading="lazy" alt="Table of affine matrices with examples: identity, translation, reflection, scale, rotation, and shear" />
 
     </div><!-- /.post-body -->
   </div>
@@ -959,7 +966,7 @@ undistorted = cv2.undistort(image, camera_matrix, dist_coeffs, None, A)</code></
       <ul>
         <li><code>conf_thres</code>: 0.5 &nbsp;(0 &lt; <code>conf_thres</code> &lt;= 1)</li>
         <li><code>count_thres</code>: 1 &nbsp;(1 &lt;= <code>count_thres</code> &lt;= 4)</li>
-        <li><code>fov_degree</code>: 30 &nbsp;(FOV magnitude in degrees, 0 &lt;= <code>fov_degree</code> &lt;= 90)</li>
+        <li><code>fov_degree</code>: 30 &nbsp;(full FOV angle in degrees, 0 &lt;= <code>fov_degree</code> &lt;= 90; the demo below samples it randomly between 30 and 90)</li>
       </ul>
 
       <hr>
@@ -1182,7 +1189,7 @@ if __name__ == "__main__":
 
     <div class="post-body">
 
-      <h3>The problem</h3>
+      <h3>The Problem</h3>
       <p>Standard object detectors are trained on images resized to a fixed input resolution (e.g. <code>640×640</code>). When the source
       images are high-resolution and objects of interest are small or far from the camera — a distant pedestrian, a small container code,
       a worker near the edge of a railway platform — that resize step shrinks them down to just a handful of pixels. Most of the training
@@ -1190,7 +1197,7 @@ if __name__ == "__main__":
 
       <hr>
 
-      <h3>SAHI in a nutshell</h3>
+      <h3>SAHI in a Nutshell</h3>
       <p><strong>SAHI</strong> (<em>Slicing Aided Hyper Inference</em>) tackles this in two complementary ways. <strong>Slicing-aided inference</strong>: instead of feeding
       the detector one downscaled image, it slices the full-resolution image into overlapping tiles, runs detection independently on each
       tile at full resolution, then merges all tile-level detections back into original image coordinates with NMS. Small objects that
@@ -1200,7 +1207,7 @@ if __name__ == "__main__":
 
       <hr>
 
-      <h3>Adapting the idea for training data instead</h3>
+      <h3>Adapting the Idea for Training Data Instead</h3>
       <p>Running multiple slice passes at inference is expensive — it multiplies the number of forward passes per image, which conflicts
       with a real-time deployment budget. So I kept only the training-side half of SAHI: building on its slicing-aided fine-tuning, I use slicing to build
       a <strong>better training set</strong>, and keep inference itself as a single full-image forward pass.</p>
@@ -1219,7 +1226,7 @@ if __name__ == "__main__":
 
       <hr>
 
-      <h3>Illustrative sketch</h3>
+      <h3>Illustrative Sketch</h3>
       <p>A simplified sketch of the slicing + remapping step (illustrative, not the production implementation):</p>
       <pre><code>def slice_image(image, boxes, tile_size=640, overlap=0.2, min_visibility=0.3):
     """Slice an image into overlapping tiles, remapping ground-truth boxes."""

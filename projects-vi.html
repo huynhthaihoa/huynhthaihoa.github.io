@@ -125,7 +125,7 @@
       <p>Quy trình ghép ảnh gồm ba giai đoạn:</p>
       <ul>
         <li><strong>Nhận luồng đầu vào</strong>: thu khung hình từ camera/nguồn video và gộp thành lô (batch) làm đầu vào cho thuật toán ghép ảnh.</li>
-        <li><strong>Ghép ảnh</strong>: căn chỉnh (register) các tham số cache cần thiết để mỗi camera đóng góp vào phép ước lượng, sau đó tổng hợp ảnh toàn cảnh (panorama) từ lô đầu vào và các tham số đã cache đó.</li>
+        <li><strong>Ghép ảnh</strong>: căn chỉnh (register) các tham số mà mỗi camera cần để được chiếu vào ảnh toàn cảnh chung (tính một lần và lưu vào cache), sau đó tổng hợp ảnh toàn cảnh (panorama) từ lô đầu vào và các tham số đã cache đó.</li>
         <li><strong>Hậu xử lý</strong>: ảnh toàn cảnh thu được sẽ được đưa vào các tác vụ phía sau — hiển thị, phát hiện đối tượng, ước lượng độ sâu, v.v.</li>
       </ul>
       <img src="assets/projects/camera-stitching-pipeline.webp" width="1800" height="769" loading="lazy" alt="Tổng quan quy trình ghép ảnh camera">
@@ -156,9 +156,9 @@
         <li><a href="https://link.springer.com/article/10.1007/BF01933667" target="_blank" rel="noopener">Phương pháp mạnh (robust) dựa trên PROSAC</a></li>
       </ul>
 
-      <p>Ma trận homography $H$ xác định phép biến đổi giữa hai mặt phẳng, sai khác một hệ số tỷ lệ:</p>
+      <p>Ma trận homography $\mathbf{H}$ xác định phép biến đổi giữa hai mặt phẳng, sai khác một hệ số tỷ lệ:</p>
       <div class="math-display">$$s \begin{bmatrix} x' \\ y' \\ 1 \end{bmatrix} = \mathbf{H} \begin{bmatrix} x \\ y \\ 1 \end{bmatrix} = \begin{bmatrix} h_{11} & h_{12} & h_{13} \\ h_{21} & h_{22} & h_{23} \\ h_{31} & h_{32} & h_{33} \end{bmatrix} \begin{bmatrix} x \\ y \\ 1 \end{bmatrix}$$</div>
-      <p>$H$ là ma trận $3 \times 3$ với 8 bậc tự do, vì nó chỉ được ước lượng sai khác một hệ số tỷ lệ — thường được chuẩn hóa với $h_{33} = 1$.</p>
+      <p>$\mathbf{H}$ là ma trận $3 \times 3$ với 8 bậc tự do, vì nó chỉ được ước lượng sai khác một hệ số tỷ lệ — thường được chuẩn hóa với $h_{33} = 1$.</p>
 
       <p>Ba trường hợp sau đều liên quan đến phép biến đổi giữa hai mặt phẳng:</p>
       <div class="img-row">
@@ -224,7 +224,7 @@
         <img src="assets/projects/worker-localization-calibration-1.webp" width="1414" height="455" loading="lazy" alt="Sơ đồ quy trình hiệu chỉnh Camera-LiDAR 1">
         <img src="assets/projects/worker-localization-calibration-2.webp" width="960" height="463" loading="lazy" alt="Sơ đồ quy trình hiệu chỉnh Camera-LiDAR 2">
       </div>
-      <p>Với ma trận xoay $R$ và vector tịnh tiến $t$, đám mây điểm (point cloud) từ LiDAR được chuyển đổi sang hệ tọa độ camera, sau đó chiếu lên mặt phẳng ảnh để tạo thành bản đồ độ sâu (depth map) ở tỷ lệ chuẩn (ground-truth), khớp với ảnh camera:</p>
+      <p>Với ma trận xoay $R$ và vector tịnh tiến $t$, đám mây điểm (point cloud) từ LiDAR được chuyển đổi sang hệ tọa độ camera, sau đó chiếu lên mặt phẳng ảnh để tạo thành bản đồ độ sâu (depth map) thưa, theo đơn vị mét, làm ground truth, khớp với ảnh camera:</p>
       <div class="math-display">$$s \begin{bmatrix} u\\ v \\ 1 \end{bmatrix} = \begin{bmatrix} f_x & 0 & c_x \\ 0 & f_y & c_y \\ 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} X_c\\ Y_c \\ Z_c \end{bmatrix}$$</div>
       <img src="assets/projects/worker-localization-depthmap.webp" width="1208" height="741" loading="lazy" alt="Bản đồ độ sâu chuẩn (ground-truth) thu được, khớp với ảnh camera nhiệt">
 
@@ -273,11 +273,11 @@
       <h3>Mô hình ước lượng độ sâu nhẹ</h3>
       <p>Để phục vụ demo thời gian thực, chúng tôi đã xây dựng một mô hình ước lượng độ sâu được tối ưu hóa, hướng tới độ trễ thấp mà không đánh đổi quá nhiều độ chính xác. Lấy cảm hứng từ hiệu suất của họ mô hình YOLO, mô hình sử dụng <strong>backbone + neck YOLOv8</strong> được tùy biến làm bộ mã hóa (encoder) đặc trưng 4 tỷ lệ (4-scale), kết nối qua các skip connection tới một <strong>bộ giải mã (decoder) kiểu U-Net</strong> để tái tạo bản đồ độ sâu.</p>
       <img src="assets/projects/pseudo-lidar-model-arch.webp" width="1360" height="740" loading="lazy" alt="Kiến trúc mô hình độ sâu encoder-decoder nhẹ dựa trên YOLOv8">
-      <p>Sau khi tinh chỉnh (fine-tune) trên NYUv2 (trong nhà) và KITTI (ngoài trời), mô hình đạt hiệu năng cạnh tranh trên các chỉ số đánh giá độ sâu đã được thiết lập, trong khi kích thước nhỏ hơn nhiều so với các phương pháp SOTA:</p>
+      <p>Sau khi tinh chỉnh (fine-tune) trên NYUv2 (trong nhà) và KITTI (ngoài trời), mô hình đạt hiệu năng cạnh tranh trên các chỉ số độ sâu tiêu chuẩn, trong khi kích thước nhỏ hơn nhiều so với các phương pháp SOTA:</p>
 
       <h4>Bộ dữ liệu NYUv2</h4>
       <table>
-        <tr><th>Mô hình</th><th>Tham số</th><th>FPS (480×640)</th><th>Abs.Rel↓</th><th>RMSE↓</th><th>Sqr.Rel↓</th><th>δ1↑</th><th>δ2↑</th><th>δ3↑</th></tr>
+        <tr><th>Mô hình</th><th>Tham số</th><th>FPS (480×640)</th><th>AbsRel↓</th><th>RMSE↓</th><th>SqRel↓</th><th>δ1↑</th><th>δ2↑</th><th>δ3↑</th></tr>
         <tr><td>Của chúng tôi (encoder YOLOv8s)</td><td>10,810,465</td><td>105</td><td>0.1033</td><td>0.3717</td><td>0.0578</td><td>0.8965</td><td>0.9814</td><td>0.9958</td></tr>
         <tr><td>NeWCRFs</td><td>270,444,877</td><td>14</td><td>0.0958</td><td>0.3331</td><td>0.0451</td><td>0.9215</td><td>0.9915</td><td>0.9980</td></tr>
         <tr><td>PixelFormer</td><td>270,895,920</td><td>16</td><td>0.0905</td><td>0.3242</td><td>0.0435</td><td>0.9289</td><td>0.9906</td><td>0.9977</td></tr>
@@ -285,13 +285,13 @@
 
       <h4>Bộ dữ liệu KITTI</h4>
       <table>
-        <tr><th>Mô hình</th><th>Tham số</th><th>FPS (352×1120)</th><th>Abs.Rel↓</th><th>RMSE↓</th><th>Sqr.Rel↓</th><th>δ1↑</th><th>δ2↑</th><th>δ3↑</th></tr>
+        <tr><th>Mô hình</th><th>Tham số</th><th>FPS (352×1120)</th><th>AbsRel↓</th><th>RMSE↓</th><th>SqRel↓</th><th>δ1↑</th><th>δ2↑</th><th>δ3↑</th></tr>
         <tr><td>Của chúng tôi (encoder YOLOv8s)</td><td>10,810,465</td><td>101</td><td>0.0479</td><td>2.3879</td><td>0.1798</td><td>0.9721</td><td>0.9952</td><td>0.9982</td></tr>
         <tr><td>NeWCRFs</td><td>270,444,877</td><td>14</td><td>0.0480</td><td>2.2319</td><td>0.1584</td><td>0.9767</td><td>0.9962</td><td>0.9986</td></tr>
         <tr><td>PixelFormer</td><td>270,895,920</td><td>15</td><td>0.0534</td><td>2.4173</td><td>0.1840</td><td>0.9711</td><td>0.9952</td><td>0.9982</td></tr>
       </table>
       <p class="img-caption">Tất cả kết quả là từ các lần đánh giá PyTorch của chúng tôi, không dùng tăng cường lúc kiểm thử (test-time augmentation - TTA). FPS được tính trung bình trên 10.000 lần suy luận trên một GPU.</p>
-      <p>Với tốc độ khung hình (FPS) gấp khoảng 7 lần so với NeWCRFs/PixelFormer và chỉ khoảng 4% số lượng tham số của chúng, mô hình đánh đổi một phần nhỏ độ chính xác để đạt được thông lượng (throughput) mà một quy trình Pseudo-LiDAR thời gian thực cần.</p>
+      <p>Với tốc độ khung hình (FPS) gấp khoảng 7 lần so với NeWCRFs/PixelFormer và chỉ khoảng 4% số lượng tham số của chúng, mô hình chấp nhận giảm một phần độ chính xác trên NYUv2 — trong khi ngang bằng hoặc vượt trội ở một số chỉ số trên KITTI — để đạt được thông lượng (throughput) mà một quy trình Pseudo-LiDAR thời gian thực cần.</p>
 
     </div><!-- /.post-body -->
   </div>
@@ -331,7 +331,7 @@
       <div class="math-display">$$\begin{cases} t \geq 0 \\ x = x_0 + t\cos(\mathrm{Ro})\cos(\mathrm{Ya}) \\ y = y_0 + t\sin(\mathrm{Ro})\cos(\mathrm{Ya}) \\ z = z_0 - t\sin(\mathrm{Ya}) \end{cases}$$</div>
 
       <p>Ngược lại, có thể khôi phục Pitch, Yaw, và Roll từ $R$ (với các phần tử $R_{i,j}$ đánh chỉ số từ 0):</p>
-      <div class="math-display">$$\tan(\mathrm{Pi}) = \frac{R_{2,1}}{R_{2,2}} \qquad \tan(\mathrm{Ya}) = -\frac{R_{2,0}}{\sqrt{R_{2,1}^2 + R_{2,2}^2}} \qquad \tan(\mathrm{Ro}) = \frac{R_{1,0}}{R_{0,0}}$$</div>
+      <div class="math-display">$$\mathrm{Pi} = \operatorname{atan2}(R_{2,1}, R_{2,2}) \qquad \mathrm{Ya} = \operatorname{atan2}\left(-R_{2,0}, \sqrt{R_{2,1}^2 + R_{2,2}^2}\right) \qquad \mathrm{Ro} = \operatorname{atan2}(R_{1,0}, R_{0,0})$$</div>
 
       <hr>
 
@@ -343,13 +343,13 @@
       <hr>
 
       <h3>Ước lượng điểm mốc khuôn mặt (Facial Landmark)</h3>
-      <p>Tôi đã xây dựng một mô hình điểm mốc khuôn mặt (facial landmark) 2D với backbone kiểu phân loại (classification), kết thúc bằng một lớp tuyến tính (linear/classifier head) với $(num\_keypoints \times 3)$ đầu ra cho phiên bản có cờ khả kiến (visibility flag), hoặc $(num\_keypoints \times 2)$ cho phiên bản không có cờ khả kiến:</p>
+      <p>Tôi đã xây dựng một mô hình điểm mốc khuôn mặt (facial landmark) 2D với backbone kiểu phân loại (classification), kết thúc bằng một lớp tuyến tính (linear/classifier head) với $(\text{num\_keypoints} \times 3)$ đầu ra cho phiên bản có cờ khả kiến (visibility flag), hoặc $(\text{num\_keypoints} \times 2)$ cho phiên bản không có cờ khả kiến:</p>
       <img src="assets/projects/head-pose-landmark-arch.webp" width="1462" height="503" loading="lazy" alt="Kiến trúc mô hình điểm mốc khuôn mặt">
 
       <hr>
 
-      <h3>Ước lượng tư thế đầu qua SolvePnPRansac</h3>
-      <p>Các điểm tĩnh (static points) từ các điểm mốc 2D dự đoán được khớp với các điểm 3D tương ứng từ mẫu khuôn mặt 3D Mediapipe (Mediapipe 3D facemark template), sau đó <code>solvePnPRansac</code> khôi phục ma trận xoay và vector tịnh tiến. "Tĩnh" ở đây nghĩa là các điểm giữ vị trí tương đối cố định so với khuôn mặt ngay cả khi có các biểu cảm — nháy mắt, ngáp, cười, v.v.</p>
+      <h3>Ước lượng tư thế đầu qua solvePnPRansac</h3>
+      <p>Các điểm tĩnh (static points) từ các điểm mốc 2D dự đoán được khớp với các điểm 3D tương ứng từ mẫu điểm mốc khuôn mặt 3D của MediaPipe (MediaPipe 3D face landmark template), sau đó <code>solvePnPRansac</code> khôi phục ma trận xoay và vector tịnh tiến. "Tĩnh" ở đây nghĩa là các điểm giữ vị trí tương đối cố định so với khuôn mặt ngay cả khi có các biểu cảm — nháy mắt, ngáp, cười, v.v.</p>
       <img src="assets/projects/head-pose-pnp-matching.webp" width="1242" height="638" loading="lazy" alt="Khớp điểm mốc 2D với mẫu khuôn mặt 3D">
 
       <hr>
