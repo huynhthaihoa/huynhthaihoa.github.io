@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark');</script>
   <title>사례 연구 – Hoa Huynh</title>
-  <meta name="description" content="Hoa Huynh의 컴퓨터 비전 프로젝트에 대한 심층 사례 연구: 다중 카메라 스티칭, 작업자 위치 추정, PseudoLiDAR, 헤드 포즈 추정." />
+  <meta name="description" content="Hoa Huynh의 컴퓨터 비전 프로젝트에 대한 심층 사례 연구: 다중 카메라 스티칭, 작업자 위치 추정, Pseudo-LiDAR, 헤드 포즈 추정." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://huynhthaihoa.github.io/projects-ko.html" />
   <meta property="og:title" content="사례 연구 – Hoa Huynh" />
-  <meta property="og:description" content="Hoa Huynh의 컴퓨터 비전 프로젝트에 대한 심층 사례 연구: 다중 카메라 스티칭, 작업자 위치 추정, PseudoLiDAR, 헤드 포즈 추정." />
+  <meta property="og:description" content="Hoa Huynh의 컴퓨터 비전 프로젝트에 대한 심층 사례 연구: 다중 카메라 스티칭, 작업자 위치 추정, Pseudo-LiDAR, 헤드 포즈 추정." />
   <meta property="og:image" content="https://huynhthaihoa.github.io/assets/profile.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="사례 연구 – Hoa Huynh" />
-  <meta name="twitter:description" content="Hoa Huynh의 컴퓨터 비전 프로젝트에 대한 심층 사례 연구: 다중 카메라 스티칭, 작업자 위치 추정, PseudoLiDAR, 헤드 포즈 추정." />
+  <meta name="twitter:description" content="Hoa Huynh의 컴퓨터 비전 프로젝트에 대한 심층 사례 연구: 다중 카메라 스티칭, 작업자 위치 추정, Pseudo-LiDAR, 헤드 포즈 추정." />
   <meta name="twitter:image" content="https://huynhthaihoa.github.io/assets/profile.jpg" />
   <link rel="stylesheet" href="styles.css" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
@@ -89,7 +89,7 @@
       </a>
       <a href="#pseudo-lidar" class="toc-card fade-up">
         <span class="blog-tag-depth">깊이 추정</span>
-        <div class="toc-title">실시간 PseudoLiDAR</div>
+        <div class="toc-title">실시간 Pseudo-LiDAR</div>
         <div class="toc-date">2023년 3월 – 2023년 11월</div>
       </a>
       <a href="#head-pose-estimation" class="toc-card fade-up">
@@ -252,7 +252,7 @@
   <div class="container">
     <header class="post-header">
       <span class="blog-tag-depth">깊이 추정</span>
-      <h2>실시간 PseudoLiDAR</h2>
+      <h2>실시간 Pseudo-LiDAR</h2>
       <div class="post-date">2023년 3월 – 2023년 11월 · Python, PyTorch, OpenGL, Open3D, OpenCV</div>
     </header>
 
@@ -291,7 +291,7 @@
         <tr><td>PixelFormer</td><td>270,895,920</td><td>15</td><td>0.0534</td><td>2.4173</td><td>0.1840</td><td>0.9711</td><td>0.9952</td><td>0.9982</td></tr>
       </table>
       <p class="img-caption">모든 결과는 테스트 시점 증강(test-time augmentation, TTA) 없이 직접 수행한 PyTorch 평가에서 얻은 값입니다. FPS는 단일 GPU에서 10,000회 추론을 평균한 값입니다.</p>
-      <p>NeWCRFs/PixelFormer 대비 약 7배의 FPS와 약 4%의 파라미터 수만으로, 이 모델은 실시간 PseudoLiDAR 파이프라인에 필요한 처리량(throughput)을 위해 약간의 정확도를 희생합니다.</p>
+      <p>NeWCRFs/PixelFormer 대비 약 7배의 FPS와 약 4%의 파라미터 수만으로, 이 모델은 실시간 Pseudo-LiDAR 파이프라인에 필요한 처리량(throughput)을 위해 약간의 정확도를 희생합니다.</p>
 
     </div><!-- /.post-body -->
   </div>
