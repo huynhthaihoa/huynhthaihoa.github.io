@@ -219,7 +219,7 @@
           quản lý mốc tiến độ, và trình diễn cho đối tác/khách hàng. Pipeline thời gian thực gồm 8 mô hình (phát hiện đối tượng, phân loại ảnh,
           điểm mốc 2D/3D, điểm mốc khuôn mặt, ước lượng hướng nhìn) đạt trung bình 14 FPS trên nền tảng TI SK-TDA4VM (8 TOPS) và
           9 FPS trên nền tảng TI TDA4AEN (4 TOPS), đồng thời được triển khai trên các SoC Samsung Exynos V920. Đã bàn giao
-          4 dự án PoC cho 2 nhà cung cấp ô tô Hàn Quốc. Ngoài ra còn làm việc về ghép nối đa camera
+          4 dự án PoC cho 2 nhà cung cấp ô tô Hàn Quốc. Ngoài ra còn làm việc về ghép ảnh đa camera
           (multi-camera stitching), định vị công nhân đường sắt, tạo pseudo-LiDAR, và ước lượng độ sâu thời gian thực.
         </p>
       </div>
@@ -491,7 +491,7 @@
         <p class="project-desc">
           Pipeline ước lượng tư thế đầu thời gian thực sử dụng thị giác máy tính cổ điển (bộ giải PnP, góc Euler ZYX).
           Khôi phục đầy đủ ma trận quay và vector tịnh tiến cho góc pitch, yaw, roll từ ảnh đơn (monocular),
-          được điều khiển bởi một mô hình điểm mốc khuôn mặt 2D tùy chỉnh và ổn định bằng bộ lọc Kalman mở rộng (Extended Kalman Filter) để làm mượt
+          dựa trên một mô hình điểm mốc khuôn mặt 2D tùy chỉnh và ổn định bằng bộ lọc Kalman mở rộng (Extended Kalman Filter) để làm mượt
           chuyển động và xử lý che khuất.
         </p>
         <a href="projects-vi.html#head-pose-estimation" class="project-readmore">Xem nghiên cứu điển hình →</a>
@@ -552,7 +552,7 @@
           Kết hợp phát hiện đối tượng YOLOv5 với ước lượng độ sâu đơn ảnh (monocular) NeWCRFs.
           Là nhà phát triển đầu tiên trên dự án, xây dựng toàn bộ pipeline hiệu chỉnh:
           hiệu chỉnh camera, thu thập dữ liệu, và hiệu chỉnh Camera-LiDAR sử dụng LiDAR Ouster OS0.
-          Ngoài ra, tham gia Thử thách Ước lượng Độ sâu Đơn ảnh lần thứ hai của CVPRW 2023 với tên Team DepthSquad, nộp một
+          Ngoài ra, tham gia Cuộc thi Ước lượng Độ sâu Đơn ảnh lần thứ hai của CVPRW 2023 với tên Team DepthSquad, nộp một
           mô hình độ sâu tùy biến được huấn luyện trên dữ liệu của cuộc thi cùng phương pháp xử lý dữ liệu của nhóm (bộ dữ liệu
           bảo mật của dự án không được sử dụng) — 1 trong 8 bài nộp trên toàn thế giới (trong tổng số 28) vượt qua baseline SOTA,
           vượt trội hơn trên các chỉ số độ chính xác dựa trên ảnh (MAE, RMSE, AbsRel).
@@ -569,7 +569,7 @@
 
       <!-- Camera Stitching -->
       <div class="project-card fade-up">
-        <img class="project-thumb" src="assets/projects/camera-stitching.png" loading="lazy" alt="Demo Ghép nối Nhiều Camera Thời gian thực">
+        <img class="project-thumb" src="assets/projects/camera-stitching.png" loading="lazy" alt="Demo Ghép ảnh Đa camera Thời gian thực">
         <div class="project-top">
           <div class="project-icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -584,12 +584,12 @@
           </div>
 
         </div>
-        <div class="project-name">Ghép nối Nhiều Camera Thời gian thực</div>
+        <div class="project-name">Ghép ảnh Đa camera Thời gian thực</div>
         <div class="project-duration">Tháng 6/2022 – Tháng 9/2022</div>
         <p class="project-desc">
-          Hệ thống chứng minh khái niệm (proof-of-concept) ghép nối đa camera thời gian thực cho ADAS, do tôi phát triển độc lập từ đầu đến cuối.
-          Triển khai hai thuật toán ghép nối (đơn giản và nâng cao) bao gồm truyền dòng đầu vào,
-          đăng ký tham số bộ đệm (cache-parameter), và tổng hợp toàn cảnh (panorama).
+          Hệ thống chứng minh khái niệm (proof-of-concept) ghép ảnh đa camera thời gian thực cho ADAS, do tôi phát triển độc lập từ đầu đến cuối.
+          Triển khai hai thuật toán ghép ảnh (đơn giản và nâng cao) bao gồm truyền dòng đầu vào,
+          căn chỉnh (registration) dùng tham số lưu đệm (cache-parameter), và tổng hợp toàn cảnh (panorama).
           Yêu cầu độ chồng lấn IoU trường nhìn (FOV) ≥ 30% giữa mỗi cặp camera để đối sánh đặc trưng tin cậy.
         </p>
         <a href="projects-vi.html#camera-stitching" class="project-readmore">Xem nghiên cứu điển hình →</a>
@@ -714,7 +714,7 @@
             </a>
           </div>
         </div>
-        <div class="project-name">Ước Lượng Độ Sâu Đơn Ảnh (Metric)</div>
+        <div class="project-name">Ước lượng Độ sâu Đơn ảnh (Metric)</div>
         <div class="project-duration">Dự án cá nhân</div>
         <p class="project-desc">
           Một pipeline PyTorch xây dựng từ đầu, dự đoán giá trị độ sâu tuyệt đối (theo mét) cho từng pixel
@@ -750,12 +750,12 @@
             </a>
           </div>
         </div>
-        <div class="project-name">Đăng ký Đám mây điểm dựa trên Notch</div>
+        <div class="project-name">Căn chỉnh Đám mây điểm dựa trên Notch</div>
         <div class="project-duration">Dự án cá nhân</div>
         <p class="project-desc">
-          Một giải pháp đăng ký đám mây điểm bằng C++ giúp căn chỉnh và hợp nhất nhiều đám mây điểm 3D vào một
+          Một giải pháp căn chỉnh (registration) đám mây điểm bằng C++ giúp căn chỉnh và hợp nhất nhiều đám mây điểm 3D vào một
           tham chiếu chủ thông qua phát hiện vùng notch và đối sánh tương ứng, trải qua các giai đoạn tiền xử lý,
-          phát hiện, đăng ký, và hợp nhất.
+          phát hiện, căn chỉnh, và hợp nhất.
         </p>
         <div class="tag-list">
           <span class="tag">C++</span>
@@ -780,10 +780,10 @@
             </a>
           </div>
         </div>
-        <div class="project-name">Phát hiện Làn đường Tự thân dựa trên LiDAR</div>
+        <div class="project-name">Phát hiện Làn đường của Xe (Ego Lane) dựa trên LiDAR</div>
         <div class="project-duration">Dự án cá nhân</div>
         <p class="project-desc">
-          Một pipeline năm bước để phát hiện làn đường của xe tự thân từ đám mây điểm LiDAR: trích xuất
+          Một pipeline năm bước để phát hiện làn đường của chính xe (ego lane) từ đám mây điểm LiDAR: trích xuất
           điểm mặt đất, xây dựng biểu đồ cường độ (intensity histogram), phát hiện đỉnh, tìm kiếm làn đường bằng cửa sổ trượt, và khớp
           đường cong đa thức để xuất ra hệ số làn đường trái/phải.
         </p>
@@ -1008,7 +1008,7 @@
           <div class="pub-title">The Second Monocular Depth Estimation Challenge</div>
           <div class="pub-venue">IEEE/CVF Conference on Computer Vision and Pattern Recognition Workshops (CVPRW)</div>
           <div class="pub-date">Tháng 4/2023<span class="pub-tier">Hội thảo quốc tế</span></div>
-          <p class="pub-desc">Đồng tác giả bài báo tổng hợp kết quả ghi nhận các bài nộp cho Thử thách Ước lượng Độ sâu Đơn ảnh lần thứ hai của CVPR trên bộ dữ liệu đa dạng SYNS-Patches.</p>
+          <p class="pub-desc">Đồng tác giả bài báo tổng hợp kết quả ghi nhận các bài nộp cho Cuộc thi Ước lượng Độ sâu Đơn ảnh lần thứ hai của CVPR trên bộ dữ liệu đa dạng SYNS-Patches.</p>
         </div>
         <div class="pub-actions">
           <a href="https://arxiv.org/abs/2304.07051" target="_blank" rel="noopener" class="pub-btn">
@@ -1113,7 +1113,7 @@
         <span class="blog-tag">Ước lượng độ sâu</span>
         <div class="blog-title">Rolling in the Deep</div>
         <p class="blog-excerpt">
-          Một bảng xếp hạng được tuyển chọn và ghi chú cá nhân về ước lượng độ sâu đơn ảnh — theo dõi các mô hình SOTA,
+          Một bảng đánh giá (benchmark) được tuyển chọn và ghi chú cá nhân về ước lượng độ sâu đơn ảnh — theo dõi các mô hình SOTA,
           các công trình nổi bật như Depth Anything V2 và PromptDA, và các nhận định cho triển khai thực tế.
         </p>
       </a>

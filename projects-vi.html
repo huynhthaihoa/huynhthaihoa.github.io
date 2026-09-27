@@ -56,8 +56,8 @@
   <div class="nav-right">
     <a href="projects.html" class="lang-switch" title="View in English">EN</a>
     <a href="projects-ko.html" class="lang-switch" title="한국어로 보기">한</a>
-    <button id="theme-toggle" aria-label="Chuyển đổi giao diện">☀️</button>
-    <button class="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">☰</button>
+    <button id="theme-toggle" aria-label="Đổi giao diện sáng/tối">☀️</button>
+    <button class="hamburger" aria-label="Trình đơn" aria-expanded="false" aria-controls="nav-links">☰</button>
   </div>
 </nav>
 
@@ -70,7 +70,7 @@
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
       </svg>
-      Quay lại Hồ sơ
+      Quay lại Portfolio
     </a>
 
     <h1>Nghiên cứu điển hình</h1>
@@ -125,7 +125,7 @@
       <p>Quy trình ghép ảnh gồm ba giai đoạn:</p>
       <ul>
         <li><strong>Nhận luồng đầu vào</strong>: thu khung hình từ camera/nguồn video và gộp thành lô (batch) làm đầu vào cho thuật toán ghép ảnh.</li>
-        <li><strong>Ghép ảnh</strong>: đăng ký (register) các tham số cache cần thiết để mỗi camera đóng góp vào phép ước lượng, sau đó tổng hợp ảnh toàn cảnh (panorama) từ lô đầu vào và các tham số đã cache đó.</li>
+        <li><strong>Ghép ảnh</strong>: căn chỉnh (register) các tham số cache cần thiết để mỗi camera đóng góp vào phép ước lượng, sau đó tổng hợp ảnh toàn cảnh (panorama) từ lô đầu vào và các tham số đã cache đó.</li>
         <li><strong>Hậu xử lý</strong>: ảnh toàn cảnh thu được sẽ được đưa vào các tác vụ phía sau — hiển thị, phát hiện đối tượng, ước lượng độ sâu, v.v.</li>
       </ul>
       <img src="assets/projects/camera-stitching-pipeline.webp" width="1800" height="769" loading="lazy" alt="Tổng quan quy trình ghép ảnh camera">
@@ -209,7 +209,7 @@
       <hr>
 
       <h3>Quy trình</h3>
-      <p>Quy trình xử lý kết hợp hai mô hình học sâu: <strong>phát hiện đối tượng (object detection)</strong> để tìm công nhân, và <strong>ước lượng độ sâu đơn mắt (monocular depth estimation)</strong> để ước lượng khoảng cách. Chúng tôi chọn hai mô hình SOTA (state-of-the-art) tốt nhất tại thời điểm đó — <strong>YOLOv5</strong> cho phát hiện đối tượng và <strong>NeWCRFs</strong> cho ước lượng độ sâu — sau đó tinh chỉnh (fine-tune) cả hai trên dữ liệu của riêng chúng tôi, vì trọng số huấn luyện sẵn (pretrained weights) được huấn luyện trên ảnh RGB trong khi camera của chúng tôi là camera nhiệt.</p>
+      <p>Quy trình xử lý kết hợp hai mô hình học sâu: <strong>phát hiện đối tượng (object detection)</strong> để tìm công nhân, và <strong>ước lượng độ sâu đơn ảnh (monocular depth estimation)</strong> để ước lượng khoảng cách. Chúng tôi chọn hai mô hình SOTA (state-of-the-art) tốt nhất tại thời điểm đó — <strong>YOLOv5</strong> cho phát hiện đối tượng và <strong>NeWCRFs</strong> cho ước lượng độ sâu — sau đó tinh chỉnh (fine-tune) cả hai trên dữ liệu của riêng chúng tôi, vì trọng số huấn luyện sẵn (pretrained weights) được huấn luyện trên ảnh RGB trong khi camera của chúng tôi là camera nhiệt.</p>
       <p>Là nhà phát triển đầu tiên của dự án, nhiệm vụ chính của tôi là thu thập dữ liệu chuẩn (ground truth) về "độ sâu". Với một LiDAR hình ảnh độ phân giải cao góc rộng Ouster OS0 (Ouster OS0 Ultra-Wide High-Resolution Imaging LiDAR), nhiệm vụ này được chia thành ba nhiệm vụ con:</p>
 
       <h4>1. Hiệu chỉnh camera (Camera Calibration)</h4>
@@ -231,11 +231,11 @@
       <hr>
 
       <h3>Tham gia cuộc thi CVPRW 2023</h3>
-      <p>Ngoài ra, nhóm đã trở thành <strong>1 trong 8 bài nộp trên thế giới (trên tổng số 28) vượt qua được baseline SOTA</strong> được cung cấp tại cuộc thi ước lượng độ sâu đơn mắt CVPRW 2023, với kết quả tốt hơn trên các chỉ số dựa trên ảnh (MAE, RMSE, AbsRel). Bộ dữ liệu bảo mật ở trên không được sử dụng: chúng tôi huấn luyện một <a href="https://arxiv.org/pdf/2210.09071" target="_blank" rel="noopener">PixelFormer</a> (mô hình ước lượng độ sâu SOTA tại thời điểm đó) đã được tùy biến trên dữ liệu huấn luyện của cuộc thi, với các kỹ thuật tăng cường dữ liệu (data augmentation) trong lúc huấn luyện (cắt/xoay ngẫu nhiên, lật trái-phải, CutDepth) và kỹ thuật đệm không (zero-padding) khi suy luận (inference) để giữ nguyên độ phân giải huấn luyện.</p>
+      <p>Ngoài ra, nhóm đã trở thành <strong>1 trong 8 bài nộp trên thế giới (trên tổng số 28) vượt qua được baseline SOTA</strong> được cung cấp tại cuộc thi ước lượng độ sâu đơn ảnh CVPRW 2023, với kết quả tốt hơn trên các chỉ số dựa trên ảnh (MAE, RMSE, AbsRel). Bộ dữ liệu bảo mật ở trên không được sử dụng: chúng tôi huấn luyện một <a href="https://arxiv.org/pdf/2210.09071" target="_blank" rel="noopener">PixelFormer</a> (mô hình ước lượng độ sâu SOTA tại thời điểm đó) đã được tùy biến trên dữ liệu huấn luyện của cuộc thi, với các kỹ thuật tăng cường dữ liệu (data augmentation) trong lúc huấn luyện (cắt/xoay ngẫu nhiên, lật trái-phải, CutDepth) và kỹ thuật đệm không (zero-padding) khi suy luận (inference) để giữ nguyên độ phân giải huấn luyện.</p>
       <div class="ref-links">
         <a href="https://arxiv.org/abs/2304.07051" target="_blank" rel="noopener" class="ref-link">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-          Cuộc thi ước lượng độ sâu đơn mắt lần thứ hai — CVPRW 2023
+          Cuộc thi ước lượng độ sâu đơn ảnh lần thứ hai — CVPRW 2023
         </a>
       </div>
 
@@ -381,7 +381,7 @@
 <footer>
   <div class="container">
     <p>
-      <a href="index-vi.html">← Quay lại Hồ sơ</a>
+      <a href="index-vi.html">← Quay lại Portfolio</a>
     </p>
   </div>
 </footer>

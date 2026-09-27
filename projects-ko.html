@@ -50,7 +50,7 @@
     <li><a href="index-ko.html#projects" class="active">프로젝트</a></li>
     <li><a href="index-ko.html#publications">논문</a></li>
     <li><a href="index-ko.html#blog">블로그</a></li>
-    <li><a href="index-ko.html#certifications">자격증</a></li>
+    <li><a href="index-ko.html#certifications">인증 및 수료</a></li>
   </ul>
 
   <div class="nav-right">
@@ -125,11 +125,11 @@
       <p>스티칭 파이프라인은 세 단계로 구성됩니다:</p>
       <ul>
         <li><strong>입력 스트리밍</strong>: 카메라/비디오 소스로부터 프레임을 캡처하고, 이를 스티칭 알고리즘의 입력으로 배치(batch)합니다.</li>
-        <li><strong>스티칭</strong>: 각 카메라가 추정에 기여하는 데 필요한 캐시 매개변수를 등록한 뒤, 입력 배치와 캐시된 매개변수로부터 파노라마를 합성합니다.</li>
-        <li><strong>후처리</strong>: 생성된 파노라마는 디스플레이, 검출, 깊이 추정 등 후속 작업에 사용됩니다.</li>
+        <li><strong>스티칭</strong>: 각 카메라가 추정에 기여하는 데 필요한 캐시 파라미터를 등록한 뒤, 입력 배치와 캐시된 파라미터로부터 파노라마를 합성합니다.</li>
+        <li><strong>후처리</strong>: 생성된 파노라마는 디스플레이, 탐지, 깊이 추정 등 후속 작업에 사용됩니다.</li>
       </ul>
       <img src="assets/projects/camera-stitching-pipeline.webp" width="1800" height="769" loading="lazy" alt="카메라 스티칭 파이프라인 개요">
-      <div class="callout">💡 <strong>경험칙</strong>: 렌즈 왜곡을 극복하고 스티칭에 충분히 검출 가능한 특징(feature)을 확보하려면, 각 카메라 쌍 사이의 시야(Field-of-View) IoU(Intersection-over-Union) 비율이 최소 30% 이상이어야 합니다.</div>
+      <div class="callout">💡 <strong>경험칙</strong>: 렌즈 왜곡을 극복하고 스티칭에 충분히 검출 가능한 특징(feature)을 확보하려면, 각 카메라 쌍 사이의 시야(Field-of-View) IoU(Intersection-over-Union) 비율이 30% 이상이어야 합니다.</div>
 
       <hr>
 
@@ -158,7 +158,7 @@
 
       <p>호모그래피 행렬 $H$는 스케일 인자(scale factor)를 제외하고 두 평면 사이의 변환을 정의합니다:</p>
       <div class="math-display">$$s \begin{bmatrix} x' \\ y' \\ 1 \end{bmatrix} = \mathbf{H} \begin{bmatrix} x \\ y \\ 1 \end{bmatrix} = \begin{bmatrix} h_{11} & h_{12} & h_{13} \\ h_{21} & h_{22} & h_{23} \\ h_{31} & h_{32} & h_{33} \end{bmatrix} \begin{bmatrix} x \\ y \\ 1 \end{bmatrix}$$</div>
-      <p>$H$는 스케일까지만 추정되므로 8개의 자유도를 갖는 $3 \times 3$ 행렬이며, 일반적으로 $h_{33} = 1$로 정규화합니다.</p>
+      <p>$H$는 스케일 배수를 제외하고(up to scale) 추정되므로 8개의 자유도를 갖는 $3 \times 3$ 행렬이며, 일반적으로 $h_{33} = 1$로 정규화합니다.</p>
 
       <p>다음 세 가지 경우는 모두 두 평면 사이의 변환과 관련이 있습니다:</p>
       <div class="img-row">
@@ -204,12 +204,12 @@
     <div class="post-body">
 
       <h3>소개</h3>
-      <p>철도에서 <strong>작업자를 검출하고 위치를 추정</strong>하기 위해 <strong>단일 열화상 카메라</strong>(Boson LWIR)를 사용하는 개념 증명입니다.</p>
+      <p>철도에서 <strong>작업자를 탐지하고 위치를 추정</strong>하기 위해 <strong>단일 열화상 카메라</strong>(Boson LWIR)를 사용하는 개념 증명입니다.</p>
 
       <hr>
 
       <h3>프로세스</h3>
-      <p>파이프라인은 두 가지 딥러닝 모델을 결합합니다: 작업자를 찾기 위한 <strong>객체 검출(object detection)</strong>과 거리를 추정하기 위한 <strong>단안 깊이 추정(monocular depth estimation)</strong>입니다. 당시 최고 수준(SOTA)의 모델 두 가지, 즉 검출용 <strong>YOLOv5</strong>와 깊이 추정용 <strong>NeWCRFs</strong>를 선정한 뒤, 사전 학습된 가중치가 RGB 이미지로 학습된 반면 저희 카메라는 열화상 카메라였기 때문에 두 모델 모두를 자체 데이터로 파인튜닝했습니다.</p>
+      <p>파이프라인은 두 가지 딥러닝 모델을 결합합니다: 작업자를 찾기 위한 <strong>객체 탐지(object detection)</strong>과 거리를 추정하기 위한 <strong>단안 깊이 추정(monocular depth estimation)</strong>입니다. 당시 최고 수준(SOTA)의 모델 두 가지, 즉 탐지용 <strong>YOLOv5</strong>와 깊이 추정용 <strong>NeWCRFs</strong>를 선정한 뒤, 사전 학습된 가중치가 RGB 이미지로 학습된 반면 저희 카메라는 열화상 카메라였기 때문에 두 모델 모두를 자체 데이터로 파인튜닝했습니다.</p>
       <p>프로젝트의 첫 번째 개발자로서, 제 주요 임무는 "깊이(depth)" 그라운드 트루스(ground truth)를 확보하는 것이었습니다. Ouster OS0 Ultra-Wide High-Resolution Imaging LiDAR가 주어진 상황에서, 이는 세 가지 하위 작업으로 나뉘었습니다:</p>
 
       <h4>1. 카메라 캘리브레이션</h4>
@@ -271,7 +271,7 @@
       <hr>
 
       <h3>경량 깊이 추정 모델</h3>
-      <p>실시간 데모를 위해, 정확도를 크게 희생하지 않으면서도 낮은 지연 시간을 목표로 하는 최적화된 깊이 모델을 구축했습니다. YOLO 계열의 효율성에서 영감을 받아, 이 모델은 4단계(4-scale) 특징 인코더로 커스터마이즈된 <strong>YOLOv8 백본 + 넥(neck)</strong>을 사용하며, 스킵 커넥션(skip connection)을 통해 깊이 맵을 복원하는 <strong>U-Net 스타일 디코더</strong>와 연결됩니다.</p>
+      <p>실시간 데모를 위해, 정확도를 크게 희생하지 않으면서도 낮은 지연 시간을 목표로 하는 최적화된 깊이 모델을 구축했습니다. YOLO 계열의 효율성에서 영감을 받아, 이 모델은 4개 스케일(4-scale) 특징 인코더로 커스터마이즈된 <strong>YOLOv8 백본 + 넥(neck)</strong>을 사용하며, 스킵 커넥션(skip connection)을 통해 깊이 맵을 복원하는 <strong>U-Net 스타일 디코더</strong>와 연결됩니다.</p>
       <img src="assets/projects/pseudo-lidar-model-arch.webp" width="1360" height="740" loading="lazy" alt="경량 YOLOv8 기반 인코더-디코더 깊이 모델 아키텍처">
       <p>NYUv2(실내)와 KITTI(실외)에 대해 파인튜닝한 결과, 이 모델은 기존 SOTA 방법 대비 훨씬 작은 크기를 유지하면서도 확립된 깊이 평가 지표에서 경쟁력 있는 성능을 보입니다:</p>
 

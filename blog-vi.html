@@ -56,8 +56,8 @@
   <div class="nav-right">
     <a href="blog.html" class="lang-switch" title="View in English">EN</a>
     <a href="blog-ko.html" class="lang-switch" title="한국어로 보기">한</a>
-    <button id="theme-toggle" aria-label="Chuyển đổi giao diện">☀️</button>
-    <button class="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">☰</button>
+    <button id="theme-toggle" aria-label="Đổi giao diện sáng/tối">☀️</button>
+    <button class="hamburger" aria-label="Trình đơn" aria-expanded="false" aria-controls="nav-links">☰</button>
   </div>
 </nav>
 
@@ -80,37 +80,37 @@
       <a href="#knowledge-distillation" class="toc-card fade-up">
         <span class="blog-tag">Học sâu</span>
         <div class="toc-title">Brainstorm về Knowledge Distillation</div>
-        <div class="toc-date">4 Tháng 1, 2026</div>
+        <div class="toc-date">4/1/2026</div>
       </a>
       <a href="#2d-vision" class="toc-card fade-up">
         <span class="blog-tag">Thị giác máy tính</span>
         <div class="toc-title">Các công cụ Thị giác 2D</div>
-        <div class="toc-date">4 Tháng 1, 2026</div>
+        <div class="toc-date">4/1/2026</div>
       </a>
       <a href="#rolling-in-the-deep" class="toc-card fade-up">
         <span class="blog-tag-depth">Ước lượng độ sâu</span>
         <div class="toc-title">Rolling in the Deep</div>
-        <div class="toc-date">4 Tháng 1, 2026</div>
+        <div class="toc-date">4/1/2026</div>
       </a>
       <a href="#depth-pseudolidar" class="toc-card fade-up">
         <span class="blog-tag-depth">Ước lượng độ sâu</span>
         <div class="toc-title">Từ Ước lượng Độ sâu đến Pseudo-LiDAR</div>
-        <div class="toc-date">24 Tháng 3, 2025</div>
+        <div class="toc-date">24/3/2025</div>
       </a>
       <a href="#perspective-affine" class="toc-card fade-up">
         <span class="blog-tag">Thị giác máy tính</span>
         <div class="toc-title">Perspective Transform và Affine Transform</div>
-        <div class="toc-date">24 Tháng 11, 2025</div>
+        <div class="toc-date">24/11/2025</div>
       </a>
       <a href="#phone-looking" class="toc-card fade-up">
         <span class="blog-tag">Thị giác máy tính</span>
         <div class="toc-title">Thuật toán đơn giản Phát hiện Nhìn Điện thoại</div>
-        <div class="toc-date">24 Tháng 11, 2025</div>
+        <div class="toc-date">24/11/2025</div>
       </a>
       <a href="#sahi-small-objects" class="toc-card fade-up">
         <span class="blog-tag">Phát hiện đối tượng</span>
         <div class="toc-title">Tiền xử lý lấy cảm hứng từ Slicing cho Recall Vật thể Nhỏ</div>
-        <div class="toc-date">21 Tháng 7, 2026</div>
+        <div class="toc-date">21/7/2026</div>
       </a>
     </div>
   </div>
@@ -126,7 +126,7 @@
     <header class="post-header">
       <span class="blog-tag">Học sâu</span>
       <h2>Brainstorm về Knowledge Distillation</h2>
-      <div class="post-date">4 Tháng 1, 2026</div>
+      <div class="post-date">4/1/2026</div>
     </header>
 
     <div class="post-body">
@@ -219,7 +219,7 @@
       <h4>Cân nhắc và thực hành tốt nhất</h4>
       <ol>
         <li><strong>Chất lượng giáo viên</strong>: Giáo viên phải được <strong>huấn luyện tốt</strong> và <strong>hoạt động tốt trên tập dữ liệu</strong>. Một giáo viên huấn luyện kém sẽ cung cấp đầu ra <strong>nhiễu</strong> hoặc <strong>không đáng tin cậy</strong>, dẫn đến hiệu năng học sinh dưới mức tối ưu.</li>
-        <li><strong>Thiết kế mất mát chưng cất</strong>: Hàm mất mát của học sinh thường kết hợp <strong>mất mát chưng cất</strong> (khớp với đầu ra của giáo viên) và <strong>mất mát riêng cho tác vụ</strong> (khớp với nhãn ground-truth). Sự cân bằng (được kiểm soát bởi một siêu tham số trọng số, ví dụ: <code>α</code> trong <code>L = α * T² * L_distillation + (1-α) * L_task</code>) là yếu tố then chốt: Hinton et al. nhận thấy đặt trọng số thấp hơn đáng kể cho số hạng nhãn cứng thường cho kết quả tốt nhất, và số hạng nhãn mềm cần được nhân với <code>T²</code> vì gradient của nó giảm theo tỉ lệ <code>1/T²</code>. <strong>Tham số nhiệt độ</strong> trong hàm softmax cũng cần được điều chỉnh — nhiệt độ cao hơn (ví dụ: <code>T = 2</code> hoặc <code>T = 4</code>) làm cho đầu ra của giáo viên mượt hơn.</li>
+        <li><strong>Thiết kế mất mát chưng cất</strong>: Hàm mất mát của học sinh thường kết hợp <strong>mất mát chưng cất</strong> (khớp với đầu ra của giáo viên) và <strong>mất mát riêng cho tác vụ</strong> (khớp với nhãn ground-truth). Sự cân bằng (được kiểm soát bởi một siêu tham số trọng số, ví dụ: <code>α</code> trong <code>L = α * T² * L_distillation + (1-α) * L_task</code>) là yếu tố then chốt: Hinton et al. nhận thấy đặt trọng số thấp hơn đáng kể cho số hạng nhãn cứng thường cho kết quả tốt nhất, và số hạng nhãn mềm cần được nhân với <code>T²</code> vì gradient của nó giảm theo tỷ lệ <code>1/T²</code>. <strong>Tham số nhiệt độ</strong> trong hàm softmax cũng cần được điều chỉnh — nhiệt độ cao hơn (ví dụ: <code>T = 2</code> hoặc <code>T = 4</code>) làm cho đầu ra của giáo viên mượt hơn.</li>
         <li><strong>Nguy cơ overfitting</strong>: Nếu tập dữ liệu nhỏ, giáo viên có thể bị overfit. Hãy dùng các <strong>kỹ thuật chính quy hóa</strong> khi huấn luyện giáo viên (ví dụ: dropout, weight decay), <strong>tăng cường dữ liệu (data augmentation)</strong>, và theo dõi hiệu năng tổng quát hóa của giáo viên.</li>
         <li><strong>Kích thước và tính đa dạng của tập dữ liệu</strong>: Với các tập dữ liệu rất nhỏ, tri thức của giáo viên có thể bị hạn chế. Cân nhắc dùng một giáo viên đã huấn luyện trước hoặc tăng cường tập dữ liệu.</li>
         <li><strong>Tính tương thích kiến trúc mô hình</strong>: Đảm bảo mô hình giáo viên và học sinh tương thích về không gian đầu ra. Nếu học sinh có kiến trúc khác, có thể cần thêm các kỹ thuật như distillation dựa trên đặc trưng (feature-based distillation).</li>
@@ -433,23 +433,23 @@
     <header class="post-header">
       <span class="blog-tag">Thị giác máy tính</span>
       <h2>Các công cụ Thị giác 2D</h2>
-      <div class="post-date">4 Tháng 1, 2026</div>
+      <div class="post-date">4/1/2026</div>
     </header>
 
     <div class="post-body">
 
-      <h3>1. Sân chơi hình Ellipse (Ellipse Playground)</h3>
+      <h3>1. Thao tác với hình elip (Ellipse Playground)</h3>
       <p>Cho <strong>hệ tọa độ ảnh</strong> $Oxy$, với $O(0, 0)$ là <strong>tâm tọa độ</strong>:</p>
       <img src="assets/blog/2d-vision-coord.png" width="940" height="918" loading="lazy" alt="Sơ đồ hệ tọa độ ảnh Oxy" />
 
       <h4>1.1. Phương trình tổng quát</h4>
-      <p>Phương trình tổng quát của một hình ellipse đã xoay:</p>
+      <p>Phương trình tổng quát của một hình elip đã xoay:</p>
       <div class="math-display">
         $$\frac{[(x-c_x)\cos(\theta)+(y-c_y)\sin(\theta)]^2}{a^2}+\frac{[(x-c_x)\sin(\theta)-(y-c_y)\cos(\theta)]^2}{b^2}=1$$
       </div>
       <p>trong đó:</p>
       <ul>
-        <li>$C(c_x, c_y)$ là tâm của hình ellipse</li>
+        <li>$C(c_x, c_y)$ là tâm của hình elip</li>
         <li>$a, b$ là bán trục lớn và bán trục nhỏ</li>
         <li>$\theta$ là góc xoay đo từ trục $Cx$ (không phải trục $Ox$) (<strong>theo chiều kim đồng hồ</strong>)</li>
       </ul>
@@ -461,13 +461,13 @@
       </div>
       <p>trong đó:</p>
       <ul>
-        <li>$C(c_x, c_y)$ là tâm của hình ellipse</li>
+        <li>$C(c_x, c_y)$ là tâm của hình elip</li>
         <li>$a, b$ là bán trục lớn và bán trục nhỏ</li>
         <li>$\theta$ là góc xoay đo từ trục $Cx$ (không phải trục $Ox$) (<strong>theo chiều kim đồng hồ</strong>)</li>
         <li>$\alpha$ là tham số, có giá trị (radian) từ $0$ đến $2\pi$</li>
       </ul>
-      <p>Minh họa hình ellipse đã xoay, với $Cx$ và $Cy$ tương ứng song song và cùng hướng với $Ox$ và $Oy$:</p>
-      <img src="assets/blog/2d-vision-ellipse.png" width="889" height="793" loading="lazy" alt="Minh họa hình ellipse đã xoay" />
+      <p>Minh họa hình elip đã xoay, với $Cx$ và $Cy$ tương ứng song song và cùng hướng với $Ox$ và $Oy$:</p>
+      <img src="assets/blog/2d-vision-ellipse.png" width="889" height="793" loading="lazy" alt="Minh họa hình elip đã xoay" />
 
       <h3>2. Xoay điểm (Rotate Point)</h3>
       <p>Nếu bạn xoay một điểm $B(x_B, y_B)$ quanh một điểm $A(x_A, y_A)$ theo góc $\theta$ (<strong>theo chiều kim đồng hồ</strong> trong hệ tọa độ ảnh, trục y hướng xuống), bạn sẽ được một điểm $C(x_C, y_C)$, trong đó:</p>
@@ -510,7 +510,7 @@
     <header class="post-header">
       <span class="blog-tag-depth">Ước lượng độ sâu</span>
       <h2>Rolling in the Deep</h2>
-      <div class="post-date">4 Tháng 1, 2026</div>
+      <div class="post-date">4/1/2026</div>
     </header>
 
     <div class="post-body">
@@ -745,7 +745,7 @@
     <header class="post-header">
       <span class="blog-tag-depth">Ước lượng độ sâu</span>
       <h2>Từ Ước lượng Độ sâu đến Pseudo-LiDAR</h2>
-      <div class="post-date">24 Tháng 3, 2025</div>
+      <div class="post-date">24/3/2025</div>
     </header>
 
     <div class="post-body">
@@ -766,7 +766,7 @@
       <hr>
 
       <h3>Các cách tiếp cận Ước lượng Độ sâu</h3>
-      <p>Có 2 cách tiếp cận ước lượng độ sâu đơn mắt (monocular): <strong>ước lượng độ sâu tuyệt đối</strong> và <strong>ước lượng độ sâu tương đối</strong>.</p>
+      <p>Có 2 cách tiếp cận ước lượng độ sâu đơn ảnh (monocular): <strong>ước lượng độ sâu tuyệt đối</strong> và <strong>ước lượng độ sâu tương đối</strong>.</p>
 
       <h4>1. Ước lượng độ sâu tuyệt đối</h4>
       <p>Ước lượng độ sâu tuyệt đối (hay theo đơn vị mét - metric) dự đoán giá trị độ sâu cho từng pixel theo đơn vị vật lý tuyệt đối (mét).</p>
@@ -878,7 +878,7 @@ undistorted = cv2.undistort(image, camera_matrix, dist_coeffs, None, A)</code></
     <header class="post-header">
       <span class="blog-tag">Thị giác máy tính</span>
       <h2>Perspective Transform và Affine Transform</h2>
-      <div class="post-date">24 Tháng 11, 2025</div>
+      <div class="post-date">24/11/2025</div>
     </header>
 
     <div class="post-body">
@@ -901,7 +901,7 @@ undistorted = cv2.undistort(image, camera_matrix, dist_coeffs, None, A)</code></
       <ul>
         <li>Các điểm nằm trên cùng một đường thẳng vẫn thẳng hàng sau khi biến đổi.</li>
         <li>Các đường thẳng song song vẫn song song sau khi biến đổi.</li>
-        <li>Tỉ lệ độ dài trên cùng một đường thẳng (và giữa các đoạn thẳng song song) được bảo toàn; trung điểm vẫn là trung điểm.</li>
+        <li>Tỷ lệ độ dài trên cùng một đường thẳng (và giữa các đoạn thẳng song song) được bảo toàn; trung điểm vẫn là trung điểm.</li>
       </ul>
 
       <h4>Ví dụ</h4>
@@ -929,13 +929,13 @@ undistorted = cv2.undistort(image, camera_matrix, dist_coeffs, None, A)</code></
     <header class="post-header">
       <span class="blog-tag">Thị giác máy tính</span>
       <h2>Thuật toán đơn giản Phát hiện Nhìn Điện thoại</h2>
-      <div class="post-date">24 Tháng 11, 2025</div>
+      <div class="post-date">24/11/2025</div>
     </header>
 
     <div class="post-body">
 
       <h3>Giới thiệu</h3>
-      <p>Một thuật toán đơn giản (naive) để kiểm tra <strong>liệu một người có đang nhìn vào điện thoại của họ hay không</strong> từ ảnh đầu vào, cho trước một <strong>Mô hình Phát hiện Đối tượng (Object Detection Model)</strong> và một <strong>Mô hình Ước lượng Ánh nhìn (Gaze Estimation Model)</strong>.</p>
+      <p>Một thuật toán đơn giản (naive) để kiểm tra <strong>liệu một người có đang nhìn vào điện thoại của họ hay không</strong> từ ảnh đầu vào, cho trước một <strong>Mô hình Phát hiện Đối tượng (Object Detection Model)</strong> và một <strong>Mô hình Ước lượng Hướng nhìn (Gaze Estimation Model)</strong>.</p>
 
       <hr>
 
@@ -943,9 +943,9 @@ undistorted = cv2.undistort(image, camera_matrix, dist_coeffs, None, A)</code></
       <p>Giả định:</p>
       <ul>
         <li><strong>Mô hình Phát hiện Đối tượng</strong> phát hiện các đối tượng thuộc lớp <code>Phone</code> (Điện thoại) và <code>Human</code> (Người).</li>
-        <li><strong>Mô hình Ước lượng Ánh nhìn</strong> dự đoán một <code>vector ánh nhìn (gaze vector)</code> bắt đầu tại <code>gaze_start</code> hướng đến <code>gaze_end</code>.</li>
+        <li><strong>Mô hình Ước lượng Hướng nhìn</strong> dự đoán một <code>vector hướng nhìn (gaze vector)</code> bắt đầu tại <code>gaze_start</code> hướng đến <code>gaze_end</code>.</li>
       </ul>
-      <p>Con người không nhìn theo một tia đơn lẻ mà theo một <strong>trường nhìn hình nón (cone-like FOV)</strong>. Ta định nghĩa FOV ánh nhìn là hình nón nhận <code>vector ánh nhìn</code> làm đường phân giác góc của nó, sau đó kiểm tra xem có đối tượng <code>Phone</code> nào <strong>giao với FOV</strong> hay không. Một đối tượng được xem là giao nếu:</p>
+      <p>Con người không nhìn theo một tia đơn lẻ mà theo một <strong>trường nhìn hình nón (cone-like FOV)</strong>. Ta định nghĩa FOV hướng nhìn là hình nón nhận <code>vector hướng nhìn</code> làm đường phân giác góc của nó, sau đó kiểm tra xem có đối tượng <code>Phone</code> nào <strong>giao với FOV</strong> hay không. Một đối tượng được xem là giao nếu:</p>
       <ol>
         <li>Nó chồng lấp với bounding box của <code>Human</code> (các đối tượng nằm ngoài sẽ bị bỏ qua).</li>
         <li>Điểm tin cậy (confidence score) của nó cao hơn <code>conf_thres</code> (giảm các phát hiện điện thoại dương tính giả).</li>
@@ -965,13 +965,13 @@ undistorted = cv2.undistort(image, camera_matrix, dist_coeffs, None, A)</code></
       <hr>
 
       <h3>Demo</h3>
-      <p>Ảnh minh họa thuật toán hoạt động với các vector ánh nhìn và đối tượng điện thoại được sinh ngẫu nhiên:</p>
+      <p>Ảnh minh họa thuật toán hoạt động với các vector hướng nhìn và đối tượng điện thoại được sinh ngẫu nhiên:</p>
       <img src="assets/blog/example_distracted.png" width="700" height="700" loading="lazy" alt="Mất tập trung — người đang nhìn vào điện thoại" />
       <img src="assets/blog/example_focus.png" width="700" height="700" loading="lazy" alt="Tập trung — người không nhìn vào điện thoại" />
       <p>Chú thích:</p>
       <ul>
         <li><strong>Vector xanh lá</strong>: ranh giới FOV</li>
-        <li><strong>Vector xanh dương nhạt</strong>: vector ánh nhìn</li>
+        <li><strong>Vector xanh dương nhạt</strong>: vector hướng nhìn</li>
         <li><strong>Hình chữ nhật xanh dương</strong>: bbox của người</li>
         <li><strong>Hình chữ nhật trắng</strong>: đối tượng nằm ngoài bbox của người</li>
         <li><strong>Hình chữ nhật vàng</strong>: đối tượng nằm trong bbox của người nhưng ngoài FOV</li>
@@ -1177,7 +1177,7 @@ if __name__ == "__main__":
     <header class="post-header">
       <span class="blog-tag">Phát hiện đối tượng</span>
       <h2>Tiền xử lý lấy cảm hứng từ Slicing cho Recall Vật thể Nhỏ</h2>
-      <div class="post-date">21 Tháng 7, 2026</div>
+      <div class="post-date">21/7/2026</div>
     </header>
 
     <div class="post-body">
@@ -1188,11 +1188,11 @@ if __name__ == "__main__":
 
       <hr>
 
-      <h3>SAHI trong một câu</h3>
+      <h3>Tóm lược về SAHI</h3>
       <p><strong>SAHI</strong> (<em>Slicing Aided Hyper Inference</em>) giải quyết vấn đề này theo hai cách bổ trợ nhau. <strong>Suy luận hỗ trợ bởi cắt lát (slicing-aided inference)</strong>: thay vì đưa cho bộ phát hiện một ảnh đã giảm độ phân giải, nó cắt ảnh độ phân giải đầy đủ thành các tile chồng lấp nhau, chạy phát hiện độc lập trên mỗi
       tile ở độ phân giải đầy đủ, sau đó gộp tất cả các phát hiện cấp-tile trở lại tọa độ ảnh gốc bằng NMS. Các đối tượng nhỏ vốn sẽ bị mất khi giảm độ phân giải giờ đây chiếm một phần lớn hơn nhiều trong mỗi tile, nên bộ phát hiện thực sự có đủ pixel để xử lý.
       <strong>Tinh chỉnh hỗ trợ bởi cắt lát (slicing-aided fine-tuning)</strong>: tập huấn luyện được bổ sung các mảnh cắt từ ảnh gốc, để bộ phát hiện
-      cũng học được các đối tượng nhỏ ở tỉ lệ tương đối lớn hơn. Bài báo cho thấy kết hợp cả hai mang lại mức cải thiện lớn nhất.</p>
+      cũng học được các đối tượng nhỏ ở tỷ lệ tương đối lớn hơn. Bài báo cho thấy kết hợp cả hai mang lại mức cải thiện lớn nhất.</p>
 
       <hr>
 
@@ -1202,7 +1202,7 @@ if __name__ == "__main__":
 
       <p>Ở mức tổng quan, bước tiền xử lý:</p>
       <ol>
-        <li>Cắt mỗi ảnh huấn luyện thành các tile chồng lấp nhau (với kích thước tile và tỉ lệ chồng lấp có thể cấu hình).</li>
+        <li>Cắt mỗi ảnh huấn luyện thành các tile chồng lấp nhau (với kích thước tile và tỷ lệ chồng lấp có thể cấu hình).</li>
         <li>Ánh xạ lại các bounding box ground-truth vào tọa độ tile, giữ lại các box trên một ngưỡng khả kiến/IoU và loại bỏ hoặc cắt xén phần còn lại.</li>
         <li>Lấy mẫu vượt mức (oversample) các tile chứa các thực thể đối tượng nhỏ, để phân bố huấn luyện không bị chi phối bởi các crop đối tượng lớn, dễ nhận diện.</li>
         <li>Trộn các crop đã cắt trở lại với ảnh gốc độ phân giải đầy đủ, để mô hình vẫn thấy được ngữ cảnh cảnh toàn cục (global scene context) và không bị overfit với các thống kê ở thang đo tile.</li>

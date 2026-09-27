@@ -48,7 +48,7 @@
     <li><a href="#projects">프로젝트</a></li>
     <li><a href="#publications">논문</a></li>
     <li><a href="#blog">블로그</a></li>
-    <li><a href="#certifications">자격증</a></li>
+    <li><a href="#certifications">인증 및 수료</a></li>
   </ul>
 
   <div class="nav-right">
@@ -219,7 +219,7 @@
           총괄했습니다. 8개 모델(객체 탐지, 이미지 분류, 2D/3D 키포인트, 얼굴 랜드마크, 시선 추정)로 구성된 실시간 파이프라인은
           8-TOPS TI SK-TDA4VM 플랫폼에서 평균 14 FPS, 4-TOPS TI TDA4AEN 플랫폼에서 9 FPS를 달성했으며, Samsung Exynos V920 SoC에도
           배포되었습니다. 2개의 한국 자동차 업체를 위해 4건의 PoC 프로젝트를 완료했습니다. 또한 다중 카메라 스티칭, 철도
-          작업자 위치 추정, 유사(pseudo) LiDAR 생성, 실시간 깊이 추정 작업도 함께 수행했습니다.
+          작업자 위치 추정, 의사(pseudo) LiDAR 생성, 실시간 깊이 추정 작업도 함께 수행했습니다.
         </p>
       </div>
 
@@ -437,7 +437,7 @@
 
     <div class="projects-grid">
 
-      <div class="projects-subhead">선정 작업</div>
+      <div class="projects-subhead">대표 작업</div>
 
       <!-- Smart In-Cabin Monitoring System -->
       <div class="project-card fade-up">
@@ -516,7 +516,7 @@
         <div class="project-name">실시간 Pseudo-LiDAR</div>
         <div class="project-duration">2023년 3월 – 2023년 11월</div>
         <p class="project-desc">
-          절대 깊이 추정과 카메라 캘리브레이션을 활용하여 이미지 픽셀로부터 유사(pseudo) 포인트 클라우드를 생성하는 카메라 기반
+          절대 깊이 추정과 카메라 캘리브레이션을 활용하여 이미지 픽셀로부터 의사(pseudo) 포인트 클라우드를 생성하는 카메라 기반
           LiDAR 대체 솔루션입니다. OpenGL과 Open3D를 사용해 실시간 3D로 렌더링합니다.
           YOLOv8 기반의 경량 인코더-디코더 깊이 모델을 설계하여, 훨씬 적은 파라미터 수로도
           SOTA 기법(NeWCRFs, PixelFormer)에 필적하는 정확도를 달성했습니다.
@@ -646,11 +646,11 @@
             </a>
           </div>
         </div>
-        <div class="project-name">테일라이트 매칭 &amp; 페어링</div>
+        <div class="project-name">후미등 매칭 &amp; 페어링</div>
         <div class="project-duration">2018년 9월 – 2020년 8월</div>
         <p class="project-desc">
           제 MDPI 논문에서 발표한 스테레오 비전 기반 야간 차량 간(V2V) 위치 추정 알고리즘의 공식 구현체입니다:
-          테일라이트 영역 대응을 위한 그래디언트 부스팅 스테레오 매칭과, 도심 교통 환경에서 좌우 테일라이트를
+          후미등 영역 대응을 위한 그래디언트 부스팅 스테레오 매칭과, 도심 교통 환경에서 좌우 후미등를
           연결하는 신경망 기반 페어링 단계로 구성됩니다.
         </p>
         <a href="#publications" class="project-readmore">논문 보기 →</a>
@@ -748,7 +748,7 @@
         <div class="project-name">노치 기반 포인트 클라우드 정합</div>
         <div class="project-duration">개인 프로젝트</div>
         <p class="project-desc">
-          노치(notch) 영역 검출과 대응점 매칭을 통해 여러 3D 포인트 클라우드를 기준 좌표계에 정렬하고
+          노치(notch) 영역 검출과 대응점 매칭을 통해 여러 3D 포인트 클라우드를 기준(master) 포인트 클라우드에 정렬하고
           병합하는 C++ 포인트 클라우드 정합 솔루션으로, 전처리,
           검출, 정합, 병합 단계로 구성됩니다.
         </p>
@@ -775,10 +775,10 @@
             </a>
           </div>
         </div>
-        <div class="project-name">LiDAR 기반 자기 차선 검출</div>
+        <div class="project-name">LiDAR 기반 자차 차선 검출</div>
         <div class="project-duration">개인 프로젝트</div>
         <p class="project-desc">
-          LiDAR 포인트 클라우드에서 자기 차량(ego-vehicle)의 차선을 검출하는 5단계 파이프라인입니다: 지면
+          LiDAR 포인트 클라우드에서 자차(ego-vehicle)의 차선을 검출하는 5단계 파이프라인입니다: 지면
           포인트 추출, 강도 히스토그램 생성, 피크 검출, 슬라이딩 윈도우 차선 탐색, 다항식
           곡선 피팅을 통해 좌우 차선 계수를 출력합니다.
         </p>
@@ -1019,7 +1019,7 @@
           <div class="pub-title">A Taillight Matching and Pairing Algorithm for Stereo-Vision-Based Nighttime Vehicle-to-Vehicle Positioning</div>
           <div class="pub-venue">MDPI Applied Sciences</div>
           <div class="pub-date">2020년 9월<span class="pub-tier">국제 저널 · SJR Q2 (JIF 2025: 2.9)</span></div>
-          <p class="pub-desc">도심 교통 환경을 위한 그래디언트 부스팅 스테레오 매칭과 신경망 기반 테일라이트 페어링 기법을 활용한 스테레오 비전 기반 V2V 야간 위치 추정입니다.</p>
+          <p class="pub-desc">도심 교통 환경을 위한 그래디언트 부스팅 스테레오 매칭과 신경망 기반 후미등 페어링 기법을 활용한 스테레오 비전 기반 V2V 야간 위치 추정입니다.</p>
         </div>
         <div class="pub-actions">
           <a href="https://www.mdpi.com/2076-3417/10/19/6800" target="_blank" rel="noopener" class="pub-btn">
@@ -1041,7 +1041,7 @@
           <div class="pub-title">Nighttime LED Taillight Detection Method with Optical Camera Communication System</div>
           <div class="pub-venue">한국통신학회논문지</div>
           <div class="pub-date">2020년 9월<span class="pub-tier">국내 저널</span></div>
-          <p class="pub-desc">고속 카메라 이미지에서 테일라이트 LED를 탐지 및 위치 추정하여 전방 차량의 위치를 추정하는 OCC 기반 야간 차량 위치 추정 기법입니다.</p>
+          <p class="pub-desc">고속 카메라 이미지에서 후미등 LED를 탐지 및 위치 추정하여 전방 차량의 위치를 추정하는 OCC 기반 야간 차량 위치 추정 기법입니다.</p>
         </div>
         <div class="pub-actions">
           <a href="https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE10440000" target="_blank" rel="noopener" class="pub-btn">
@@ -1125,7 +1125,7 @@
         <div class="blog-title">Perspective Transform과 Affine Transform</div>
         <p class="blog-excerpt">
           두 가지 기본적인 기하 변환을 간결하게 비교합니다: 평면 간 매핑에 8 자유도(DoF)를 사용하는
-          원근(호모그래피) 변환과, 평행성을 보존하는 어파인 변환입니다.
+          원근(호모그래피) 변환과, 평행성을 보존하는 아핀 변환입니다.
         </p>
       </a>
 
@@ -1160,7 +1160,7 @@
      ============================================================ -->
 <section id="certifications">
   <div class="container">
-    <h2 class="section-title">자격증</h2>
+    <h2 class="section-title">인증 및 수료</h2>
 
     <div class="cert-sections">
 
@@ -1315,7 +1315,7 @@
             <span class="cert-dot"></span><span class="cert-name">Global C/C++ Developer – Global Software Talent Training Course (FPT Software)</span><span class="cert-date">2016년 11월</span>
           </a>
           <a href="assets/certifications/vng-scholarship.png" target="_blank" rel="noopener" class="cert-item">
-            <span class="cert-dot"></span><span class="cert-name">VNG 그룹 장학금</span><span class="cert-date">2014년 11월</span>
+            <span class="cert-dot"></span><span class="cert-name">VNG Corporation 장학금</span><span class="cert-date">2014년 11월</span>
           </a>
         </div>
       </div>

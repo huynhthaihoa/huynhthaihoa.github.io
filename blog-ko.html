@@ -50,7 +50,7 @@
     <li><a href="index-ko.html#projects">프로젝트</a></li>
     <li><a href="index-ko.html#publications">논문</a></li>
     <li><a href="index-ko.html#blog" class="active">블로그</a></li>
-    <li><a href="index-ko.html#certifications">자격증</a></li>
+    <li><a href="index-ko.html#certifications">인증 및 수료</a></li>
   </ul>
 
   <div class="nav-right">
@@ -229,7 +229,7 @@
       <h4>잠재적 대안 또는 변형</h4>
       <ul>
         <li><strong>Transfer Learning 또는 Domain Adaptation</strong>: 교사가 (ImageNet 같은) 더 크고 관련된 데이터셋으로 사전 학습되어 있다면, distillation 전에 목표 데이터셋으로 미세조정할 수 있습니다.</li>
-        <li><strong>레이블이 없거나 증강된 데이터</strong>: 경우에 따라 학생을 레이블이 있는 데이터와 없는 데이터가 섞인 데이터로 학습시킬 수 있으며, 이때 교사가 레이블이 없는 데이터에 대해 pseudo-label(가짜 레이블)을 제공합니다.</li>
+        <li><strong>레이블이 없거나 증강된 데이터</strong>: 경우에 따라 학생을 레이블이 있는 데이터와 없는 데이터가 섞인 데이터로 학습시킬 수 있으며, 이때 교사가 레이블이 없는 데이터에 대해 pseudo-label(의사 레이블)을 제공합니다.</li>
         <li><strong>Online Distillation</strong>: 교사의 사전 학습을 아예 피하고 싶다면 online knowledge distillation(예: Deep Mutual Learning)을 탐구해볼 수 있습니다.</li>
       </ul>
 
@@ -945,11 +945,11 @@ undistorted = cv2.undistort(image, camera_matrix, dist_coeffs, None, A)</code></
         <li><strong>객체 탐지 모델</strong>은 <code>Phone</code>과 <code>Human</code> 클래스의 객체를 탐지합니다.</li>
         <li><strong>시선 추정 모델</strong>은 <code>gaze_start</code>에서 시작해 <code>gaze_end</code>를 향하는 <code>gaze vector(시선 벡터)</code>를 예측합니다.</li>
       </ul>
-      <p>사람은 하나의 광선(ray)만 보는 것이 아니라 <strong>원뿔 형태의 FOV(cone-like FOV)</strong>를 봅니다. 우리는 시선 FOV를 <code>gaze vector</code>를 각의 이등분선으로 갖는 원뿔로 정의한 뒤, 어떤 <code>Phone</code> 객체가 이 <strong>FOV와 교차</strong>하는지 확인합니다. 어떤 객체가 다음 조건을 만족하면 교차한다고 봅니다:</p>
+      <p>사람은 하나의 광선(ray)만 보는 것이 아니라 <strong>원뿔 형태의 FOV(cone-like FOV)</strong>를 봅니다. 여기서는 시선 FOV를 <code>gaze vector</code>를 각의 이등분선으로 갖는 원뿔로 정의한 뒤, 어떤 <code>Phone</code> 객체가 이 <strong>FOV와 교차</strong>하는지 확인합니다. 어떤 객체가 다음 조건을 만족하면 교차한다고 봅니다:</p>
       <ol>
-        <li>해당 객체가 <code>Human</code> bounding box와 겹친다(그 밖의 객체는 무시합니다).</li>
-        <li>해당 객체의 신뢰도 점수(confidence score)가 <code>conf_thres</code>보다 높다(휴대폰의 오탐(false positive)을 줄여줍니다).</li>
-        <li>FOV가 해당 객체의 bounding box에서 최소 <code>count_thres</code>개의 변(edge)과 교차한다.</li>
+        <li>해당 객체가 <code>Human</code> bounding box와 겹칩니다(그 밖의 객체는 무시합니다).</li>
+        <li>해당 객체의 신뢰도 점수(confidence score)가 <code>conf_thres</code>보다 높습니다(휴대폰의 오탐(false positive)을 줄여줍니다).</li>
+        <li>FOV가 해당 객체의 bounding box에서 최소 <code>count_thres</code>개의 변(edge)과 교차합니다.</li>
       </ol>
       <p>적어도 하나의 <code>Phone</code>이 세 조건을 모두 만족하면, <strong>그 사람은 휴대폰을 보고 있는 것</strong>입니다.</p>
 
@@ -1201,7 +1201,7 @@ if __name__ == "__main__":
       <hr>
 
       <h3>이 아이디어를 학습 데이터에 적용하기</h3>
-      <p>추론 시점에 여러 번 슬라이스 패스를 실행하는 것은 비용이 큽니다 — 이미지당 순전파(forward pass) 횟수를 배로 늘리는데, 이는
+      <p>추론 시점에 여러 번 슬라이스 패스를 실행하는 것은 비용이 큽니다 — 이미지당 순전파(forward pass) 횟수를 몇 배로 늘리는데, 이는
       실시간 배포 예산과 상충됩니다. 그래서 SAHI 중 학습 쪽 절반만 취했습니다:
       SAHI의 슬라이싱 기반 파인튜닝을 바탕으로 슬라이싱을 사용해 <strong>더 나은 학습 세트</strong>를 구축하고, 추론 자체는 단일 전체 이미지 순전파로 유지하는 것입니다.</p>
 
