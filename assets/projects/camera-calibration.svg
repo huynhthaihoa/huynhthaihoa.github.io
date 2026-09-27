@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" width="800" height="360" role="img" aria-labelledby="t d">
+  <title id="t">Camera Calibration Tool illustration</title>
+  <desc id="d">A checkerboard seen through a distorting lens (curved lines) is corrected into a straight, undistorted checkerboard with detected corners, using the estimated intrinsics K and distortion coefficients D.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#16213b"/>
+      <stop offset="1" stop-color="#0b1222"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="360" fill="url(#bg)"/>
+  <rect x="40" y="50" width="290" height="250" rx="14" fill="#0e1628" stroke="#334155" stroke-width="2"/>
+  <path d="M86.3 84.9 L109.9 78.9 L105.1 104.9 L80.5 109.5 Z" fill="#e2e8f0"/>
+  <path d="M138.1 74.4 L169.3 72.0 L168.2 99.5 L134.9 101.4 Z" fill="#e2e8f0"/>
+  <path d="M201.7 72.1 L232.8 74.5 L236.1 101.5 L202.8 99.6 Z" fill="#e2e8f0"/>
+  <path d="M260.8 79.1 L284.3 85.1 L290.2 109.7 L265.7 105.0 Z" fill="#e2e8f0"/>
+  <path d="M105.1 104.9 L134.9 101.4 L132.7 133.4 L101.8 135.4 Z" fill="#e2e8f0"/>
+  <path d="M168.2 99.5 L202.8 99.6 L203.6 132.3 L167.5 132.3 Z" fill="#e2e8f0"/>
+  <path d="M236.1 101.5 L265.7 105.0 L269.1 135.5 L238.3 133.4 Z" fill="#e2e8f0"/>
+  <path d="M76.4 138.2 L101.8 135.4 L100.4 168.8 L74.6 169.2 Z" fill="#e2e8f0"/>
+  <path d="M132.7 133.4 L167.5 132.3 L167.1 168.3 L131.8 168.5 Z" fill="#e2e8f0"/>
+  <path d="M203.6 132.3 L238.3 133.4 L239.3 168.5 L204.0 168.3 Z" fill="#e2e8f0"/>
+  <path d="M269.1 135.5 L294.3 138.3 L296.0 169.3 L270.5 168.8 Z" fill="#e2e8f0"/>
+  <path d="M100.4 168.8 L131.8 168.5 L132.2 204.1 L101.0 202.6 Z" fill="#e2e8f0"/>
+  <path d="M167.1 168.3 L204.0 168.3 L203.8 204.9 L167.3 204.9 Z" fill="#e2e8f0"/>
+  <path d="M239.3 168.5 L270.5 168.8 L269.8 202.6 L238.8 204.1 Z" fill="#e2e8f0"/>
+  <path d="M75.5 200.7 L101.0 202.6 L103.7 234.5 L78.7 230.4 Z" fill="#e2e8f0"/>
+  <path d="M132.2 204.1 L167.3 204.9 L167.9 239.1 L134.0 237.5 Z" fill="#e2e8f0"/>
+  <path d="M203.8 204.9 L238.8 204.1 L237.0 237.4 L203.2 239.1 Z" fill="#e2e8f0"/>
+  <path d="M269.8 202.6 L295.2 200.7 L291.9 230.3 L267.1 234.4 Z" fill="#e2e8f0"/>
+  <path d="M103.7 234.5 L134.0 237.5 L136.8 266.4 L108.1 262.3 Z" fill="#e2e8f0"/>
+  <path d="M167.9 239.1 L203.2 239.1 L202.1 268.6 L168.9 268.7 Z" fill="#e2e8f0"/>
+  <path d="M237.0 237.4 L267.1 234.4 L262.7 262.1 L234.1 266.3 Z" fill="#e2e8f0"/>
+  <path d="M350 175 L440 175" stroke="#38bdf8" stroke-width="5" stroke-linecap="round"/>
+  <path d="M427.4 181.1 L440 175 L427.4 168.9" stroke="#38bdf8" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="470" y="50" width="290" height="250" rx="14" fill="#0e1628" stroke="#334155" stroke-width="2"/>
+  <path d="M500.0 76.0 L533.0 76.0 L533.0 109.0 L500.0 109.0 Z" fill="#e2e8f0"/>
+  <path d="M566.0 76.0 L599.0 76.0 L599.0 109.0 L566.0 109.0 Z" fill="#e2e8f0"/>
+  <path d="M632.0 76.0 L665.0 76.0 L665.0 109.0 L632.0 109.0 Z" fill="#e2e8f0"/>
+  <path d="M698.0 76.0 L731.0 76.0 L731.0 109.0 L698.0 109.0 Z" fill="#e2e8f0"/>
+  <path d="M533.0 109.0 L566.0 109.0 L566.0 142.0 L533.0 142.0 Z" fill="#e2e8f0"/>
+  <path d="M599.0 109.0 L632.0 109.0 L632.0 142.0 L599.0 142.0 Z" fill="#e2e8f0"/>
+  <path d="M665.0 109.0 L698.0 109.0 L698.0 142.0 L665.0 142.0 Z" fill="#e2e8f0"/>
+  <path d="M500.0 142.0 L533.0 142.0 L533.0 175.0 L500.0 175.0 Z" fill="#e2e8f0"/>
+  <path d="M566.0 142.0 L599.0 142.0 L599.0 175.0 L566.0 175.0 Z" fill="#e2e8f0"/>
+  <path d="M632.0 142.0 L665.0 142.0 L665.0 175.0 L632.0 175.0 Z" fill="#e2e8f0"/>
+  <path d="M698.0 142.0 L731.0 142.0 L731.0 175.0 L698.0 175.0 Z" fill="#e2e8f0"/>
+  <path d="M533.0 175.0 L566.0 175.0 L566.0 208.0 L533.0 208.0 Z" fill="#e2e8f0"/>
+  <path d="M599.0 175.0 L632.0 175.0 L632.0 208.0 L599.0 208.0 Z" fill="#e2e8f0"/>
+  <path d="M665.0 175.0 L698.0 175.0 L698.0 208.0 L665.0 208.0 Z" fill="#e2e8f0"/>
+  <path d="M500.0 208.0 L533.0 208.0 L533.0 241.0 L500.0 241.0 Z" fill="#e2e8f0"/>
+  <path d="M566.0 208.0 L599.0 208.0 L599.0 241.0 L566.0 241.0 Z" fill="#e2e8f0"/>
+  <path d="M632.0 208.0 L665.0 208.0 L665.0 241.0 L632.0 241.0 Z" fill="#e2e8f0"/>
+  <path d="M698.0 208.0 L731.0 208.0 L731.0 241.0 L698.0 241.0 Z" fill="#e2e8f0"/>
+  <path d="M533.0 241.0 L566.0 241.0 L566.0 274.0 L533.0 274.0 Z" fill="#e2e8f0"/>
+  <path d="M599.0 241.0 L632.0 241.0 L632.0 274.0 L599.0 274.0 Z" fill="#e2e8f0"/>
+  <path d="M665.0 241.0 L698.0 241.0 L698.0 274.0 L665.0 274.0 Z" fill="#e2e8f0"/>
+  <circle cx="533.0" cy="109.0" r="4" fill="#f43f5e"/>
+  <circle cx="566.0" cy="109.0" r="4" fill="#f43f5e"/>
+  <circle cx="599.0" cy="109.0" r="4" fill="#f43f5e"/>
+  <circle cx="632.0" cy="109.0" r="4" fill="#f43f5e"/>
+  <circle cx="665.0" cy="109.0" r="4" fill="#f43f5e"/>
+  <circle cx="698.0" cy="109.0" r="4" fill="#f43f5e"/>
+  <circle cx="533.0" cy="142.0" r="4" fill="#f43f5e"/>
+  <circle cx="566.0" cy="142.0" r="4" fill="#f43f5e"/>
+  <circle cx="599.0" cy="142.0" r="4" fill="#f43f5e"/>
+  <circle cx="632.0" cy="142.0" r="4" fill="#f43f5e"/>
+  <circle cx="665.0" cy="142.0" r="4" fill="#f43f5e"/>
+  <circle cx="698.0" cy="142.0" r="4" fill="#f43f5e"/>
+  <circle cx="533.0" cy="175.0" r="4" fill="#f43f5e"/>
+  <circle cx="566.0" cy="175.0" r="4" fill="#f43f5e"/>
+  <circle cx="599.0" cy="175.0" r="4" fill="#f43f5e"/>
+  <circle cx="632.0" cy="175.0" r="4" fill="#f43f5e"/>
+  <circle cx="665.0" cy="175.0" r="4" fill="#f43f5e"/>
+  <circle cx="698.0" cy="175.0" r="4" fill="#f43f5e"/>
+  <circle cx="533.0" cy="208.0" r="4" fill="#f43f5e"/>
+  <circle cx="566.0" cy="208.0" r="4" fill="#f43f5e"/>
+  <circle cx="599.0" cy="208.0" r="4" fill="#f43f5e"/>
+  <circle cx="632.0" cy="208.0" r="4" fill="#f43f5e"/>
+  <circle cx="665.0" cy="208.0" r="4" fill="#f43f5e"/>
+  <circle cx="698.0" cy="208.0" r="4" fill="#f43f5e"/>
+  <circle cx="533.0" cy="241.0" r="4" fill="#f43f5e"/>
+  <circle cx="566.0" cy="241.0" r="4" fill="#f43f5e"/>
+  <circle cx="599.0" cy="241.0" r="4" fill="#f43f5e"/>
+  <circle cx="632.0" cy="241.0" r="4" fill="#f43f5e"/>
+  <circle cx="665.0" cy="241.0" r="4" fill="#f43f5e"/>
+  <circle cx="698.0" cy="241.0" r="4" fill="#f43f5e"/>
+  <rect x="130.0" y="311.0" width="110.0" height="32" rx="16.0" fill="#64748b" fill-opacity=".16" stroke="#64748b" stroke-opacity=".6"/>
+  <text x="185.0" y="336.0" text-anchor="middle" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif" font-size="18" font-weight="700" fill="#64748b">distorted</text>
+  <rect x="548.0" y="311.0" width="134.0" height="32" rx="16.0" fill="#38bdf8" fill-opacity=".16" stroke="#38bdf8" stroke-opacity=".6"/>
+  <text x="615.0" y="336.0" text-anchor="middle" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif" font-size="18" font-weight="700" fill="#38bdf8">undistorted</text>
+  <rect x="360.0" y="115.0" width="70.0" height="32" rx="16.0" fill="#facc15" fill-opacity=".16" stroke="#facc15" stroke-opacity=".6"/>
+  <text x="395.0" y="140.0" text-anchor="middle" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif" font-size="18" font-weight="700" fill="#facc15">K, D</text>
+
+</svg>

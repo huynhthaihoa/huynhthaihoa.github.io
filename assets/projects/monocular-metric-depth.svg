@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" width="800" height="360" role="img" aria-labelledby="t d">
+  <title id="t">Monocular Metric Depth Estimation illustration</title>
+  <desc id="d">A single RGB road image passes through an encoder-decoder network with skip connections and becomes a per-pixel depth map in meters, colored from near (warm) to far (cool).</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#16213b"/>
+      <stop offset="1" stop-color="#0b1222"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="360" fill="url(#bg)"/>
+  <clipPath id="c30"><rect x="30" y="90" width="220" height="160" rx="10"/></clipPath>
+  <g clip-path="url(#c30)">
+    <rect x="30" y="90" width="220" height="160" fill="#334d7a"/>
+    <rect x="30" y="157.2" width="220" height="92.8" fill="#3f4a5c"/>
+    <path d="M140.0 157.2 L74.0 250 M140.0 157.2 L206.0 250" stroke="#e2e8f0" stroke-width="3" stroke-dasharray="10 9"/>
+    <rect x="166.4" y="150.8" width="44.0" height="32.0" rx="4" fill="#ef4444"/>
+    <rect x="56.4" y="122.0" width="30.800000000000004" height="80.0" fill="#64748b"/>
+  </g>
+  <rect x="30" y="90" width="220" height="160" rx="10" fill="none" stroke="#475569" stroke-width="2"/>
+  <path d="M262 170 L300 170" stroke="#64748b" stroke-width="4" stroke-linecap="round"/>
+  <path d="M287.4 176.1 L300 170 L287.4 163.9" stroke="#64748b" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M312 92 L398 132 L398 208 L312 248 Z" fill="#a78bfa" fill-opacity=".25" stroke="#a78bfa" stroke-width="2"/>
+  <path d="M402 132 L488 92 L488 248 L402 208 Z" fill="#38bdf8" fill-opacity=".2" stroke="#38bdf8" stroke-width="2"/>
+  <path d="M340 112 H460" stroke="#64748b" stroke-width="2" stroke-dasharray="4 5"/>
+  <path d="M370 150 H430" stroke="#64748b" stroke-width="2" stroke-dasharray="4 5"/>
+  <path d="M370 190 H430" stroke="#64748b" stroke-width="2" stroke-dasharray="4 5"/>
+  <path d="M340 228 H460" stroke="#64748b" stroke-width="2" stroke-dasharray="4 5"/>
+  <path d="M500 170 L538 170" stroke="#64748b" stroke-width="4" stroke-linecap="round"/>
+  <path d="M525.4 176.1 L538 170 L525.4 163.9" stroke="#64748b" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <clipPath id="c550"><rect x="550" y="90" width="220" height="160" rx="10"/></clipPath>
+  <g clip-path="url(#c550)">
+    <defs><linearGradient id="dg550" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#b91c1c"/><stop offset=".35" stop-color="#f97316"/><stop offset=".6" stop-color="#facc15"/><stop offset=".8" stop-color="#22d3ee"/><stop offset="1" stop-color="#312e81"/></linearGradient></defs>
+    <rect x="550" y="90" width="220" height="160" fill="url(#dg550)"/>
+    <rect x="550" y="90" width="220" height="67.2" fill="#1e1b4b"/>
+    <rect x="686.4" y="150.8" width="44.0" height="32.0" rx="4" fill="#22d3ee"/>
+    <rect x="576.4" y="122.0" width="30.800000000000004" height="80.0" fill="#f97316"/>
+  </g>
+  <rect x="550" y="90" width="220" height="160" rx="10" fill="none" stroke="#475569" stroke-width="2"/>
+  <rect x="105.0" y="45.0" width="70.0" height="32" rx="16.0" fill="#e2e8f0" fill-opacity=".16" stroke="#e2e8f0" stroke-opacity=".6"/>
+  <text x="140.0" y="70.0" text-anchor="middle" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif" font-size="18" font-weight="700" fill="#e2e8f0">RGB</text>
+  <rect x="308.7" y="45.0" width="182.6" height="32" rx="16.0" fill="#a78bfa" fill-opacity=".16" stroke="#a78bfa" stroke-opacity=".6"/>
+  <text x="400.0" y="70.0" text-anchor="middle" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif" font-size="18" font-weight="700" fill="#a78bfa">encoder-decoder</text>
+  <rect x="600.0" y="45.0" width="120.0" height="32" rx="16.0" fill="#38bdf8" fill-opacity=".16" stroke="#38bdf8" stroke-opacity=".6"/>
+  <text x="660.0" y="70.0" text-anchor="middle" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif" font-size="18" font-weight="700" fill="#38bdf8">depth (m)</text>
+  <defs><linearGradient id="cb" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#b91c1c"/><stop offset=".35" stop-color="#f97316"/><stop offset=".6" stop-color="#facc15"/><stop offset=".8" stop-color="#22d3ee"/><stop offset="1" stop-color="#312e81"/></linearGradient></defs>
+  <rect x="560" y="276" width="200" height="12" rx="6" fill="url(#cb)"/>
+  <text x="560" y="310" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#64748b">near</text><text x="760" y="310" text-anchor="end" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#64748b">far</text>
+
+</svg>

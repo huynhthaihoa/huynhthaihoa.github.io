@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" width="800" height="360" role="img" aria-labelledby="t d">
+  <title id="t">Taillight Matching and Pairing illustration</title>
+  <desc id="d">Left and right stereo views of a car at night: dashed lines match each taillight across the two views, and a bracket pairs the left and right taillights of the same vehicle.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#16213b"/>
+      <stop offset="1" stop-color="#0b1222"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="360" fill="url(#bg)"/>
+  <rect x="40" y="40" width="340" height="250" rx="14" fill="#0e1628" stroke="#334155" stroke-width="2"/>
+  <rect x="50.0" y="49.0" width="40.0" height="34" rx="17.0" fill="#38bdf8" fill-opacity=".16" stroke="#38bdf8" stroke-opacity=".6"/>
+  <text x="70.0" y="76.0" text-anchor="middle" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif" font-size="20" font-weight="700" fill="#38bdf8">L</text>
+  <rect x="132.0" y="145.0" width="180.0" height="80.0" rx="14.0" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+  <rect x="162.0" y="115.0" width="120.0" height="34.0" rx="10.0" fill="#172036" stroke="#334155" stroke-width="2"/>
+  <rect x="192.0" y="193.0" width="60.0" height="16.0" rx="3" fill="#0b1222" stroke="#475569"/>
+  <circle cx="152" cy="172" r="26" fill="#f43f5e" fill-opacity=".22"/>
+  <rect x="136" y="163" width="32" height="18" rx="5" fill="#f43f5e"/>
+  <circle cx="292" cy="172" r="26" fill="#f43f5e" fill-opacity=".22"/>
+  <rect x="276" y="163" width="32" height="18" rx="5" fill="#f43f5e"/>
+  <path d="M152 208 V224 H292 V208" stroke="#facc15" stroke-width="3" fill="none"/>
+  <rect x="420" y="40" width="340" height="250" rx="14" fill="#0e1628" stroke="#334155" stroke-width="2"/>
+  <rect x="430.0" y="49.0" width="40.0" height="34" rx="17.0" fill="#38bdf8" fill-opacity=".16" stroke="#38bdf8" stroke-opacity=".6"/>
+  <text x="450.0" y="76.0" text-anchor="middle" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif" font-size="20" font-weight="700" fill="#38bdf8">R</text>
+  <rect x="488.0" y="145.0" width="180.0" height="80.0" rx="14.0" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+  <rect x="518.0" y="115.0" width="120.0" height="34.0" rx="10.0" fill="#172036" stroke="#334155" stroke-width="2"/>
+  <rect x="548.0" y="193.0" width="60.0" height="16.0" rx="3" fill="#0b1222" stroke="#475569"/>
+  <circle cx="508" cy="172" r="26" fill="#f43f5e" fill-opacity=".22"/>
+  <rect x="492" y="163" width="32" height="18" rx="5" fill="#f43f5e"/>
+  <circle cx="648" cy="172" r="26" fill="#f43f5e" fill-opacity=".22"/>
+  <rect x="632" y="163" width="32" height="18" rx="5" fill="#f43f5e"/>
+  <path d="M508 208 V224 H648 V208" stroke="#facc15" stroke-width="3" fill="none"/>
+  <path d="M152 172 C242 120 418 120 508 172" stroke="#38bdf8" stroke-width="3" stroke-dasharray="8 7" fill="none"/>
+  <path d="M292 172 C382 120 558 120 648 172" stroke="#38bdf8" stroke-width="3" stroke-dasharray="8 7" fill="none"/>
+  <rect x="293.0" y="311.0" width="213.9" height="32" rx="16.0" fill="#facc15" fill-opacity=".16" stroke="#facc15" stroke-opacity=".6"/>
+  <text x="400.0" y="336.0" text-anchor="middle" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif" font-size="18" font-weight="700" fill="#facc15">matching + pairing</text>
+
+</svg>
