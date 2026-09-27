@@ -601,38 +601,6 @@
         </div>
       </div>
 
-      <!-- Gaze Estimation -->
-      <div class="project-card fade-up">
-        <img class="project-thumb" src="assets/blog/example_distracted.png" loading="lazy" alt="Gaze Estimation: looking at phone demo">
-        <div class="project-top">
-          <div class="project-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/>
-              <circle cx="12" cy="12" r="3"/>
-            </svg>
-          </div>
-          <div class="project-links">
-            <a href="https://github.com/huynhthaihoa/vision-geometry-playground" target="_blank" rel="noopener" class="project-link" title="GitHub — generalized geometry toolkit">
-              <svg width="16" height="16" fill="currentColor"><use href="#icon-github"></use></svg>
-            </a>
-          </div>
-        </div>
-        <div class="project-name">Gaze Estimation: Phone Distraction Detector</div>
-        <div class="project-duration">Personal Project</div>
-        <p class="project-desc">
-          Detects whether a driver is looking at their phone by combining an object detection model
-          with a gaze estimation model. Uses a cone-based FOV intersection algorithm with configurable
-          confidence and count thresholds. The underlying intersection geometry has since been generalized
-          into a standalone toolkit (linked).
-        </p>
-        <a href="blog.html#phone-looking" class="project-readmore">Read post →</a>
-        <div class="tag-list">
-          <span class="tag">Computer Vision</span>
-          <span class="tag">Gaze Estimation</span>
-          <span class="tag">Object Detection</span>
-        </div>
-      </div>
-
       <!-- Taillight Matching -->
       <div class="project-card fade-up">
         <div class="project-top">
@@ -790,6 +758,38 @@
           <span class="tag">Python</span>
           <span class="tag">Open3D</span>
           <span class="tag">LiDAR</span>
+        </div>
+      </div>
+
+      <!-- Gaze Estimation -->
+      <div class="project-card fade-up">
+        <img class="project-thumb" src="assets/blog/example_distracted.png" loading="lazy" alt="Gaze Estimation: looking at phone demo">
+        <div class="project-top">
+          <div class="project-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/huynhthaihoa/vision-geometry-playground" target="_blank" rel="noopener" class="project-link" title="GitHub — generalized geometry toolkit">
+              <svg width="16" height="16" fill="currentColor"><use href="#icon-github"></use></svg>
+            </a>
+          </div>
+        </div>
+        <div class="project-name">Gaze Estimation: Phone Distraction Detector</div>
+        <div class="project-duration">Personal Project</div>
+        <p class="project-desc">
+          Detects whether a driver is looking at their phone by combining an object detection model
+          with a gaze estimation model. Uses a cone-based FOV intersection algorithm with configurable
+          confidence and count thresholds. The underlying intersection geometry has since been generalized
+          into a standalone toolkit (linked).
+        </p>
+        <a href="blog.html#phone-looking" class="project-readmore">Read post →</a>
+        <div class="tag-list">
+          <span class="tag">Computer Vision</span>
+          <span class="tag">Gaze Estimation</span>
+          <span class="tag">Object Detection</span>
         </div>
       </div>
 
@@ -1090,6 +1090,15 @@
 
     <div class="blog-grid">
 
+      <a href="blog.html#sahi-small-objects" class="blog-card fade-up" style="text-decoration:none;color:inherit;display:block;">
+        <span class="blog-tag">Object Detection</span>
+        <div class="blog-title">Slicing-Inspired Preprocessing for Small-Object Recall</div>
+        <p class="blog-excerpt">
+          Building on SAHI's slicing-aided fine-tuning as a dataset preprocessing step, to improve recall on small,
+          distant objects for YOLOv8-p2/YOLOv9n while keeping inference a single full-image pass.
+        </p>
+      </a>
+
       <a href="blog.html#knowledge-distillation" class="blog-card fade-up" style="text-decoration:none;color:inherit;display:block;">
         <span class="blog-tag">Deep Learning</span>
         <div class="blog-title">Knowledge Distillation Brainstorming</div>
@@ -1117,15 +1126,6 @@
         </p>
       </a>
 
-      <a href="blog.html#depth-pseudolidar" class="blog-card fade-up" style="text-decoration:none;color:inherit;display:block;">
-        <span class="blog-tag">Depth Estimation</span>
-        <div class="blog-title">From Depth Estimation to Pseudo-LiDAR</div>
-        <p class="blog-excerpt">
-          An exploration of monocular depth estimation approaches — absolute vs relative depth —
-          and how to reconstruct pseudo-LiDAR point clouds from camera images using depth maps and camera intrinsics.
-        </p>
-      </a>
-
       <a href="blog.html#perspective-affine" class="blog-card fade-up" style="text-decoration:none;color:inherit;display:block;">
         <span class="blog-tag">Computer Vision</span>
         <div class="blog-title">Perspective Transform vs Affine Transform</div>
@@ -1144,12 +1144,12 @@
         </p>
       </a>
 
-      <a href="blog.html#sahi-small-objects" class="blog-card fade-up" style="text-decoration:none;color:inherit;display:block;">
-        <span class="blog-tag">Object Detection</span>
-        <div class="blog-title">Slicing-Inspired Preprocessing for Small-Object Recall</div>
+      <a href="blog.html#depth-pseudolidar" class="blog-card fade-up" style="text-decoration:none;color:inherit;display:block;">
+        <span class="blog-tag">Depth Estimation</span>
+        <div class="blog-title">From Depth Estimation to Pseudo-LiDAR</div>
         <p class="blog-excerpt">
-          Building on SAHI's slicing-aided fine-tuning as a dataset preprocessing step, to improve recall on small,
-          distant objects for YOLOv8-p2/YOLOv9n while keeping inference a single full-image pass.
+          An exploration of monocular depth estimation approaches — absolute vs relative depth —
+          and how to reconstruct pseudo-LiDAR point clouds from camera images using depth maps and camera intrinsics.
         </p>
       </a>
 

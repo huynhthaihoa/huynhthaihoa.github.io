@@ -77,6 +77,11 @@
     <p class="page-subtitle">Khám phá về học sâu, thị giác máy tính và ước lượng độ sâu.</p>
 
     <div class="post-toc">
+      <a href="#sahi-small-objects" class="toc-card fade-up">
+        <span class="blog-tag">Phát hiện đối tượng</span>
+        <div class="toc-title">Tiền xử lý lấy cảm hứng từ Slicing cho Recall Vật thể Nhỏ</div>
+        <div class="toc-date">21/7/2026</div>
+      </a>
       <a href="#knowledge-distillation" class="toc-card fade-up">
         <span class="blog-tag">Học sâu</span>
         <div class="toc-title">Brainstorm về Knowledge Distillation</div>
@@ -92,11 +97,6 @@
         <div class="toc-title">Rolling in the Deep</div>
         <div class="toc-date">4/1/2026</div>
       </a>
-      <a href="#depth-pseudolidar" class="toc-card fade-up">
-        <span class="blog-tag-depth">Ước lượng độ sâu</span>
-        <div class="toc-title">Từ Ước lượng Độ sâu đến Pseudo-LiDAR</div>
-        <div class="toc-date">24/3/2025</div>
-      </a>
       <a href="#perspective-affine" class="toc-card fade-up">
         <span class="blog-tag">Thị giác máy tính</span>
         <div class="toc-title">Perspective Transform và Affine Transform</div>
@@ -107,10 +107,10 @@
         <div class="toc-title">Thuật toán đơn giản Phát hiện Nhìn Điện thoại</div>
         <div class="toc-date">24/11/2025</div>
       </a>
-      <a href="#sahi-small-objects" class="toc-card fade-up">
-        <span class="blog-tag">Phát hiện đối tượng</span>
-        <div class="toc-title">Tiền xử lý lấy cảm hứng từ Slicing cho Recall Vật thể Nhỏ</div>
-        <div class="toc-date">21/7/2026</div>
+      <a href="#depth-pseudolidar" class="toc-card fade-up">
+        <span class="blog-tag-depth">Ước lượng độ sâu</span>
+        <div class="toc-title">Từ Ước lượng Độ sâu đến Pseudo-LiDAR</div>
+        <div class="toc-date">24/3/2025</div>
       </a>
     </div>
   </div>
@@ -119,9 +119,84 @@
 <div class="post-sep"></div>
 
 <!-- ============================================================
-     POST 1 — KNOWLEDGE DISTILLATION BRAINSTORMING
+     POST 1 — SLICING-INSPIRED PREPROCESSING FOR SMALL-OBJECT RECALL
      ============================================================ -->
-<article id="knowledge-distillation" class="blog-article blog-post">
+<article id="sahi-small-objects" class="blog-article blog-post">
+  <div class="container">
+    <header class="post-header">
+      <span class="blog-tag">Phát hiện đối tượng</span>
+      <h2>Tiền xử lý lấy cảm hứng từ Slicing cho Recall Vật thể Nhỏ</h2>
+      <div class="post-date">21/7/2026</div>
+    </header>
+
+    <div class="post-body">
+
+      <h3>Vấn đề</h3>
+      <p>Các bộ phát hiện đối tượng (object detector) tiêu chuẩn được huấn luyện trên ảnh đã resize về một độ phân giải đầu vào cố định (ví dụ <code>640×640</code>). Khi ảnh nguồn có độ phân giải cao và các đối tượng quan tâm nhỏ hoặc ở xa camera — một người đi bộ ở xa, một mã container nhỏ,
+      một công nhân gần rìa sân ga đường sắt — bước resize đó thu nhỏ chúng xuống chỉ còn vài pixel. Phần lớn tín hiệu huấn luyện bị chi phối bởi các đối tượng lớn, dễ nhận diện, và recall trên các đối tượng nhỏ bị suy giảm.</p>
+
+      <hr>
+
+      <h3>Tóm lược về SAHI</h3>
+      <p><strong>SAHI</strong> (<em>Slicing Aided Hyper Inference</em>) giải quyết vấn đề này theo hai cách bổ trợ nhau. <strong>Suy luận hỗ trợ bởi cắt lát (slicing-aided inference)</strong>: thay vì đưa cho bộ phát hiện một ảnh đã giảm độ phân giải, nó cắt ảnh độ phân giải đầy đủ thành các tile chồng lấp nhau, chạy phát hiện độc lập trên mỗi
+      tile ở độ phân giải đầy đủ, sau đó gộp tất cả các phát hiện cấp-tile trở lại tọa độ ảnh gốc bằng NMS. Các đối tượng nhỏ vốn sẽ bị mất khi giảm độ phân giải giờ đây chiếm một phần lớn hơn nhiều trong mỗi tile, nên bộ phát hiện thực sự có đủ pixel để xử lý.
+      <strong>Tinh chỉnh hỗ trợ bởi cắt lát (slicing-aided fine-tuning)</strong>: tập huấn luyện được bổ sung các mảnh cắt từ ảnh gốc, để bộ phát hiện
+      cũng học được các đối tượng nhỏ ở tỷ lệ tương đối lớn hơn. Bài báo cho thấy kết hợp cả hai mang lại mức cải thiện lớn nhất.</p>
+
+      <hr>
+
+      <h3>Điều chỉnh ý tưởng này cho dữ liệu huấn luyện thay vì suy luận</h3>
+      <p>Chạy nhiều lượt cắt (slice) tại thời điểm suy luận rất tốn kém — nó nhân số lượt truyền xuôi (forward pass) trên mỗi ảnh lên nhiều lần, điều này xung đột
+      với ngân sách triển khai thời gian thực. Vì vậy, tôi chỉ giữ lại nửa phía huấn luyện của SAHI: dựa trên cách tinh chỉnh hỗ trợ bởi cắt lát của nó, tôi dùng việc cắt lát để xây dựng một <strong>tập huấn luyện tốt hơn</strong>, và giữ cho bản thân bước suy luận vẫn là một lượt truyền xuôi ảnh-đầy-đủ duy nhất.</p>
+
+      <p>Ở mức tổng quan, bước tiền xử lý:</p>
+      <ol>
+        <li>Cắt mỗi ảnh huấn luyện thành các tile chồng lấp nhau (với kích thước tile và tỷ lệ chồng lấp có thể cấu hình).</li>
+        <li>Ánh xạ lại các bounding box ground-truth vào tọa độ tile, giữ lại các box trên một ngưỡng khả kiến/IoU và loại bỏ hoặc cắt xén phần còn lại.</li>
+        <li>Lấy mẫu vượt mức (oversample) các tile chứa các thực thể đối tượng nhỏ, để phân bố huấn luyện không bị chi phối bởi các crop đối tượng lớn, dễ nhận diện.</li>
+        <li>Trộn các crop đã cắt trở lại với ảnh gốc độ phân giải đầy đủ, để mô hình vẫn thấy được ngữ cảnh cảnh toàn cục (global scene context) và không bị overfit với các thống kê ở thang đo tile.</li>
+      </ol>
+
+      <p>Kết hợp với <strong>YOLOv8-p2</strong> (có thêm một đầu phát hiện P2 độ phân giải cao hơn để tăng độ nhạy với đối tượng nhỏ)
+      và <strong>YOLOv9n</strong> của Ultralytics, bước tiền xử lý này mang lại một mức tăng recall đáng kể trên các đối tượng nhỏ, ở xa, trong khi suy luận
+      vẫn là một lượt truyền xuôi ảnh-đầy-đủ duy nhất, giữ nguyên độ trễ thời gian thực.</p>
+
+      <hr>
+
+      <h3>Phác thảo minh họa</h3>
+      <p>Một phác thảo đơn giản hóa của bước cắt + ánh xạ lại (minh họa, không phải triển khai thực tế):</p>
+      <pre><code>def slice_image(image, boxes, tile_size=640, overlap=0.2, min_visibility=0.3):
+    """Slice an image into overlapping tiles, remapping ground-truth boxes."""
+    stride = int(tile_size * (1 - overlap))
+    tiles = []
+
+    for y in range(0, image.height, stride):
+        for x in range(0, image.width, stride):
+            tile_box = (x, y, x + tile_size, y + tile_size)
+            tile_img = image.crop(tile_box)
+
+            tile_boxes = []
+            for box in boxes:
+                clipped = clip_box(box, tile_box)
+                if visibility(clipped, box) >= min_visibility:
+                    tile_boxes.append(to_tile_coords(clipped, tile_box))
+
+            tiles.append((tile_img, tile_boxes))
+
+    return tiles</code></pre>
+
+      <p>Tài liệu tham khảo: Akyon et al., <a href="https://arxiv.org/abs/2202.06934" target="_blank" rel="noopener">“Slicing Aided Hyper Inference and Fine-tuning for Small Object Detection”</a> (2022).</p>
+
+    </div><!-- /.post-body -->
+  </div>
+</article>
+
+<div class="post-sep"></div>
+
+<!-- ============================================================
+     POST 2 — KNOWLEDGE DISTILLATION BRAINSTORMING
+     ============================================================ -->
+<article id="knowledge-distillation" class="blog-article alt-bg blog-post">
   <div class="container">
     <header class="post-header">
       <span class="blog-tag">Học sâu</span>
@@ -426,9 +501,9 @@
 <div class="post-sep"></div>
 
 <!-- ============================================================
-     POST 2 — 2D VISION UTILITIES
+     POST 3 — 2D VISION UTILITIES
      ============================================================ -->
-<article id="2d-vision" class="blog-article alt-bg blog-post">
+<article id="2d-vision" class="blog-article blog-post">
   <div class="container">
     <header class="post-header">
       <span class="blog-tag">Thị giác máy tính</span>
@@ -505,9 +580,9 @@ def get_rotation(start_point, center_point, rad):
 <div class="post-sep"></div>
 
 <!-- ============================================================
-     POST 3 — ROLLING IN THE DEEP
+     POST 4 — ROLLING IN THE DEEP
      ============================================================ -->
-<article id="rolling-in-the-deep" class="blog-article blog-post">
+<article id="rolling-in-the-deep" class="blog-article alt-bg blog-post">
   <div class="container">
     <header class="post-header">
       <span class="blog-tag-depth">Ước lượng độ sâu</span>
@@ -730,139 +805,6 @@ def get_rotation(start_point, center_point, rad):
         <a href="https://github.com/jspenmar/monodepth_benchmark" target="_blank" rel="noopener" class="ref-link">
           <svg width="14" height="14" fill="currentColor"><use href="#icon-github"></use></svg>
           jspenmar / monodepth_benchmark
-        </a>
-      </div>
-
-    </div><!-- /.post-body -->
-  </div>
-</article>
-
-<div class="post-sep"></div>
-
-<!-- ============================================================
-     POST 4 — FROM DEPTH ESTIMATION TO PSEUDO-LIDAR
-     ============================================================ -->
-<article id="depth-pseudolidar" class="blog-article alt-bg blog-post">
-  <div class="container">
-    <header class="post-header">
-      <span class="blog-tag-depth">Ước lượng độ sâu</span>
-      <h2>Từ Ước lượng Độ sâu đến Pseudo-LiDAR</h2>
-      <div class="post-date">24/3/2025</div>
-    </header>
-
-    <div class="post-body">
-
-      <h3>Nhận thức độ sâu ở con người</h3>
-      <p>Các nghiên cứu về nhận thức độ sâu ở con người cung cấp cái nhìn sâu sắc về các gợi ý hình ảnh (pictorial cues) có thể dùng để ước lượng khoảng cách. Các gợi ý sau thường có thể tìm thấy trong ảnh đơn:</p>
-      <ul>
-        <li><strong>Vị trí trong ảnh</strong>: các vật thể ở xa hơn có xu hướng gần đường chân trời hơn. Khi nằm trên mặt đất, các vật thể cũng xuất hiện cao hơn trong ảnh.</li>
-        <li><strong>Sự che khuất (Occlusion)</strong>: các vật thể gần che khuất các vật thể phía sau — cho biết thứ tự độ sâu nhưng không cho biết khoảng cách chính xác.</li>
-        <li><strong>Mật độ họa tiết (Texture density)</strong>: các bề mặt có họa tiết ở xa hơn xuất hiện mịn hơn (chi tiết nhỏ hơn).</li>
-        <li><strong>Phối cảnh tuyến tính (Linear perspective)</strong>: các đường thẳng, song song trong thế giới thực xuất hiện hội tụ trong ảnh.</li>
-        <li><strong>Kích thước biểu kiến của vật thể</strong>: các vật thể ở xa hơn xuất hiện nhỏ hơn.</li>
-        <li><strong>Bóng đổ &amp; chiếu sáng</strong>: một bề mặt xuất hiện sáng hơn khi pháp tuyến của nó hướng về phía nguồn sáng. Bóng đổ cung cấp thông tin về sự thay đổi độ sâu trong một bề mặt.</li>
-        <li><strong>Độ mờ do lấy nét (Focus blur)</strong>: các vật thể ở phía trước hoặc phía sau mặt phẳng lấy nét xuất hiện mờ.</li>
-        <li><strong>Phối cảnh khí quyển (Aerial perspective)</strong>: các vật thể rất xa có độ tương phản thấp hơn và ngả sắc xanh.</li>
-      </ul>
-
-      <hr>
-
-      <h3>Các cách tiếp cận Ước lượng Độ sâu</h3>
-      <p>Có 2 cách tiếp cận ước lượng độ sâu đơn ảnh (monocular): <strong>ước lượng độ sâu tuyệt đối</strong> và <strong>ước lượng độ sâu tương đối</strong>.</p>
-
-      <h4>1. Ước lượng độ sâu tuyệt đối</h4>
-      <p>Ước lượng độ sâu tuyệt đối (hay theo đơn vị mét - metric) dự đoán giá trị độ sâu cho từng pixel theo đơn vị vật lý tuyệt đối (mét).</p>
-      <ul>
-        <li><strong>Ưu điểm</strong>: các dự đoán có thể được dùng trực tiếp cho các ứng dụng downstream.</li>
-        <li><strong>Nhược điểm</strong>: huấn luyện trên nhiều tập dữ liệu thường làm giảm hiệu năng, đặc biệt khi thang độ sâu khác nhau nhiều (ví dụ trong nhà so với ngoài trời). Các phương pháp này thường bị overfit với một tập dữ liệu cụ thể.</li>
-      </ul>
-
-      <h4>2. Ước lượng độ sâu tương đối</h4>
-      <p>Ước lượng độ sâu tương đối loại bỏ yếu tố thang đo (scale), ước lượng độ sâu của các pixel tương đối với nhau. Hệ số thang đo tuyệt đối là không xác định.</p>
-      <ul>
-        <li><strong>Ưu điểm</strong>: cho phép tổng quát hóa trên nhiều miền dữ liệu — thang đo mét và tham số camera không cần nhất quán.</li>
-        <li><strong>Nhược điểm</strong>: độ sâu dự đoán không có ý nghĩa theo đơn vị mét.</li>
-      </ul>
-
-      <hr>
-
-      <h3>Từ Ước lượng Độ sâu đến Tái tạo 3D</h3>
-      <p>Mối quan hệ giữa một tọa độ 2D $p$ (mặt phẳng ảnh) và tọa độ 3D tương ứng $P_c$ (hệ tọa độ camera) là:</p>
-      <div class="math-display">$$s\,p = A P_c \quad (1)$$</div>
-      <p>trong đó $p = \begin{bmatrix} u\\ v \\ 1 \end{bmatrix}$, $P_c = \begin{bmatrix} X_c\\ Y_c \\ Z_c \end{bmatrix}$, $s$ là hệ số thang đo phối cảnh (projective scaling factor), và $A$ là ma trận nội tại (intrinsic) camera (lý tưởng):</p>
-      <div class="math-display">$$A = \begin{bmatrix} f_x & 0 & c_x \\ 0 & f_y & c_y \\ 0 & 0 & 1 \end{bmatrix} \quad (2)$$</div>
-      <p>Trong thực tế, mọi camera đều có hiện tượng méo ảnh (distortion), vì vậy ta cần hiệu chỉnh (calibrate) trước, tính toán $A$ tối ưu bằng OpenCV, rồi dùng nó để khử méo (undistort) ảnh:</p>
-      <pre><code>camera_matrix = np.zeros(shape=(3, 3))
-camera_matrix[0, 0] = 3.618627944978409e+02
-camera_matrix[0, 2] = 3.140828758355781e+02
-camera_matrix[1, 1] = 3.611479934228698e+02
-camera_matrix[1, 2] = 1.674230039961440e+02
-camera_matrix[2, 2] = 1
-
-dist_coeffs = np.array([-0.115065515143958, 0.023076954804581, 0, 0, 0])
-
-# W, H = image width and height
-A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)
-
-# A is only valid for undistorted pixels: undistort the image (and depth map) with it first
-undistorted = cv2.undistort(image, camera_matrix, dist_coeffs, None, A)</code></pre>
-
-      <div class="callout">
-        💡 Hiệu chỉnh camera là <strong>một quá trình xấp xỉ</strong> — tương tự như machine learning. Chúng ta hiếm khi có được ma trận camera lý tưởng thực sự, nhưng xem kết quả thu được là $A$ để đơn giản hóa.
-      </div>
-
-      <p><strong>Bản đồ độ sâu tuyệt đối</strong> cho ta $Z_c$ (độ sâu dọc theo trục quang học, không phải khoảng cách Euclid tới camera). Các tọa độ còn lại được suy ra từ (1) và (2):</p>
-      <div class="math-display">$$X_c = \frac{Z_c(u - c_x)}{f_x} \quad (3) \qquad Y_c = \frac{Z_c(v - c_y)}{f_y} \quad (4)$$</div>
-      <p>Triển khai Python:</p>
-      <pre><code>def depth_to_3d(D, fx, fy, cx, cy):
-    """Convert absolute depth map to 3D coordinates in camera coordinate system.
-
-    Args:
-        D:  absolute depth map, shape (H, W)
-        fx, fy: focal lengths; cx, cy: principal point
-
-    Returns:
-        3D coordinates, shape (H*W, 3) — each row is (Xc, Yc, Zc)
-    """
-    H, W = D.shape
-    xx, yy = np.tile(range(W), H), np.repeat(range(H), W)
-    Z = D.reshape(-1)
-    Xc = (xx - cx) * Z / fx
-    Yc = (yy - cy) * Z / fy
-    return np.stack([Xc, Yc, Z], axis=1)</code></pre>
-
-      <hr>
-
-      <h3>Tái tạo LiDAR bằng Pseudo-LiDAR</h3>
-      <div class="callout">
-        💡 Một cách để kiểm chứng đề xuất này: thiết lập <strong>4 camera</strong> và <strong>1 LiDAR</strong> trong <strong>môi trường mô phỏng CARLA</strong>, ghi lại dữ liệu, và thử nghiệm với pipeline đầu-cuối (end-to-end).
-      </div>
-      <p>Cho một LiDAR $L$ tạo ra một point cloud 360°, ta tái tạo nó bằng các camera $C_i$. Pipeline đề xuất:</p>
-      <ol>
-        <li>Suy luận bản đồ độ sâu tuyệt đối $D_i$ của mỗi ảnh $I_i$.</li>
-        <li>Tính toán tọa độ 3D $P_{C_i}$ trong hệ tọa độ mỗi camera bằng $D_i$ và ma trận nội tại $A_i$.</li>
-        <li>Biến đổi sang hệ tọa độ LiDAR thông qua phép quay $R_i$ và phép tịnh tiến $t_i$:
-          <div class="math-display">$$P_{L_i} = R_i\,P_{C_i} + t_i \quad (5)$$</div>
-        </li>
-      </ol>
-      <p><strong>Ưu điểm so với LiDAR thực:</strong> chi phí thấp hơn, point cloud màu dày đặc hơn, tiềm năng tốc độ khung hình cao hơn.</p>
-      <p><strong>Nhược điểm:</strong> giới hạn do méo ảnh camera, nhạy cảm với ánh sáng và thời tiết, hiện tượng che khuất thường xuyên, cần ghép nhiều camera (multi-camera stitching), và việc hiệu chỉnh/đồng bộ hóa khó khăn.</p>
-
-      <hr>
-
-      <h3>Tài liệu tham khảo</h3>
-      <div class="ref-links">
-        <a href="https://openaccess.thecvf.com/content_ICCV_2019/papers/van_Dijk_How_Do_Neural_Networks_See_Depth_in_Single_Images_ICCV_2019_paper.pdf" target="_blank" rel="noopener" class="ref-link">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-          How Do Neural Networks See Depth in Single Images? (ICCV 2019)
-        </a>
-        <a href="https://arxiv.org/pdf/2302.12288.pdf" target="_blank" rel="noopener" class="ref-link">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-          ZoeDepth: Zero-shot Transfer by Combining Relative and Metric Depth
-        </a>
-        <a href="https://docs.opencv.org/3.4/d9/d0c/group__calib3d.html" target="_blank" rel="noopener" class="ref-link">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-          OpenCV: Camera Calibration and 3D Reconstruction
         </a>
       </div>
 
@@ -1177,73 +1119,131 @@ if __name__ == "__main__":
 <div class="post-sep"></div>
 
 <!-- ============================================================
-     POST 7 — SLICING-INSPIRED PREPROCESSING FOR SMALL-OBJECT RECALL
+     POST 7 — FROM DEPTH ESTIMATION TO PSEUDO-LIDAR
      ============================================================ -->
-<article id="sahi-small-objects" class="blog-article blog-post">
+<article id="depth-pseudolidar" class="blog-article blog-post">
   <div class="container">
     <header class="post-header">
-      <span class="blog-tag">Phát hiện đối tượng</span>
-      <h2>Tiền xử lý lấy cảm hứng từ Slicing cho Recall Vật thể Nhỏ</h2>
-      <div class="post-date">21/7/2026</div>
+      <span class="blog-tag-depth">Ước lượng độ sâu</span>
+      <h2>Từ Ước lượng Độ sâu đến Pseudo-LiDAR</h2>
+      <div class="post-date">24/3/2025</div>
     </header>
 
     <div class="post-body">
 
-      <h3>Vấn đề</h3>
-      <p>Các bộ phát hiện đối tượng (object detector) tiêu chuẩn được huấn luyện trên ảnh đã resize về một độ phân giải đầu vào cố định (ví dụ <code>640×640</code>). Khi ảnh nguồn có độ phân giải cao và các đối tượng quan tâm nhỏ hoặc ở xa camera — một người đi bộ ở xa, một mã container nhỏ,
-      một công nhân gần rìa sân ga đường sắt — bước resize đó thu nhỏ chúng xuống chỉ còn vài pixel. Phần lớn tín hiệu huấn luyện bị chi phối bởi các đối tượng lớn, dễ nhận diện, và recall trên các đối tượng nhỏ bị suy giảm.</p>
+      <h3>Nhận thức độ sâu ở con người</h3>
+      <p>Các nghiên cứu về nhận thức độ sâu ở con người cung cấp cái nhìn sâu sắc về các gợi ý hình ảnh (pictorial cues) có thể dùng để ước lượng khoảng cách. Các gợi ý sau thường có thể tìm thấy trong ảnh đơn:</p>
+      <ul>
+        <li><strong>Vị trí trong ảnh</strong>: các vật thể ở xa hơn có xu hướng gần đường chân trời hơn. Khi nằm trên mặt đất, các vật thể cũng xuất hiện cao hơn trong ảnh.</li>
+        <li><strong>Sự che khuất (Occlusion)</strong>: các vật thể gần che khuất các vật thể phía sau — cho biết thứ tự độ sâu nhưng không cho biết khoảng cách chính xác.</li>
+        <li><strong>Mật độ họa tiết (Texture density)</strong>: các bề mặt có họa tiết ở xa hơn xuất hiện mịn hơn (chi tiết nhỏ hơn).</li>
+        <li><strong>Phối cảnh tuyến tính (Linear perspective)</strong>: các đường thẳng, song song trong thế giới thực xuất hiện hội tụ trong ảnh.</li>
+        <li><strong>Kích thước biểu kiến của vật thể</strong>: các vật thể ở xa hơn xuất hiện nhỏ hơn.</li>
+        <li><strong>Bóng đổ &amp; chiếu sáng</strong>: một bề mặt xuất hiện sáng hơn khi pháp tuyến của nó hướng về phía nguồn sáng. Bóng đổ cung cấp thông tin về sự thay đổi độ sâu trong một bề mặt.</li>
+        <li><strong>Độ mờ do lấy nét (Focus blur)</strong>: các vật thể ở phía trước hoặc phía sau mặt phẳng lấy nét xuất hiện mờ.</li>
+        <li><strong>Phối cảnh khí quyển (Aerial perspective)</strong>: các vật thể rất xa có độ tương phản thấp hơn và ngả sắc xanh.</li>
+      </ul>
 
       <hr>
 
-      <h3>Tóm lược về SAHI</h3>
-      <p><strong>SAHI</strong> (<em>Slicing Aided Hyper Inference</em>) giải quyết vấn đề này theo hai cách bổ trợ nhau. <strong>Suy luận hỗ trợ bởi cắt lát (slicing-aided inference)</strong>: thay vì đưa cho bộ phát hiện một ảnh đã giảm độ phân giải, nó cắt ảnh độ phân giải đầy đủ thành các tile chồng lấp nhau, chạy phát hiện độc lập trên mỗi
-      tile ở độ phân giải đầy đủ, sau đó gộp tất cả các phát hiện cấp-tile trở lại tọa độ ảnh gốc bằng NMS. Các đối tượng nhỏ vốn sẽ bị mất khi giảm độ phân giải giờ đây chiếm một phần lớn hơn nhiều trong mỗi tile, nên bộ phát hiện thực sự có đủ pixel để xử lý.
-      <strong>Tinh chỉnh hỗ trợ bởi cắt lát (slicing-aided fine-tuning)</strong>: tập huấn luyện được bổ sung các mảnh cắt từ ảnh gốc, để bộ phát hiện
-      cũng học được các đối tượng nhỏ ở tỷ lệ tương đối lớn hơn. Bài báo cho thấy kết hợp cả hai mang lại mức cải thiện lớn nhất.</p>
+      <h3>Các cách tiếp cận Ước lượng Độ sâu</h3>
+      <p>Có 2 cách tiếp cận ước lượng độ sâu đơn ảnh (monocular): <strong>ước lượng độ sâu tuyệt đối</strong> và <strong>ước lượng độ sâu tương đối</strong>.</p>
+
+      <h4>1. Ước lượng độ sâu tuyệt đối</h4>
+      <p>Ước lượng độ sâu tuyệt đối (hay theo đơn vị mét - metric) dự đoán giá trị độ sâu cho từng pixel theo đơn vị vật lý tuyệt đối (mét).</p>
+      <ul>
+        <li><strong>Ưu điểm</strong>: các dự đoán có thể được dùng trực tiếp cho các ứng dụng downstream.</li>
+        <li><strong>Nhược điểm</strong>: huấn luyện trên nhiều tập dữ liệu thường làm giảm hiệu năng, đặc biệt khi thang độ sâu khác nhau nhiều (ví dụ trong nhà so với ngoài trời). Các phương pháp này thường bị overfit với một tập dữ liệu cụ thể.</li>
+      </ul>
+
+      <h4>2. Ước lượng độ sâu tương đối</h4>
+      <p>Ước lượng độ sâu tương đối loại bỏ yếu tố thang đo (scale), ước lượng độ sâu của các pixel tương đối với nhau. Hệ số thang đo tuyệt đối là không xác định.</p>
+      <ul>
+        <li><strong>Ưu điểm</strong>: cho phép tổng quát hóa trên nhiều miền dữ liệu — thang đo mét và tham số camera không cần nhất quán.</li>
+        <li><strong>Nhược điểm</strong>: độ sâu dự đoán không có ý nghĩa theo đơn vị mét.</li>
+      </ul>
 
       <hr>
 
-      <h3>Điều chỉnh ý tưởng này cho dữ liệu huấn luyện thay vì suy luận</h3>
-      <p>Chạy nhiều lượt cắt (slice) tại thời điểm suy luận rất tốn kém — nó nhân số lượt truyền xuôi (forward pass) trên mỗi ảnh lên nhiều lần, điều này xung đột
-      với ngân sách triển khai thời gian thực. Vì vậy, tôi chỉ giữ lại nửa phía huấn luyện của SAHI: dựa trên cách tinh chỉnh hỗ trợ bởi cắt lát của nó, tôi dùng việc cắt lát để xây dựng một <strong>tập huấn luyện tốt hơn</strong>, và giữ cho bản thân bước suy luận vẫn là một lượt truyền xuôi ảnh-đầy-đủ duy nhất.</p>
+      <h3>Từ Ước lượng Độ sâu đến Tái tạo 3D</h3>
+      <p>Mối quan hệ giữa một tọa độ 2D $p$ (mặt phẳng ảnh) và tọa độ 3D tương ứng $P_c$ (hệ tọa độ camera) là:</p>
+      <div class="math-display">$$s\,p = A P_c \quad (1)$$</div>
+      <p>trong đó $p = \begin{bmatrix} u\\ v \\ 1 \end{bmatrix}$, $P_c = \begin{bmatrix} X_c\\ Y_c \\ Z_c \end{bmatrix}$, $s$ là hệ số thang đo phối cảnh (projective scaling factor), và $A$ là ma trận nội tại (intrinsic) camera (lý tưởng):</p>
+      <div class="math-display">$$A = \begin{bmatrix} f_x & 0 & c_x \\ 0 & f_y & c_y \\ 0 & 0 & 1 \end{bmatrix} \quad (2)$$</div>
+      <p>Trong thực tế, mọi camera đều có hiện tượng méo ảnh (distortion), vì vậy ta cần hiệu chỉnh (calibrate) trước, tính toán $A$ tối ưu bằng OpenCV, rồi dùng nó để khử méo (undistort) ảnh:</p>
+      <pre><code>camera_matrix = np.zeros(shape=(3, 3))
+camera_matrix[0, 0] = 3.618627944978409e+02
+camera_matrix[0, 2] = 3.140828758355781e+02
+camera_matrix[1, 1] = 3.611479934228698e+02
+camera_matrix[1, 2] = 1.674230039961440e+02
+camera_matrix[2, 2] = 1
 
-      <p>Ở mức tổng quan, bước tiền xử lý:</p>
+dist_coeffs = np.array([-0.115065515143958, 0.023076954804581, 0, 0, 0])
+
+# W, H = image width and height
+A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)
+
+# A is only valid for undistorted pixels: undistort the image (and depth map) with it first
+undistorted = cv2.undistort(image, camera_matrix, dist_coeffs, None, A)</code></pre>
+
+      <div class="callout">
+        💡 Hiệu chỉnh camera là <strong>một quá trình xấp xỉ</strong> — tương tự như machine learning. Chúng ta hiếm khi có được ma trận camera lý tưởng thực sự, nhưng xem kết quả thu được là $A$ để đơn giản hóa.
+      </div>
+
+      <p><strong>Bản đồ độ sâu tuyệt đối</strong> cho ta $Z_c$ (độ sâu dọc theo trục quang học, không phải khoảng cách Euclid tới camera). Các tọa độ còn lại được suy ra từ (1) và (2):</p>
+      <div class="math-display">$$X_c = \frac{Z_c(u - c_x)}{f_x} \quad (3) \qquad Y_c = \frac{Z_c(v - c_y)}{f_y} \quad (4)$$</div>
+      <p>Triển khai Python:</p>
+      <pre><code>def depth_to_3d(D, fx, fy, cx, cy):
+    """Convert absolute depth map to 3D coordinates in camera coordinate system.
+
+    Args:
+        D:  absolute depth map, shape (H, W)
+        fx, fy: focal lengths; cx, cy: principal point
+
+    Returns:
+        3D coordinates, shape (H*W, 3) — each row is (Xc, Yc, Zc)
+    """
+    H, W = D.shape
+    xx, yy = np.tile(range(W), H), np.repeat(range(H), W)
+    Z = D.reshape(-1)
+    Xc = (xx - cx) * Z / fx
+    Yc = (yy - cy) * Z / fy
+    return np.stack([Xc, Yc, Z], axis=1)</code></pre>
+
+      <hr>
+
+      <h3>Tái tạo LiDAR bằng Pseudo-LiDAR</h3>
+      <div class="callout">
+        💡 Một cách để kiểm chứng đề xuất này: thiết lập <strong>4 camera</strong> và <strong>1 LiDAR</strong> trong <strong>môi trường mô phỏng CARLA</strong>, ghi lại dữ liệu, và thử nghiệm với pipeline đầu-cuối (end-to-end).
+      </div>
+      <p>Cho một LiDAR $L$ tạo ra một point cloud 360°, ta tái tạo nó bằng các camera $C_i$. Pipeline đề xuất:</p>
       <ol>
-        <li>Cắt mỗi ảnh huấn luyện thành các tile chồng lấp nhau (với kích thước tile và tỷ lệ chồng lấp có thể cấu hình).</li>
-        <li>Ánh xạ lại các bounding box ground-truth vào tọa độ tile, giữ lại các box trên một ngưỡng khả kiến/IoU và loại bỏ hoặc cắt xén phần còn lại.</li>
-        <li>Lấy mẫu vượt mức (oversample) các tile chứa các thực thể đối tượng nhỏ, để phân bố huấn luyện không bị chi phối bởi các crop đối tượng lớn, dễ nhận diện.</li>
-        <li>Trộn các crop đã cắt trở lại với ảnh gốc độ phân giải đầy đủ, để mô hình vẫn thấy được ngữ cảnh cảnh toàn cục (global scene context) và không bị overfit với các thống kê ở thang đo tile.</li>
+        <li>Suy luận bản đồ độ sâu tuyệt đối $D_i$ của mỗi ảnh $I_i$.</li>
+        <li>Tính toán tọa độ 3D $P_{C_i}$ trong hệ tọa độ mỗi camera bằng $D_i$ và ma trận nội tại $A_i$.</li>
+        <li>Biến đổi sang hệ tọa độ LiDAR thông qua phép quay $R_i$ và phép tịnh tiến $t_i$:
+          <div class="math-display">$$P_{L_i} = R_i\,P_{C_i} + t_i \quad (5)$$</div>
+        </li>
       </ol>
-
-      <p>Kết hợp với <strong>YOLOv8-p2</strong> (có thêm một đầu phát hiện P2 độ phân giải cao hơn để tăng độ nhạy với đối tượng nhỏ)
-      và <strong>YOLOv9n</strong> của Ultralytics, bước tiền xử lý này mang lại một mức tăng recall đáng kể trên các đối tượng nhỏ, ở xa, trong khi suy luận
-      vẫn là một lượt truyền xuôi ảnh-đầy-đủ duy nhất, giữ nguyên độ trễ thời gian thực.</p>
+      <p><strong>Ưu điểm so với LiDAR thực:</strong> chi phí thấp hơn, point cloud màu dày đặc hơn, tiềm năng tốc độ khung hình cao hơn.</p>
+      <p><strong>Nhược điểm:</strong> giới hạn do méo ảnh camera, nhạy cảm với ánh sáng và thời tiết, hiện tượng che khuất thường xuyên, cần ghép nhiều camera (multi-camera stitching), và việc hiệu chỉnh/đồng bộ hóa khó khăn.</p>
 
       <hr>
 
-      <h3>Phác thảo minh họa</h3>
-      <p>Một phác thảo đơn giản hóa của bước cắt + ánh xạ lại (minh họa, không phải triển khai thực tế):</p>
-      <pre><code>def slice_image(image, boxes, tile_size=640, overlap=0.2, min_visibility=0.3):
-    """Slice an image into overlapping tiles, remapping ground-truth boxes."""
-    stride = int(tile_size * (1 - overlap))
-    tiles = []
-
-    for y in range(0, image.height, stride):
-        for x in range(0, image.width, stride):
-            tile_box = (x, y, x + tile_size, y + tile_size)
-            tile_img = image.crop(tile_box)
-
-            tile_boxes = []
-            for box in boxes:
-                clipped = clip_box(box, tile_box)
-                if visibility(clipped, box) >= min_visibility:
-                    tile_boxes.append(to_tile_coords(clipped, tile_box))
-
-            tiles.append((tile_img, tile_boxes))
-
-    return tiles</code></pre>
-
-      <p>Tài liệu tham khảo: Akyon et al., <a href="https://arxiv.org/abs/2202.06934" target="_blank" rel="noopener">“Slicing Aided Hyper Inference and Fine-tuning for Small Object Detection”</a> (2022).</p>
+      <h3>Tài liệu tham khảo</h3>
+      <div class="ref-links">
+        <a href="https://openaccess.thecvf.com/content_ICCV_2019/papers/van_Dijk_How_Do_Neural_Networks_See_Depth_in_Single_Images_ICCV_2019_paper.pdf" target="_blank" rel="noopener" class="ref-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          How Do Neural Networks See Depth in Single Images? (ICCV 2019)
+        </a>
+        <a href="https://arxiv.org/pdf/2302.12288.pdf" target="_blank" rel="noopener" class="ref-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          ZoeDepth: Zero-shot Transfer by Combining Relative and Metric Depth
+        </a>
+        <a href="https://docs.opencv.org/3.4/d9/d0c/group__calib3d.html" target="_blank" rel="noopener" class="ref-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          OpenCV: Camera Calibration and 3D Reconstruction
+        </a>
+      </div>
 
     </div><!-- /.post-body -->
   </div>

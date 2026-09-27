@@ -77,6 +77,11 @@
     <p class="page-subtitle">Explorations in deep learning, computer vision, and depth estimation.</p>
 
     <div class="post-toc">
+      <a href="#sahi-small-objects" class="toc-card fade-up">
+        <span class="blog-tag">Object Detection</span>
+        <div class="toc-title">Slicing-Inspired Preprocessing for Small-Object Recall</div>
+        <div class="toc-date">July 21, 2026</div>
+      </a>
       <a href="#knowledge-distillation" class="toc-card fade-up">
         <span class="blog-tag">Deep Learning</span>
         <div class="toc-title">Knowledge Distillation Brainstorming</div>
@@ -92,11 +97,6 @@
         <div class="toc-title">Rolling in the Deep</div>
         <div class="toc-date">January 4, 2026</div>
       </a>
-      <a href="#depth-pseudolidar" class="toc-card fade-up">
-        <span class="blog-tag-depth">Depth Estimation</span>
-        <div class="toc-title">From Depth Estimation to Pseudo-LiDAR</div>
-        <div class="toc-date">March 24, 2025</div>
-      </a>
       <a href="#perspective-affine" class="toc-card fade-up">
         <span class="blog-tag">Computer Vision</span>
         <div class="toc-title">Perspective Transform vs Affine Transform</div>
@@ -107,10 +107,10 @@
         <div class="toc-title">Simple Looking-at-Phone Algorithm</div>
         <div class="toc-date">November 24, 2025</div>
       </a>
-      <a href="#sahi-small-objects" class="toc-card fade-up">
-        <span class="blog-tag">Object Detection</span>
-        <div class="toc-title">Slicing-Inspired Preprocessing for Small-Object Recall</div>
-        <div class="toc-date">July 21, 2026</div>
+      <a href="#depth-pseudolidar" class="toc-card fade-up">
+        <span class="blog-tag-depth">Depth Estimation</span>
+        <div class="toc-title">From Depth Estimation to Pseudo-LiDAR</div>
+        <div class="toc-date">March 24, 2025</div>
       </a>
     </div>
   </div>
@@ -119,9 +119,89 @@
 <div class="post-sep"></div>
 
 <!-- ============================================================
-     POST 1 — KNOWLEDGE DISTILLATION BRAINSTORMING
+     POST 1 — SLICING-INSPIRED PREPROCESSING FOR SMALL-OBJECT RECALL
      ============================================================ -->
-<article id="knowledge-distillation" class="blog-article blog-post">
+<article id="sahi-small-objects" class="blog-article blog-post">
+  <div class="container">
+    <header class="post-header">
+      <span class="blog-tag">Object Detection</span>
+      <h2>Slicing-Inspired Preprocessing for Small-Object Recall</h2>
+      <div class="post-date">July 21, 2026</div>
+    </header>
+
+    <div class="post-body">
+
+      <h3>The Problem</h3>
+      <p>Standard object detectors are trained on images resized to a fixed input resolution (e.g. <code>640×640</code>). When the source
+      images are high-resolution and objects of interest are small or far from the camera — a distant pedestrian, a small container code,
+      a worker near the edge of a railway platform — that resize step shrinks them down to just a handful of pixels. Most of the training
+      signal ends up dominated by large, easy objects, and recall on the small ones suffers.</p>
+
+      <hr>
+
+      <h3>SAHI in a Nutshell</h3>
+      <p><strong>SAHI</strong> (<em>Slicing Aided Hyper Inference</em>) tackles this in two complementary ways. <strong>Slicing-aided inference</strong>: instead of feeding
+      the detector one downscaled image, it slices the full-resolution image into overlapping tiles, runs detection independently on each
+      tile at full resolution, then merges all tile-level detections back into original image coordinates with NMS. Small objects that
+      would've been lost to downscaling now occupy a much larger fraction of each tile, so the detector actually has pixels to work with.
+      <strong>Slicing-aided fine-tuning</strong>: the training set is augmented with patches sliced from the original images, so the detector
+      also learns from small objects at a larger relative scale. The paper reports that combining both gives the largest gains.</p>
+
+      <hr>
+
+      <h3>Adapting the Idea for Training Data Instead</h3>
+      <p>Running multiple slice passes at inference is expensive — it multiplies the number of forward passes per image, which conflicts
+      with a real-time deployment budget. So I kept only the training-side half of SAHI: building on its slicing-aided fine-tuning, I use slicing to build
+      a <strong>better training set</strong>, and keep inference itself as a single full-image forward pass.</p>
+
+      <p>At a high level, the preprocessing step:</p>
+      <ol>
+        <li>Slices each training image into overlapping tiles (with a configurable tile size and overlap ratio).</li>
+        <li>Remaps ground-truth boxes into tile coordinates, keeping boxes above a visibility/IoU threshold and dropping or clipping the rest.</li>
+        <li>Oversamples tiles that contain small-object instances, so the training distribution isn't dominated by easy, large-object crops.</li>
+        <li>Mixes the sliced crops back in with the original full-resolution images, so the model still sees global scene context and doesn't overfit to tile-scale statistics.</li>
+      </ol>
+
+      <p>Paired with Ultralytics' <strong>YOLOv8-p2</strong> (which adds a higher-resolution P2 detection head for small-object
+      sensitivity) and <strong>YOLOv9n</strong>, this preprocessing step gave a meaningful recall boost on small, distant objects, while inference
+      stayed a single full-image pass, keeping real-time latency intact.</p>
+
+      <hr>
+
+      <h3>Illustrative Sketch</h3>
+      <p>A simplified sketch of the slicing + remapping step (illustrative, not the production implementation):</p>
+      <pre><code>def slice_image(image, boxes, tile_size=640, overlap=0.2, min_visibility=0.3):
+    """Slice an image into overlapping tiles, remapping ground-truth boxes."""
+    stride = int(tile_size * (1 - overlap))
+    tiles = []
+
+    for y in range(0, image.height, stride):
+        for x in range(0, image.width, stride):
+            tile_box = (x, y, x + tile_size, y + tile_size)
+            tile_img = image.crop(tile_box)
+
+            tile_boxes = []
+            for box in boxes:
+                clipped = clip_box(box, tile_box)
+                if visibility(clipped, box) >= min_visibility:
+                    tile_boxes.append(to_tile_coords(clipped, tile_box))
+
+            tiles.append((tile_img, tile_boxes))
+
+    return tiles</code></pre>
+
+      <p>Reference: Akyon et al., <a href="https://arxiv.org/abs/2202.06934" target="_blank" rel="noopener">“Slicing Aided Hyper Inference and Fine-tuning for Small Object Detection”</a> (2022).</p>
+
+    </div><!-- /.post-body -->
+  </div>
+</article>
+
+<div class="post-sep"></div>
+
+<!-- ============================================================
+     POST 2 — KNOWLEDGE DISTILLATION BRAINSTORMING
+     ============================================================ -->
+<article id="knowledge-distillation" class="blog-article alt-bg blog-post">
   <div class="container">
     <header class="post-header">
       <span class="blog-tag">Deep Learning</span>
@@ -426,9 +506,9 @@
 <div class="post-sep"></div>
 
 <!-- ============================================================
-     POST 2 — 2D VISION UTILITIES
+     POST 3 — 2D VISION UTILITIES
      ============================================================ -->
-<article id="2d-vision" class="blog-article alt-bg blog-post">
+<article id="2d-vision" class="blog-article blog-post">
   <div class="container">
     <header class="post-header">
       <span class="blog-tag">Computer Vision</span>
@@ -505,9 +585,9 @@ def get_rotation(start_point, center_point, rad):
 <div class="post-sep"></div>
 
 <!-- ============================================================
-     POST 3 — ROLLING IN THE DEEP
+     POST 4 — ROLLING IN THE DEEP
      ============================================================ -->
-<article id="rolling-in-the-deep" class="blog-article blog-post">
+<article id="rolling-in-the-deep" class="blog-article alt-bg blog-post">
   <div class="container">
     <header class="post-header">
       <span class="blog-tag-depth">Depth Estimation</span>
@@ -730,139 +810,6 @@ def get_rotation(start_point, center_point, rad):
         <a href="https://github.com/jspenmar/monodepth_benchmark" target="_blank" rel="noopener" class="ref-link">
           <svg width="14" height="14" fill="currentColor"><use href="#icon-github"></use></svg>
           jspenmar / monodepth_benchmark
-        </a>
-      </div>
-
-    </div><!-- /.post-body -->
-  </div>
-</article>
-
-<div class="post-sep"></div>
-
-<!-- ============================================================
-     POST 4 — FROM DEPTH ESTIMATION TO PSEUDO-LIDAR
-     ============================================================ -->
-<article id="depth-pseudolidar" class="blog-article alt-bg blog-post">
-  <div class="container">
-    <header class="post-header">
-      <span class="blog-tag-depth">Depth Estimation</span>
-      <h2>From Depth Estimation to Pseudo-LiDAR</h2>
-      <div class="post-date">March 24, 2025</div>
-    </header>
-
-    <div class="post-body">
-
-      <h3>Human Depth Perception</h3>
-      <p>Literature on human depth perception provides insight into the pictorial cues that could be used to estimate distance. The following cues can typically be found in single images:</p>
-      <ul>
-        <li><strong>Position in the image</strong>: objects farther away tend to be closer to the horizon. When resting on the ground, objects also appear higher in the image.</li>
-        <li><strong>Occlusion</strong>: close objects occlude those behind them — provides depth order but not exact distance.</li>
-        <li><strong>Texture density</strong>: textured surfaces that are farther away appear more fine-grained.</li>
-        <li><strong>Linear perspective</strong>: straight, parallel lines in the physical world appear to converge in the image.</li>
-        <li><strong>Apparent object size</strong>: objects farther away appear smaller.</li>
-        <li><strong>Shading &amp; illumination</strong>: a surface appears brighter when its normal points toward a light source. Shading provides depth change info within a surface.</li>
-        <li><strong>Focus blur</strong>: objects in front or behind the focal plane appear blurred.</li>
-        <li><strong>Aerial perspective</strong>: very far objects have less contrast and take on a bluish tint.</li>
-      </ul>
-
-      <hr>
-
-      <h3>Depth Estimation Approaches</h3>
-      <p>There are 2 monocular depth estimation approaches: <strong>absolute depth estimation</strong> and <strong>relative depth estimation</strong>.</p>
-
-      <h4>1. Absolute Depth Estimation</h4>
-      <p>Absolute (or metric) depth estimation predicts per-pixel depth values in absolute physical units (meters).</p>
-      <ul>
-        <li><strong>Advantage</strong>: predictions can be directly used for downstream applications.</li>
-        <li><strong>Disadvantage</strong>: training across multiple datasets often deteriorates performance, especially when depth scales differ greatly (e.g. indoor vs. outdoor). These methods usually overfit to a specific dataset.</li>
-      </ul>
-
-      <h4>2. Relative Depth Estimation</h4>
-      <p>Relative depth estimation factors out the scale, estimating depths of pixels relative to each other. The absolute scale factor is unknown.</p>
-      <ul>
-        <li><strong>Advantage</strong>: enables generalization across domains — metric scale and camera parameters need not be consistent.</li>
-        <li><strong>Disadvantage</strong>: the predicted depth has no metric meaning.</li>
-      </ul>
-
-      <hr>
-
-      <h3>From Depth Estimation to 3D Reconstruction</h3>
-      <p>The relation between a 2D coordinate $p$ (image plane) and its 3D coordinate $P_c$ (camera coordinate system) is:</p>
-      <div class="math-display">$$s\,p = A P_c \quad (1)$$</div>
-      <p>where $p = \begin{bmatrix} u\\ v \\ 1 \end{bmatrix}$, $P_c = \begin{bmatrix} X_c\\ Y_c \\ Z_c \end{bmatrix}$, $s$ is the projective scaling factor, and $A$ is the (ideal) camera intrinsic matrix:</p>
-      <div class="math-display">$$A = \begin{bmatrix} f_x & 0 & c_x \\ 0 & f_y & c_y \\ 0 & 0 & 1 \end{bmatrix} \quad (2)$$</div>
-      <p>In practice every camera has distortion, so we calibrate first, compute the optimal $A$ via OpenCV, and undistort the image with it:</p>
-      <pre><code>camera_matrix = np.zeros(shape=(3, 3))
-camera_matrix[0, 0] = 3.618627944978409e+02
-camera_matrix[0, 2] = 3.140828758355781e+02
-camera_matrix[1, 1] = 3.611479934228698e+02
-camera_matrix[1, 2] = 1.674230039961440e+02
-camera_matrix[2, 2] = 1
-
-dist_coeffs = np.array([-0.115065515143958, 0.023076954804581, 0, 0, 0])
-
-# W, H = image width and height
-A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)
-
-# A is only valid for undistorted pixels: undistort the image (and depth map) with it first
-undistorted = cv2.undistort(image, camera_matrix, dist_coeffs, None, A)</code></pre>
-
-      <div class="callout">
-        💡 Camera calibration is <strong>an approximation process</strong> — similar to machine learning. We seldom get the actual ideal camera matrix, but treat the result as $A$ for simplification.
-      </div>
-
-      <p>The <strong>absolute depth map</strong> gives $Z_c$ (the depth along the optical axis, not the Euclidean distance to the camera). The remaining coordinates follow from (1) and (2):</p>
-      <div class="math-display">$$X_c = \frac{Z_c(u - c_x)}{f_x} \quad (3) \qquad Y_c = \frac{Z_c(v - c_y)}{f_y} \quad (4)$$</div>
-      <p>Python implementation:</p>
-      <pre><code>def depth_to_3d(D, fx, fy, cx, cy):
-    """Convert absolute depth map to 3D coordinates in camera coordinate system.
-
-    Args:
-        D:  absolute depth map, shape (H, W)
-        fx, fy: focal lengths; cx, cy: principal point
-
-    Returns:
-        3D coordinates, shape (H*W, 3) — each row is (Xc, Yc, Zc)
-    """
-    H, W = D.shape
-    xx, yy = np.tile(range(W), H), np.repeat(range(H), W)
-    Z = D.reshape(-1)
-    Xc = (xx - cx) * Z / fx
-    Yc = (yy - cy) * Z / fy
-    return np.stack([Xc, Yc, Z], axis=1)</code></pre>
-
-      <hr>
-
-      <h3>Replicate LiDAR with Pseudo-LiDAR</h3>
-      <div class="callout">
-        💡 A way to validate this proposal: set up <strong>4 cameras</strong> and <strong>1 LiDAR</strong> in the <strong>CARLA simulation environment</strong>, record data, and experiment with the end-to-end pipeline.
-      </div>
-      <p>Given LiDAR $L$ producing a 360° point cloud, we replicate it using cameras $C_i$. Proposed pipeline:</p>
-      <ol>
-        <li>Infer absolute depth map $D_i$ of each image $I_i$.</li>
-        <li>Compute 3D coordinates $P_{C_i}$ in each camera coordinate system using $D_i$ and intrinsic matrix $A_i$.</li>
-        <li>Transform to the LiDAR coordinate system via rotation $R_i$ and translation $t_i$:
-          <div class="math-display">$$P_{L_i} = R_i\,P_{C_i} + t_i \quad (5)$$</div>
-        </li>
-      </ol>
-      <p><strong>Advantages over actual LiDAR:</strong> lower cost, denser color point cloud, potentially higher frame rate.</p>
-      <p><strong>Disadvantages:</strong> camera distortion limits, sensitivity to lighting and weather, frequent occlusion, need for multi-camera stitching, and difficult calibration/synchronization.</p>
-
-      <hr>
-
-      <h3>References</h3>
-      <div class="ref-links">
-        <a href="https://openaccess.thecvf.com/content_ICCV_2019/papers/van_Dijk_How_Do_Neural_Networks_See_Depth_in_Single_Images_ICCV_2019_paper.pdf" target="_blank" rel="noopener" class="ref-link">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-          How Do Neural Networks See Depth in Single Images? (ICCV 2019)
-        </a>
-        <a href="https://arxiv.org/pdf/2302.12288.pdf" target="_blank" rel="noopener" class="ref-link">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-          ZoeDepth: Zero-shot Transfer by Combining Relative and Metric Depth
-        </a>
-        <a href="https://docs.opencv.org/3.4/d9/d0c/group__calib3d.html" target="_blank" rel="noopener" class="ref-link">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-          OpenCV: Camera Calibration and 3D Reconstruction
         </a>
       </div>
 
@@ -1177,78 +1124,131 @@ if __name__ == "__main__":
 <div class="post-sep"></div>
 
 <!-- ============================================================
-     POST 7 — SLICING-INSPIRED PREPROCESSING FOR SMALL-OBJECT RECALL
+     POST 7 — FROM DEPTH ESTIMATION TO PSEUDO-LIDAR
      ============================================================ -->
-<article id="sahi-small-objects" class="blog-article blog-post">
+<article id="depth-pseudolidar" class="blog-article blog-post">
   <div class="container">
     <header class="post-header">
-      <span class="blog-tag">Object Detection</span>
-      <h2>Slicing-Inspired Preprocessing for Small-Object Recall</h2>
-      <div class="post-date">July 21, 2026</div>
+      <span class="blog-tag-depth">Depth Estimation</span>
+      <h2>From Depth Estimation to Pseudo-LiDAR</h2>
+      <div class="post-date">March 24, 2025</div>
     </header>
 
     <div class="post-body">
 
-      <h3>The Problem</h3>
-      <p>Standard object detectors are trained on images resized to a fixed input resolution (e.g. <code>640×640</code>). When the source
-      images are high-resolution and objects of interest are small or far from the camera — a distant pedestrian, a small container code,
-      a worker near the edge of a railway platform — that resize step shrinks them down to just a handful of pixels. Most of the training
-      signal ends up dominated by large, easy objects, and recall on the small ones suffers.</p>
+      <h3>Human Depth Perception</h3>
+      <p>Literature on human depth perception provides insight into the pictorial cues that could be used to estimate distance. The following cues can typically be found in single images:</p>
+      <ul>
+        <li><strong>Position in the image</strong>: objects farther away tend to be closer to the horizon. When resting on the ground, objects also appear higher in the image.</li>
+        <li><strong>Occlusion</strong>: close objects occlude those behind them — provides depth order but not exact distance.</li>
+        <li><strong>Texture density</strong>: textured surfaces that are farther away appear more fine-grained.</li>
+        <li><strong>Linear perspective</strong>: straight, parallel lines in the physical world appear to converge in the image.</li>
+        <li><strong>Apparent object size</strong>: objects farther away appear smaller.</li>
+        <li><strong>Shading &amp; illumination</strong>: a surface appears brighter when its normal points toward a light source. Shading provides depth change info within a surface.</li>
+        <li><strong>Focus blur</strong>: objects in front or behind the focal plane appear blurred.</li>
+        <li><strong>Aerial perspective</strong>: very far objects have less contrast and take on a bluish tint.</li>
+      </ul>
 
       <hr>
 
-      <h3>SAHI in a Nutshell</h3>
-      <p><strong>SAHI</strong> (<em>Slicing Aided Hyper Inference</em>) tackles this in two complementary ways. <strong>Slicing-aided inference</strong>: instead of feeding
-      the detector one downscaled image, it slices the full-resolution image into overlapping tiles, runs detection independently on each
-      tile at full resolution, then merges all tile-level detections back into original image coordinates with NMS. Small objects that
-      would've been lost to downscaling now occupy a much larger fraction of each tile, so the detector actually has pixels to work with.
-      <strong>Slicing-aided fine-tuning</strong>: the training set is augmented with patches sliced from the original images, so the detector
-      also learns from small objects at a larger relative scale. The paper reports that combining both gives the largest gains.</p>
+      <h3>Depth Estimation Approaches</h3>
+      <p>There are 2 monocular depth estimation approaches: <strong>absolute depth estimation</strong> and <strong>relative depth estimation</strong>.</p>
+
+      <h4>1. Absolute Depth Estimation</h4>
+      <p>Absolute (or metric) depth estimation predicts per-pixel depth values in absolute physical units (meters).</p>
+      <ul>
+        <li><strong>Advantage</strong>: predictions can be directly used for downstream applications.</li>
+        <li><strong>Disadvantage</strong>: training across multiple datasets often deteriorates performance, especially when depth scales differ greatly (e.g. indoor vs. outdoor). These methods usually overfit to a specific dataset.</li>
+      </ul>
+
+      <h4>2. Relative Depth Estimation</h4>
+      <p>Relative depth estimation factors out the scale, estimating depths of pixels relative to each other. The absolute scale factor is unknown.</p>
+      <ul>
+        <li><strong>Advantage</strong>: enables generalization across domains — metric scale and camera parameters need not be consistent.</li>
+        <li><strong>Disadvantage</strong>: the predicted depth has no metric meaning.</li>
+      </ul>
 
       <hr>
 
-      <h3>Adapting the Idea for Training Data Instead</h3>
-      <p>Running multiple slice passes at inference is expensive — it multiplies the number of forward passes per image, which conflicts
-      with a real-time deployment budget. So I kept only the training-side half of SAHI: building on its slicing-aided fine-tuning, I use slicing to build
-      a <strong>better training set</strong>, and keep inference itself as a single full-image forward pass.</p>
+      <h3>From Depth Estimation to 3D Reconstruction</h3>
+      <p>The relation between a 2D coordinate $p$ (image plane) and its 3D coordinate $P_c$ (camera coordinate system) is:</p>
+      <div class="math-display">$$s\,p = A P_c \quad (1)$$</div>
+      <p>where $p = \begin{bmatrix} u\\ v \\ 1 \end{bmatrix}$, $P_c = \begin{bmatrix} X_c\\ Y_c \\ Z_c \end{bmatrix}$, $s$ is the projective scaling factor, and $A$ is the (ideal) camera intrinsic matrix:</p>
+      <div class="math-display">$$A = \begin{bmatrix} f_x & 0 & c_x \\ 0 & f_y & c_y \\ 0 & 0 & 1 \end{bmatrix} \quad (2)$$</div>
+      <p>In practice every camera has distortion, so we calibrate first, compute the optimal $A$ via OpenCV, and undistort the image with it:</p>
+      <pre><code>camera_matrix = np.zeros(shape=(3, 3))
+camera_matrix[0, 0] = 3.618627944978409e+02
+camera_matrix[0, 2] = 3.140828758355781e+02
+camera_matrix[1, 1] = 3.611479934228698e+02
+camera_matrix[1, 2] = 1.674230039961440e+02
+camera_matrix[2, 2] = 1
 
-      <p>At a high level, the preprocessing step:</p>
+dist_coeffs = np.array([-0.115065515143958, 0.023076954804581, 0, 0, 0])
+
+# W, H = image width and height
+A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)
+
+# A is only valid for undistorted pixels: undistort the image (and depth map) with it first
+undistorted = cv2.undistort(image, camera_matrix, dist_coeffs, None, A)</code></pre>
+
+      <div class="callout">
+        💡 Camera calibration is <strong>an approximation process</strong> — similar to machine learning. We seldom get the actual ideal camera matrix, but treat the result as $A$ for simplification.
+      </div>
+
+      <p>The <strong>absolute depth map</strong> gives $Z_c$ (the depth along the optical axis, not the Euclidean distance to the camera). The remaining coordinates follow from (1) and (2):</p>
+      <div class="math-display">$$X_c = \frac{Z_c(u - c_x)}{f_x} \quad (3) \qquad Y_c = \frac{Z_c(v - c_y)}{f_y} \quad (4)$$</div>
+      <p>Python implementation:</p>
+      <pre><code>def depth_to_3d(D, fx, fy, cx, cy):
+    """Convert absolute depth map to 3D coordinates in camera coordinate system.
+
+    Args:
+        D:  absolute depth map, shape (H, W)
+        fx, fy: focal lengths; cx, cy: principal point
+
+    Returns:
+        3D coordinates, shape (H*W, 3) — each row is (Xc, Yc, Zc)
+    """
+    H, W = D.shape
+    xx, yy = np.tile(range(W), H), np.repeat(range(H), W)
+    Z = D.reshape(-1)
+    Xc = (xx - cx) * Z / fx
+    Yc = (yy - cy) * Z / fy
+    return np.stack([Xc, Yc, Z], axis=1)</code></pre>
+
+      <hr>
+
+      <h3>Replicate LiDAR with Pseudo-LiDAR</h3>
+      <div class="callout">
+        💡 A way to validate this proposal: set up <strong>4 cameras</strong> and <strong>1 LiDAR</strong> in the <strong>CARLA simulation environment</strong>, record data, and experiment with the end-to-end pipeline.
+      </div>
+      <p>Given LiDAR $L$ producing a 360° point cloud, we replicate it using cameras $C_i$. Proposed pipeline:</p>
       <ol>
-        <li>Slices each training image into overlapping tiles (with a configurable tile size and overlap ratio).</li>
-        <li>Remaps ground-truth boxes into tile coordinates, keeping boxes above a visibility/IoU threshold and dropping or clipping the rest.</li>
-        <li>Oversamples tiles that contain small-object instances, so the training distribution isn't dominated by easy, large-object crops.</li>
-        <li>Mixes the sliced crops back in with the original full-resolution images, so the model still sees global scene context and doesn't overfit to tile-scale statistics.</li>
+        <li>Infer absolute depth map $D_i$ of each image $I_i$.</li>
+        <li>Compute 3D coordinates $P_{C_i}$ in each camera coordinate system using $D_i$ and intrinsic matrix $A_i$.</li>
+        <li>Transform to the LiDAR coordinate system via rotation $R_i$ and translation $t_i$:
+          <div class="math-display">$$P_{L_i} = R_i\,P_{C_i} + t_i \quad (5)$$</div>
+        </li>
       </ol>
-
-      <p>Paired with Ultralytics' <strong>YOLOv8-p2</strong> (which adds a higher-resolution P2 detection head for small-object
-      sensitivity) and <strong>YOLOv9n</strong>, this preprocessing step gave a meaningful recall boost on small, distant objects, while inference
-      stayed a single full-image pass, keeping real-time latency intact.</p>
+      <p><strong>Advantages over actual LiDAR:</strong> lower cost, denser color point cloud, potentially higher frame rate.</p>
+      <p><strong>Disadvantages:</strong> camera distortion limits, sensitivity to lighting and weather, frequent occlusion, need for multi-camera stitching, and difficult calibration/synchronization.</p>
 
       <hr>
 
-      <h3>Illustrative Sketch</h3>
-      <p>A simplified sketch of the slicing + remapping step (illustrative, not the production implementation):</p>
-      <pre><code>def slice_image(image, boxes, tile_size=640, overlap=0.2, min_visibility=0.3):
-    """Slice an image into overlapping tiles, remapping ground-truth boxes."""
-    stride = int(tile_size * (1 - overlap))
-    tiles = []
-
-    for y in range(0, image.height, stride):
-        for x in range(0, image.width, stride):
-            tile_box = (x, y, x + tile_size, y + tile_size)
-            tile_img = image.crop(tile_box)
-
-            tile_boxes = []
-            for box in boxes:
-                clipped = clip_box(box, tile_box)
-                if visibility(clipped, box) >= min_visibility:
-                    tile_boxes.append(to_tile_coords(clipped, tile_box))
-
-            tiles.append((tile_img, tile_boxes))
-
-    return tiles</code></pre>
-
-      <p>Reference: Akyon et al., <a href="https://arxiv.org/abs/2202.06934" target="_blank" rel="noopener">“Slicing Aided Hyper Inference and Fine-tuning for Small Object Detection”</a> (2022).</p>
+      <h3>References</h3>
+      <div class="ref-links">
+        <a href="https://openaccess.thecvf.com/content_ICCV_2019/papers/van_Dijk_How_Do_Neural_Networks_See_Depth_in_Single_Images_ICCV_2019_paper.pdf" target="_blank" rel="noopener" class="ref-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          How Do Neural Networks See Depth in Single Images? (ICCV 2019)
+        </a>
+        <a href="https://arxiv.org/pdf/2302.12288.pdf" target="_blank" rel="noopener" class="ref-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          ZoeDepth: Zero-shot Transfer by Combining Relative and Metric Depth
+        </a>
+        <a href="https://docs.opencv.org/3.4/d9/d0c/group__calib3d.html" target="_blank" rel="noopener" class="ref-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          OpenCV: Camera Calibration and 3D Reconstruction
+        </a>
+      </div>
 
     </div><!-- /.post-body -->
   </div>

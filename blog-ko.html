@@ -77,6 +77,11 @@
     <p class="page-subtitle">딥러닝, 컴퓨터 비전, 깊이 추정 분야를 탐구합니다.</p>
 
     <div class="post-toc">
+      <a href="#sahi-small-objects" class="toc-card fade-up">
+        <span class="blog-tag">객체 탐지</span>
+        <div class="toc-title">소형 객체 Recall을 위한 Slicing 기반 전처리</div>
+        <div class="toc-date">2026년 7월 21일</div>
+      </a>
       <a href="#knowledge-distillation" class="toc-card fade-up">
         <span class="blog-tag">딥러닝</span>
         <div class="toc-title">Knowledge Distillation 브레인스토밍</div>
@@ -92,11 +97,6 @@
         <div class="toc-title">Rolling in the Deep</div>
         <div class="toc-date">2026년 1월 4일</div>
       </a>
-      <a href="#depth-pseudolidar" class="toc-card fade-up">
-        <span class="blog-tag-depth">깊이 추정</span>
-        <div class="toc-title">깊이 추정에서 Pseudo-LiDAR로</div>
-        <div class="toc-date">2025년 3월 24일</div>
-      </a>
       <a href="#perspective-affine" class="toc-card fade-up">
         <span class="blog-tag">컴퓨터 비전</span>
         <div class="toc-title">Perspective Transform과 Affine Transform</div>
@@ -107,10 +107,10 @@
         <div class="toc-title">간단한 휴대폰 응시 감지 알고리즘</div>
         <div class="toc-date">2025년 11월 24일</div>
       </a>
-      <a href="#sahi-small-objects" class="toc-card fade-up">
-        <span class="blog-tag">객체 탐지</span>
-        <div class="toc-title">소형 객체 Recall을 위한 Slicing 기반 전처리</div>
-        <div class="toc-date">2026년 7월 21일</div>
+      <a href="#depth-pseudolidar" class="toc-card fade-up">
+        <span class="blog-tag-depth">깊이 추정</span>
+        <div class="toc-title">깊이 추정에서 Pseudo-LiDAR로</div>
+        <div class="toc-date">2025년 3월 24일</div>
       </a>
     </div>
   </div>
@@ -119,9 +119,89 @@
 <div class="post-sep"></div>
 
 <!-- ============================================================
-     POST 1 — KNOWLEDGE DISTILLATION BRAINSTORMING
+     POST 1 — SLICING-INSPIRED PREPROCESSING FOR SMALL-OBJECT RECALL
      ============================================================ -->
-<article id="knowledge-distillation" class="blog-article blog-post">
+<article id="sahi-small-objects" class="blog-article blog-post">
+  <div class="container">
+    <header class="post-header">
+      <span class="blog-tag">객체 탐지</span>
+      <h2>소형 객체 Recall을 위한 Slicing 기반 전처리</h2>
+      <div class="post-date">2026년 7월 21일</div>
+    </header>
+
+    <div class="post-body">
+
+      <h3>문제</h3>
+      <p>표준 객체 탐지기(object detector)는 고정된 입력 해상도(예: <code>640×640</code>)로 리사이즈된 이미지로 학습됩니다. 원본
+      이미지가 고해상도이고 관심 객체가 작거나 카메라에서 멀리 떨어져 있는 경우 — 멀리 있는 보행자, 작은 컨테이너 코드,
+      철도 플랫폼 가장자리 근처의 작업자 등 — 이 리사이즈 단계는 이러한 객체를 불과 몇 픽셀 수준으로 줄여버립니다. 학습
+      신호 대부분은 크고 인식하기 쉬운 객체에 지배되며, 작은 객체에 대한 recall(재현율)이 떨어지게 됩니다.</p>
+
+      <hr>
+
+      <h3>SAHI를 한마디로</h3>
+      <p><strong>SAHI</strong>(<em>Slicing Aided Hyper Inference</em>)는 이 문제를 상호 보완적인 두 가지 방식으로 해결합니다. <strong>슬라이싱 기반 추론(slicing-aided inference)</strong>: 탐지기에
+      다운스케일된 이미지 한 장을 넣는 대신, 전체 해상도 이미지를 겹치는 타일(tile)들로 자르고, 각 타일에 대해 전체 해상도로 독립적으로
+      탐지를 수행한 뒤, 모든 타일 단위 탐지 결과를 NMS로 원본 이미지 좌표로 다시 병합합니다. 다운스케일링으로 사라졌을 작은 객체들이
+      이제 각 타일에서 훨씬 더 큰 비중을 차지하게 되어, 탐지기가 실제로 다룰 수 있는 픽셀을 갖게 됩니다.
+      <strong>슬라이싱 기반 파인튜닝(slicing-aided fine-tuning)</strong>: 원본 이미지에서 잘라낸 패치로 학습 세트를 보강하여, 탐지기가
+      작은 객체를 상대적으로 더 큰 스케일에서도 학습하도록 합니다. 논문은 두 방식을 결합했을 때 가장 큰 향상을 보고합니다.</p>
+
+      <hr>
+
+      <h3>이 아이디어를 학습 데이터에 적용하기</h3>
+      <p>추론 시점에 여러 번 슬라이스 패스를 실행하는 것은 비용이 큽니다 — 이미지당 순전파(forward pass) 횟수를 몇 배로 늘리는데, 이는
+      실시간 배포 예산과 상충됩니다. 그래서 SAHI 중 학습 쪽 절반만 취했습니다:
+      SAHI의 슬라이싱 기반 파인튜닝을 바탕으로 슬라이싱을 사용해 <strong>더 나은 학습 세트</strong>를 구축하고, 추론 자체는 단일 전체 이미지 순전파로 유지하는 것입니다.</p>
+
+      <p>상위 수준에서, 이 전처리 단계는 다음과 같습니다:</p>
+      <ol>
+        <li>각 학습 이미지를 (설정 가능한 타일 크기와 겹침 비율로) 겹치는 타일들로 자릅니다.</li>
+        <li>ground-truth box를 타일 좌표로 다시 매핑하며, 가시성(visibility)/IoU 임계값 이상의 box는 유지하고 나머지는 버리거나 잘라냅니다.</li>
+        <li>작은 객체 인스턴스를 포함하는 타일을 오버샘플링(oversample)하여, 학습 분포가 인식하기 쉬운 대형 객체 크롭(crop)에 지배되지 않도록 합니다.</li>
+        <li>잘라낸 crop을 원본 전체 해상도 이미지와 다시 섞어, 모델이 여전히 전역적인 장면 맥락(global scene context)을 보고 타일 스케일의 통계치에 overfit되지 않도록 합니다.</li>
+      </ol>
+
+      <p>Ultralytics의 <strong>YOLOv8-p2</strong>(소형 객체 민감도를 위해 더 높은 해상도의 P2 탐지 헤드를 추가한 모델) 및
+      <strong>YOLOv9n</strong>과 결합했을 때, 이 전처리 단계는 작고 먼 객체에 대해 의미 있는 recall 향상을 가져다주었으며, 동시에 추론은 여전히 단일 전체
+      이미지 패스로 유지되어 실시간 지연시간(latency)도 그대로 보존되었습니다.</p>
+
+      <hr>
+
+      <h3>예시 스케치</h3>
+      <p>슬라이싱 + 재매핑 단계를 단순화한 스케치입니다(예시 목적이며, 실제 프로덕션 구현이 아닙니다):</p>
+      <pre><code>def slice_image(image, boxes, tile_size=640, overlap=0.2, min_visibility=0.3):
+    """Slice an image into overlapping tiles, remapping ground-truth boxes."""
+    stride = int(tile_size * (1 - overlap))
+    tiles = []
+
+    for y in range(0, image.height, stride):
+        for x in range(0, image.width, stride):
+            tile_box = (x, y, x + tile_size, y + tile_size)
+            tile_img = image.crop(tile_box)
+
+            tile_boxes = []
+            for box in boxes:
+                clipped = clip_box(box, tile_box)
+                if visibility(clipped, box) >= min_visibility:
+                    tile_boxes.append(to_tile_coords(clipped, tile_box))
+
+            tiles.append((tile_img, tile_boxes))
+
+    return tiles</code></pre>
+
+      <p>참고자료: Akyon et al., <a href="https://arxiv.org/abs/2202.06934" target="_blank" rel="noopener">"Slicing Aided Hyper Inference and Fine-tuning for Small Object Detection"</a> (2022).</p>
+
+    </div><!-- /.post-body -->
+  </div>
+</article>
+
+<div class="post-sep"></div>
+
+<!-- ============================================================
+     POST 2 — KNOWLEDGE DISTILLATION BRAINSTORMING
+     ============================================================ -->
+<article id="knowledge-distillation" class="blog-article alt-bg blog-post">
   <div class="container">
     <header class="post-header">
       <span class="blog-tag">딥러닝</span>
@@ -426,9 +506,9 @@
 <div class="post-sep"></div>
 
 <!-- ============================================================
-     POST 2 — 2D VISION UTILITIES
+     POST 3 — 2D VISION UTILITIES
      ============================================================ -->
-<article id="2d-vision" class="blog-article alt-bg blog-post">
+<article id="2d-vision" class="blog-article blog-post">
   <div class="container">
     <header class="post-header">
       <span class="blog-tag">컴퓨터 비전</span>
@@ -505,9 +585,9 @@ def get_rotation(start_point, center_point, rad):
 <div class="post-sep"></div>
 
 <!-- ============================================================
-     POST 3 — ROLLING IN THE DEEP
+     POST 4 — ROLLING IN THE DEEP
      ============================================================ -->
-<article id="rolling-in-the-deep" class="blog-article blog-post">
+<article id="rolling-in-the-deep" class="blog-article alt-bg blog-post">
   <div class="container">
     <header class="post-header">
       <span class="blog-tag-depth">깊이 추정</span>
@@ -730,139 +810,6 @@ def get_rotation(start_point, center_point, rad):
         <a href="https://github.com/jspenmar/monodepth_benchmark" target="_blank" rel="noopener" class="ref-link">
           <svg width="14" height="14" fill="currentColor"><use href="#icon-github"></use></svg>
           jspenmar / monodepth_benchmark
-        </a>
-      </div>
-
-    </div><!-- /.post-body -->
-  </div>
-</article>
-
-<div class="post-sep"></div>
-
-<!-- ============================================================
-     POST 4 — FROM DEPTH ESTIMATION TO PSEUDO-LIDAR
-     ============================================================ -->
-<article id="depth-pseudolidar" class="blog-article alt-bg blog-post">
-  <div class="container">
-    <header class="post-header">
-      <span class="blog-tag-depth">깊이 추정</span>
-      <h2>깊이 추정에서 Pseudo-LiDAR로</h2>
-      <div class="post-date">2025년 3월 24일</div>
-    </header>
-
-    <div class="post-body">
-
-      <h3>인간의 깊이 지각 (Depth Perception)</h3>
-      <p>인간의 깊이 지각에 관한 문헌들은 거리를 추정하는 데 사용될 수 있는 회화적 단서(pictorial cue)에 대한 통찰을 제공합니다. 다음과 같은 단서들은 대체로 단일 이미지에서 발견할 수 있습니다:</p>
-      <ul>
-        <li><strong>이미지 내 위치</strong>: 더 멀리 있는 물체는 지평선에 더 가까운 경향이 있습니다. 지면에 놓여 있을 때, 물체는 이미지에서 더 높게 나타나기도 합니다.</li>
-        <li><strong>가림 (Occlusion)</strong>: 가까운 물체가 뒤에 있는 물체를 가립니다 — 깊이의 순서는 알 수 있지만 정확한 거리는 알 수 없습니다.</li>
-        <li><strong>텍스처 밀도 (Texture density)</strong>: 더 멀리 있는 질감 있는 표면은 더 미세하게(fine-grained) 보입니다.</li>
-        <li><strong>선형 원근 (Linear perspective)</strong>: 실제 세계의 직선이고 평행한 선들이 이미지에서는 수렴하는 것처럼 보입니다.</li>
-        <li><strong>물체의 겉보기 크기</strong>: 더 멀리 있는 물체는 더 작게 보입니다.</li>
-        <li><strong>음영 및 조명 (Shading &amp; illumination)</strong>: 표면의 법선(normal)이 광원을 향할 때 그 표면은 더 밝게 보입니다. 음영은 하나의 표면 내에서 깊이 변화에 대한 정보를 제공합니다.</li>
-        <li><strong>초점 흐림 (Focus blur)</strong>: 초점 평면(focal plane)의 앞이나 뒤에 있는 물체는 흐리게 보입니다.</li>
-        <li><strong>대기 원근 (Aerial perspective)</strong>: 매우 멀리 있는 물체는 대비(contrast)가 낮고 푸르스름한 색조를 띱니다.</li>
-      </ul>
-
-      <hr>
-
-      <h3>깊이 추정 접근 방식</h3>
-      <p>단안(monocular) 깊이 추정에는 2가지 접근 방식이 있습니다: <strong>절대 깊이 추정</strong>과 <strong>상대 깊이 추정</strong>입니다.</p>
-
-      <h4>1. 절대 깊이 추정</h4>
-      <p>절대(또는 metric) 깊이 추정은 픽셀별 깊이 값을 절대적인 물리 단위(미터)로 예측합니다.</p>
-      <ul>
-        <li><strong>장점</strong>: 예측 결과를 downstream 응용에 바로 사용할 수 있습니다.</li>
-        <li><strong>단점</strong>: 여러 데이터셋에 걸쳐 학습하면, 특히 (실내 대 실외처럼) 깊이 스케일이 크게 다를 때 성능이 저하되는 경우가 많습니다. 이러한 방법들은 대체로 특정 데이터셋에 overfit되는 경향이 있습니다.</li>
-      </ul>
-
-      <h4>2. 상대 깊이 추정</h4>
-      <p>상대 깊이 추정은 스케일 요소를 배제하고, 픽셀들 사이의 상대적인 깊이를 추정합니다. 절대적인 스케일 계수는 알 수 없습니다.</p>
-      <ul>
-        <li><strong>장점</strong>: 여러 도메인에 걸친 일반화를 가능하게 합니다 — metric 스케일과 카메라 파라미터가 일관될 필요가 없습니다.</li>
-        <li><strong>단점</strong>: 예측된 깊이는 metric 단위로서의 의미를 갖지 않습니다.</li>
-      </ul>
-
-      <hr>
-
-      <h3>깊이 추정에서 3D 재구성으로</h3>
-      <p>2D 좌표 $p$(이미지 평면)와 이에 대응하는 3D 좌표 $P_c$(카메라 좌표계) 사이의 관계는 다음과 같습니다:</p>
-      <div class="math-display">$$s\,p = A P_c \quad (1)$$</div>
-      <p>여기서 $p = \begin{bmatrix} u\\ v \\ 1 \end{bmatrix}$, $P_c = \begin{bmatrix} X_c\\ Y_c \\ Z_c \end{bmatrix}$이고, $s$는 투영 스케일링 계수(projective scaling factor), $A$는 (이상적인) 카메라 내부 파라미터 행렬(intrinsic matrix)입니다:</p>
-      <div class="math-display">$$A = \begin{bmatrix} f_x & 0 & c_x \\ 0 & f_y & c_y \\ 0 & 0 & 1 \end{bmatrix} \quad (2)$$</div>
-      <p>실제로는 모든 카메라에 렌즈 왜곡(distortion)이 있으므로, 먼저 캘리브레이션을 수행하고 OpenCV로 최적의 $A$를 계산한 뒤, 이를 이용해 이미지의 왜곡을 보정(undistort)합니다:</p>
-      <pre><code>camera_matrix = np.zeros(shape=(3, 3))
-camera_matrix[0, 0] = 3.618627944978409e+02
-camera_matrix[0, 2] = 3.140828758355781e+02
-camera_matrix[1, 1] = 3.611479934228698e+02
-camera_matrix[1, 2] = 1.674230039961440e+02
-camera_matrix[2, 2] = 1
-
-dist_coeffs = np.array([-0.115065515143958, 0.023076954804581, 0, 0, 0])
-
-# W, H = image width and height
-A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)
-
-# A is only valid for undistorted pixels: undistort the image (and depth map) with it first
-undistorted = cv2.undistort(image, camera_matrix, dist_coeffs, None, A)</code></pre>
-
-      <div class="callout">
-        💡 카메라 캘리브레이션은 <strong>근사 과정(approximation process)</strong>입니다 — machine learning과 유사합니다. 실제로 이상적인 카메라 행렬을 얻는 경우는 거의 없지만, 단순화를 위해 그 결과를 $A$로 취급합니다.
-      </div>
-
-      <p><strong>절대 깊이 맵</strong>은 $Z_c$(카메라까지의 유클리드 거리가 아니라 광축 방향의 깊이)를 제공합니다. 나머지 좌표는 (1)과 (2)로부터 유도됩니다:</p>
-      <div class="math-display">$$X_c = \frac{Z_c(u - c_x)}{f_x} \quad (3) \qquad Y_c = \frac{Z_c(v - c_y)}{f_y} \quad (4)$$</div>
-      <p>Python 구현:</p>
-      <pre><code>def depth_to_3d(D, fx, fy, cx, cy):
-    """Convert absolute depth map to 3D coordinates in camera coordinate system.
-
-    Args:
-        D:  absolute depth map, shape (H, W)
-        fx, fy: focal lengths; cx, cy: principal point
-
-    Returns:
-        3D coordinates, shape (H*W, 3) — each row is (Xc, Yc, Zc)
-    """
-    H, W = D.shape
-    xx, yy = np.tile(range(W), H), np.repeat(range(H), W)
-    Z = D.reshape(-1)
-    Xc = (xx - cx) * Z / fx
-    Yc = (yy - cy) * Z / fy
-    return np.stack([Xc, Yc, Z], axis=1)</code></pre>
-
-      <hr>
-
-      <h3>Pseudo-LiDAR로 LiDAR 재현하기</h3>
-      <div class="callout">
-        💡 이 제안을 검증하는 한 가지 방법: <strong>CARLA 시뮬레이션 환경</strong>에 <strong>카메라 4대</strong>와 <strong>LiDAR 1대</strong>를 설치하고, 데이터를 기록한 뒤, end-to-end 파이프라인으로 실험합니다.
-      </div>
-      <p>360° 포인트 클라우드(point cloud)를 생성하는 LiDAR $L$이 주어졌을 때, 카메라 $C_i$들을 사용해 이를 재현합니다. 제안하는 파이프라인:</p>
-      <ol>
-        <li>각 이미지 $I_i$의 절대 깊이 맵 $D_i$를 추론합니다.</li>
-        <li>$D_i$와 내부 파라미터 행렬 $A_i$를 사용해 각 카메라 좌표계에서 3D 좌표 $P_{C_i}$를 계산합니다.</li>
-        <li>회전 $R_i$와 평행이동 $t_i$를 통해 LiDAR 좌표계로 변환합니다:
-          <div class="math-display">$$P_{L_i} = R_i\,P_{C_i} + t_i \quad (5)$$</div>
-        </li>
-      </ol>
-      <p><strong>실제 LiDAR 대비 장점:</strong> 더 낮은 비용, 더 밀도 높은 컬러 포인트 클라우드, 잠재적으로 더 높은 프레임 레이트.</p>
-      <p><strong>단점:</strong> 카메라 왜곡의 한계, 조명과 날씨에 대한 민감성, 빈번한 가림(occlusion), 다중 카메라 스티칭(stitching)의 필요성, 그리고 어려운 캘리브레이션/동기화.</p>
-
-      <hr>
-
-      <h3>참고자료</h3>
-      <div class="ref-links">
-        <a href="https://openaccess.thecvf.com/content_ICCV_2019/papers/van_Dijk_How_Do_Neural_Networks_See_Depth_in_Single_Images_ICCV_2019_paper.pdf" target="_blank" rel="noopener" class="ref-link">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-          How Do Neural Networks See Depth in Single Images? (ICCV 2019)
-        </a>
-        <a href="https://arxiv.org/pdf/2302.12288.pdf" target="_blank" rel="noopener" class="ref-link">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-          ZoeDepth: Zero-shot Transfer by Combining Relative and Metric Depth
-        </a>
-        <a href="https://docs.opencv.org/3.4/d9/d0c/group__calib3d.html" target="_blank" rel="noopener" class="ref-link">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-          OpenCV: Camera Calibration and 3D Reconstruction
         </a>
       </div>
 
@@ -1177,78 +1124,131 @@ if __name__ == "__main__":
 <div class="post-sep"></div>
 
 <!-- ============================================================
-     POST 7 — SLICING-INSPIRED PREPROCESSING FOR SMALL-OBJECT RECALL
+     POST 7 — FROM DEPTH ESTIMATION TO PSEUDO-LIDAR
      ============================================================ -->
-<article id="sahi-small-objects" class="blog-article blog-post">
+<article id="depth-pseudolidar" class="blog-article blog-post">
   <div class="container">
     <header class="post-header">
-      <span class="blog-tag">객체 탐지</span>
-      <h2>소형 객체 Recall을 위한 Slicing 기반 전처리</h2>
-      <div class="post-date">2026년 7월 21일</div>
+      <span class="blog-tag-depth">깊이 추정</span>
+      <h2>깊이 추정에서 Pseudo-LiDAR로</h2>
+      <div class="post-date">2025년 3월 24일</div>
     </header>
 
     <div class="post-body">
 
-      <h3>문제</h3>
-      <p>표준 객체 탐지기(object detector)는 고정된 입력 해상도(예: <code>640×640</code>)로 리사이즈된 이미지로 학습됩니다. 원본
-      이미지가 고해상도이고 관심 객체가 작거나 카메라에서 멀리 떨어져 있는 경우 — 멀리 있는 보행자, 작은 컨테이너 코드,
-      철도 플랫폼 가장자리 근처의 작업자 등 — 이 리사이즈 단계는 이러한 객체를 불과 몇 픽셀 수준으로 줄여버립니다. 학습
-      신호 대부분은 크고 인식하기 쉬운 객체에 지배되며, 작은 객체에 대한 recall(재현율)이 떨어지게 됩니다.</p>
+      <h3>인간의 깊이 지각 (Depth Perception)</h3>
+      <p>인간의 깊이 지각에 관한 문헌들은 거리를 추정하는 데 사용될 수 있는 회화적 단서(pictorial cue)에 대한 통찰을 제공합니다. 다음과 같은 단서들은 대체로 단일 이미지에서 발견할 수 있습니다:</p>
+      <ul>
+        <li><strong>이미지 내 위치</strong>: 더 멀리 있는 물체는 지평선에 더 가까운 경향이 있습니다. 지면에 놓여 있을 때, 물체는 이미지에서 더 높게 나타나기도 합니다.</li>
+        <li><strong>가림 (Occlusion)</strong>: 가까운 물체가 뒤에 있는 물체를 가립니다 — 깊이의 순서는 알 수 있지만 정확한 거리는 알 수 없습니다.</li>
+        <li><strong>텍스처 밀도 (Texture density)</strong>: 더 멀리 있는 질감 있는 표면은 더 미세하게(fine-grained) 보입니다.</li>
+        <li><strong>선형 원근 (Linear perspective)</strong>: 실제 세계의 직선이고 평행한 선들이 이미지에서는 수렴하는 것처럼 보입니다.</li>
+        <li><strong>물체의 겉보기 크기</strong>: 더 멀리 있는 물체는 더 작게 보입니다.</li>
+        <li><strong>음영 및 조명 (Shading &amp; illumination)</strong>: 표면의 법선(normal)이 광원을 향할 때 그 표면은 더 밝게 보입니다. 음영은 하나의 표면 내에서 깊이 변화에 대한 정보를 제공합니다.</li>
+        <li><strong>초점 흐림 (Focus blur)</strong>: 초점 평면(focal plane)의 앞이나 뒤에 있는 물체는 흐리게 보입니다.</li>
+        <li><strong>대기 원근 (Aerial perspective)</strong>: 매우 멀리 있는 물체는 대비(contrast)가 낮고 푸르스름한 색조를 띱니다.</li>
+      </ul>
 
       <hr>
 
-      <h3>SAHI를 한마디로</h3>
-      <p><strong>SAHI</strong>(<em>Slicing Aided Hyper Inference</em>)는 이 문제를 상호 보완적인 두 가지 방식으로 해결합니다. <strong>슬라이싱 기반 추론(slicing-aided inference)</strong>: 탐지기에
-      다운스케일된 이미지 한 장을 넣는 대신, 전체 해상도 이미지를 겹치는 타일(tile)들로 자르고, 각 타일에 대해 전체 해상도로 독립적으로
-      탐지를 수행한 뒤, 모든 타일 단위 탐지 결과를 NMS로 원본 이미지 좌표로 다시 병합합니다. 다운스케일링으로 사라졌을 작은 객체들이
-      이제 각 타일에서 훨씬 더 큰 비중을 차지하게 되어, 탐지기가 실제로 다룰 수 있는 픽셀을 갖게 됩니다.
-      <strong>슬라이싱 기반 파인튜닝(slicing-aided fine-tuning)</strong>: 원본 이미지에서 잘라낸 패치로 학습 세트를 보강하여, 탐지기가
-      작은 객체를 상대적으로 더 큰 스케일에서도 학습하도록 합니다. 논문은 두 방식을 결합했을 때 가장 큰 향상을 보고합니다.</p>
+      <h3>깊이 추정 접근 방식</h3>
+      <p>단안(monocular) 깊이 추정에는 2가지 접근 방식이 있습니다: <strong>절대 깊이 추정</strong>과 <strong>상대 깊이 추정</strong>입니다.</p>
+
+      <h4>1. 절대 깊이 추정</h4>
+      <p>절대(또는 metric) 깊이 추정은 픽셀별 깊이 값을 절대적인 물리 단위(미터)로 예측합니다.</p>
+      <ul>
+        <li><strong>장점</strong>: 예측 결과를 downstream 응용에 바로 사용할 수 있습니다.</li>
+        <li><strong>단점</strong>: 여러 데이터셋에 걸쳐 학습하면, 특히 (실내 대 실외처럼) 깊이 스케일이 크게 다를 때 성능이 저하되는 경우가 많습니다. 이러한 방법들은 대체로 특정 데이터셋에 overfit되는 경향이 있습니다.</li>
+      </ul>
+
+      <h4>2. 상대 깊이 추정</h4>
+      <p>상대 깊이 추정은 스케일 요소를 배제하고, 픽셀들 사이의 상대적인 깊이를 추정합니다. 절대적인 스케일 계수는 알 수 없습니다.</p>
+      <ul>
+        <li><strong>장점</strong>: 여러 도메인에 걸친 일반화를 가능하게 합니다 — metric 스케일과 카메라 파라미터가 일관될 필요가 없습니다.</li>
+        <li><strong>단점</strong>: 예측된 깊이는 metric 단위로서의 의미를 갖지 않습니다.</li>
+      </ul>
 
       <hr>
 
-      <h3>이 아이디어를 학습 데이터에 적용하기</h3>
-      <p>추론 시점에 여러 번 슬라이스 패스를 실행하는 것은 비용이 큽니다 — 이미지당 순전파(forward pass) 횟수를 몇 배로 늘리는데, 이는
-      실시간 배포 예산과 상충됩니다. 그래서 SAHI 중 학습 쪽 절반만 취했습니다:
-      SAHI의 슬라이싱 기반 파인튜닝을 바탕으로 슬라이싱을 사용해 <strong>더 나은 학습 세트</strong>를 구축하고, 추론 자체는 단일 전체 이미지 순전파로 유지하는 것입니다.</p>
+      <h3>깊이 추정에서 3D 재구성으로</h3>
+      <p>2D 좌표 $p$(이미지 평면)와 이에 대응하는 3D 좌표 $P_c$(카메라 좌표계) 사이의 관계는 다음과 같습니다:</p>
+      <div class="math-display">$$s\,p = A P_c \quad (1)$$</div>
+      <p>여기서 $p = \begin{bmatrix} u\\ v \\ 1 \end{bmatrix}$, $P_c = \begin{bmatrix} X_c\\ Y_c \\ Z_c \end{bmatrix}$이고, $s$는 투영 스케일링 계수(projective scaling factor), $A$는 (이상적인) 카메라 내부 파라미터 행렬(intrinsic matrix)입니다:</p>
+      <div class="math-display">$$A = \begin{bmatrix} f_x & 0 & c_x \\ 0 & f_y & c_y \\ 0 & 0 & 1 \end{bmatrix} \quad (2)$$</div>
+      <p>실제로는 모든 카메라에 렌즈 왜곡(distortion)이 있으므로, 먼저 캘리브레이션을 수행하고 OpenCV로 최적의 $A$를 계산한 뒤, 이를 이용해 이미지의 왜곡을 보정(undistort)합니다:</p>
+      <pre><code>camera_matrix = np.zeros(shape=(3, 3))
+camera_matrix[0, 0] = 3.618627944978409e+02
+camera_matrix[0, 2] = 3.140828758355781e+02
+camera_matrix[1, 1] = 3.611479934228698e+02
+camera_matrix[1, 2] = 1.674230039961440e+02
+camera_matrix[2, 2] = 1
 
-      <p>상위 수준에서, 이 전처리 단계는 다음과 같습니다:</p>
+dist_coeffs = np.array([-0.115065515143958, 0.023076954804581, 0, 0, 0])
+
+# W, H = image width and height
+A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)
+
+# A is only valid for undistorted pixels: undistort the image (and depth map) with it first
+undistorted = cv2.undistort(image, camera_matrix, dist_coeffs, None, A)</code></pre>
+
+      <div class="callout">
+        💡 카메라 캘리브레이션은 <strong>근사 과정(approximation process)</strong>입니다 — machine learning과 유사합니다. 실제로 이상적인 카메라 행렬을 얻는 경우는 거의 없지만, 단순화를 위해 그 결과를 $A$로 취급합니다.
+      </div>
+
+      <p><strong>절대 깊이 맵</strong>은 $Z_c$(카메라까지의 유클리드 거리가 아니라 광축 방향의 깊이)를 제공합니다. 나머지 좌표는 (1)과 (2)로부터 유도됩니다:</p>
+      <div class="math-display">$$X_c = \frac{Z_c(u - c_x)}{f_x} \quad (3) \qquad Y_c = \frac{Z_c(v - c_y)}{f_y} \quad (4)$$</div>
+      <p>Python 구현:</p>
+      <pre><code>def depth_to_3d(D, fx, fy, cx, cy):
+    """Convert absolute depth map to 3D coordinates in camera coordinate system.
+
+    Args:
+        D:  absolute depth map, shape (H, W)
+        fx, fy: focal lengths; cx, cy: principal point
+
+    Returns:
+        3D coordinates, shape (H*W, 3) — each row is (Xc, Yc, Zc)
+    """
+    H, W = D.shape
+    xx, yy = np.tile(range(W), H), np.repeat(range(H), W)
+    Z = D.reshape(-1)
+    Xc = (xx - cx) * Z / fx
+    Yc = (yy - cy) * Z / fy
+    return np.stack([Xc, Yc, Z], axis=1)</code></pre>
+
+      <hr>
+
+      <h3>Pseudo-LiDAR로 LiDAR 재현하기</h3>
+      <div class="callout">
+        💡 이 제안을 검증하는 한 가지 방법: <strong>CARLA 시뮬레이션 환경</strong>에 <strong>카메라 4대</strong>와 <strong>LiDAR 1대</strong>를 설치하고, 데이터를 기록한 뒤, end-to-end 파이프라인으로 실험합니다.
+      </div>
+      <p>360° 포인트 클라우드(point cloud)를 생성하는 LiDAR $L$이 주어졌을 때, 카메라 $C_i$들을 사용해 이를 재현합니다. 제안하는 파이프라인:</p>
       <ol>
-        <li>각 학습 이미지를 (설정 가능한 타일 크기와 겹침 비율로) 겹치는 타일들로 자릅니다.</li>
-        <li>ground-truth box를 타일 좌표로 다시 매핑하며, 가시성(visibility)/IoU 임계값 이상의 box는 유지하고 나머지는 버리거나 잘라냅니다.</li>
-        <li>작은 객체 인스턴스를 포함하는 타일을 오버샘플링(oversample)하여, 학습 분포가 인식하기 쉬운 대형 객체 크롭(crop)에 지배되지 않도록 합니다.</li>
-        <li>잘라낸 crop을 원본 전체 해상도 이미지와 다시 섞어, 모델이 여전히 전역적인 장면 맥락(global scene context)을 보고 타일 스케일의 통계치에 overfit되지 않도록 합니다.</li>
+        <li>각 이미지 $I_i$의 절대 깊이 맵 $D_i$를 추론합니다.</li>
+        <li>$D_i$와 내부 파라미터 행렬 $A_i$를 사용해 각 카메라 좌표계에서 3D 좌표 $P_{C_i}$를 계산합니다.</li>
+        <li>회전 $R_i$와 평행이동 $t_i$를 통해 LiDAR 좌표계로 변환합니다:
+          <div class="math-display">$$P_{L_i} = R_i\,P_{C_i} + t_i \quad (5)$$</div>
+        </li>
       </ol>
-
-      <p>Ultralytics의 <strong>YOLOv8-p2</strong>(소형 객체 민감도를 위해 더 높은 해상도의 P2 탐지 헤드를 추가한 모델) 및
-      <strong>YOLOv9n</strong>과 결합했을 때, 이 전처리 단계는 작고 먼 객체에 대해 의미 있는 recall 향상을 가져다주었으며, 동시에 추론은 여전히 단일 전체
-      이미지 패스로 유지되어 실시간 지연시간(latency)도 그대로 보존되었습니다.</p>
+      <p><strong>실제 LiDAR 대비 장점:</strong> 더 낮은 비용, 더 밀도 높은 컬러 포인트 클라우드, 잠재적으로 더 높은 프레임 레이트.</p>
+      <p><strong>단점:</strong> 카메라 왜곡의 한계, 조명과 날씨에 대한 민감성, 빈번한 가림(occlusion), 다중 카메라 스티칭(stitching)의 필요성, 그리고 어려운 캘리브레이션/동기화.</p>
 
       <hr>
 
-      <h3>예시 스케치</h3>
-      <p>슬라이싱 + 재매핑 단계를 단순화한 스케치입니다(예시 목적이며, 실제 프로덕션 구현이 아닙니다):</p>
-      <pre><code>def slice_image(image, boxes, tile_size=640, overlap=0.2, min_visibility=0.3):
-    """Slice an image into overlapping tiles, remapping ground-truth boxes."""
-    stride = int(tile_size * (1 - overlap))
-    tiles = []
-
-    for y in range(0, image.height, stride):
-        for x in range(0, image.width, stride):
-            tile_box = (x, y, x + tile_size, y + tile_size)
-            tile_img = image.crop(tile_box)
-
-            tile_boxes = []
-            for box in boxes:
-                clipped = clip_box(box, tile_box)
-                if visibility(clipped, box) >= min_visibility:
-                    tile_boxes.append(to_tile_coords(clipped, tile_box))
-
-            tiles.append((tile_img, tile_boxes))
-
-    return tiles</code></pre>
-
-      <p>참고자료: Akyon et al., <a href="https://arxiv.org/abs/2202.06934" target="_blank" rel="noopener">"Slicing Aided Hyper Inference and Fine-tuning for Small Object Detection"</a> (2022).</p>
+      <h3>참고자료</h3>
+      <div class="ref-links">
+        <a href="https://openaccess.thecvf.com/content_ICCV_2019/papers/van_Dijk_How_Do_Neural_Networks_See_Depth_in_Single_Images_ICCV_2019_paper.pdf" target="_blank" rel="noopener" class="ref-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          How Do Neural Networks See Depth in Single Images? (ICCV 2019)
+        </a>
+        <a href="https://arxiv.org/pdf/2302.12288.pdf" target="_blank" rel="noopener" class="ref-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          ZoeDepth: Zero-shot Transfer by Combining Relative and Metric Depth
+        </a>
+        <a href="https://docs.opencv.org/3.4/d9/d0c/group__calib3d.html" target="_blank" rel="noopener" class="ref-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          OpenCV: Camera Calibration and 3D Reconstruction
+        </a>
+      </div>
 
     </div><!-- /.post-body -->
   </div>
