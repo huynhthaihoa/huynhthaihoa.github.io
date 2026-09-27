@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" width="800" height="360" role="img" aria-labelledby="t d">
+  <title id="t">Smart In-Cabin Monitoring System illustration</title>
+  <desc id="d">A single fisheye camera at the top of the windshield watches the driver and passenger. Overlays show face landmarks, a gaze vector, 2D body keypoints, and an object-detection box around a phone.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#16213b"/>
+      <stop offset="1" stop-color="#0b1222"/>
+    </linearGradient>
+    <radialGradient id="fov" cx="400" cy="34" r="330" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#38bdf8" stop-opacity=".28"/>
+      <stop offset="1" stop-color="#38bdf8" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="seat" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#253252"/>
+      <stop offset="1" stop-color="#1a2440"/>
+    </linearGradient>
+  </defs>
+
+  <!-- background -->
+  <rect width="800" height="360" fill="url(#bg)"/>
+
+  <!-- windshield frame and A-pillars -->
+  <path d="M40 0 L130 300 M760 0 L670 300" stroke="#26324f" stroke-width="18" stroke-linecap="round"/>
+  <path d="M60 22 H740" stroke="#26324f" stroke-width="10" stroke-linecap="round"/>
+
+  <!-- fisheye field of view (~180 degrees) -->
+  <path d="M400 34 L60 360 L740 360 Z" fill="url(#fov)"/>
+  <path d="M400 34 L70 360 M400 34 L730 360" stroke="#38bdf8" stroke-opacity=".35" stroke-width="2" stroke-dasharray="6 8"/>
+
+  <!-- seats -->
+  <rect x="150" y="120" width="190" height="240" rx="46" fill="url(#seat)"/>
+  <rect x="460" y="120" width="190" height="240" rx="46" fill="url(#seat)"/>
+
+  <!-- occupants (silhouettes) -->
+  <g fill="#3a4a74">
+    <!-- driver -->
+    <circle cx="245" cy="150" r="42"/>
+    <path d="M160 360 C160 260 190 218 245 218 C300 218 330 260 330 360 Z"/>
+    <!-- passenger -->
+    <circle cx="555" cy="152" r="40"/>
+    <path d="M472 360 C472 262 502 220 555 220 C608 220 638 262 638 360 Z"/>
+  </g>
+
+  <!-- 2D body keypoints (skeleton) -->
+  <g stroke="#a78bfa" stroke-width="3" stroke-linecap="round" fill="none" opacity=".95">
+    <!-- driver: neck, shoulders, left arm down, right arm raised holding phone -->
+    <path d="M245 192 L245 226 M198 238 L292 238 M198 238 L184 300 L200 344 M292 238 L316 282 L300 250"/>
+    <!-- passenger -->
+    <path d="M555 192 L555 228 M510 240 L600 240 M510 240 L498 302 L512 346 M600 240 L612 302 L598 346"/>
+  </g>
+  <g fill="#a78bfa">
+    <circle cx="245" cy="226" r="5"/><circle cx="198" cy="238" r="5"/><circle cx="292" cy="238" r="5"/>
+    <circle cx="184" cy="300" r="5"/><circle cx="316" cy="282" r="5"/><circle cx="300" cy="250" r="5"/>
+    <circle cx="555" cy="228" r="5"/><circle cx="510" cy="240" r="5"/><circle cx="600" cy="240" r="5"/>
+    <circle cx="498" cy="302" r="5"/><circle cx="612" cy="302" r="5"/>
+  </g>
+
+  <!-- facial landmarks -->
+  <g fill="#f1f5f9" opacity=".9">
+    <!-- driver: face contour, eyes, nose, mouth -->
+    <circle cx="214" cy="140" r="2.4"/><circle cx="216" cy="158" r="2.4"/><circle cx="224" cy="174" r="2.4"/><circle cx="245" cy="182" r="2.4"/>
+    <circle cx="266" cy="174" r="2.4"/><circle cx="274" cy="158" r="2.4"/><circle cx="276" cy="140" r="2.4"/>
+    <circle cx="230" cy="142" r="2.4"/><circle cx="236" cy="142" r="2.4"/><circle cx="254" cy="142" r="2.4"/><circle cx="260" cy="142" r="2.4"/>
+    <circle cx="245" cy="155" r="2.4"/><circle cx="236" cy="168" r="2.4"/><circle cx="245" cy="170" r="2.4"/><circle cx="254" cy="168" r="2.4"/>
+    <!-- passenger -->
+    <circle cx="526" cy="144" r="2.4"/><circle cx="528" cy="161" r="2.4"/><circle cx="536" cy="176" r="2.4"/><circle cx="555" cy="184" r="2.4"/>
+    <circle cx="574" cy="176" r="2.4"/><circle cx="582" cy="161" r="2.4"/><circle cx="584" cy="144" r="2.4"/>
+    <circle cx="541" cy="145" r="2.4"/><circle cx="547" cy="145" r="2.4"/><circle cx="563" cy="145" r="2.4"/><circle cx="569" cy="145" r="2.4"/>
+    <circle cx="555" cy="158" r="2.4"/><circle cx="546" cy="171" r="2.4"/><circle cx="555" cy="173" r="2.4"/><circle cx="564" cy="171" r="2.4"/>
+  </g>
+
+  <!-- object detection: phone in the driver's hand -->
+  <rect x="296" y="232" width="20" height="34" rx="4" fill="#0b1222" stroke="#94a3b8" stroke-width="2"/>
+  <rect x="286" y="222" width="40" height="54" fill="none" stroke="#f43f5e" stroke-width="3" stroke-dasharray="7 5"/>
+  <rect x="330" y="222" width="72" height="26" rx="4" fill="#f43f5e"/>
+  <text x="366" y="241" text-anchor="middle" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif" font-size="18" font-weight="700" fill="#fff">phone</text>
+
+  <!-- gaze vector: driver looking down at the phone -->
+  <g stroke="#facc15" stroke-width="4" stroke-linecap="round" fill="none">
+    <path d="M250 146 L296 222"/>
+    <path d="M283 213 L296 222 L296 206"/>
+  </g>
+
+  <!-- fisheye camera at the top of the windshield -->
+  <rect x="368" y="14" width="64" height="26" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+  <circle cx="400" cy="34" r="13" fill="#0b1222" stroke="#38bdf8" stroke-width="3"/>
+  <circle cx="400" cy="34" r="5" fill="#38bdf8"/>
+
+  <!-- label -->
+  <g font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif" font-weight="700">
+    <rect x="444" y="10" width="184" height="32" rx="16" fill="#38bdf8" fill-opacity=".16" stroke="#38bdf8" stroke-opacity=".6"/>
+    <text x="536" y="32" text-anchor="middle" font-size="18" fill="#7dd3fc">RGB/IR fisheye</text>
+  </g>
+</svg>
