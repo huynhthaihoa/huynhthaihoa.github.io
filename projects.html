@@ -95,7 +95,7 @@
       <a href="#head-pose-estimation" class="toc-card fade-up">
         <span class="blog-tag">Computer Vision</span>
         <div class="toc-title">Head Pose Estimation</div>
-        <div class="toc-date">Sep 2025 – Present</div>
+        <div class="toc-date">Sep 2025 – Jul 2026</div>
       </a>
     </div>
   </div>
@@ -117,7 +117,7 @@
     <div class="post-body">
 
       <h3>Introduction</h3>
-      <p>A proof-of-concept that performs <strong>multi-camera real-time stitching</strong> applicable to an <strong>Advanced Driving Assistance System</strong>. I was the sole developer, handling research, implementation, and testing end to end.</p>
+      <p>A proof-of-concept that performs <strong>multi-camera real-time stitching</strong> applicable to an <strong>Advanced Driver-Assistance System</strong>. I was the sole developer, handling research, implementation, and testing end to end.</p>
 
       <hr>
 
@@ -147,8 +147,8 @@
         <li><a href="https://link.springer.com/article/10.1023/B:VISI.0000029664.99615.94" target="_blank" rel="noopener">SIFT</a> (default)</li>
       </ul>
 
-      <h4>Feature Matching</h4>
-      <p>Used to find matched features between each input pair, from which the <strong>homography matrix</strong> is estimated:</p>
+      <h4>Feature Matching &amp; Homography Estimation</h4>
+      <p>Features are matched between each input pair, and the <strong>homography matrix</strong> is then estimated from the matches with one of:</p>
       <ul>
         <li>Least squares method</li>
         <li><a href="https://dl.acm.org/doi/10.1145/358669.358692" target="_blank" rel="noopener">RANSAC-based robust method</a> (default)</li>
@@ -164,9 +164,9 @@
       <div class="img-row">
         <img src="assets/projects/camera-stitching-homography-plane.webp" width="422" height="243" loading="lazy" alt="Planar surface and the image plane">
         <img src="assets/projects/camera-stitching-homography-stitch.webp" width="900" height="255" loading="lazy" alt="Planar surface viewed by two camera positions">
-        <img src="assets/projects/camera-stitching-homography-rotation.webp" width="555" height="207" loading="lazy" alt="Camera rotating around its axis of projection">
+        <img src="assets/projects/camera-stitching-homography-rotation.webp" width="555" height="207" loading="lazy" alt="Camera rotating about its center of projection">
       </div>
-      <p class="img-caption">Left → right: a planar surface and the image plane; a planar surface viewed by two camera positions (the stitching case); a camera rotating around its axis of projection — equivalent to points lying on a plane at infinity (smartphone panorama mode), the foundational case for image stitching.</p>
+      <p class="img-caption">Left → right: a planar surface and the image plane; a planar surface viewed by two camera positions (the stitching case); a camera rotating about its center of projection — equivalent to points lying on a plane at infinity (smartphone panorama mode), the foundational case for image stitching.</p>
 
       <hr>
 
@@ -210,28 +210,28 @@
 
       <h3>Process</h3>
       <p>The pipeline combines two deep learning models: <strong>object detection</strong> to find the worker, and <strong>monocular depth estimation</strong> to estimate distance. We picked two SOTA models at the time — <strong>YOLOv5</strong> for detection and <strong>NeWCRFs</strong> for depth — then fine-tuned both on our own data, since the pretrained weights were trained on RGB images and our camera is thermal.</p>
-      <p>As the first developer on the project, my primary task was sourcing the "depth" ground truth. Given an Ouster OS0 Ultra-Wide High-Resolution Imaging LIDAR, that broke into three sub-tasks:</p>
+      <p>As the first developer on the project, my primary task was sourcing the "depth" ground truth. Given an Ouster OS0 Ultra-Wide High-Resolution Imaging LiDAR, that broke into three sub-tasks:</p>
 
       <h4>1. Camera Calibration</h4>
       <p>Estimating the thermal camera's intrinsic parameters and distortion coefficients via a standard checkerboard-detection approach, based on <a href="https://docs.opencv.org/3.4/d9/d0c/group__calib3d.html#ga4abc2ece9fab9398f2e560d53c8c9780" target="_blank" rel="noopener">OpenCV</a> and the ROS <a href="https://github.com/ros-perception/image_pipeline/tree/rolling/camera_calibration" target="_blank" rel="noopener">image_pipeline/camera_calibration</a> package, plus CLAHE (Contrast Limited Adaptive Histogram Equalization) to sharpen local contrast. Since a thermal camera can't visually distinguish a checkerboard's black and white squares, I held the board under a high-temperature environment (direct sun, halogen light) — black surfaces absorb more heat than white ones, which made the pattern visible to the sensor.</p>
 
       <h4>2. Data Collection</h4>
-      <p>Used ROS for synchronized multi-sensor recording: <code>ouster_ros</code> for the LIDAR, <code>flir_boson_usb</code> for the thermal camera, and <code>rosbag record</code> to capture both streams. Synchronization relied on the timestamps ROS attaches at recording time.</p>
+      <p>Used ROS for synchronized multi-sensor recording: <code>ouster_ros</code> for the LiDAR, <code>flir_boson_usb</code> for the thermal camera, and <code>rosbag record</code> to capture both streams. Synchronization relied on the timestamps ROS attaches at recording time.</p>
 
-      <h4>3. Camera-LIDAR Calibration</h4>
-      <p>Estimated the rotation matrix and translation vector between the LIDAR and camera coordinate systems:</p>
+      <h4>3. Camera-LiDAR Calibration</h4>
+      <p>Estimated the rotation matrix and translation vector between the LiDAR and camera coordinate systems:</p>
       <div class="img-row">
-        <img src="assets/projects/worker-localization-calibration-1.webp" width="1414" height="455" loading="lazy" alt="Camera-LIDAR calibration process diagram 1">
-        <img src="assets/projects/worker-localization-calibration-2.webp" width="960" height="463" loading="lazy" alt="Camera-LIDAR calibration process diagram 2">
+        <img src="assets/projects/worker-localization-calibration-1.webp" width="1414" height="455" loading="lazy" alt="Camera-LiDAR calibration process diagram 1">
+        <img src="assets/projects/worker-localization-calibration-2.webp" width="960" height="463" loading="lazy" alt="Camera-LiDAR calibration process diagram 2">
       </div>
-      <p>With rotation $R$ and translation $t$, the LIDAR point cloud converts into the camera coordinate system, then projects onto the image plane to form a ground-truth-scale depth map aligned with the camera image:</p>
-      <div class="math-display">$$s \begin{bmatrix} u\\ v \end{bmatrix} = \begin{bmatrix} f_x & 0 & c_x \\ 0 & f_y & c_y \\ 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} X_c\\ Y_c \\ Z_c \end{bmatrix}$$</div>
+      <p>With rotation $R$ and translation $t$, the LiDAR point cloud converts into the camera coordinate system, then projects onto the image plane to form a ground-truth-scale depth map aligned with the camera image:</p>
+      <div class="math-display">$$s \begin{bmatrix} u\\ v \\ 1 \end{bmatrix} = \begin{bmatrix} f_x & 0 & c_x \\ 0 & f_y & c_y \\ 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} X_c\\ Y_c \\ Z_c \end{bmatrix}$$</div>
       <img src="assets/projects/worker-localization-depthmap.webp" width="1208" height="741" loading="lazy" alt="Resulting ground-truth depth map aligned with the thermal camera image">
 
       <hr>
 
-      <h3>Lesson Learned</h3>
-      <p>This dataset and calibration pipeline helped the team become <strong>1 of 8 solutions worldwide to outperform the provided SOTA baseline</strong> on any of the pointcloud- or image-based metrics at the CVPRW 2023 monocular depth estimation challenge. We customized <a href="https://arxiv.org/pdf/2210.09071" target="_blank" rel="noopener">PixelFormer</a> (the SOTA depth model at the time) with training-time augmentations (random crop/rotation, left-right flip, CutDepth) and a zero-padding technique at inference to preserve the training resolution.</p>
+      <h3>CVPRW 2023 Challenge Entry</h3>
+      <p>Separately, the team entered the CVPRW 2023 monocular depth estimation challenge and became <strong>1 of 8 submissions worldwide (out of 28) to outperform the provided SOTA baseline</strong>, beating it on the image-based metrics (MAE, RMSE, AbsRel). The confidential dataset above was not used: we trained a customized <a href="https://arxiv.org/pdf/2210.09071" target="_blank" rel="noopener">PixelFormer</a> (the SOTA depth model at the time) on the challenge's training data, with training-time augmentations (random crop/rotation, left-right flip, CutDepth) and a zero-padding technique at inference to preserve the training resolution.</p>
       <div class="ref-links">
         <a href="https://arxiv.org/abs/2304.07051" target="_blank" rel="noopener" class="ref-link">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
@@ -259,12 +259,12 @@
     <div class="post-body">
 
       <h3>Introduction</h3>
-      <p>An R&amp;D project to replace LIDAR with a camera: an <strong>absolute depth estimation model</strong> combined with <strong>camera calibration parameters</strong> generates a pseudo point cloud directly from image pixels, rendered in real time with OpenGL and Open3D.</p>
-      <p>The underlying theory — human depth perception cues, absolute vs. relative depth estimation, the depth-to-3D-coordinate math, and the proposed multi-camera LIDAR-replication pipeline — is written up separately:</p>
+      <p>An R&amp;D project to replace LiDAR with a camera: an <strong>absolute depth estimation model</strong> combined with <strong>camera calibration parameters</strong> generates a pseudo point cloud directly from image pixels, rendered in real time with OpenGL and Open3D.</p>
+      <p>The underlying theory — human depth perception cues, absolute vs. relative depth estimation, the depth-to-3D-coordinate math, and the proposed multi-camera LiDAR-replication pipeline — is written up separately:</p>
       <div class="ref-links">
         <a href="blog.html#depth-pseudolidar" class="ref-link">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-          From Depth Estimation to Pseudo-LIDAR
+          From Depth Estimation to Pseudo-LiDAR
         </a>
       </div>
 
@@ -285,11 +285,12 @@
 
       <h4>KITTI dataset</h4>
       <table>
-        <tr><th>Model</th><th>Params</th><th>FPS (480×640)</th><th>Abs.Rel↓</th><th>RMSE↓</th><th>Sqr.Rel↓</th><th>δ1↑</th><th>δ2↑</th><th>δ3↑</th></tr>
-        <tr><td>Ours (YOLOv8s encoder)</td><td>10,810,465</td><td>105</td><td>0.0479</td><td>2.3879</td><td>0.1798</td><td>0.9721</td><td>0.9952</td><td>0.9982</td></tr>
-        <tr><td>NeWCRFs</td><td>270,444,877</td><td>14</td><td>0.0509</td><td>2.1871</td><td>0.1608</td><td>0.9762</td><td>0.9963</td><td>0.9987</td></tr>
-        <tr><td>PixelFormer</td><td>270,895,920</td><td>16</td><td>0.0542</td><td>2.3748</td><td>0.1817</td><td>0.9724</td><td>0.9955</td><td>0.9984</td></tr>
+        <tr><th>Model</th><th>Params</th><th>FPS (352×1120)</th><th>Abs.Rel↓</th><th>RMSE↓</th><th>Sqr.Rel↓</th><th>δ1↑</th><th>δ2↑</th><th>δ3↑</th></tr>
+        <tr><td>Ours (YOLOv8s encoder)</td><td>10,810,465</td><td>101</td><td>0.0479</td><td>2.3879</td><td>0.1798</td><td>0.9721</td><td>0.9952</td><td>0.9982</td></tr>
+        <tr><td>NeWCRFs</td><td>270,444,877</td><td>14</td><td>0.0480</td><td>2.2319</td><td>0.1584</td><td>0.9767</td><td>0.9962</td><td>0.9986</td></tr>
+        <tr><td>PixelFormer</td><td>270,895,920</td><td>15</td><td>0.0534</td><td>2.4173</td><td>0.1840</td><td>0.9711</td><td>0.9952</td><td>0.9982</td></tr>
       </table>
+      <p class="img-caption">All results are from our own PyTorch evaluation runs, without test-time augmentation (TTA). FPS is averaged over 10,000 inference iterations on a single GPU.</p>
       <p>At roughly 7× the FPS of NeWCRFs/PixelFormer and ~4% of their parameter count, the model trades a modest amount of accuracy for the throughput a real-time PseudoLiDAR pipeline needs.</p>
 
     </div><!-- /.post-body -->
@@ -306,7 +307,7 @@
     <header class="post-header">
       <span class="blog-tag">Computer Vision</span>
       <h2>Head Pose Estimation</h2>
-      <div class="post-date">Sep 2025 – Present · Python, C/C++, OpenCV</div>
+      <div class="post-date">Sep 2025 – Jul 2026 · Python, C/C++, OpenCV</div>
     </header>
 
     <div class="post-body">
@@ -317,20 +318,20 @@
       </div>
 
       <h3>Defining a Head Pose</h3>
-      <p>A head pose is defined by a starting point $p = (u_0, v_0)$ — the origin of the head-pose coordinate system — and a rotation matrix (ZYX convention) built from <strong>Pitch $Pi$</strong>, <strong>Yaw $Ya$</strong>, and <strong>Roll $Ro$</strong>:</p>
+      <p>A head pose is defined by a starting point $P_0 = (x_0, y_0, z_0)$ — the origin of the head-pose coordinate system in camera coordinates, which projects to the pixel $(u_0, v_0)$ — and a rotation matrix (ZYX convention, $R = R_z R_y R_x$) built from <strong>Pitch $\mathrm{Pi}$</strong>, <strong>Yaw $\mathrm{Ya}$</strong>, and <strong>Roll $\mathrm{Ro}$</strong>:</p>
 
-      <div class="math-display">$$R_z(Ro) = \begin{bmatrix} \cos{Ro} & -\sin{Ro} & 0 \\ \sin{Ro} & \cos{Ro} & 0 \\ 0 & 0 & 1 \end{bmatrix}$$</div>
-      <div class="math-display">$$R_y(Ya) = \begin{bmatrix} \cos{Ya} & 0 & \sin{Ya} \\ 0 & 1 & 0 \\ -\sin{Ya} & 0 & \cos{Ya} \end{bmatrix}$$</div>
-      <div class="math-display">$$R_x(Pi) = \begin{bmatrix} 1 & 0 & 0 \\ 0 & \cos{Pi} & -\sin{Pi} \\ 0 & \sin{Pi} & \cos{Pi} \end{bmatrix}$$</div>
+      <div class="math-display">$$R_z(\mathrm{Ro}) = \begin{bmatrix} \cos{\mathrm{Ro}} & -\sin{\mathrm{Ro}} & 0 \\ \sin{\mathrm{Ro}} & \cos{\mathrm{Ro}} & 0 \\ 0 & 0 & 1 \end{bmatrix}$$</div>
+      <div class="math-display">$$R_y(\mathrm{Ya}) = \begin{bmatrix} \cos{\mathrm{Ya}} & 0 & \sin{\mathrm{Ya}} \\ 0 & 1 & 0 \\ -\sin{\mathrm{Ya}} & 0 & \cos{\mathrm{Ya}} \end{bmatrix}$$</div>
+      <div class="math-display">$$R_x(\mathrm{Pi}) = \begin{bmatrix} 1 & 0 & 0 \\ 0 & \cos{\mathrm{Pi}} & -\sin{\mathrm{Pi}} \\ 0 & \sin{\mathrm{Pi}} & \cos{\mathrm{Pi}} \end{bmatrix}$$</div>
 
       <p>The combined head-pose rotation matrix with respect to the camera is:</p>
-      <div class="math-display">$$R = \begin{bmatrix} \cos{Ro}\cos{Ya} & \cos{Ro}\sin{Ya}\sin{Pi} - \sin{Ro}\cos{Pi} & \cos{Ro}\sin{Ya}\cos{Pi} + \sin{Ro}\sin{Pi} \\ \sin{Ro}\cos{Ya} & \sin{Ro}\sin{Ya}\sin{Pi} + \cos{Ro}\cos{Pi} & \sin{Ro}\sin{Ya}\cos{Pi} - \cos{Ro}\sin{Pi} \\ -\sin{Ya} & \cos{Ya}\sin{Pi} & \cos{Ya}\cos{Pi} \end{bmatrix}$$</div>
+      <div class="math-display">$$R = \begin{bmatrix} \cos{\mathrm{Ro}}\cos{\mathrm{Ya}} & \cos{\mathrm{Ro}}\sin{\mathrm{Ya}}\sin{\mathrm{Pi}} - \sin{\mathrm{Ro}}\cos{\mathrm{Pi}} & \cos{\mathrm{Ro}}\sin{\mathrm{Ya}}\cos{\mathrm{Pi}} + \sin{\mathrm{Ro}}\sin{\mathrm{Pi}} \\ \sin{\mathrm{Ro}}\cos{\mathrm{Ya}} & \sin{\mathrm{Ro}}\sin{\mathrm{Ya}}\sin{\mathrm{Pi}} + \cos{\mathrm{Ro}}\cos{\mathrm{Pi}} & \sin{\mathrm{Ro}}\sin{\mathrm{Ya}}\cos{\mathrm{Pi}} - \cos{\mathrm{Ro}}\sin{\mathrm{Pi}} \\ -\sin{\mathrm{Ya}} & \cos{\mathrm{Ya}}\sin{\mathrm{Pi}} & \cos{\mathrm{Ya}}\cos{\mathrm{Pi}} \end{bmatrix}$$</div>
 
       <p>Every point $(x, y, z)$ on the head-pose ray follows:</p>
-      <div class="math-display">$$\begin{cases} t \geq 0 \\ x = x_0 + t\cos(Ro)\cos(Ya) \\ y = y_0 + t\sin(Ro)\cos(Ya) \\ z = z_0 - t\sin(Ya) \end{cases}$$</div>
+      <div class="math-display">$$\begin{cases} t \geq 0 \\ x = x_0 + t\cos(\mathrm{Ro})\cos(\mathrm{Ya}) \\ y = y_0 + t\sin(\mathrm{Ro})\cos(\mathrm{Ya}) \\ z = z_0 - t\sin(\mathrm{Ya}) \end{cases}$$</div>
 
-      <p>Conversely, Pitch, Yaw, and Roll can be recovered from $R$:</p>
-      <div class="math-display">$$\tan(Pi) = \frac{R_{2,1}}{R_{2,2}} \qquad \tan(Ya) = -\frac{R_{2,0}}{\sqrt{R_{2,1}^2 + R_{2,2}^2}} \qquad \tan(Ro) = \frac{R_{1,0}}{R_{0,0}}$$</div>
+      <p>Conversely, Pitch, Yaw, and Roll can be recovered from $R$ (with 0-indexed entries $R_{i,j}$):</p>
+      <div class="math-display">$$\tan(\mathrm{Pi}) = \frac{R_{2,1}}{R_{2,2}} \qquad \tan(\mathrm{Ya}) = -\frac{R_{2,0}}{\sqrt{R_{2,1}^2 + R_{2,2}^2}} \qquad \tan(\mathrm{Ro}) = \frac{R_{1,0}}{R_{0,0}}$$</div>
 
       <hr>
 
@@ -354,7 +355,7 @@
       <hr>
 
       <h3>Kalman Filter Stabilizer</h3>
-      <p>The Extended Kalman Filter smooths head-pose motion across frames and bridges gaps when the 2D facial landmark model fails to predict a landmark — most commonly due to occlusion.</p>
+      <p>The Extended Kalman Filter smooths head-pose motion across frames and bridges gaps when the 2D facial landmark model fails to predict a landmark — most commonly due to occlusion. The filter tracks the head orientation as a quaternion, converted from the estimated rotation matrix (see the conversion reference below).</p>
 
       <hr>
 

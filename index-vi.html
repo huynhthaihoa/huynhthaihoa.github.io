@@ -214,12 +214,12 @@
         <div class="timeline-role">Trưởng nhóm Phát triển &amp; Nhà nghiên cứu AI</div>
         <div class="timeline-org">DeltaX · Seoul, Hàn Quốc</div>
         <p class="timeline-desc">
-          Kể từ tháng 12/2023, dẫn dắt nhóm Nghiên cứu &amp; Phát triển xây dựng Hệ thống Giám sát Trong khoang lái (In-Cabin Monitoring System - ICMS) tuân thủ
+          Kể từ tháng 12/2023, dẫn dắt nhóm Nghiên cứu &amp; Phát triển xây dựng Hệ thống Giám sát Trong khoang lái (In-Cabin Monitoring System - ICMS) đáp ứng
           tiêu chuẩn Euro NCAP — phụ trách xây dựng lộ trình kỹ thuật, phân bổ công việc, đánh giá tiến độ hàng tuần,
           quản lý mốc tiến độ, và trình diễn cho đối tác/khách hàng cho một pipeline thời gian thực gồm 8 mô hình (phát hiện đối tượng,
           điểm mốc 2D/3D, điểm mốc khuôn mặt, ước lượng hướng nhìn) đạt 14 FPS trên nền tảng TI SK-TDA4VM (8 TOPS) và
-          ~9 FPS trên nền tảng TI SK-TDA4AEN (4 TOPS), cùng với triển khai trên các SoC Samsung Exynos V920. Đã bàn giao
-          4 dự án PoC cho 2 nhà cung cấp ô tô lớn của Hàn Quốc. Ngoài ra còn làm việc về ghép nối đa camera
+          ~9 FPS trên nền tảng TI TDA4AEN (4 TOPS), cùng với triển khai trên các SoC Samsung Exynos V920. Đã bàn giao
+          4 dự án PoC cho 2 nhà cung cấp ô tô Hàn Quốc. Ngoài ra còn làm việc về ghép nối đa camera
           (multi-camera stitching), định vị công nhân đường sắt, tạo pseudo-LiDAR, và ước lượng độ sâu thời gian thực.
         </p>
       </div>
@@ -363,7 +363,7 @@
         <div class="skill-tags">
           <span class="skill-tag">TI SK-TDA4VM/TDA4AEN</span>
           <span class="skill-tag">Samsung Exynos V920</span>
-          <span class="skill-tag">NIR Camera</span>
+          <span class="skill-tag">RGB/IR Camera</span>
           <span class="skill-tag">FLIR Thermal Camera</span>
           <span class="skill-tag">Ouster LiDAR</span>
         </div>
@@ -384,7 +384,7 @@
           <!-- <span class="skill-tag skill-tag--familiar">C</span> -->
           <span class="skill-tag skill-tag--familiar">C#</span>
           <span class="skill-tag skill-tag--familiar">MATLAB</span>
-          <span class="skill-tag skill-tag--familiar">Javascript</span>
+          <span class="skill-tag skill-tag--familiar">JavaScript</span>
           <span class="skill-tag skill-tag--familiar">Java</span>
           <span class="skill-tag skill-tag--familiar">TensorFlow</span>
           <span class="skill-tag skill-tag--familiar">Darknet</span>
@@ -455,7 +455,7 @@
         <div class="project-name">Hệ thống Giám sát Trong khoang lái Thông minh</div>
         <div class="project-duration">Tháng 12/2023 – Tháng 7/2026</div>
         <p class="project-desc">
-          Hệ thống giám sát trong khoang lái toàn diện xây dựng trên một camera fisheye NIR duy nhất, tuân thủ tiêu chuẩn Euro NCAP, và bổ sung các tính năng nâng cao độc quyền.
+          Hệ thống giám sát trong khoang lái toàn diện xây dựng trên một camera fisheye RGB/IR duy nhất, đáp ứng tiêu chuẩn Euro NCAP, và bổ sung các tính năng nâng cao độc quyền.
           Tích hợp tới tám mô hình thị giác máy tính học sâu (phát hiện đối tượng, phân loại ảnh,
           điểm mốc cơ thể 2D/3D, điểm mốc khuôn mặt, ước lượng hướng nhìn) vào một pipeline C/C++ triển khai trên
           các thiết bị System-on-Chip (Texas Instruments SK-TDA4VM/TDA4AEN, Samsung Exynos V920). Với vai trò Trưởng nhóm, phụ trách
@@ -502,7 +502,7 @@
         </div>
       </div>
 
-      <!-- PseudoLIDAR -->
+      <!-- PseudoLiDAR -->
       <div class="project-card fade-up">
         <img class="project-thumb" src="assets/projects/pseudo-lidar.gif" loading="lazy" alt="Demo PseudoLiDAR thời gian thực">
         <div class="project-top">
@@ -552,9 +552,10 @@
           Kết hợp phát hiện đối tượng YOLOv5 với ước lượng độ sâu đơn ảnh (monocular) NeWCRFs.
           Là nhà phát triển đầu tiên trên dự án, xây dựng toàn bộ pipeline hiệu chỉnh:
           hiệu chỉnh camera, thu thập dữ liệu, và hiệu chỉnh Camera-LiDAR sử dụng LiDAR Ouster OS0.
-          Bộ dữ liệu và mô hình độ sâu thu được đã được nộp với tên Team DepthSquad tại Thử thách Ước lượng Độ sâu Đơn ảnh
-          lần thứ hai của CVPRW 2023 — 1 trong 8 bài nộp trên toàn thế giới (trong tổng số 28) được chấp nhận vì vượt qua
-          baseline SOTA, vượt trội hơn trên các chỉ số độ chính xác dựa trên ảnh (MAE, RMSE, AbsRel).
+          Ngoài ra, tham gia Thử thách Ước lượng Độ sâu Đơn ảnh lần thứ hai của CVPRW 2023 với tên Team DepthSquad, nộp một
+          mô hình độ sâu tùy biến được huấn luyện trên dữ liệu của cuộc thi cùng phương pháp xử lý dữ liệu của nhóm (bộ dữ liệu
+          bảo mật của dự án không được sử dụng) — 1 trong 8 bài nộp trên toàn thế giới (trong tổng số 28) vượt qua baseline SOTA,
+          vượt trội hơn trên các chỉ số độ chính xác dựa trên ảnh (MAE, RMSE, AbsRel).
         </p>
         <a href="projects-vi.html#worker-localization" class="project-readmore">Xem nghiên cứu điển hình →</a>
         <div class="tag-list">
@@ -577,7 +578,7 @@
             </svg>
           </div>
           <div class="project-links">
-            <a href="https://github.com/huynhthaihoa/realtime-multicam-stitching" target="_blank" rel="noopener" class="project-link" title="GitHub — bộ công cụ hình học tổng quát hóa">
+            <a href="https://github.com/huynhthaihoa/realtime-multicam-stitching" target="_blank" rel="noopener" class="project-link" title="GitHub">
               <svg width="16" height="16" fill="currentColor"><use href="#icon-github"></use></svg>
             </a>
           </div>
@@ -652,7 +653,7 @@
         <p class="project-desc">
           Cài đặt chính thức của thuật toán định vị xe-với-xe (vehicle-to-vehicle) ban đêm dựa trên thị giác lập thể từ
           công bố MDPI của tôi: đối sánh lập thể tăng cường gradient (gradient-boosted) cho tương ứng vùng đèn hậu, kết hợp với
-          một giai đoạn đối sánh dựa trên mạng nơ-ron để liên kết đèn hậu trái/phải trong điều kiện giao thông đô thị.
+          một giai đoạn ghép cặp dựa trên mạng nơ-ron để liên kết đèn hậu trái/phải trong điều kiện giao thông đô thị.
         </p>
         <a href="#publications" class="project-readmore">Xem công bố →</a>
         <div class="tag-list">
@@ -783,7 +784,7 @@
         <div class="project-duration">Dự án cá nhân</div>
         <p class="project-desc">
           Một pipeline năm bước để phát hiện làn đường của xe tự thân từ đám mây điểm LiDAR: trích xuất
-          điểm mặt đất, phát hiện đỉnh biểu đồ cường độ (intensity histogram), tìm kiếm làn đường bằng cửa sổ trượt, và khớp
+          điểm mặt đất, xây dựng biểu đồ cường độ (intensity histogram), phát hiện đỉnh, tìm kiếm làn đường bằng cửa sổ trượt, và khớp
           đường cong đa thức để xuất ra hệ số làn đường trái/phải.
         </p>
         <div class="tag-list">
@@ -933,14 +934,14 @@
         <div class="project-name">FaceMask</div>
         <div class="project-duration">Dự án cá nhân</div>
         <p class="project-desc">
-          Một công cụ phát hiện và làm mờ khuôn mặt cho tệp video. Backend C++ (FFMPEG + suy luận) với
+          Một công cụ phát hiện và làm mờ khuôn mặt cho tệp video. Backend C++ (FFmpeg + suy luận) với
           giao diện WinForms C# hỗ trợ kéo-thả đầu vào.
         </p>
         <div class="tag-list">
           <span class="tag">C++</span>
           <span class="tag">C#</span>
           <span class="tag">OpenCV</span>
-          <span class="tag">FFMPEG</span>
+          <span class="tag">FFmpeg</span>
         </div>
       </div>
 
@@ -1064,7 +1065,7 @@
         <div class="pub-body">
           <div class="pub-title">Detection Algorithm for Overlapping LEDs in Vehicular Visible Light Communication System</div>
           <div class="pub-venue">IEEE Access</div>
-          <div class="pub-date">Tháng 8/2019<span class="pub-tier">Tạp chí quốc tế · SJR Q1</span></div>
+          <div class="pub-date">Tháng 8/2019<span class="pub-tier">Tạp chí quốc tế · SJR Q1 (IF: 4.2)</span></div>
           <p class="pub-desc">Tách các tín hiệu LED chồng lấn trong VLC cho xe cộ bằng bộ phát hiện biên Canny cải tiến và biến đổi Hough tổng quát để giảm mất dữ liệu và tỷ lệ lỗi bit.</p>
         </div>
         <div class="pub-actions">
@@ -1091,8 +1092,8 @@
     <div class="blog-grid">
 
       <a href="blog-vi.html#knowledge-distillation" class="blog-card fade-up" style="text-decoration:none;color:inherit;display:block;">
-        <span class="blog-tag">Deep Learning</span>
-        <div class="blog-title">Suy nghĩ về Knowledge Distillation</div>
+        <span class="blog-tag">Học sâu</span>
+        <div class="blog-title">Brainstorm về Knowledge Distillation</div>
         <p class="blog-excerpt">
           Một khám phá chuyên sâu về knowledge distillation — khi nào nên huấn luyện mô hình giáo viên và học sinh
           song song, các pipeline hai giai đoạn tiêu chuẩn, và khi nào huấn luyện song song hợp lý.
@@ -1100,8 +1101,8 @@
       </a>
 
       <a href="blog-vi.html#2d-vision" class="blog-card fade-up" style="text-decoration:none;color:inherit;display:block;">
-        <span class="blog-tag">Computer Vision</span>
-        <div class="blog-title">Tiện ích Thị giác 2D</div>
+        <span class="blog-tag">Thị giác máy tính</span>
+        <div class="blog-title">Các công cụ Thị giác 2D</div>
         <p class="blog-excerpt">
           Tài liệu tham khảo toán học cho các phép toán thị giác 2D phổ biến: phương trình tham số hình elip,
           dạng tổng quát của elip xoay, và công thức xoay điểm với cài đặt bằng Python.
@@ -1109,7 +1110,7 @@
       </a>
 
       <a href="blog-vi.html#rolling-in-the-deep" class="blog-card fade-up" style="text-decoration:none;color:inherit;display:block;">
-        <span class="blog-tag">Depth Estimation</span>
+        <span class="blog-tag">Ước lượng độ sâu</span>
         <div class="blog-title">Rolling in the Deep</div>
         <p class="blog-excerpt">
           Một bảng xếp hạng được tuyển chọn và ghi chú cá nhân về ước lượng độ sâu đơn ảnh — theo dõi các mô hình SOTA,
@@ -1118,8 +1119,8 @@
       </a>
 
       <a href="blog-vi.html#depth-pseudolidar" class="blog-card fade-up" style="text-decoration:none;color:inherit;display:block;">
-        <span class="blog-tag">Depth Estimation</span>
-        <div class="blog-title">Từ Ước lượng Độ sâu đến Pseudo-LIDAR</div>
+        <span class="blog-tag">Ước lượng độ sâu</span>
+        <div class="blog-title">Từ Ước lượng Độ sâu đến Pseudo-LiDAR</div>
         <p class="blog-excerpt">
           Một khám phá các phương pháp ước lượng độ sâu đơn ảnh — độ sâu tuyệt đối so với tương đối —
           và cách tái tạo đám mây điểm pseudo-LiDAR từ ảnh camera bằng bản đồ độ sâu và thông số nội tại của camera.
@@ -1127,8 +1128,8 @@
       </a>
 
       <a href="blog-vi.html#perspective-affine" class="blog-card fade-up" style="text-decoration:none;color:inherit;display:block;">
-        <span class="blog-tag">Computer Vision</span>
-        <div class="blog-title">Biến đổi Phối cảnh so với Biến đổi Affine</div>
+        <span class="blog-tag">Thị giác máy tính</span>
+        <div class="blog-title">Perspective Transform và Affine Transform</div>
         <p class="blog-excerpt">
           Một so sánh súc tích giữa hai phép biến đổi hình học cơ bản: biến đổi phối cảnh (homography) ánh xạ
           giữa các mặt phẳng với 8 bậc tự do (DoF), và biến đổi affine bảo toàn tính song song.
@@ -1136,8 +1137,8 @@
       </a>
 
       <a href="blog-vi.html#phone-looking" class="blog-card fade-up" style="text-decoration:none;color:inherit;display:block;">
-        <span class="blog-tag">Computer Vision</span>
-        <div class="blog-title">Thuật toán Đơn giản Phát hiện Nhìn Điện thoại</div>
+        <span class="blog-tag">Thị giác máy tính</span>
+        <div class="blog-title">Thuật toán đơn giản Phát hiện Nhìn Điện thoại</div>
         <p class="blog-excerpt">
           Một thuật toán đơn giản để phát hiện xem một người có đang nhìn vào điện thoại của họ hay không, kết hợp một mô hình phát hiện đối tượng
           và một mô hình ước lượng hướng nhìn với phương pháp giao nhau trường nhìn (FOV) dạng hình nón.
@@ -1145,8 +1146,8 @@
       </a>
 
       <a href="blog-vi.html#sahi-small-objects" class="blog-card fade-up" style="text-decoration:none;color:inherit;display:block;">
-        <span class="blog-tag">Object Detection</span>
-        <div class="blog-title">Tiền xử lý theo hướng Cắt lát để Cải thiện Recall cho Vật thể Nhỏ</div>
+        <span class="blog-tag">Phát hiện đối tượng</span>
+        <div class="blog-title">Tiền xử lý lấy cảm hứng từ Slicing cho Recall Vật thể Nhỏ</div>
         <p class="blog-excerpt">
           Chuyển đổi ý tưởng cắt lát (slicing) của SAHI từ thời điểm suy luận sang tiền xử lý dữ liệu, để cải thiện recall trên các vật thể nhỏ,
           xa cho YOLOv8-p2/YOLOv9n trong khi vẫn giữ suy luận là một lượt xử lý ảnh đầy đủ duy nhất.
@@ -1300,7 +1301,7 @@
               <span class="cert-dot"></span><span class="cert-name">100 Days Badge 2025</span><span class="cert-date">Tháng 6/2025</span>
             </a>
             <a href="assets/certifications/leetcode-365-days.png" target="_blank" rel="noopener" class="cert-item">
-              <span class="cert-dot"></span><span class="cert-name">365 Days Badge (submitted code on 365+ days in total)</span><span class="cert-date">Tháng 6/2025</span>
+              <span class="cert-dot"></span><span class="cert-name">365 Days Badge (đã nộp code tổng cộng hơn 365 ngày)</span><span class="cert-date">Tháng 6/2025</span>
             </a>
             <a href="assets/certifications/leetcode-100daysbadge2024.png" target="_blank" rel="noopener" class="cert-item">
               <span class="cert-dot"></span><span class="cert-name">100 Days Badge 2024</span><span class="cert-date">Tháng 8/2024</span>

@@ -94,7 +94,7 @@
       </a>
       <a href="#depth-pseudolidar" class="toc-card fade-up">
         <span class="blog-tag-depth">깊이 추정</span>
-        <div class="toc-title">깊이 추정에서 Pseudo-LIDAR로</div>
+        <div class="toc-title">깊이 추정에서 Pseudo-LiDAR로</div>
         <div class="toc-date">2025년 3월 24일</div>
       </a>
       <a href="#perspective-affine" class="toc-card fade-up">
@@ -203,7 +203,7 @@
       <p>같은 데이터셋으로 교사 모델을 사전 학습시키면 교사가 <strong>태스크에 대한 풍부한 정보를 포착하는 고성능 해(solution)로 수렴</strong>할 수 있습니다(예: 클래스 확률, 특징 표현, 결정 경계). 그러면 학생은 하드 레이블만으로는 얻을 수 없는 더 많은 정보를 제공하는 교사의 소프트 출력(예: 완화된 로짓이나 중간 특징)을 통해 이 고품질 지식을 활용할 수 있습니다. 예를 들어 분류(classification) 태스크에서는, (temperature 파라미터가 적용된) 교사의 softmax 출력이 클래스 간 관계를 드러내어 학생이 더 미묘한 결정 경계를 학습하도록 돕습니다.</p>
 
       <h5>Knowledge Distillation에서의 표준 관행</h5>
-      <p>Hinton et al. (2015)이 제시한 정통적인 knowledge distillation 프레임워크는 교사가 목표 데이터셋에서 사전 학습되고, 학생이 같은 데이터셋에서 교사의 출력을 맞추도록 학습된다고 가정합니다. 이 설정은 이미지 분류, 자연어 처리, 음성 인식 등을 위한 모델 압축과 같은 응용 분야에서 널리 사용됩니다. 학생은 일반적으로 같은 데이터셋에서 distillation loss(예: 교사와 학생 로짓 사이의 KL divergence)와 태스크별 손실(예: ground-truth 레이블과의 cross-entropy)을 조합하여 최적화합니다.</p>
+      <p>Hinton et al. (2015)이 제시한 정통적인 knowledge distillation 프레임워크는 학생이 <strong>전이 세트(transfer set)</strong>에서 사전 학습된 교사의 출력(temperature로 부드럽게 만든 출력)을 맞추도록 학습시킵니다. 전이 세트는 레이블 없는 데이터일 수도, 원래의 학습 세트일 수도 있으며, 저자들은 원래의 학습 세트를 사용하는 것이 잘 작동한다고 보고했습니다. 이 설정은 이미지 분류, 자연어 처리, 음성 인식 등을 위한 모델 압축과 같은 응용 분야에서 널리 사용됩니다. 학생은 일반적으로 distillation loss(예: 교사와 학생의 부드럽게 만든 출력 사이의 cross-entropy, 또는 상수 차이를 제외하면 동등한 KL divergence)와 태스크별 손실(예: ground-truth 레이블과의 cross-entropy)을 조합하여 최적화합니다.</p>
 
       <h5>데이터의 효율적인 활용</h5>
       <p>많은 실제 시나리오에서 데이터셋은 고정되어 있고 제한적입니다. 두 모델 모두에 같은 데이터셋을 사용하면 추가 데이터 수집이 필요하거나 도메인 불일치(domain mismatch)의 위험을 감수할 필요가 없습니다. 교사는 데이터셋에서 가능한 한 많은 지식을 추출하고, 학생은 이 지식을 더 소형화된 모델로 증류합니다.</p>
@@ -219,7 +219,7 @@
       <h4>고려 사항 및 모범 사례</h4>
       <ol>
         <li><strong>교사 품질</strong>: 교사는 <strong>잘 학습되어야</strong> 하고 <strong>데이터셋에서 좋은 성능을 내야</strong> 합니다. 제대로 학습되지 않은 교사는 <strong>잡음이 많거나</strong> <strong>신뢰할 수 없는 출력</strong>을 제공하여 학생 성능이 최적에 미치지 못하게 만듭니다.</li>
-        <li><strong>Distillation Loss 설계</strong>: 학생의 손실 함수는 대체로 <strong>distillation loss</strong>(교사의 출력에 맞추기)와 <strong>태스크별 손실</strong>(ground-truth 레이블에 맞추기)을 결합합니다. 이 균형(가중치 하이퍼파라미터로 제어되며, 예: <code>L = α * L_distillation + (1-α) * L_task</code>에서의 <code>α</code>)이 매우 중요합니다. softmax 함수의 <strong>temperature 파라미터</strong> 역시 튜닝이 필요한데, temperature가 높을수록(예: <code>T = 2</code> 또는 <code>T = 4</code>) 교사의 출력이 더 매끄러워집니다.</li>
+        <li><strong>Distillation Loss 설계</strong>: 학생의 손실 함수는 대체로 <strong>distillation loss</strong>(교사의 출력에 맞추기)와 <strong>태스크별 손실</strong>(ground-truth 레이블에 맞추기)을 결합합니다. 이 균형(가중치 하이퍼파라미터로 제어되며, 예: <code>L = α * T² * L_distillation + (1-α) * L_task</code>에서의 <code>α</code>)이 매우 중요합니다. Hinton et al.은 하드 레이블 항에 상당히 낮은 가중치를 둘 때 대체로 가장 좋은 결과를 얻었으며, 소프트 타깃 항의 기울기는 <code>1/T²</code>에 비례해 작아지므로 이 항에 <code>T²</code>를 곱해야 한다고 설명합니다. softmax 함수의 <strong>temperature 파라미터</strong> 역시 튜닝이 필요한데, temperature가 높을수록(예: <code>T = 2</code> 또는 <code>T = 4</code>) 교사의 출력이 더 매끄러워집니다.</li>
         <li><strong>Overfitting 위험</strong>: 데이터셋이 작으면 교사가 overfit될 수 있습니다. 교사 학습 시 <strong>정규화 기법</strong>(예: dropout, weight decay)과 <strong>데이터 증강(data augmentation)</strong>을 사용하고, 교사의 일반화 성능을 모니터링하세요.</li>
         <li><strong>데이터셋 크기와 다양성</strong>: 데이터셋이 매우 작으면 교사의 지식이 제한적일 수 있습니다. 사전 학습된 교사를 사용하거나 데이터셋을 증강하는 것을 고려하세요.</li>
         <li><strong>모델 아키텍처 호환성</strong>: 교사와 학생 모델이 출력 공간(output space) 측면에서 호환되는지 확인하세요. 학생이 다른 아키텍처를 사용한다면 feature-based distillation 같은 추가 기법이 필요할 수 있습니다.</li>
@@ -247,7 +247,7 @@
       <ul>
         <li><strong>시나리오</strong>: 교사는 크고 일반적인 데이터셋(예: 이미지의 경우 ImageNet, 텍스트의 경우 Wikipedia나 Common Crawl)으로 사전 학습되고, 학생은 더 작고 태스크나 도메인에 특화된 데이터셋으로 학습됩니다.</li>
         <li><strong>근거</strong>: 흔히 큰 foundation model인 교사는 다양한 데이터셋으로부터 폭넓고 일반화 가능한 특징을 학습합니다. 이러한 특징은 목표 데이터셋이 제한적이더라도 특정 도메인이나 태스크에 맞춘 더 작은 학생 모델로 증류될 수 있습니다.</li>
-        <li><strong>예시</strong>: NLP에서 <strong>BERT</strong>와 같은 교사는 <strong>거대한 텍스트 코퍼스</strong>(예: Wikipedia + BookCorpus)로 사전 학습됩니다. 학생(예: <strong>DistilBERT</strong>)은 <strong>더 작고 태스크에 특화된 데이터셋</strong>(예: IMDb 리뷰의 감성 분석)으로, 교사의 출력을 학습 지침으로 삼아 학습됩니다.</li>
+        <li><strong>예시</strong>: NLP에서 <strong>DistilBERT</strong>는 사전 학습 단계에서 <strong>BERT</strong>로부터 distillation되며, BERT가 학습한 것과 같은 <strong>거대한 텍스트 코퍼스</strong>(영어 Wikipedia + Toronto Book Corpus)를 사용합니다. 이렇게 얻은 범용 학생은 이후 <strong>더 작고 태스크에 특화된 데이터셋</strong>(예: IMDb 리뷰의 감성 분류)으로 fine-tuning됩니다. 논문은 SQuAD fine-tuning 중에 태스크 특화 distillation 단계를 추가로 적용하기도 하는데, 이때는 SQuAD로 fine-tuning된 BERT 교사가 학생을 이끕니다.</li>
         <li><strong>이점</strong>: 교사의 일반적인 지식을 활용해, 데이터가 제한적인 전문 태스크에서 학생의 성능을 향상시킵니다.</li>
         <li><strong>과제</strong>: 교사의 지식이 목표 도메인과 완전히 부합하지 않을 수 있어, distillation 과정을 신중하게 튜닝해야 합니다.</li>
       </ul>
@@ -351,15 +351,16 @@
       <h4>Noisy Student Training의 작동 방식</h4>
       <ol>
         <li><strong>교사 학습</strong>: self-training과 마찬가지로 레이블이 있는 데이터셋 $D_L$로 교사 모델을 학습시킵니다.</li>
-        <li><strong>Pseudo-Label 생성</strong>: 교사를 사용해 대규모 레이블 없는 데이터셋 $D_U$에 대한 pseudo-label을 예측합니다. 과정을 단순화하기 위해 소프트 레이블 대신 하드 레이블(클래스 예측)이 흔히 사용됩니다.</li>
-        <li><strong>잡음을 더해 학생 학습</strong>: (보통 교사와 같거나 더 큰 용량의) 학생 모델을 $D_L \cup \{(x_j, \hat{y}_j)\}$로 학습시키되, 학습 중에 잡음과 정규화를 도입합니다:
+        <li><strong>Pseudo-Label 생성</strong>: <strong>잡음을 넣지 않은</strong> 교사를 사용해 대규모 레이블 없는 데이터셋 $D_U$의 깨끗한(증강하지 않은) 이미지에 대한 pseudo-label을 예측합니다. 소프트(확률) pseudo-label과 하드(one-hot) pseudo-label 모두 잘 작동하며, 논문은 도메인 밖(out-of-domain) 데이터에서 약간 더 나은 소프트 pseudo-label을 기본으로 사용합니다.</li>
+        <li><strong>Pseudo-Label 데이터 필터링 및 균형 조정</strong>: 교사의 신뢰도가 낮은 레이블 없는 이미지(대개 도메인 밖 이미지)를 제거한 뒤, 레이블 있는 세트의 클래스 분포에 맞도록 클래스별 pseudo-label 이미지 수를 맞춥니다. 이미지가 부족한 클래스는 이미지를 복제하고, 많은 클래스는 신뢰도가 가장 높은 이미지만 남깁니다.</li>
+        <li><strong>잡음을 더해 학생 학습</strong>: 교사와 <strong>같거나 더 큰</strong> 학생 모델을 $D_L \cup \{(x_j, \hat{y}_j)\}$로 학습시키되, 학습 중 학생에 잡음을 주입합니다:
           <ul>
-            <li><strong>데이터 증강</strong>: 레이블 있는 입력과 없는 입력 모두에 (이미지의 경우 RandAugment 같은) 강한 증강을 적용합니다.</li>
-            <li><strong>모델 잡음</strong>: 학생 모델에 dropout, stochastic depth, 무작위 레이어 동결(freezing) 같은 기법을 사용합니다.</li>
-            <li><strong>균형 잡힌 데이터셋</strong>: 레이블이 있는 데이터와 없는 데이터가 균형을 이루도록 합니다.</li>
+            <li><strong>입력 잡음</strong>: RandAugment를 이용한 데이터 증강.</li>
+            <li><strong>모델 잡음</strong>: dropout과 stochastic depth.</li>
           </ul>
+          레이블 없는 배치는 보통 레이블 있는 배치보다 훨씬 크게 설정하여(논문에서는 14~28배) 학생이 레이블 없는 데이터로 더 오래 학습하도록 합니다.
         </li>
-        <li><strong>반복</strong>: 학생을 새로운 교사로 사용해 갱신된 pseudo-label을 생성하고 이 과정을 반복합니다. 각 반복은 대체로 모델 성능을 향상시킵니다.</li>
+        <li><strong>반복</strong>: 학생을 새로운 교사로 사용해 갱신된 pseudo-label을 생성하고 이 과정을 반복합니다. 논문의 최고 모델은 세 번의 반복으로 얻어졌습니다.</li>
       </ol>
 
       <h4>Self-Training과의 주요 차이점</h4>
@@ -372,13 +373,13 @@
       <h4>Noisy Student가 모델 성능을 향상시키는 방식</h4>
       <ul>
         <li><strong>잡음을 통한 강건성</strong>: 추가된 잡음은 학생이 더 일반화 가능한 특징을 학습하도록 강제하여, 교사의 예측이나 pseudo-label의 편향에 overfitting되는 것을 방지합니다.</li>
-        <li><strong>레이블 없는 데이터에 따른 확장성</strong>: Noisy Student는 대량의 레이블 없는 데이터를 활용하며, 이는 데이터가 부족한 환경에서 성능을 향상시키는 데 매우 중요합니다.</li>
+        <li><strong>레이블 없는 데이터에 따른 확장성</strong>: 레이블 없는 데이터가 많을수록 성능이 향상되며, 레이블 있는 데이터가 풍부한 경우(예: ImageNet 전체 학습 세트)에도 효과가 있습니다.</li>
         <li><strong>반복적 정제</strong>: 학생이 교사가 되면서 더 정확해짐에 따라 각 반복이 pseudo-label을 정제하여, 선순환적인 개선으로 이어집니다.</li>
         <li><strong>교사를 뛰어넘기</strong>: 잡음, 더 큰 학생 모델, 반복 학습을 결합함으로써 Noisy Student는 초기 교사보다 더 뛰어난 모델을 만들어낼 수 있습니다.</li>
       </ul>
 
       <h4>예시</h4>
-      <p>Noisy Student 논문에서는 EfficientNet 교사를 레이블이 있는 ImageNet 데이터셋으로 학습시켰습니다. 이 교사는 JFT-300M에서 가져온 3억 개의 레이블 없는 이미지에 대해 pseudo-label을 생성했습니다. 더 큰 EfficientNet 학생을 강한 증강(RandAugment)과 dropout을 적용해 결합된 데이터셋으로 학습시킨 결과, 교사보다 더 높은 정확도를 달성했습니다. 여러 차례 반복한 뒤, 최종 모델은 ImageNet에서 새로운 벤치마크를 세웠습니다.</p>
+      <p>Noisy Student 논문에서는 레이블이 있는 ImageNet으로 EfficientNet-B7 교사를 학습시킨 뒤, 이 교사로 JFT-300M 이미지(원래 레이블은 사용하지 않음)에 pseudo-label을 부여했습니다. 신뢰도 필터링(임계값 0.3)과 클래스당 13만 장으로의 균형 조정을 거쳐, 학생은 1억 3천만 장(고유 이미지 8,100만 장)으로 학습되었습니다. RandAugment, dropout, stochastic depth를 적용해 학습한 더 큰 EfficientNet-L2 학생은 교사를 능가했고, 세 번의 반복 끝에 최종 모델은 ImageNet top-1 정확도 88.4%를 달성해 기존 최고 성능보다 2.0% 높았습니다.</p>
 
       <h4>과제</h4>
       <ul>
@@ -444,13 +445,13 @@
       <h4>1.1. 일반 방정식</h4>
       <p>회전된 타원의 일반 방정식:</p>
       <div class="math-display">
-        $$\frac{[(x-c_x)\cos(-\theta)+(y-c_y)\sin(-\theta)]^2}{a^2}+\frac{[(x-c_x)\sin(-\theta)-(y-c_y)\cos(-\theta)]^2}{b^2}=1$$
+        $$\frac{[(x-c_x)\cos(\theta)+(y-c_y)\sin(\theta)]^2}{a^2}+\frac{[(x-c_x)\sin(\theta)-(y-c_y)\cos(\theta)]^2}{b^2}=1$$
       </div>
       <p>여기서:</p>
       <ul>
         <li>$C(c_x, c_y)$는 타원의 중심입니다</li>
         <li>$a, b$는 장반경과 단반경입니다</li>
-        <li>$\theta$는 $Cx$축(($Ox$축이 아님)으로부터 측정한 회전각입니다(<strong>시계 방향</strong>)</li>
+        <li>$\theta$는 $Cx$축($Ox$축이 아님)으로부터 측정한 회전각입니다(<strong>시계 방향</strong>)</li>
       </ul>
 
       <h4>1.2. 매개변수 방정식</h4>
@@ -462,26 +463,26 @@
       <ul>
         <li>$C(c_x, c_y)$는 타원의 중심입니다</li>
         <li>$a, b$는 장반경과 단반경입니다</li>
-        <li>$\theta$는 $Cx$축(($Ox$축이 아님)으로부터 측정한 회전각입니다(<strong>시계 방향</strong>)</li>
+        <li>$\theta$는 $Cx$축($Ox$축이 아님)으로부터 측정한 회전각입니다(<strong>시계 방향</strong>)</li>
         <li>$\alpha$는 매개변수이며, $0$에서 $2\pi$까지의 범위(라디안)를 가집니다</li>
       </ul>
       <p>회전된 타원의 도해입니다. $Cx$와 $Cy$는 각각 $Ox$, $Oy$와 평행하며 같은 방향을 공유합니다:</p>
       <img src="assets/blog/2d-vision-ellipse.png" width="889" height="793" loading="lazy" alt="회전된 타원 도해" />
 
       <h3>2. 점 회전 (Rotate Point)</h3>
-      <p>점 $B(x_B, y_B)$를 점 $A(x_A, y_A)$ 중심으로 각도 $\theta$만큼(<strong>반시계 방향</strong>) 회전시키면 점 $C(x_C, y_C)$를 얻게 되며, 이때:</p>
+      <p>점 $B(x_B, y_B)$를 점 $A(x_A, y_A)$ 중심으로 각도 $\theta$만큼(y축이 아래를 향하는 이미지 좌표계 기준 <strong>시계 방향</strong>) 회전시키면 점 $C(x_C, y_C)$를 얻게 되며, 이때:</p>
       <div class="math-display">
         $$x_C = (x_B - x_A)\cos(\theta) - (y_B - y_A)\sin(\theta) + x_A$$
         $$y_C = (x_B - x_A)\sin(\theta) + (y_B - y_A)\cos(\theta) + y_A$$
       </div>
       <p>Python 구현:</p>
       <pre><code>def get_rotation(start_point, center_point, rad):
-    """Rotate start_point around center_point by rad radians (counterclockwise).
+    """Rotate start_point around center_point by rad radians (clockwise in image coordinates, y-axis down).
 
     Args:
         start_point:  (x, y)
         center_point: (x, y)
-        rad:          rotation angle in radians, counterclockwise
+        rad:          rotation angle in radians, clockwise in image coordinates
 
     Returns:
         [x_T, y_T]
@@ -514,7 +515,7 @@
 
     <div class="post-body">
 
-      <h3>벤치마크 (최신)</h3>
+      <h3>벤치마크</h3>
 
       <h4>공개 벤치마크</h4>
       <p><strong>면책 조항</strong>:</p>
@@ -523,9 +524,9 @@
         <li>이 벤치마크는 <strong>정확도</strong> 지표에 초점을 맞추며, 실시간 응용에서도 필수적인 부분인 <strong>지연시간(latency)</strong> 지표는 다루지 않습니다.</li>
       </ul>
       <div class="ref-links">
-        <a href="https://paperswithcode.com/task/monocular-depth-estimation" target="_blank" rel="noopener" class="ref-link">
+        <a href="https://www.cvlibs.net/datasets/kitti/eval_depth.php?benchmark=depth_prediction" target="_blank" rel="noopener" class="ref-link">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-          Papers with Code – Monocular Depth Estimation
+          KITTI Depth Prediction Benchmark (공식 리더보드)
         </a>
       </div>
 
@@ -533,11 +534,11 @@
       <div class="ref-links">
         <a href="#depth-pseudolidar" class="ref-link">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-          From Depth Estimation to Pseudo-LIDAR
+          깊이 추정에서 Pseudo-LiDAR로
         </a>
         <a href="https://huggingface.co/blog/Isayoften/monocular-depth-estimation-guide" target="_blank" rel="noopener" class="ref-link">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-          Metric and Relative Monocular Depth Estimation: An Overview (HuggingFace)
+          Metric and Relative Monocular Depth Estimation: An Overview (Hugging Face)
         </a>
       </div>
 
@@ -597,7 +598,7 @@
         </div>
 
         <div class="work-item fade-up">
-          <div class="work-title">Depth Anything V2 – CVPR 2024</div>
+          <div class="work-title">Depth Anything (CVPR 2024) &amp; V2 (NeurIPS 2024)</div>
           <div class="work-links">
             <a href="https://github.com/DepthAnything/Depth-Anything-V2" target="_blank" rel="noopener" class="work-link-btn">
               <svg width="12" height="12" fill="currentColor"><use href="#icon-github"></use></svg>
@@ -743,7 +744,7 @@
   <div class="container">
     <header class="post-header">
       <span class="blog-tag-depth">깊이 추정</span>
-      <h2>깊이 추정에서 Pseudo-LIDAR로</h2>
+      <h2>깊이 추정에서 Pseudo-LiDAR로</h2>
       <div class="post-date">2025년 3월 24일</div>
     </header>
 
@@ -757,7 +758,6 @@
         <li><strong>텍스처 밀도 (Texture density)</strong>: 더 멀리 있는 질감 있는 표면은 더 미세하게(fine-grained) 보입니다.</li>
         <li><strong>선형 원근 (Linear perspective)</strong>: 실제 세계의 직선이고 평행한 선들이 이미지에서는 수렴하는 것처럼 보입니다.</li>
         <li><strong>물체의 겉보기 크기</strong>: 더 멀리 있는 물체는 더 작게 보입니다.</li>
-        <li><strong>움직임 효과 (Motion effect)</strong>: 물체가 멀어질수록 흐려지고 푸르스름해집니다.</li>
         <li><strong>음영 및 조명 (Shading &amp; illumination)</strong>: 표면의 법선(normal)이 광원을 향할 때 그 표면은 더 밝게 보입니다. 음영은 하나의 표면 내에서 깊이 변화에 대한 정보를 제공합니다.</li>
         <li><strong>초점 흐림 (Focus blur)</strong>: 초점 평면(focal plane)의 앞이나 뒤에 있는 물체는 흐리게 보입니다.</li>
         <li><strong>대기 원근 (Aerial perspective)</strong>: 매우 멀리 있는 물체는 대비(contrast)가 낮고 푸르스름한 색조를 띱니다.</li>
@@ -787,9 +787,9 @@
       <h3>깊이 추정에서 3D 재구성으로</h3>
       <p>2D 좌표 $p$(이미지 평면)와 이에 대응하는 3D 좌표 $P_c$(카메라 좌표계) 사이의 관계는 다음과 같습니다:</p>
       <div class="math-display">$$s\,p = A P_c \quad (1)$$</div>
-      <p>여기서 $p = \begin{bmatrix} u\\ v \end{bmatrix}$, $P_c = \begin{bmatrix} X_c\\ Y_c \\ Z_c \end{bmatrix}$이고, $s$는 투영 스케일링 계수(projective scaling factor), $A$는 (이상적인) 카메라 내부 파라미터 행렬(intrinsic matrix)입니다:</p>
+      <p>여기서 $p = \begin{bmatrix} u\\ v \\ 1 \end{bmatrix}$, $P_c = \begin{bmatrix} X_c\\ Y_c \\ Z_c \end{bmatrix}$이고, $s$는 투영 스케일링 계수(projective scaling factor), $A$는 (이상적인) 카메라 내부 파라미터 행렬(intrinsic matrix)입니다:</p>
       <div class="math-display">$$A = \begin{bmatrix} f_x & 0 & c_x \\ 0 & f_y & c_y \\ 0 & 0 & 1 \end{bmatrix} \quad (2)$$</div>
-      <p>실제로는 모든 카메라에 렌즈 왜곡(distortion)이 있으므로, 먼저 캘리브레이션을 수행한 뒤 OpenCV를 통해 최적의 $A$를 계산합니다:</p>
+      <p>실제로는 모든 카메라에 렌즈 왜곡(distortion)이 있으므로, 먼저 캘리브레이션을 수행하고 OpenCV로 최적의 $A$를 계산한 뒤, 이를 이용해 이미지의 왜곡을 보정(undistort)합니다:</p>
       <pre><code>camera_matrix = np.zeros(shape=(3, 3))
 camera_matrix[0, 0] = 3.618627944978409e+02
 camera_matrix[0, 2] = 3.140828758355781e+02
@@ -800,7 +800,10 @@ camera_matrix[2, 2] = 1
 dist_coeffs = np.array([-0.115065515143958, 0.023076954804581, 0, 0, 0])
 
 # W, H = image width and height
-A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)</code></pre>
+A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)
+
+# A is only valid for undistorted pixels: undistort the image (and depth map) with it first
+undistorted = cv2.undistort(image, camera_matrix, dist_coeffs, None, A)</code></pre>
 
       <div class="callout">
         💡 카메라 캘리브레이션은 <strong>근사 과정(approximation process)</strong>입니다 — machine learning과 유사합니다. 실제로 이상적인 카메라 행렬을 얻는 경우는 거의 없지만, 단순화를 위해 그 결과를 $A$로 취급합니다.
@@ -828,19 +831,19 @@ A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)</cod
 
       <hr>
 
-      <h3>Pseudo-LIDAR로 LIDAR 재현하기</h3>
+      <h3>Pseudo-LiDAR로 LiDAR 재현하기</h3>
       <div class="callout">
-        💡 이 제안을 검증하기 위해, <strong>CARLA 시뮬레이션 환경</strong>에 <strong>카메라 4대</strong>와 <strong>LIDAR 1대</strong>를 설치하고, 데이터를 기록한 뒤, end-to-end 파이프라인으로 실험합니다.
+        💡 이 제안을 검증하기 위해, <strong>CARLA 시뮬레이션 환경</strong>에 <strong>카메라 4대</strong>와 <strong>LiDAR 1대</strong>를 설치하고, 데이터를 기록한 뒤, end-to-end 파이프라인으로 실험합니다.
       </div>
-      <p>360° 포인트 클라우드(point cloud)를 생성하는 LIDAR $L$이 주어졌을 때, 카메라 $C_i$들을 사용해 이를 재현합니다. 제안하는 파이프라인:</p>
+      <p>360° 포인트 클라우드(point cloud)를 생성하는 LiDAR $L$이 주어졌을 때, 카메라 $C_i$들을 사용해 이를 재현합니다. 제안하는 파이프라인:</p>
       <ol>
         <li>각 이미지 $I_i$의 절대 깊이 맵 $D_i$를 추론합니다.</li>
         <li>$D_i$와 내부 파라미터 행렬 $A_i$를 사용해 각 카메라 좌표계에서 3D 좌표 $P_{C_i}$를 계산합니다.</li>
-        <li>회전 $R_i$와 평행이동 $t_i$를 통해 LIDAR 좌표계로 재투영(re-project)합니다:
-          <div class="math-display">$$P_{L_i} = [R_i \mid t_i]\,P_{C_i} \quad (5)$$</div>
+        <li>회전 $R_i$와 평행이동 $t_i$를 통해 LiDAR 좌표계로 변환합니다:
+          <div class="math-display">$$P_{L_i} = R_i\,P_{C_i} + t_i \quad (5)$$</div>
         </li>
       </ol>
-      <p><strong>실제 LIDAR 대비 장점:</strong> 더 낮은 비용, 더 밀도 높은 컬러 포인트 클라우드, 잠재적으로 더 높은 프레임 레이트.</p>
+      <p><strong>실제 LiDAR 대비 장점:</strong> 더 낮은 비용, 더 밀도 높은 컬러 포인트 클라우드, 잠재적으로 더 높은 프레임 레이트.</p>
       <p><strong>단점:</strong> 카메라 왜곡의 한계, 조명과 날씨에 대한 민감성, 빈번한 가림(occlusion), 다중 카메라 스티칭(stitching)의 필요성, 그리고 어려운 캘리브레이션/동기화.</p>
 
       <hr>
@@ -898,7 +901,7 @@ A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)</cod
       <ul>
         <li>같은 직선 위에 있는 점들은 변환 후에도 한 직선 위에 있습니다.</li>
         <li>평행한 직선들은 변환 후에도 평행을 유지합니다.</li>
-        <li>임의의 두 선분의 비율이 보존됩니다; 중점은 변환 후에도 중점으로 유지됩니다.</li>
+        <li>한 직선 위의 길이 비율(및 평행한 선분 사이의 길이 비율)이 보존됩니다; 중점은 변환 후에도 중점으로 유지됩니다.</li>
       </ul>
 
       <h4>예시</h4>
@@ -944,10 +947,11 @@ A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)</cod
       </ul>
       <p>사람은 하나의 광선(ray)만 보는 것이 아니라 <strong>원뿔 형태의 FOV(cone-like FOV)</strong>를 봅니다. 우리는 시선 FOV를 <code>gaze vector</code>를 각의 이등분선으로 갖는 원뿔로 정의한 뒤, 어떤 <code>Phone</code> 객체가 이 <strong>FOV와 교차</strong>하는지 확인합니다. 어떤 객체가 다음 조건을 만족하면 교차한다고 봅니다:</p>
       <ol>
+        <li>해당 객체가 <code>Human</code> bounding box와 겹친다(그 밖의 객체는 무시합니다).</li>
         <li>해당 객체의 신뢰도 점수(confidence score)가 <code>conf_thres</code>보다 높다(휴대폰의 오탐(false positive)을 줄여줍니다).</li>
         <li>FOV가 해당 객체의 bounding box에서 최소 <code>count_thres</code>개의 변(edge)과 교차한다.</li>
       </ol>
-      <p>적어도 하나의 <code>Phone</code>이 두 조건을 모두 만족하면, <strong>그 사람은 휴대폰을 보고 있는 것</strong>입니다.</p>
+      <p>적어도 하나의 <code>Phone</code>이 세 조건을 모두 만족하면, <strong>그 사람은 휴대폰을 보고 있는 것</strong>입니다.</p>
 
       <hr>
 
@@ -968,9 +972,10 @@ A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)</cod
       <ul>
         <li><strong>녹색 벡터</strong>: FOV 경계</li>
         <li><strong>하늘색 벡터</strong>: 시선 벡터(gaze vector)</li>
-        <li><strong>흰색 사각형</strong>: <code>conf_thres</code> 미만인 객체</li>
+        <li><strong>파란색 사각형</strong>: 사람의 bbox</li>
+        <li><strong>흰색 사각형</strong>: 사람의 bbox 밖에 있는 객체</li>
         <li><strong>노란색 사각형</strong>: 사람의 bbox 안에 있지만 FOV 밖에 있는 객체</li>
-        <li><strong>빨간색 사각형</strong>: 두 조건을 모두 만족하는 객체(보고 있는 휴대폰)</li>
+        <li><strong>빨간색 사각형</strong>: 모든 조건을 만족하는 객체(보고 있는 휴대폰)</li>
       </ul>
 
       <pre><code>import math
@@ -980,7 +985,7 @@ from loguru import logger
 
 
 def get_rotation(start_point, center_point, rad):
-    """Rotate start_point around center_point by rad radians (counter-clockwise)."""
+    """Rotate start_point around center_point by rad radians (clockwise in image coordinates, y-axis down)."""
     T = [0, 0]
     T[0] = (start_point[0] - center_point[0]) * math.cos(rad) \
          - (start_point[1] - center_point[1]) * math.sin(rad) \
@@ -1064,7 +1069,7 @@ def find_intersect_obj_indices(gaze_start, gaze_end, objects, bbox,
         gaze_start, gaze_end: gaze vector endpoints (x, y)
         objects: list of [xmin, ymin, xmax, ymax, conf]
         bbox: human bounding box [xmin, ymin, xmax, ymax]
-        fov_degree: FOV half-angle in degrees (0 &lt;= fov_degree &lt;= 90)
+        fov_degree: full FOV angle in degrees (0 &lt;= fov_degree &lt;= 90)
         conf_thres: minimum object confidence (0 &lt; conf_thres &lt;= 1)
         count_thres: minimum intersecting edges (1 &lt;= count_thres &lt;= 4)
     """
@@ -1089,10 +1094,10 @@ def find_intersect_obj_indices(gaze_start, gaze_end, objects, bbox,
             angles = [find_angle(gaze_start, c) for c in corners]
 
             count = sum([
-                is_anglerange_in_fovrange(fov_amin, fov_amax, angles[0], angles[1]),  # top
-                is_anglerange_in_fovrange(fov_amin, fov_amax, angles[2], angles[3]),  # bottom
-                is_anglerange_in_fovrange(fov_amin, fov_amax, angles[0], angles[2]),  # left
-                is_anglerange_in_fovrange(fov_amin, fov_amax, angles[1], angles[3]),  # right
+                is_anglerange_in_fovrange(fov_amin, fov_amax, angles[0], angles[1]),  # left
+                is_anglerange_in_fovrange(fov_amin, fov_amax, angles[2], angles[3]),  # right
+                is_anglerange_in_fovrange(fov_amin, fov_amax, angles[0], angles[2]),  # top
+                is_anglerange_in_fovrange(fov_amin, fov_amax, angles[1], angles[3]),  # bottom
             ])
 
             if count &gt;= count_thres:
@@ -1162,6 +1167,11 @@ if __name__ == "__main__":
   </div>
 </article>
 
+<div class="post-sep"></div>
+
+<!-- ============================================================
+     POST 7 — SLICING-INSPIRED PREPROCESSING FOR SMALL-OBJECT RECALL
+     ============================================================ -->
 <article id="sahi-small-objects" class="blog-article blog-post">
   <div class="container">
     <header class="post-header">
@@ -1181,17 +1191,19 @@ if __name__ == "__main__":
       <hr>
 
       <h3>SAHI를 한마디로</h3>
-      <p><strong>SAHI</strong>(<em>Slicing Aided Hyper Inference</em>)는 이 문제를 <strong>추론 시점(inference time)</strong>에 해결합니다: 탐지기에
+      <p><strong>SAHI</strong>(<em>Slicing Aided Hyper Inference</em>)는 이 문제를 상호 보완적인 두 가지 방식으로 해결합니다. <strong>슬라이싱 기반 추론(slicing-aided inference)</strong>: 탐지기에
       다운스케일된 이미지 한 장을 넣는 대신, 전체 해상도 이미지를 겹치는 타일(tile)들로 자르고, 각 타일에 대해 전체 해상도로 독립적으로
       탐지를 수행한 뒤, 모든 타일 단위 탐지 결과를 NMS로 원본 이미지 좌표로 다시 병합합니다. 다운스케일링으로 사라졌을 작은 객체들이
-      이제 각 타일에서 훨씬 더 큰 비중을 차지하게 되어, 탐지기가 실제로 다룰 수 있는 픽셀을 갖게 됩니다.</p>
+      이제 각 타일에서 훨씬 더 큰 비중을 차지하게 되어, 탐지기가 실제로 다룰 수 있는 픽셀을 갖게 됩니다.
+      <strong>슬라이싱 기반 파인튜닝(slicing-aided fine-tuning)</strong>: 원본 이미지에서 잘라낸 패치로 학습 세트를 보강하여, 탐지기가
+      작은 객체를 상대적으로 더 큰 스케일에서도 학습하도록 합니다. 논문은 두 방식을 결합했을 때 가장 큰 향상을 보고합니다.</p>
 
       <hr>
 
       <h3>이 아이디어를 학습 데이터에 적용하기</h3>
       <p>추론 시점에 여러 번 슬라이스 패스를 실행하는 것은 비용이 큽니다 — 이미지당 순전파(forward pass) 횟수를 배로 늘리는데, 이는
-      실시간 배포 예산과 상충됩니다. 그래서 추론 시점에 슬라이싱을 하는 대신, 같은 아이디어를 파이프라인의 더 이른 단계로 옮겼습니다:
-      SAHI 방식의 슬라이싱을 사용해 <strong>더 나은 학습 세트</strong>를 구축하고, 추론 자체는 단일 전체 이미지 순전파로 유지하는 것입니다.</p>
+      실시간 배포 예산과 상충됩니다. 그래서 SAHI 중 학습 쪽 절반만 취했습니다:
+      SAHI의 슬라이싱 기반 파인튜닝을 바탕으로 슬라이싱을 사용해 <strong>더 나은 학습 세트</strong>를 구축하고, 추론 자체는 단일 전체 이미지 순전파로 유지하는 것입니다.</p>
 
       <p>상위 수준에서, 이 전처리 단계는 다음과 같습니다:</p>
       <ol>
@@ -1201,8 +1213,8 @@ if __name__ == "__main__":
         <li>잘라낸 crop을 원본 전체 해상도 이미지와 다시 섞어, 모델이 여전히 전역적인 장면 맥락(global scene context)을 보고 타일 스케일의 통계치에 overfit되지 않도록 합니다.</li>
       </ol>
 
-      <p>이미 소형 객체 민감도를 위해 더 높은 해상도의 P2 탐지 헤드로 확장된 <strong>YOLOv8-p2</strong>와 <strong>YOLOv9n</strong>과
-      결합했을 때, 이 전처리 단계는 작고 먼 객체에 대해 의미 있는 recall 향상을 가져다주었으며, 동시에 추론은 여전히 단일 전체
+      <p>Ultralytics의 <strong>YOLOv8-p2</strong>(소형 객체 민감도를 위해 더 높은 해상도의 P2 탐지 헤드를 추가한 모델) 및
+      <strong>YOLOv9n</strong>과 결합했을 때, 이 전처리 단계는 작고 먼 객체에 대해 의미 있는 recall 향상을 가져다주었으며, 동시에 추론은 여전히 단일 전체
       이미지 패스로 유지되어 실시간 지연시간(latency)도 그대로 보존되었습니다.</p>
 
       <hr>

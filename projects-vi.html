@@ -95,7 +95,7 @@
       <a href="#head-pose-estimation" class="toc-card fade-up">
         <span class="blog-tag">Thị giác máy tính</span>
         <div class="toc-title">Ước lượng tư thế đầu</div>
-        <div class="toc-date">Tháng 9/2025 – Hiện tại</div>
+        <div class="toc-date">Tháng 9/2025 – Tháng 7/2026</div>
       </a>
     </div>
   </div>
@@ -117,7 +117,7 @@
     <div class="post-body">
 
       <h3>Giới thiệu</h3>
-      <p>Một bằng chứng khái niệm (proof-of-concept) thực hiện <strong>ghép ảnh đa camera thời gian thực</strong>, có thể áp dụng cho <strong>Hệ thống Hỗ trợ Lái xe Tiên tiến (Advanced Driving Assistance System)</strong>. Tôi là nhà phát triển duy nhất, đảm nhiệm toàn bộ từ nghiên cứu, triển khai đến kiểm thử.</p>
+      <p>Một bằng chứng khái niệm (proof-of-concept) thực hiện <strong>ghép ảnh đa camera thời gian thực</strong>, có thể áp dụng cho <strong>Hệ thống Hỗ trợ Người lái Tiên tiến (Advanced Driver-Assistance System)</strong>. Tôi là nhà phát triển duy nhất, đảm nhiệm toàn bộ từ nghiên cứu, triển khai đến kiểm thử.</p>
 
       <hr>
 
@@ -147,8 +147,8 @@
         <li><a href="https://link.springer.com/article/10.1023/B:VISI.0000029664.99615.94" target="_blank" rel="noopener">SIFT</a> (mặc định)</li>
       </ul>
 
-      <h4>Khớp đặc trưng</h4>
-      <p>Dùng để tìm các đặc trưng khớp nhau giữa mỗi cặp ảnh đầu vào, từ đó ước lượng <strong>ma trận homography</strong>:</p>
+      <h4>Khớp đặc trưng &amp; Ước lượng Homography</h4>
+      <p>Các đặc trưng được khớp giữa mỗi cặp ảnh đầu vào, rồi <strong>ma trận homography</strong> được ước lượng từ các cặp khớp bằng một trong các phương pháp:</p>
       <ul>
         <li>Phương pháp bình phương tối thiểu (least squares)</li>
         <li><a href="https://dl.acm.org/doi/10.1145/358669.358692" target="_blank" rel="noopener">Phương pháp mạnh (robust) dựa trên RANSAC</a> (mặc định)</li>
@@ -164,9 +164,9 @@
       <div class="img-row">
         <img src="assets/projects/camera-stitching-homography-plane.webp" width="422" height="243" loading="lazy" alt="Mặt phẳng vật thể và mặt phẳng ảnh">
         <img src="assets/projects/camera-stitching-homography-stitch.webp" width="900" height="255" loading="lazy" alt="Mặt phẳng vật thể quan sát từ hai vị trí camera">
-        <img src="assets/projects/camera-stitching-homography-rotation.webp" width="555" height="207" loading="lazy" alt="Camera xoay quanh trục chiếu của nó">
+        <img src="assets/projects/camera-stitching-homography-rotation.webp" width="555" height="207" loading="lazy" alt="Camera xoay quanh tâm chiếu của nó">
       </div>
-      <p class="img-caption">Trái → phải: mặt phẳng vật thể và mặt phẳng ảnh; mặt phẳng vật thể quan sát từ hai vị trí camera (trường hợp ghép ảnh); camera xoay quanh trục chiếu của nó — tương đương với các điểm nằm trên một mặt phẳng ở vô cực (chế độ chụp toàn cảnh trên điện thoại), trường hợp nền tảng cho việc ghép ảnh.</p>
+      <p class="img-caption">Trái → phải: mặt phẳng vật thể và mặt phẳng ảnh; mặt phẳng vật thể quan sát từ hai vị trí camera (trường hợp ghép ảnh); camera xoay quanh tâm chiếu của nó — tương đương với các điểm nằm trên một mặt phẳng ở vô cực (chế độ chụp toàn cảnh trên điện thoại), trường hợp nền tảng cho việc ghép ảnh.</p>
 
       <hr>
 
@@ -210,28 +210,28 @@
 
       <h3>Quy trình</h3>
       <p>Quy trình xử lý kết hợp hai mô hình học sâu: <strong>phát hiện đối tượng (object detection)</strong> để tìm công nhân, và <strong>ước lượng độ sâu đơn mắt (monocular depth estimation)</strong> để ước lượng khoảng cách. Chúng tôi chọn hai mô hình SOTA (state-of-the-art) tốt nhất tại thời điểm đó — <strong>YOLOv5</strong> cho phát hiện đối tượng và <strong>NeWCRFs</strong> cho ước lượng độ sâu — sau đó tinh chỉnh (fine-tune) cả hai trên dữ liệu của riêng chúng tôi, vì trọng số huấn luyện sẵn (pretrained weights) được huấn luyện trên ảnh RGB trong khi camera của chúng tôi là camera nhiệt.</p>
-      <p>Là nhà phát triển đầu tiên của dự án, nhiệm vụ chính của tôi là thu thập dữ liệu chuẩn (ground truth) về "độ sâu". Với một LIDAR hình ảnh độ phân giải cao góc rộng Ouster OS0 (Ouster OS0 Ultra-Wide High-Resolution Imaging LIDAR), nhiệm vụ này được chia thành ba nhiệm vụ con:</p>
+      <p>Là nhà phát triển đầu tiên của dự án, nhiệm vụ chính của tôi là thu thập dữ liệu chuẩn (ground truth) về "độ sâu". Với một LiDAR hình ảnh độ phân giải cao góc rộng Ouster OS0 (Ouster OS0 Ultra-Wide High-Resolution Imaging LiDAR), nhiệm vụ này được chia thành ba nhiệm vụ con:</p>
 
       <h4>1. Hiệu chỉnh camera (Camera Calibration)</h4>
       <p>Ước lượng các tham số nội tại (intrinsic parameters) và hệ số méo (distortion coefficients) của camera nhiệt thông qua phương pháp phát hiện bàn cờ (checkerboard) tiêu chuẩn, dựa trên <a href="https://docs.opencv.org/3.4/d9/d0c/group__calib3d.html#ga4abc2ece9fab9398f2e560d53c8c9780" target="_blank" rel="noopener">OpenCV</a> và gói <a href="https://github.com/ros-perception/image_pipeline/tree/rolling/camera_calibration" target="_blank" rel="noopener">image_pipeline/camera_calibration</a> của ROS, kết hợp thêm CLAHE (Contrast Limited Adaptive Histogram Equalization) để làm sắc nét độ tương phản cục bộ. Vì camera nhiệt không thể phân biệt trực quan các ô đen trắng trên bàn cờ, tôi đã đặt bàn cờ trong môi trường nhiệt độ cao (ánh nắng trực tiếp, đèn halogen) — bề mặt màu đen hấp thụ nhiệt nhiều hơn bề mặt màu trắng, khiến hoa văn trở nên rõ ràng đối với cảm biến.</p>
 
       <h4>2. Thu thập dữ liệu</h4>
-      <p>Sử dụng ROS để ghi dữ liệu đồng bộ từ nhiều cảm biến: <code>ouster_ros</code> cho LIDAR, <code>flir_boson_usb</code> cho camera nhiệt, và <code>rosbag record</code> để ghi lại cả hai luồng dữ liệu. Việc đồng bộ dựa trên dấu thời gian (timestamp) mà ROS gắn vào lúc ghi.</p>
+      <p>Sử dụng ROS để ghi dữ liệu đồng bộ từ nhiều cảm biến: <code>ouster_ros</code> cho LiDAR, <code>flir_boson_usb</code> cho camera nhiệt, và <code>rosbag record</code> để ghi lại cả hai luồng dữ liệu. Việc đồng bộ dựa trên dấu thời gian (timestamp) mà ROS gắn vào lúc ghi.</p>
 
-      <h4>3. Hiệu chỉnh Camera-LIDAR</h4>
-      <p>Ước lượng ma trận xoay (rotation matrix) và vector tịnh tiến (translation vector) giữa hệ tọa độ của LIDAR và camera:</p>
+      <h4>3. Hiệu chỉnh Camera-LiDAR</h4>
+      <p>Ước lượng ma trận xoay (rotation matrix) và vector tịnh tiến (translation vector) giữa hệ tọa độ của LiDAR và camera:</p>
       <div class="img-row">
-        <img src="assets/projects/worker-localization-calibration-1.webp" width="1414" height="455" loading="lazy" alt="Sơ đồ quy trình hiệu chỉnh Camera-LIDAR 1">
-        <img src="assets/projects/worker-localization-calibration-2.webp" width="960" height="463" loading="lazy" alt="Sơ đồ quy trình hiệu chỉnh Camera-LIDAR 2">
+        <img src="assets/projects/worker-localization-calibration-1.webp" width="1414" height="455" loading="lazy" alt="Sơ đồ quy trình hiệu chỉnh Camera-LiDAR 1">
+        <img src="assets/projects/worker-localization-calibration-2.webp" width="960" height="463" loading="lazy" alt="Sơ đồ quy trình hiệu chỉnh Camera-LiDAR 2">
       </div>
-      <p>Với ma trận xoay $R$ và vector tịnh tiến $t$, đám mây điểm (point cloud) từ LIDAR được chuyển đổi sang hệ tọa độ camera, sau đó chiếu lên mặt phẳng ảnh để tạo thành bản đồ độ sâu (depth map) ở tỷ lệ chuẩn (ground-truth), khớp với ảnh camera:</p>
-      <div class="math-display">$$s \begin{bmatrix} u\\ v \end{bmatrix} = \begin{bmatrix} f_x & 0 & c_x \\ 0 & f_y & c_y \\ 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} X_c\\ Y_c \\ Z_c \end{bmatrix}$$</div>
+      <p>Với ma trận xoay $R$ và vector tịnh tiến $t$, đám mây điểm (point cloud) từ LiDAR được chuyển đổi sang hệ tọa độ camera, sau đó chiếu lên mặt phẳng ảnh để tạo thành bản đồ độ sâu (depth map) ở tỷ lệ chuẩn (ground-truth), khớp với ảnh camera:</p>
+      <div class="math-display">$$s \begin{bmatrix} u\\ v \\ 1 \end{bmatrix} = \begin{bmatrix} f_x & 0 & c_x \\ 0 & f_y & c_y \\ 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} X_c\\ Y_c \\ Z_c \end{bmatrix}$$</div>
       <img src="assets/projects/worker-localization-depthmap.webp" width="1208" height="741" loading="lazy" alt="Bản đồ độ sâu chuẩn (ground-truth) thu được, khớp với ảnh camera nhiệt">
 
       <hr>
 
-      <h3>Bài học rút ra</h3>
-      <p>Bộ dữ liệu và quy trình hiệu chỉnh này đã giúp nhóm trở thành <strong>1 trong 8 giải pháp trên thế giới vượt qua được baseline SOTA</strong> được cung cấp, trên bất kỳ chỉ số nào dựa trên point cloud hoặc ảnh, tại cuộc thi ước lượng độ sâu đơn mắt CVPRW 2023. Chúng tôi đã tùy biến <a href="https://arxiv.org/pdf/2210.09071" target="_blank" rel="noopener">PixelFormer</a> (mô hình ước lượng độ sâu SOTA tại thời điểm đó) với các kỹ thuật tăng cường dữ liệu (data augmentation) trong lúc huấn luyện (cắt/xoay ngẫu nhiên, lật trái-phải, CutDepth) và kỹ thuật đệm không (zero-padding) khi suy luận (inference) để giữ nguyên độ phân giải huấn luyện.</p>
+      <h3>Tham gia cuộc thi CVPRW 2023</h3>
+      <p>Ngoài ra, nhóm đã trở thành <strong>1 trong 8 bài nộp trên thế giới (trên tổng số 28) vượt qua được baseline SOTA</strong> được cung cấp tại cuộc thi ước lượng độ sâu đơn mắt CVPRW 2023, với kết quả tốt hơn trên các chỉ số dựa trên ảnh (MAE, RMSE, AbsRel). Bộ dữ liệu bảo mật ở trên không được sử dụng: chúng tôi huấn luyện một <a href="https://arxiv.org/pdf/2210.09071" target="_blank" rel="noopener">PixelFormer</a> (mô hình ước lượng độ sâu SOTA tại thời điểm đó) đã được tùy biến trên dữ liệu huấn luyện của cuộc thi, với các kỹ thuật tăng cường dữ liệu (data augmentation) trong lúc huấn luyện (cắt/xoay ngẫu nhiên, lật trái-phải, CutDepth) và kỹ thuật đệm không (zero-padding) khi suy luận (inference) để giữ nguyên độ phân giải huấn luyện.</p>
       <div class="ref-links">
         <a href="https://arxiv.org/abs/2304.07051" target="_blank" rel="noopener" class="ref-link">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
@@ -259,12 +259,12 @@
     <div class="post-body">
 
       <h3>Giới thiệu</h3>
-      <p>Một dự án R&amp;D nhằm thay thế LIDAR bằng camera: một <strong>mô hình ước lượng độ sâu tuyệt đối (absolute depth estimation)</strong> kết hợp với <strong>các tham số hiệu chỉnh camera (camera calibration)</strong> tạo ra một đám mây điểm giả (pseudo point cloud) trực tiếp từ các pixel ảnh, được kết xuất (render) theo thời gian thực bằng OpenGL và Open3D.</p>
-      <p>Phần lý thuyết nền tảng — các tín hiệu cảm nhận độ sâu của con người, ước lượng độ sâu tuyệt đối so với tương đối, phần toán học chuyển đổi từ độ sâu sang tọa độ 3D, và quy trình đề xuất để thay thế LIDAR bằng nhiều camera — được trình bày riêng trong bài viết sau:</p>
+      <p>Một dự án R&amp;D nhằm thay thế LiDAR bằng camera: một <strong>mô hình ước lượng độ sâu tuyệt đối (absolute depth estimation)</strong> kết hợp với <strong>các tham số hiệu chỉnh camera (camera calibration)</strong> tạo ra một đám mây điểm giả (pseudo point cloud) trực tiếp từ các pixel ảnh, được kết xuất (render) theo thời gian thực bằng OpenGL và Open3D.</p>
+      <p>Phần lý thuyết nền tảng — các tín hiệu cảm nhận độ sâu của con người, ước lượng độ sâu tuyệt đối so với tương đối, phần toán học chuyển đổi từ độ sâu sang tọa độ 3D, và quy trình đề xuất để thay thế LiDAR bằng nhiều camera — được trình bày riêng trong bài viết sau:</p>
       <div class="ref-links">
         <a href="blog-vi.html#depth-pseudolidar" class="ref-link">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-          Từ Ước lượng Độ sâu đến Pseudo-LIDAR
+          Từ Ước lượng Độ sâu đến Pseudo-LiDAR
         </a>
       </div>
 
@@ -285,11 +285,12 @@
 
       <h4>Bộ dữ liệu KITTI</h4>
       <table>
-        <tr><th>Mô hình</th><th>Tham số</th><th>FPS (480×640)</th><th>Abs.Rel↓</th><th>RMSE↓</th><th>Sqr.Rel↓</th><th>δ1↑</th><th>δ2↑</th><th>δ3↑</th></tr>
-        <tr><td>Của chúng tôi (encoder YOLOv8s)</td><td>10,810,465</td><td>105</td><td>0.0479</td><td>2.3879</td><td>0.1798</td><td>0.9721</td><td>0.9952</td><td>0.9982</td></tr>
-        <tr><td>NeWCRFs</td><td>270,444,877</td><td>14</td><td>0.0509</td><td>2.1871</td><td>0.1608</td><td>0.9762</td><td>0.9963</td><td>0.9987</td></tr>
-        <tr><td>PixelFormer</td><td>270,895,920</td><td>16</td><td>0.0542</td><td>2.3748</td><td>0.1817</td><td>0.9724</td><td>0.9955</td><td>0.9984</td></tr>
+        <tr><th>Mô hình</th><th>Tham số</th><th>FPS (352×1120)</th><th>Abs.Rel↓</th><th>RMSE↓</th><th>Sqr.Rel↓</th><th>δ1↑</th><th>δ2↑</th><th>δ3↑</th></tr>
+        <tr><td>Của chúng tôi (encoder YOLOv8s)</td><td>10,810,465</td><td>101</td><td>0.0479</td><td>2.3879</td><td>0.1798</td><td>0.9721</td><td>0.9952</td><td>0.9982</td></tr>
+        <tr><td>NeWCRFs</td><td>270,444,877</td><td>14</td><td>0.0480</td><td>2.2319</td><td>0.1584</td><td>0.9767</td><td>0.9962</td><td>0.9986</td></tr>
+        <tr><td>PixelFormer</td><td>270,895,920</td><td>15</td><td>0.0534</td><td>2.4173</td><td>0.1840</td><td>0.9711</td><td>0.9952</td><td>0.9982</td></tr>
       </table>
+      <p class="img-caption">Tất cả kết quả là từ các lần đánh giá PyTorch của chúng tôi, không dùng tăng cường lúc kiểm thử (test-time augmentation - TTA). FPS được tính trung bình trên 10.000 lần suy luận trên một GPU.</p>
       <p>Với tốc độ khung hình (FPS) gấp khoảng 7 lần so với NeWCRFs/PixelFormer và chỉ khoảng 4% số lượng tham số của chúng, mô hình đánh đổi một phần nhỏ độ chính xác để đạt được thông lượng (throughput) mà một quy trình PseudoLiDAR thời gian thực cần.</p>
 
     </div><!-- /.post-body -->
@@ -306,7 +307,7 @@
     <header class="post-header">
       <span class="blog-tag">Thị giác máy tính</span>
       <h2>Ước lượng tư thế đầu</h2>
-      <div class="post-date">Tháng 9/2025 – Hiện tại · Python, C/C++, OpenCV</div>
+      <div class="post-date">Tháng 9/2025 – Tháng 7/2026 · Python, C/C++, OpenCV</div>
     </header>
 
     <div class="post-body">
@@ -317,20 +318,20 @@
       </div>
 
       <h3>Định nghĩa tư thế đầu</h3>
-      <p>Một tư thế đầu được xác định bởi một điểm xuất phát $p = (u_0, v_0)$ — gốc của hệ tọa độ tư thế đầu — và một ma trận xoay (theo quy ước ZYX) được xây dựng từ <strong>góc chúc ngóc (Pitch) $Pi$</strong>, <strong>góc lệch hướng (Yaw) $Ya$</strong>, và <strong>góc nghiêng (Roll) $Ro$</strong>:</p>
+      <p>Một tư thế đầu được xác định bởi một điểm xuất phát $P_0 = (x_0, y_0, z_0)$ — gốc của hệ tọa độ tư thế đầu trong hệ tọa độ camera, có hình chiếu là điểm ảnh $(u_0, v_0)$ — và một ma trận xoay (theo quy ước ZYX, $R = R_z R_y R_x$) được xây dựng từ <strong>góc chúc ngóc (Pitch) $\mathrm{Pi}$</strong>, <strong>góc lệch hướng (Yaw) $\mathrm{Ya}$</strong>, và <strong>góc nghiêng (Roll) $\mathrm{Ro}$</strong>:</p>
 
-      <div class="math-display">$$R_z(Ro) = \begin{bmatrix} \cos{Ro} & -\sin{Ro} & 0 \\ \sin{Ro} & \cos{Ro} & 0 \\ 0 & 0 & 1 \end{bmatrix}$$</div>
-      <div class="math-display">$$R_y(Ya) = \begin{bmatrix} \cos{Ya} & 0 & \sin{Ya} \\ 0 & 1 & 0 \\ -\sin{Ya} & 0 & \cos{Ya} \end{bmatrix}$$</div>
-      <div class="math-display">$$R_x(Pi) = \begin{bmatrix} 1 & 0 & 0 \\ 0 & \cos{Pi} & -\sin{Pi} \\ 0 & \sin{Pi} & \cos{Pi} \end{bmatrix}$$</div>
+      <div class="math-display">$$R_z(\mathrm{Ro}) = \begin{bmatrix} \cos{\mathrm{Ro}} & -\sin{\mathrm{Ro}} & 0 \\ \sin{\mathrm{Ro}} & \cos{\mathrm{Ro}} & 0 \\ 0 & 0 & 1 \end{bmatrix}$$</div>
+      <div class="math-display">$$R_y(\mathrm{Ya}) = \begin{bmatrix} \cos{\mathrm{Ya}} & 0 & \sin{\mathrm{Ya}} \\ 0 & 1 & 0 \\ -\sin{\mathrm{Ya}} & 0 & \cos{\mathrm{Ya}} \end{bmatrix}$$</div>
+      <div class="math-display">$$R_x(\mathrm{Pi}) = \begin{bmatrix} 1 & 0 & 0 \\ 0 & \cos{\mathrm{Pi}} & -\sin{\mathrm{Pi}} \\ 0 & \sin{\mathrm{Pi}} & \cos{\mathrm{Pi}} \end{bmatrix}$$</div>
 
       <p>Ma trận xoay tổng hợp của tư thế đầu so với camera là:</p>
-      <div class="math-display">$$R = \begin{bmatrix} \cos{Ro}\cos{Ya} & \cos{Ro}\sin{Ya}\sin{Pi} - \sin{Ro}\cos{Pi} & \cos{Ro}\sin{Ya}\cos{Pi} + \sin{Ro}\sin{Pi} \\ \sin{Ro}\cos{Ya} & \sin{Ro}\sin{Ya}\sin{Pi} + \cos{Ro}\cos{Pi} & \sin{Ro}\sin{Ya}\cos{Pi} - \cos{Ro}\sin{Pi} \\ -\sin{Ya} & \cos{Ya}\sin{Pi} & \cos{Ya}\cos{Pi} \end{bmatrix}$$</div>
+      <div class="math-display">$$R = \begin{bmatrix} \cos{\mathrm{Ro}}\cos{\mathrm{Ya}} & \cos{\mathrm{Ro}}\sin{\mathrm{Ya}}\sin{\mathrm{Pi}} - \sin{\mathrm{Ro}}\cos{\mathrm{Pi}} & \cos{\mathrm{Ro}}\sin{\mathrm{Ya}}\cos{\mathrm{Pi}} + \sin{\mathrm{Ro}}\sin{\mathrm{Pi}} \\ \sin{\mathrm{Ro}}\cos{\mathrm{Ya}} & \sin{\mathrm{Ro}}\sin{\mathrm{Ya}}\sin{\mathrm{Pi}} + \cos{\mathrm{Ro}}\cos{\mathrm{Pi}} & \sin{\mathrm{Ro}}\sin{\mathrm{Ya}}\cos{\mathrm{Pi}} - \cos{\mathrm{Ro}}\sin{\mathrm{Pi}} \\ -\sin{\mathrm{Ya}} & \cos{\mathrm{Ya}}\sin{\mathrm{Pi}} & \cos{\mathrm{Ya}}\cos{\mathrm{Pi}} \end{bmatrix}$$</div>
 
       <p>Mọi điểm $(x, y, z)$ trên tia tư thế đầu (head-pose ray) đều thỏa mãn:</p>
-      <div class="math-display">$$\begin{cases} t \geq 0 \\ x = x_0 + t\cos(Ro)\cos(Ya) \\ y = y_0 + t\sin(Ro)\cos(Ya) \\ z = z_0 - t\sin(Ya) \end{cases}$$</div>
+      <div class="math-display">$$\begin{cases} t \geq 0 \\ x = x_0 + t\cos(\mathrm{Ro})\cos(\mathrm{Ya}) \\ y = y_0 + t\sin(\mathrm{Ro})\cos(\mathrm{Ya}) \\ z = z_0 - t\sin(\mathrm{Ya}) \end{cases}$$</div>
 
-      <p>Ngược lại, có thể khôi phục Pitch, Yaw, và Roll từ $R$:</p>
-      <div class="math-display">$$\tan(Pi) = \frac{R_{2,1}}{R_{2,2}} \qquad \tan(Ya) = -\frac{R_{2,0}}{\sqrt{R_{2,1}^2 + R_{2,2}^2}} \qquad \tan(Ro) = \frac{R_{1,0}}{R_{0,0}}$$</div>
+      <p>Ngược lại, có thể khôi phục Pitch, Yaw, và Roll từ $R$ (với các phần tử $R_{i,j}$ đánh chỉ số từ 0):</p>
+      <div class="math-display">$$\tan(\mathrm{Pi}) = \frac{R_{2,1}}{R_{2,2}} \qquad \tan(\mathrm{Ya}) = -\frac{R_{2,0}}{\sqrt{R_{2,1}^2 + R_{2,2}^2}} \qquad \tan(\mathrm{Ro}) = \frac{R_{1,0}}{R_{0,0}}$$</div>
 
       <hr>
 
@@ -354,7 +355,7 @@
       <hr>
 
       <h3>Bộ ổn định bằng bộ lọc Kalman</h3>
-      <p>Bộ lọc Kalman mở rộng làm mượt chuyển động của tư thế đầu qua các khung hình và lấp đầy khoảng trống khi mô hình điểm mốc khuôn mặt 2D không dự đoán được điểm mốc — phổ biến nhất là do bị che khuất.</p>
+      <p>Bộ lọc Kalman mở rộng làm mượt chuyển động của tư thế đầu qua các khung hình và lấp đầy khoảng trống khi mô hình điểm mốc khuôn mặt 2D không dự đoán được điểm mốc — phổ biến nhất là do bị che khuất. Bộ lọc theo dõi hướng của đầu dưới dạng quaternion, được chuyển đổi từ ma trận xoay ước lượng được (xem tài liệu chuyển đổi bên dưới).</p>
 
       <hr>
 

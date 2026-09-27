@@ -86,7 +86,7 @@
         <p class="hero-desc">
           I am a computer vision engineer with <strong>7+ years</strong> in the field, including <strong>5+ years in industry</strong>, connecting <strong>academic research</strong> with <strong>practical engineering applications</strong>.
           I specialize in developing computer vision systems for <strong>automotive safety</strong> and
-          <strong>smart surveillance</strong>, covering from deep learning model optimization and algorithm design to edge device deployment.
+          <strong>smart surveillance</strong>, covering everything from deep learning model optimization and algorithm design to edge device deployment.
           Furthermore, I have published research articles in <strong>IEEE</strong>, <strong>MDPI</strong>, and <strong>CVPR workshops</strong>.
         </p>
 
@@ -214,12 +214,12 @@
         <div class="timeline-role">Development Team Lead &amp; AI Researcher</div>
         <div class="timeline-org">DeltaX · Seoul, South Korea</div>
         <p class="timeline-desc">
-          Since December 2023, led a Research &amp; Development team building an In-Cabin Monitoring System (ICMS) compliant
+          Since December 2023, led a Research &amp; Development team building an In-Cabin Monitoring System (ICMS) aligned
           with Euro NCAP standards — owning technical roadmap definition, task allocation, weekly progress reviews,
           milestone management, and partner/client demonstrations for an 8-model real-time pipeline (object detection,
           2D/3D keypoints, facial landmarks, gaze estimation) achieving 14 FPS on an 8-TOPS TI SK-TDA4VM platform and
-          ~9 FPS on a 4-TOPS TI SK-TDA4AEN platform, alongside deployment on Samsung Exynos V920 SoCs. Delivered 4 PoC
-          projects for 2 major Korean automotive vendors. Also worked on multi-camera stitching, railway worker
+          ~9 FPS on a 4-TOPS TI TDA4AEN platform, alongside deployment on Samsung Exynos V920 SoCs. Delivered 4 PoC
+          projects for 2 Korean automotive vendors. Also worked on multi-camera stitching, railway worker
           localization, pseudo-LiDAR generation, and real-time depth estimation.
         </p>
       </div>
@@ -363,7 +363,7 @@
         <div class="skill-tags">
           <span class="skill-tag">TI SK-TDA4VM/TDA4AEN</span>
           <span class="skill-tag">Samsung Exynos V920</span>
-          <span class="skill-tag">NIR Camera</span>
+          <span class="skill-tag">RGB/IR Camera</span>
           <span class="skill-tag">FLIR Thermal Camera</span>
           <span class="skill-tag">Ouster LiDAR</span>
         </div>
@@ -384,7 +384,7 @@
           <!-- <span class="skill-tag skill-tag--familiar">C</span> -->
           <span class="skill-tag skill-tag--familiar">C#</span>
           <span class="skill-tag skill-tag--familiar">MATLAB</span>
-          <span class="skill-tag skill-tag--familiar">Javascript</span>
+          <span class="skill-tag skill-tag--familiar">JavaScript</span>
           <span class="skill-tag skill-tag--familiar">Java</span>
           <span class="skill-tag skill-tag--familiar">TensorFlow</span>
           <span class="skill-tag skill-tag--familiar">Darknet</span>
@@ -455,7 +455,7 @@
         <div class="project-name">Smart In-cabin Monitoring System</div>
         <div class="project-duration">December 2023 – July 2026</div>
         <p class="project-desc">
-          End-to-end in-cabin monitoring system built on a single NIR fisheye camera, compliant with Euro NCAP standards, and complemented with proprietary advanced features.
+          End-to-end in-cabin monitoring system built on a single RGB/IR fisheye camera, aligned with Euro NCAP standards, and complemented with proprietary advanced features.
           Integrates up to eight deep learning computer vision models (object detection, image classification,
           2D/3D body keypoints, facial landmarks, gaze estimation) into a C/C++ pipeline deployed on
           System-on-Chip devices (Texas Instruments SK-TDA4VM/TDA4AEN, Samsung Exynos V920). As Team Lead, owned the
@@ -502,7 +502,7 @@
         </div>
       </div>
 
-      <!-- PseudoLIDAR -->
+      <!-- PseudoLiDAR -->
       <div class="project-card fade-up">
         <img class="project-thumb" src="assets/projects/pseudo-lidar.gif" loading="lazy" alt="Real-time PseudoLiDAR demo">
         <div class="project-top">
@@ -552,9 +552,10 @@
           Combined YOLOv5 object detection with NeWCRFs monocular depth estimation.
           As the first developer on the project, built the full calibration pipeline:
           camera calibration, data collection, and Camera-LiDAR calibration using an Ouster OS0 LiDAR.
-          The resulting dataset and depth model were submitted as Team DepthSquad to CVPRW 2023's Second Monocular
-          Depth Estimation Challenge — 1 of 8 submissions worldwide (out of 28 total) accepted for outperforming
-          the SOTA baseline, beating it on image-based accuracy metrics (MAE, RMSE, AbsRel).
+          Separately, entered CVPRW 2023's Second Monocular Depth Estimation Challenge as Team DepthSquad with a custom
+          depth model trained on the challenge's data plus our data-processing method (the confidential project dataset
+          was not used) — 1 of 8 submissions worldwide (out of 28 total) to outperform the SOTA baseline, beating it on
+          image-based accuracy metrics (MAE, RMSE, AbsRel).
         </p>
         <a href="projects.html#worker-localization" class="project-readmore">Read case study →</a>
         <div class="tag-list">
@@ -577,7 +578,7 @@
             </svg>
           </div>
           <div class="project-links">
-            <a href="https://github.com/huynhthaihoa/realtime-multicam-stitching" target="_blank" rel="noopener" class="project-link" title="GitHub — generalized geometry toolkit">
+            <a href="https://github.com/huynhthaihoa/realtime-multicam-stitching" target="_blank" rel="noopener" class="project-link" title="GitHub">
               <svg width="16" height="16" fill="currentColor"><use href="#icon-github"></use></svg>
             </a>
           </div>
@@ -652,7 +653,7 @@
         <p class="project-desc">
           Official implementation of the stereo-vision nighttime vehicle-to-vehicle positioning algorithm from
           my MDPI publication: gradient-boosted stereo matching for taillight-region correspondence, paired with
-          a neural-network-based matching stage to associate left/right taillights under urban traffic conditions.
+          a neural-network-based pairing stage to associate left/right taillights under urban traffic conditions.
         </p>
         <a href="#publications" class="project-readmore">See publication →</a>
         <div class="tag-list">
@@ -782,7 +783,7 @@
         <div class="project-duration">Personal Project</div>
         <p class="project-desc">
           A five-step pipeline for detecting ego-vehicle lanes from LiDAR point clouds: ground point
-          extraction, intensity histogram peak detection, sliding-window lane search, and polynomial
+          extraction, intensity histogram construction, peak detection, sliding-window lane search, and polynomial
           curve fitting to output left/right lane coefficients.
         </p>
         <div class="tag-list">
@@ -932,14 +933,14 @@
         <div class="project-name">FaceMask</div>
         <div class="project-duration">Personal Project</div>
         <p class="project-desc">
-          A face detection and blurring tool for video files. C++ backend (FFMPEG + inference) with
+          A face detection and blurring tool for video files. C++ backend (FFmpeg + inference) with
           a C# WinForms UI supporting drag-and-drop input.
         </p>
         <div class="tag-list">
           <span class="tag">C++</span>
           <span class="tag">C#</span>
           <span class="tag">OpenCV</span>
-          <span class="tag">FFMPEG</span>
+          <span class="tag">FFmpeg</span>
         </div>
       </div>
 
@@ -1118,7 +1119,7 @@
 
       <a href="blog.html#depth-pseudolidar" class="blog-card fade-up" style="text-decoration:none;color:inherit;display:block;">
         <span class="blog-tag">Depth Estimation</span>
-        <div class="blog-title">From Depth Estimation to Pseudo-LIDAR</div>
+        <div class="blog-title">From Depth Estimation to Pseudo-LiDAR</div>
         <p class="blog-excerpt">
           An exploration of monocular depth estimation approaches — absolute vs relative depth —
           and how to reconstruct pseudo-LiDAR point clouds from camera images using depth maps and camera intrinsics.

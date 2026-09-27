@@ -94,7 +94,7 @@
       </a>
       <a href="#depth-pseudolidar" class="toc-card fade-up">
         <span class="blog-tag-depth">Ước lượng độ sâu</span>
-        <div class="toc-title">Từ Ước lượng Độ sâu đến Pseudo-LIDAR</div>
+        <div class="toc-title">Từ Ước lượng Độ sâu đến Pseudo-LiDAR</div>
         <div class="toc-date">24 Tháng 3, 2025</div>
       </a>
       <a href="#perspective-affine" class="toc-card fade-up">
@@ -203,7 +203,7 @@
       <p>Huấn luyện trước mô hình giáo viên trên cùng một tập dữ liệu cho phép nó <strong>hội tụ về một lời giải hiệu năng cao, nắm bắt thông tin phong phú về tác vụ</strong> (ví dụ: xác suất lớp, biểu diễn đặc trưng, hoặc ranh giới quyết định). Học sinh sau đó có thể tận dụng tri thức chất lượng cao này thông qua đầu ra mềm của giáo viên (ví dụ: logit đã làm mềm hoặc đặc trưng trung gian), cung cấp nhiều thông tin hơn so với chỉ dùng nhãn cứng. Ví dụ, trong các tác vụ phân loại, đầu ra softmax của giáo viên (với một tham số nhiệt độ) tiết lộ mối quan hệ giữa các lớp, giúp học sinh học được các ranh giới quyết định tinh tế hơn.</p>
 
       <h5>Thực hành chuẩn trong Knowledge Distillation</h5>
-      <p>Khung knowledge distillation kinh điển, được giới thiệu bởi Hinton et al. (2015), giả định giáo viên được huấn luyện trước trên tập dữ liệu mục tiêu, và học sinh được huấn luyện để khớp với đầu ra của giáo viên trên cùng tập dữ liệu đó. Thiết lập này được sử dụng rộng rãi trong các ứng dụng như nén mô hình cho phân loại ảnh, xử lý ngôn ngữ tự nhiên, và nhận dạng giọng nói. Học sinh thường tối ưu một tổ hợp của mất mát chưng cất (ví dụ: phân kỳ KL giữa logit của giáo viên và học sinh) và mất mát riêng cho tác vụ (ví dụ: cross-entropy với nhãn ground-truth) trên cùng tập dữ liệu.</p>
+      <p>Khung knowledge distillation kinh điển, được giới thiệu bởi Hinton et al. (2015), huấn luyện học sinh để khớp với đầu ra đã được làm mềm bằng nhiệt độ của giáo viên (đã huấn luyện trước) trên một <strong>tập chuyển giao (transfer set)</strong>. Tập chuyển giao có thể là dữ liệu không nhãn hoặc chính tập huấn luyện gốc, và các tác giả nhận thấy dùng tập huấn luyện gốc cho kết quả tốt. Thiết lập này được sử dụng rộng rãi trong các ứng dụng như nén mô hình cho phân loại ảnh, xử lý ngôn ngữ tự nhiên, và nhận dạng giọng nói. Học sinh thường tối ưu một tổ hợp của mất mát chưng cất (ví dụ: cross-entropy, hoặc phân kỳ KL vốn tương đương sai khác một hằng số, giữa đầu ra đã làm mềm của giáo viên và học sinh) và mất mát riêng cho tác vụ (ví dụ: cross-entropy với nhãn ground-truth).</p>
 
       <h5>Sử dụng dữ liệu hiệu quả</h5>
       <p>Trong nhiều kịch bản thực tế, tập dữ liệu là cố định và có giới hạn. Sử dụng cùng một tập dữ liệu cho cả hai mô hình tránh được nhu cầu thu thập dữ liệu bổ sung hoặc nguy cơ lệch miền (domain mismatch). Giáo viên trích xuất càng nhiều tri thức càng tốt từ tập dữ liệu, và học sinh chưng cất tri thức này vào một mô hình gọn nhẹ hơn.</p>
@@ -219,7 +219,7 @@
       <h4>Cân nhắc và thực hành tốt nhất</h4>
       <ol>
         <li><strong>Chất lượng giáo viên</strong>: Giáo viên phải được <strong>huấn luyện tốt</strong> và <strong>hoạt động tốt trên tập dữ liệu</strong>. Một giáo viên huấn luyện kém sẽ cung cấp đầu ra <strong>nhiễu</strong> hoặc <strong>không đáng tin cậy</strong>, dẫn đến hiệu năng học sinh dưới mức tối ưu.</li>
-        <li><strong>Thiết kế mất mát chưng cất</strong>: Hàm mất mát của học sinh thường kết hợp <strong>mất mát chưng cất</strong> (khớp với đầu ra của giáo viên) và <strong>mất mát riêng cho tác vụ</strong> (khớp với nhãn ground-truth). Sự cân bằng (được kiểm soát bởi một siêu tham số trọng số, ví dụ: <code>α</code> trong <code>L = α * L_distillation + (1-α) * L_task</code>) là yếu tố then chốt. <strong>Tham số nhiệt độ</strong> trong hàm softmax cũng cần được điều chỉnh — nhiệt độ cao hơn (ví dụ: <code>T = 2</code> hoặc <code>T = 4</code>) làm cho đầu ra của giáo viên mượt hơn.</li>
+        <li><strong>Thiết kế mất mát chưng cất</strong>: Hàm mất mát của học sinh thường kết hợp <strong>mất mát chưng cất</strong> (khớp với đầu ra của giáo viên) và <strong>mất mát riêng cho tác vụ</strong> (khớp với nhãn ground-truth). Sự cân bằng (được kiểm soát bởi một siêu tham số trọng số, ví dụ: <code>α</code> trong <code>L = α * T² * L_distillation + (1-α) * L_task</code>) là yếu tố then chốt: Hinton et al. nhận thấy đặt trọng số thấp hơn đáng kể cho số hạng nhãn cứng thường cho kết quả tốt nhất, và số hạng nhãn mềm cần được nhân với <code>T²</code> vì gradient của nó giảm theo tỉ lệ <code>1/T²</code>. <strong>Tham số nhiệt độ</strong> trong hàm softmax cũng cần được điều chỉnh — nhiệt độ cao hơn (ví dụ: <code>T = 2</code> hoặc <code>T = 4</code>) làm cho đầu ra của giáo viên mượt hơn.</li>
         <li><strong>Nguy cơ overfitting</strong>: Nếu tập dữ liệu nhỏ, giáo viên có thể bị overfit. Hãy dùng các <strong>kỹ thuật chính quy hóa</strong> khi huấn luyện giáo viên (ví dụ: dropout, weight decay), <strong>tăng cường dữ liệu (data augmentation)</strong>, và theo dõi hiệu năng tổng quát hóa của giáo viên.</li>
         <li><strong>Kích thước và tính đa dạng của tập dữ liệu</strong>: Với các tập dữ liệu rất nhỏ, tri thức của giáo viên có thể bị hạn chế. Cân nhắc dùng một giáo viên đã huấn luyện trước hoặc tăng cường tập dữ liệu.</li>
         <li><strong>Tính tương thích kiến trúc mô hình</strong>: Đảm bảo mô hình giáo viên và học sinh tương thích về không gian đầu ra. Nếu học sinh có kiến trúc khác, có thể cần thêm các kỹ thuật như distillation dựa trên đặc trưng (feature-based distillation).</li>
@@ -247,7 +247,7 @@
       <ul>
         <li><strong>Kịch bản</strong>: Giáo viên được huấn luyện trước trên một tập dữ liệu lớn, tổng quát (ví dụ: ImageNet cho ảnh, Wikipedia hoặc Common Crawl cho văn bản), trong khi học sinh được huấn luyện trên một tập dữ liệu nhỏ hơn, đặc thù cho tác vụ hoặc miền.</li>
         <li><strong>Cơ sở lý luận</strong>: Giáo viên, thường là một foundation model lớn, học các đặc trưng rộng, có thể tổng quát hóa từ một tập dữ liệu đa dạng. Các đặc trưng này có thể được chưng cất vào một mô hình học sinh nhỏ hơn, phù hợp với một miền hoặc tác vụ cụ thể, ngay cả khi tập dữ liệu mục tiêu bị giới hạn.</li>
-        <li><strong>Ví dụ</strong>: Trong NLP, một giáo viên như <strong>BERT</strong> được huấn luyện trước trên một <strong>kho ngữ liệu văn bản khổng lồ</strong> (ví dụ: Wikipedia + BookCorpus). Học sinh (ví dụ: <strong>DistilBERT</strong>) được huấn luyện trên một <strong>tập dữ liệu nhỏ hơn, đặc thù cho tác vụ</strong> (ví dụ: phân tích cảm xúc trên các đánh giá IMDb), dùng đầu ra của giáo viên để dẫn dắt việc học.</li>
+        <li><strong>Ví dụ</strong>: Trong NLP, <strong>DistilBERT</strong> được chưng cất từ <strong>BERT</strong> ngay trong giai đoạn huấn luyện trước, trên cùng <strong>kho ngữ liệu văn bản khổng lồ</strong> mà BERT đã dùng (Wikipedia tiếng Anh + Toronto Book Corpus). Học sinh đa dụng thu được sau đó được tinh chỉnh trên các <strong>tập dữ liệu nhỏ hơn, đặc thù cho tác vụ</strong> (ví dụ: phân loại cảm xúc trên các đánh giá IMDb). Bài báo còn thêm một bước chưng cất thứ hai, đặc thù cho tác vụ, khi tinh chỉnh trên SQuAD, trong đó một giáo viên BERT đã được tinh chỉnh trên SQuAD dẫn dắt học sinh.</li>
         <li><strong>Lợi ích</strong>: Tận dụng tri thức tổng quát của giáo viên để cải thiện hiệu năng học sinh trên các tác vụ chuyên biệt với dữ liệu hạn chế.</li>
         <li><strong>Thách thức</strong>: Tri thức của giáo viên có thể không hoàn toàn phù hợp với miền mục tiêu, đòi hỏi điều chỉnh cẩn thận quá trình distillation.</li>
       </ul>
@@ -351,15 +351,16 @@
       <h4>Noisy Student Training hoạt động như thế nào</h4>
       <ol>
         <li><strong>Huấn luyện giáo viên</strong>: Huấn luyện một mô hình giáo viên trên tập dữ liệu có nhãn $D_L$, tương tự như Self-Training.</li>
-        <li><strong>Tạo nhãn giả</strong>: Dùng giáo viên để dự đoán nhãn giả cho một tập dữ liệu không nhãn lớn $D_U$. Nhãn cứng (dự đoán lớp) thường được dùng thay vì nhãn mềm để đơn giản hóa quá trình.</li>
-        <li><strong>Huấn luyện học sinh với nhiễu</strong>: Huấn luyện một mô hình học sinh (thường có năng lực lớn hơn hoặc bằng giáo viên) trên $D_L \cup \{(x_j, \hat{y}_j)\}$, nhưng đưa thêm nhiễu và chính quy hóa trong quá trình huấn luyện:
+        <li><strong>Tạo nhãn giả</strong>: Dùng giáo viên, <strong>không có nhiễu</strong>, để dự đoán nhãn giả cho các ảnh sạch (không tăng cường) từ một tập dữ liệu không nhãn lớn $D_U$. Cả nhãn giả mềm (xác suất) và cứng (one-hot) đều hoạt động tốt; bài báo mặc định dùng nhãn giả mềm vì chúng tốt hơn một chút với dữ liệu không nhãn ngoài miền (out-of-domain).</li>
+        <li><strong>Lọc và cân bằng dữ liệu nhãn giả</strong>: Loại bỏ các ảnh không nhãn mà giáo viên có độ tin cậy thấp (thường là ảnh ngoài miền), rồi cân bằng số ảnh nhãn giả của mỗi lớp để khớp với phân bố lớp của tập có nhãn: nhân bản ảnh ở các lớp thiếu, và chỉ giữ các ảnh có độ tin cậy cao nhất ở các lớp thừa.</li>
+        <li><strong>Huấn luyện học sinh với nhiễu</strong>: Huấn luyện một mô hình học sinh có năng lực <strong>bằng hoặc lớn hơn</strong> giáo viên trên $D_L \cup \{(x_j, \hat{y}_j)\}$, đưa nhiễu vào học sinh trong quá trình huấn luyện:
           <ul>
-            <li><strong>Tăng cường dữ liệu</strong>: Áp dụng các phép tăng cường mạnh (ví dụ: RandAugment cho ảnh) cho cả đầu vào có nhãn và không nhãn.</li>
-            <li><strong>Nhiễu mô hình</strong>: Dùng các kỹ thuật như dropout, stochastic depth, hoặc đóng băng lớp ngẫu nhiên trong mô hình học sinh.</li>
-            <li><strong>Tập dữ liệu cân bằng</strong>: Đảm bảo dữ liệu có nhãn và không nhãn được cân bằng.</li>
+            <li><strong>Nhiễu đầu vào</strong>: Tăng cường dữ liệu bằng RandAugment.</li>
+            <li><strong>Nhiễu mô hình</strong>: Dropout và stochastic depth.</li>
           </ul>
+          Batch không nhãn thường lớn hơn nhiều so với batch có nhãn (gấp 14 đến 28 lần trong bài báo), để học sinh được huấn luyện lâu hơn trên dữ liệu không nhãn.
         </li>
-        <li><strong>Lặp lại</strong>: Dùng học sinh làm giáo viên mới, tạo ra các nhãn giả cập nhật, và lặp lại. Mỗi vòng lặp thường cải thiện hiệu năng mô hình.</li>
+        <li><strong>Lặp lại</strong>: Dùng học sinh làm giáo viên mới, tạo ra các nhãn giả cập nhật, và lặp lại. Mô hình tốt nhất trong bài báo có được sau ba vòng lặp.</li>
       </ol>
 
       <h4>Khác biệt chính so với Self-Training</h4>
@@ -372,13 +373,13 @@
       <h4>Noisy Student cải thiện hiệu năng mô hình như thế nào</h4>
       <ul>
         <li><strong>Độ bền vững nhờ nhiễu</strong>: Nhiễu được thêm vào buộc học sinh học các đặc trưng tổng quát hơn, ngăn overfitting với các dự đoán hoặc thiên lệch trong nhãn giả của giáo viên.</li>
-        <li><strong>Mở rộng theo dữ liệu không nhãn</strong>: Noisy Student tận dụng lượng lớn dữ liệu không nhãn, điều quan trọng để cải thiện hiệu năng trong các thiết lập khan hiếm dữ liệu.</li>
+        <li><strong>Mở rộng theo dữ liệu không nhãn</strong>: Hiệu năng tăng khi có thêm dữ liệu không nhãn, và phương pháp vẫn hiệu quả ngay cả khi dữ liệu có nhãn dồi dào (ví dụ: toàn bộ tập huấn luyện ImageNet).</li>
         <li><strong>Tinh chỉnh lặp lại</strong>: Mỗi vòng lặp tinh chỉnh các nhãn giả, khi học sinh-trở-thành-giáo-viên trở nên chính xác hơn, dẫn đến một vòng lặp cải thiện tích cực (virtuous cycle).</li>
         <li><strong>Vượt qua giáo viên</strong>: Bằng cách kết hợp nhiễu, một mô hình học sinh lớn hơn, và huấn luyện lặp lại, Noisy Student có thể tạo ra các mô hình vượt trội hơn giáo viên ban đầu.</li>
       </ul>
 
       <h4>Ví dụ</h4>
-      <p>Trong bài báo Noisy Student, một giáo viên EfficientNet được huấn luyện trên tập dữ liệu ImageNet có nhãn. Nó tạo ra nhãn giả cho 300 triệu ảnh không nhãn từ JFT-300M. Một học sinh EfficientNet lớn hơn được huấn luyện trên tập dữ liệu kết hợp với các phép tăng cường mạnh (RandAugment) và dropout, đạt độ chính xác cao hơn giáo viên. Sau nhiều vòng lặp, mô hình cuối cùng thiết lập các benchmark mới trên ImageNet.</p>
+      <p>Trong bài báo Noisy Student, một giáo viên EfficientNet-B7 được huấn luyện trên ImageNet có nhãn và được dùng để gán nhãn giả cho ảnh từ JFT-300M (bỏ qua nhãn gốc của JFT). Sau khi lọc theo độ tin cậy (ngưỡng 0.3) và cân bằng về 130 nghìn ảnh mỗi lớp, học sinh được huấn luyện trên 130 triệu ảnh (81 triệu ảnh không trùng lặp). Một học sinh EfficientNet-L2 lớn hơn, được huấn luyện với RandAugment, dropout và stochastic depth, đã vượt qua giáo viên của nó. Sau ba vòng lặp, mô hình cuối cùng đạt độ chính xác top-1 88.4% trên ImageNet, cao hơn 2.0% so với state of the art trước đó.</p>
 
       <h4>Thách thức</h4>
       <ul>
@@ -444,7 +445,7 @@
       <h4>1.1. Phương trình tổng quát</h4>
       <p>Phương trình tổng quát của một hình ellipse đã xoay:</p>
       <div class="math-display">
-        $$\frac{[(x-c_x)\cos(-\theta)+(y-c_y)\sin(-\theta)]^2}{a^2}+\frac{[(x-c_x)\sin(-\theta)-(y-c_y)\cos(-\theta)]^2}{b^2}=1$$
+        $$\frac{[(x-c_x)\cos(\theta)+(y-c_y)\sin(\theta)]^2}{a^2}+\frac{[(x-c_x)\sin(\theta)-(y-c_y)\cos(\theta)]^2}{b^2}=1$$
       </div>
       <p>trong đó:</p>
       <ul>
@@ -469,19 +470,19 @@
       <img src="assets/blog/2d-vision-ellipse.png" width="889" height="793" loading="lazy" alt="Minh họa hình ellipse đã xoay" />
 
       <h3>2. Xoay điểm (Rotate Point)</h3>
-      <p>Nếu bạn xoay một điểm $B(x_B, y_B)$ quanh một điểm $A(x_A, y_A)$ theo góc $\theta$ (ngược chiều kim đồng hồ), bạn sẽ được một điểm $C(x_C, y_C)$, trong đó:</p>
+      <p>Nếu bạn xoay một điểm $B(x_B, y_B)$ quanh một điểm $A(x_A, y_A)$ theo góc $\theta$ (<strong>theo chiều kim đồng hồ</strong> trong hệ tọa độ ảnh, trục y hướng xuống), bạn sẽ được một điểm $C(x_C, y_C)$, trong đó:</p>
       <div class="math-display">
         $$x_C = (x_B - x_A)\cos(\theta) - (y_B - y_A)\sin(\theta) + x_A$$
         $$y_C = (x_B - x_A)\sin(\theta) + (y_B - y_A)\cos(\theta) + y_A$$
       </div>
       <p>Triển khai Python:</p>
       <pre><code>def get_rotation(start_point, center_point, rad):
-    """Rotate start_point around center_point by rad radians (counterclockwise).
+    """Rotate start_point around center_point by rad radians (clockwise in image coordinates, y-axis down).
 
     Args:
         start_point:  (x, y)
         center_point: (x, y)
-        rad:          rotation angle in radians, counterclockwise
+        rad:          rotation angle in radians, clockwise in image coordinates
 
     Returns:
         [x_T, y_T]
@@ -514,18 +515,18 @@
 
     <div class="post-body">
 
-      <h3>Benchmark (Cập nhật mới nhất)</h3>
+      <h3>Benchmark</h3>
 
       <h4>Benchmark công khai</h4>
       <p><strong>Tuyên bố miễn trừ trách nhiệm</strong>:</p>
       <ul>
-        <li>Đây chỉ là một benchmark trên một số tập dữ liệu chuẩn, nghĩa là mô hình không nhất thiết trở thành "SOTA" thực sự cho các ứng dụng trong-thực-tế (in-the-wild).</li>
+        <li>Đây chỉ là một benchmark trên một số tập dữ liệu chuẩn, nghĩa là mô hình không nhất thiết trở thành "SOTA" thực sự cho các ứng dụng thực tế (in-the-wild).</li>
         <li>Benchmark này tập trung vào các chỉ số <strong>độ chính xác</strong> nhưng không có chỉ số <strong>độ trễ (latency)</strong>, vốn cũng là một phần thiết yếu của các ứng dụng thời gian thực.</li>
       </ul>
       <div class="ref-links">
-        <a href="https://paperswithcode.com/task/monocular-depth-estimation" target="_blank" rel="noopener" class="ref-link">
+        <a href="https://www.cvlibs.net/datasets/kitti/eval_depth.php?benchmark=depth_prediction" target="_blank" rel="noopener" class="ref-link">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-          Papers with Code – Monocular Depth Estimation
+          KITTI Depth Prediction Benchmark (bảng xếp hạng chính thức)
         </a>
       </div>
 
@@ -533,16 +534,16 @@
       <div class="ref-links">
         <a href="#depth-pseudolidar" class="ref-link">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-          From Depth Estimation to Pseudo-LIDAR
+          Từ Ước lượng Độ sâu đến Pseudo-LiDAR
         </a>
         <a href="https://huggingface.co/blog/Isayoften/monocular-depth-estimation-guide" target="_blank" rel="noopener" class="ref-link">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-          Metric and Relative Monocular Depth Estimation: An Overview (HuggingFace)
+          Metric and Relative Monocular Depth Estimation: An Overview (Hugging Face)
         </a>
       </div>
 
       <h3>Các công trình nổi bật</h3>
-      <p>Các công trình này có thể không phải là "SOTA" trên một số tập dữ liệu cụ thể nhưng có tiềm năng cao cho các ứng dụng thực tế, trong-thực-tế.</p>
+      <p>Các công trình này có thể không phải là "SOTA" trên một số tập dữ liệu cụ thể nhưng có tiềm năng cao cho các ứng dụng thực tế (in-the-wild).</p>
 
       <div class="works-list">
 
@@ -597,7 +598,7 @@
         </div>
 
         <div class="work-item fade-up">
-          <div class="work-title">Depth Anything V2 – CVPR 2024</div>
+          <div class="work-title">Depth Anything (CVPR 2024) &amp; V2 (NeurIPS 2024)</div>
           <div class="work-links">
             <a href="https://github.com/DepthAnything/Depth-Anything-V2" target="_blank" rel="noopener" class="work-link-btn">
               <svg width="12" height="12" fill="currentColor"><use href="#icon-github"></use></svg>
@@ -743,7 +744,7 @@
   <div class="container">
     <header class="post-header">
       <span class="blog-tag-depth">Ước lượng độ sâu</span>
-      <h2>Từ Ước lượng Độ sâu đến Pseudo-LIDAR</h2>
+      <h2>Từ Ước lượng Độ sâu đến Pseudo-LiDAR</h2>
       <div class="post-date">24 Tháng 3, 2025</div>
     </header>
 
@@ -757,7 +758,6 @@
         <li><strong>Mật độ họa tiết (Texture density)</strong>: các bề mặt có họa tiết ở xa hơn xuất hiện mịn hơn (chi tiết nhỏ hơn).</li>
         <li><strong>Phối cảnh tuyến tính (Linear perspective)</strong>: các đường thẳng, song song trong thế giới thực xuất hiện hội tụ trong ảnh.</li>
         <li><strong>Kích thước biểu kiến của vật thể</strong>: các vật thể ở xa hơn xuất hiện nhỏ hơn.</li>
-        <li><strong>Hiệu ứng chuyển động</strong>: các vật thể trở nên mờ và ngả xanh khi chúng di chuyển ra xa.</li>
         <li><strong>Bóng đổ &amp; chiếu sáng</strong>: một bề mặt xuất hiện sáng hơn khi pháp tuyến của nó hướng về phía nguồn sáng. Bóng đổ cung cấp thông tin về sự thay đổi độ sâu trong một bề mặt.</li>
         <li><strong>Độ mờ do lấy nét (Focus blur)</strong>: các vật thể ở phía trước hoặc phía sau mặt phẳng lấy nét xuất hiện mờ.</li>
         <li><strong>Phối cảnh khí quyển (Aerial perspective)</strong>: các vật thể rất xa có độ tương phản thấp hơn và ngả sắc xanh.</li>
@@ -787,9 +787,9 @@
       <h3>Từ Ước lượng Độ sâu đến Tái tạo 3D</h3>
       <p>Mối quan hệ giữa một tọa độ 2D $p$ (mặt phẳng ảnh) và tọa độ 3D tương ứng $P_c$ (hệ tọa độ camera) là:</p>
       <div class="math-display">$$s\,p = A P_c \quad (1)$$</div>
-      <p>trong đó $p = \begin{bmatrix} u\\ v \end{bmatrix}$, $P_c = \begin{bmatrix} X_c\\ Y_c \\ Z_c \end{bmatrix}$, $s$ là hệ số thang đo phối cảnh (projective scaling factor), và $A$ là ma trận nội tại (intrinsic) camera (lý tưởng):</p>
+      <p>trong đó $p = \begin{bmatrix} u\\ v \\ 1 \end{bmatrix}$, $P_c = \begin{bmatrix} X_c\\ Y_c \\ Z_c \end{bmatrix}$, $s$ là hệ số thang đo phối cảnh (projective scaling factor), và $A$ là ma trận nội tại (intrinsic) camera (lý tưởng):</p>
       <div class="math-display">$$A = \begin{bmatrix} f_x & 0 & c_x \\ 0 & f_y & c_y \\ 0 & 0 & 1 \end{bmatrix} \quad (2)$$</div>
-      <p>Trong thực tế, mọi camera đều có hiện tượng méo ảnh (distortion), vì vậy ta cần hiệu chỉnh (calibrate) trước và tính toán $A$ tối ưu bằng OpenCV:</p>
+      <p>Trong thực tế, mọi camera đều có hiện tượng méo ảnh (distortion), vì vậy ta cần hiệu chỉnh (calibrate) trước, tính toán $A$ tối ưu bằng OpenCV, rồi dùng nó để khử méo (undistort) ảnh:</p>
       <pre><code>camera_matrix = np.zeros(shape=(3, 3))
 camera_matrix[0, 0] = 3.618627944978409e+02
 camera_matrix[0, 2] = 3.140828758355781e+02
@@ -800,7 +800,10 @@ camera_matrix[2, 2] = 1
 dist_coeffs = np.array([-0.115065515143958, 0.023076954804581, 0, 0, 0])
 
 # W, H = image width and height
-A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)</code></pre>
+A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)
+
+# A is only valid for undistorted pixels: undistort the image (and depth map) with it first
+undistorted = cv2.undistort(image, camera_matrix, dist_coeffs, None, A)</code></pre>
 
       <div class="callout">
         💡 Hiệu chỉnh camera là <strong>một quá trình xấp xỉ</strong> — tương tự như machine learning. Chúng ta hiếm khi có được ma trận camera lý tưởng thực sự, nhưng xem kết quả thu được là $A$ để đơn giản hóa.
@@ -828,19 +831,19 @@ A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)</cod
 
       <hr>
 
-      <h3>Tái tạo LIDAR bằng Pseudo-LIDAR</h3>
+      <h3>Tái tạo LiDAR bằng Pseudo-LiDAR</h3>
       <div class="callout">
-        💡 Để kiểm chứng đề xuất này, thiết lập <strong>4 camera</strong> và <strong>1 LIDAR</strong> trong <strong>môi trường mô phỏng CARLA</strong>, ghi lại dữ liệu, và thử nghiệm với pipeline đầu-cuối (end-to-end).
+        💡 Để kiểm chứng đề xuất này, thiết lập <strong>4 camera</strong> và <strong>1 LiDAR</strong> trong <strong>môi trường mô phỏng CARLA</strong>, ghi lại dữ liệu, và thử nghiệm với pipeline đầu-cuối (end-to-end).
       </div>
-      <p>Cho một LIDAR $L$ tạo ra một point cloud 360°, ta tái tạo nó bằng các camera $C_i$. Pipeline đề xuất:</p>
+      <p>Cho một LiDAR $L$ tạo ra một point cloud 360°, ta tái tạo nó bằng các camera $C_i$. Pipeline đề xuất:</p>
       <ol>
         <li>Suy luận bản đồ độ sâu tuyệt đối $D_i$ của mỗi ảnh $I_i$.</li>
         <li>Tính toán tọa độ 3D $P_{C_i}$ trong hệ tọa độ mỗi camera bằng $D_i$ và ma trận nội tại $A_i$.</li>
-        <li>Chiếu lại (re-project) sang hệ tọa độ LIDAR thông qua phép quay $R_i$ và phép tịnh tiến $t_i$:
-          <div class="math-display">$$P_{L_i} = [R_i \mid t_i]\,P_{C_i} \quad (5)$$</div>
+        <li>Biến đổi sang hệ tọa độ LiDAR thông qua phép quay $R_i$ và phép tịnh tiến $t_i$:
+          <div class="math-display">$$P_{L_i} = R_i\,P_{C_i} + t_i \quad (5)$$</div>
         </li>
       </ol>
-      <p><strong>Ưu điểm so với LIDAR thực:</strong> chi phí thấp hơn, point cloud màu dày đặc hơn, tiềm năng tốc độ khung hình cao hơn.</p>
+      <p><strong>Ưu điểm so với LiDAR thực:</strong> chi phí thấp hơn, point cloud màu dày đặc hơn, tiềm năng tốc độ khung hình cao hơn.</p>
       <p><strong>Nhược điểm:</strong> giới hạn do méo ảnh camera, nhạy cảm với ánh sáng và thời tiết, hiện tượng che khuất thường xuyên, cần ghép nhiều camera (multi-camera stitching), và việc hiệu chỉnh/đồng bộ hóa khó khăn.</p>
 
       <hr>
@@ -898,7 +901,7 @@ A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)</cod
       <ul>
         <li>Các điểm nằm trên cùng một đường thẳng vẫn thẳng hàng sau khi biến đổi.</li>
         <li>Các đường thẳng song song vẫn song song sau khi biến đổi.</li>
-        <li>Tỉ lệ của bất kỳ cặp đoạn thẳng nào được bảo toàn; trung điểm vẫn là trung điểm.</li>
+        <li>Tỉ lệ độ dài trên cùng một đường thẳng (và giữa các đoạn thẳng song song) được bảo toàn; trung điểm vẫn là trung điểm.</li>
       </ul>
 
       <h4>Ví dụ</h4>
@@ -906,7 +909,7 @@ A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)</cod
         <li><strong>Tịnh tiến (Translation)</strong>: di chuyển một hình mà không thay đổi hướng hoặc kích thước.</li>
         <li><strong>Xoay (Rotation)</strong>: xoay một hình quanh một điểm.</li>
         <li><strong>Co giãn (Scaling)</strong>: phóng to hoặc thu nhỏ một hình.</li>
-        <li><strong>Cắt xén (Shearing)</strong>: làm nghiêng một hình.</li>
+        <li><strong>Biến dạng trượt (Shearing)</strong>: làm nghiêng một hình.</li>
       </ul>
 
       <h4>Phương trình</h4>
@@ -944,10 +947,11 @@ A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)</cod
       </ul>
       <p>Con người không nhìn theo một tia đơn lẻ mà theo một <strong>trường nhìn hình nón (cone-like FOV)</strong>. Ta định nghĩa FOV ánh nhìn là hình nón nhận <code>vector ánh nhìn</code> làm đường phân giác góc của nó, sau đó kiểm tra xem có đối tượng <code>Phone</code> nào <strong>giao với FOV</strong> hay không. Một đối tượng được xem là giao nếu:</p>
       <ol>
+        <li>Nó chồng lấp với bounding box của <code>Human</code> (các đối tượng nằm ngoài sẽ bị bỏ qua).</li>
         <li>Điểm tin cậy (confidence score) của nó cao hơn <code>conf_thres</code> (giảm các phát hiện điện thoại dương tính giả).</li>
         <li>FOV giao với ít nhất <code>count_thres</code> cạnh của bounding box của đối tượng.</li>
       </ol>
-      <p>Nếu có ít nhất một <code>Phone</code> thỏa cả hai điều kiện, <strong>người đó đang nhìn vào điện thoại</strong>.</p>
+      <p>Nếu có ít nhất một <code>Phone</code> thỏa cả ba điều kiện, <strong>người đó đang nhìn vào điện thoại</strong>.</p>
 
       <hr>
 
@@ -968,9 +972,10 @@ A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)</cod
       <ul>
         <li><strong>Vector xanh lá</strong>: ranh giới FOV</li>
         <li><strong>Vector xanh dương nhạt</strong>: vector ánh nhìn</li>
-        <li><strong>Hình chữ nhật trắng</strong>: đối tượng dưới ngưỡng <code>conf_thres</code></li>
+        <li><strong>Hình chữ nhật xanh dương</strong>: bbox của người</li>
+        <li><strong>Hình chữ nhật trắng</strong>: đối tượng nằm ngoài bbox của người</li>
         <li><strong>Hình chữ nhật vàng</strong>: đối tượng nằm trong bbox của người nhưng ngoài FOV</li>
-        <li><strong>Hình chữ nhật đỏ</strong>: đối tượng thỏa cả hai điều kiện (điện thoại đang được nhìn vào)</li>
+        <li><strong>Hình chữ nhật đỏ</strong>: đối tượng thỏa tất cả điều kiện (điện thoại đang được nhìn vào)</li>
       </ul>
 
       <pre><code>import math
@@ -980,7 +985,7 @@ from loguru import logger
 
 
 def get_rotation(start_point, center_point, rad):
-    """Rotate start_point around center_point by rad radians (counter-clockwise)."""
+    """Rotate start_point around center_point by rad radians (clockwise in image coordinates, y-axis down)."""
     T = [0, 0]
     T[0] = (start_point[0] - center_point[0]) * math.cos(rad) \
          - (start_point[1] - center_point[1]) * math.sin(rad) \
@@ -1064,7 +1069,7 @@ def find_intersect_obj_indices(gaze_start, gaze_end, objects, bbox,
         gaze_start, gaze_end: gaze vector endpoints (x, y)
         objects: list of [xmin, ymin, xmax, ymax, conf]
         bbox: human bounding box [xmin, ymin, xmax, ymax]
-        fov_degree: FOV half-angle in degrees (0 &lt;= fov_degree &lt;= 90)
+        fov_degree: full FOV angle in degrees (0 &lt;= fov_degree &lt;= 90)
         conf_thres: minimum object confidence (0 &lt; conf_thres &lt;= 1)
         count_thres: minimum intersecting edges (1 &lt;= count_thres &lt;= 4)
     """
@@ -1089,10 +1094,10 @@ def find_intersect_obj_indices(gaze_start, gaze_end, objects, bbox,
             angles = [find_angle(gaze_start, c) for c in corners]
 
             count = sum([
-                is_anglerange_in_fovrange(fov_amin, fov_amax, angles[0], angles[1]),  # top
-                is_anglerange_in_fovrange(fov_amin, fov_amax, angles[2], angles[3]),  # bottom
-                is_anglerange_in_fovrange(fov_amin, fov_amax, angles[0], angles[2]),  # left
-                is_anglerange_in_fovrange(fov_amin, fov_amax, angles[1], angles[3]),  # right
+                is_anglerange_in_fovrange(fov_amin, fov_amax, angles[0], angles[1]),  # left
+                is_anglerange_in_fovrange(fov_amin, fov_amax, angles[2], angles[3]),  # right
+                is_anglerange_in_fovrange(fov_amin, fov_amax, angles[0], angles[2]),  # top
+                is_anglerange_in_fovrange(fov_amin, fov_amax, angles[1], angles[3]),  # bottom
             ])
 
             if count &gt;= count_thres:
@@ -1162,6 +1167,11 @@ if __name__ == "__main__":
   </div>
 </article>
 
+<div class="post-sep"></div>
+
+<!-- ============================================================
+     POST 7 — SLICING-INSPIRED PREPROCESSING FOR SMALL-OBJECT RECALL
+     ============================================================ -->
 <article id="sahi-small-objects" class="blog-article blog-post">
   <div class="container">
     <header class="post-header">
@@ -1179,15 +1189,16 @@ if __name__ == "__main__":
       <hr>
 
       <h3>SAHI trong một câu</h3>
-      <p><strong>SAHI</strong> (<em>Slicing Aided Hyper Inference</em>) giải quyết vấn đề này tại <strong>thời điểm suy luận (inference time)</strong>: thay vì đưa cho bộ phát hiện một ảnh đã giảm độ phân giải, nó cắt ảnh độ phân giải đầy đủ thành các tile chồng lấp nhau, chạy phát hiện độc lập trên mỗi
-      tile ở độ phân giải đầy đủ, sau đó gộp tất cả các phát hiện cấp-tile trở lại tọa độ ảnh gốc bằng NMS. Các đối tượng nhỏ vốn sẽ bị mất khi giảm độ phân giải giờ đây chiếm một phần lớn hơn nhiều trong mỗi tile, nên bộ phát hiện thực sự có đủ pixel để xử lý.</p>
+      <p><strong>SAHI</strong> (<em>Slicing Aided Hyper Inference</em>) giải quyết vấn đề này theo hai cách bổ trợ nhau. <strong>Suy luận hỗ trợ bởi cắt lát (slicing-aided inference)</strong>: thay vì đưa cho bộ phát hiện một ảnh đã giảm độ phân giải, nó cắt ảnh độ phân giải đầy đủ thành các tile chồng lấp nhau, chạy phát hiện độc lập trên mỗi
+      tile ở độ phân giải đầy đủ, sau đó gộp tất cả các phát hiện cấp-tile trở lại tọa độ ảnh gốc bằng NMS. Các đối tượng nhỏ vốn sẽ bị mất khi giảm độ phân giải giờ đây chiếm một phần lớn hơn nhiều trong mỗi tile, nên bộ phát hiện thực sự có đủ pixel để xử lý.
+      <strong>Tinh chỉnh hỗ trợ bởi cắt lát (slicing-aided fine-tuning)</strong>: tập huấn luyện được bổ sung các mảnh cắt từ ảnh gốc, để bộ phát hiện
+      cũng học được các đối tượng nhỏ ở tỉ lệ tương đối lớn hơn. Bài báo cho thấy kết hợp cả hai mang lại mức cải thiện lớn nhất.</p>
 
       <hr>
 
       <h3>Điều chỉnh ý tưởng này cho dữ liệu huấn luyện thay vì suy luận</h3>
       <p>Chạy nhiều lượt cắt (slice) tại thời điểm suy luận rất tốn kém — nó nhân số lượt truyền xuôi (forward pass) trên mỗi ảnh lên nhiều lần, điều này xung đột
-      với ngân sách triển khai thời gian thực. Vì vậy, thay vì cắt tại thời điểm suy luận, tôi đã chuyển ý tưởng tương tự lên sớm hơn trong pipeline: dùng cách cắt kiểu
-      SAHI để xây dựng một <strong>tập huấn luyện tốt hơn</strong>, và giữ cho bản thân bước suy luận vẫn là một lượt truyền xuôi ảnh-đầy-đủ duy nhất.</p>
+      với ngân sách triển khai thời gian thực. Vì vậy, tôi chỉ giữ lại nửa phía huấn luyện của SAHI: dựa trên cách tinh chỉnh hỗ trợ bởi cắt lát của nó, tôi dùng việc cắt lát để xây dựng một <strong>tập huấn luyện tốt hơn</strong>, và giữ cho bản thân bước suy luận vẫn là một lượt truyền xuôi ảnh-đầy-đủ duy nhất.</p>
 
       <p>Ở mức tổng quan, bước tiền xử lý:</p>
       <ol>
@@ -1197,8 +1208,8 @@ if __name__ == "__main__":
         <li>Trộn các crop đã cắt trở lại với ảnh gốc độ phân giải đầy đủ, để mô hình vẫn thấy được ngữ cảnh cảnh toàn cục (global scene context) và không bị overfit với các thống kê ở thang đo tile.</li>
       </ol>
 
-      <p>Kết hợp với <strong>YOLOv8-p2</strong> và <strong>YOLOv9n</strong> — cả hai đều đã được mở rộng với một đầu phát hiện P2 độ phân giải
-      cao hơn để tăng độ nhạy với đối tượng nhỏ — bước tiền xử lý này mang lại một mức tăng recall đáng kể trên các đối tượng nhỏ, ở xa, trong khi suy luận
+      <p>Kết hợp với <strong>YOLOv8-p2</strong> (có thêm một đầu phát hiện P2 độ phân giải cao hơn để tăng độ nhạy với đối tượng nhỏ)
+      và <strong>YOLOv9n</strong> của Ultralytics, bước tiền xử lý này mang lại một mức tăng recall đáng kể trên các đối tượng nhỏ, ở xa, trong khi suy luận
       vẫn là một lượt truyền xuôi ảnh-đầy-đủ duy nhất, giữ nguyên độ trễ thời gian thực.</p>
 
       <hr>

@@ -37,18 +37,25 @@ navLinks.querySelectorAll('a').forEach(a => {
 // ============================================================
 // Collapsible "show more" lists (e.g. Certifications)
 // ============================================================
+const toggleLabels = {
+  en: { more: n => `Show ${n} more`, less: 'Show less' },
+  vi: { more: n => `Xem thêm ${n}`, less: 'Thu gọn' },
+  ko: { more: n => `${n}개 더 보기`, less: '접기' },
+};
+const labels = toggleLabels[document.documentElement.lang] || toggleLabels.en;
+
 document.querySelectorAll('.cert-toggle').forEach(btn => {
   const target = document.getElementById(btn.getAttribute('aria-controls'));
   if (!target) return;
   const count = target.querySelectorAll('.cert-item').length;
 
-  btn.textContent = `Show ${count} more`;
+  btn.textContent = labels.more(count);
 
   btn.addEventListener('click', () => {
     const willShow = target.hasAttribute('hidden');
     target.toggleAttribute('hidden', !willShow);
     btn.setAttribute('aria-expanded', willShow);
-    btn.textContent = willShow ? 'Show less' : `Show ${count} more`;
+    btn.textContent = willShow ? labels.less : labels.more(count);
   });
 });
 

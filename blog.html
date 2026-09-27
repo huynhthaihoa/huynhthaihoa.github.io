@@ -94,7 +94,7 @@
       </a>
       <a href="#depth-pseudolidar" class="toc-card fade-up">
         <span class="blog-tag-depth">Depth Estimation</span>
-        <div class="toc-title">From Depth Estimation to Pseudo-LIDAR</div>
+        <div class="toc-title">From Depth Estimation to Pseudo-LiDAR</div>
         <div class="toc-date">March 24, 2025</div>
       </a>
       <a href="#perspective-affine" class="toc-card fade-up">
@@ -203,7 +203,7 @@
       <p>Pretraining the teacher model on the same dataset allows it to <strong>converge to a high-performing solution, capturing rich information about the task</strong> (e.g., class probabilities, feature representations, or decision boundaries). The student can then leverage this high-quality knowledge via the teacher's soft outputs (e.g., softened logits or intermediate features), which provide more information than hard labels alone. For example, in classification tasks, the teacher's softmax outputs (with a temperature parameter) reveal inter-class relationships, helping the student learn nuanced decision boundaries.</p>
 
       <h5>Standard Practice in Knowledge Distillation</h5>
-      <p>The canonical knowledge distillation framework, as introduced by Hinton et al. (2015), assumes the teacher is pretrained on the target dataset, and the student is trained to match the teacher's outputs on the same dataset. This setup is widely used in applications like model compression for image classification, natural language processing, and speech recognition. The student typically optimizes a combination of the distillation loss (e.g., KL divergence between the teacher's and student's logits) and the task-specific loss (e.g., cross-entropy with ground-truth labels) on the same dataset.</p>
+      <p>The canonical knowledge distillation framework, as introduced by Hinton et al. (2015), trains the student to match the pretrained teacher's temperature-softened outputs on a <strong>transfer set</strong>. The transfer set can be unlabeled data or the original training set, and the authors found that using the original training set works well. This setup is widely used in applications like model compression for image classification, natural language processing, and speech recognition. The student typically optimizes a combination of the distillation loss (e.g., cross-entropy or, equivalently up to a constant, KL divergence between the teacher's and student's softened outputs) and the task-specific loss (e.g., cross-entropy with ground-truth labels).</p>
 
       <h5>Efficient Use of Data</h5>
       <p>In many real-world scenarios, the dataset is fixed and limited. Using the same dataset for both models avoids the need for additional data collection or the risk of domain mismatch. The teacher extracts as much knowledge as possible from the dataset, and the student distills this knowledge into a more compact model.</p>
@@ -219,7 +219,7 @@
       <h4>Considerations and Best Practices</h4>
       <ol>
         <li><strong>Teacher Quality</strong>: The teacher must be <strong>well-trained</strong> and <strong>perform well on the dataset</strong>. A poorly trained teacher will provide <strong>noisy</strong> or <strong>unreliable outputs</strong>, leading to suboptimal student performance.</li>
-        <li><strong>Distillation Loss Design</strong>: The student's loss function typically combines the <strong>distillation loss</strong> (matching the teacher's outputs) and the <strong>task-specific loss</strong> (matching ground-truth labels). The balance (controlled by a weighting hyperparameter, e.g., <code>α</code> in <code>L = α * L_distillation + (1-α) * L_task</code>) is critical. The <strong>temperature parameter</strong> in the softmax function also needs tuning — a higher temperature (e.g., <code>T = 2</code> or <code>T = 4</code>) makes the teacher's outputs smoother.</li>
+        <li><strong>Distillation Loss Design</strong>: The student's loss function typically combines the <strong>distillation loss</strong> (matching the teacher's outputs) and the <strong>task-specific loss</strong> (matching ground-truth labels). The balance (controlled by a weighting hyperparameter, e.g., <code>α</code> in <code>L = α * T² * L_distillation + (1-α) * L_task</code>) is critical: Hinton et al. found that a considerably lower weight on the hard-label term generally works best, and the soft-target term should be multiplied by <code>T²</code> because its gradients shrink as <code>1/T²</code>. The <strong>temperature parameter</strong> in the softmax function also needs tuning — a higher temperature (e.g., <code>T = 2</code> or <code>T = 4</code>) makes the teacher's outputs smoother.</li>
         <li><strong>Overfitting Risk</strong>: If the dataset is small, the teacher might overfit. Use <strong>regularization techniques</strong> during teacher training (e.g., dropout, weight decay), <strong>data augmentation</strong>, and monitor the teacher's generalization performance.</li>
         <li><strong>Dataset Size and Diversity</strong>: For very small datasets, the teacher's knowledge may be limited. Consider using a pre-trained teacher or augmenting the dataset.</li>
         <li><strong>Model Architecture Compatibility</strong>: Ensure the teacher and student models are compatible in terms of their output spaces. If the student has a different architecture, additional techniques like feature-based distillation may be needed.</li>
@@ -247,7 +247,7 @@
       <ul>
         <li><strong>Scenario</strong>: The teacher is pretrained on a large, general dataset (e.g., ImageNet for images, Wikipedia or Common Crawl for text), while the student is trained on a smaller, task-specific or domain-specific dataset.</li>
         <li><strong>Rationale</strong>: The teacher, often a large foundation model, learns broad, generalizable features from a diverse dataset. These features can be distilled into a smaller student model tailored to a specific domain or task, even if the target dataset is limited.</li>
-        <li><strong>Example</strong>: In NLP, a teacher like <strong>BERT</strong> is pretrained on a <strong>massive text corpus</strong> (e.g., Wikipedia + BookCorpus). The student (e.g., <strong>DistilBERT</strong>) is trained on a <strong>smaller, task-specific dataset</strong> (e.g., sentiment analysis on IMDb reviews), using the teacher's outputs to guide learning.</li>
+        <li><strong>Example</strong>: In NLP, <strong>DistilBERT</strong> is distilled from <strong>BERT</strong> during pre-training, on the same <strong>massive text corpus</strong> BERT was trained on (English Wikipedia + Toronto Book Corpus). The resulting general-purpose student is then fine-tuned on <strong>smaller, task-specific datasets</strong> (e.g., sentiment classification on IMDb reviews). The paper also adds a second, task-specific distillation step during fine-tuning on SQuAD, where a BERT teacher fine-tuned on SQuAD guides the student.</li>
         <li><strong>Benefits</strong>: Leverages the teacher's general knowledge to improve student performance on specialized tasks with limited data.</li>
         <li><strong>Challenges</strong>: The teacher's knowledge may not fully align with the target domain, requiring careful tuning of the distillation process.</li>
       </ul>
@@ -351,15 +351,16 @@
       <h4>How Noisy Student Training Works</h4>
       <ol>
         <li><strong>Train the Teacher</strong>: Train a teacher model on a labeled dataset $D_L$, similar to self-training.</li>
-        <li><strong>Generate Pseudo-Labels</strong>: Use the teacher to predict pseudo-labels for a large unlabeled dataset $D_U$. Hard labels (class predictions) are often used instead of soft labels to simplify the process.</li>
-        <li><strong>Train the Student with Noise</strong>: Train a student model (typically larger or equal in capacity to the teacher) on $D_L \cup \{(x_j, \hat{y}_j)\}$, but introduce noise and regularization during training:
+        <li><strong>Generate Pseudo-Labels</strong>: Use the teacher, <strong>without noise</strong>, to predict pseudo-labels for clean (non-augmented) images from a large unlabeled dataset $D_U$. Soft (probability) and hard (one-hot) pseudo-labels both work; the paper uses soft pseudo-labels by default, as they work slightly better for out-of-domain unlabeled data.</li>
+        <li><strong>Filter and Balance the Pseudo-Labeled Data</strong>: Drop unlabeled images the teacher has low confidence on (usually out-of-domain images), then balance the number of pseudo-labeled images per class to match the labeled set's class distribution: duplicate images in under-represented classes, and keep only the most confident images in over-represented ones.</li>
+        <li><strong>Train the Student with Noise</strong>: Train an <strong>equal-or-larger</strong> student model on $D_L \cup \{(x_j, \hat{y}_j)\}$, injecting noise into the student during training:
           <ul>
-            <li><strong>Data Augmentation</strong>: Apply strong augmentations (e.g., RandAugment for images) to both labeled and unlabeled inputs.</li>
-            <li><strong>Model Noise</strong>: Use techniques like dropout, stochastic depth, or random layer freezing in the student model.</li>
-            <li><strong>Balanced Dataset</strong>: Ensure the labeled and unlabeled data are balanced.</li>
+            <li><strong>Input Noise</strong>: Data augmentation with RandAugment.</li>
+            <li><strong>Model Noise</strong>: Dropout and stochastic depth.</li>
           </ul>
+          The unlabeled batch is typically much larger than the labeled batch (14× to 28× in the paper), so the student trains longer on unlabeled data.
         </li>
-        <li><strong>Iterate</strong>: Use the student as the new teacher, generate updated pseudo-labels, and repeat. Each iteration typically improves the model's performance.</li>
+        <li><strong>Iterate</strong>: Use the student as the new teacher, generate updated pseudo-labels, and repeat. The paper's best model came from three iterations.</li>
       </ol>
 
       <h4>Key Differences from Self-Training</h4>
@@ -372,13 +373,13 @@
       <h4>How Noisy Student Improves Model Performance</h4>
       <ul>
         <li><strong>Robustness through Noise</strong>: The added noise forces the student to learn more generalizable features, preventing overfitting to the teacher's predictions or biases in the pseudo-labels.</li>
-        <li><strong>Scales with Unlabeled Data</strong>: Noisy Student leverages large amounts of unlabeled data, which is critical for improving performance in data-scarce settings.</li>
+        <li><strong>Scales with Unlabeled Data</strong>: Performance improves with more unlabeled data, and the method works even when labeled data is abundant (e.g., the full ImageNet training set).</li>
         <li><strong>Iterative Refinement</strong>: Each iteration refines the pseudo-labels, as the student-turned-teacher becomes more accurate, leading to a virtuous cycle of improvement.</li>
         <li><strong>Surpassing the Teacher</strong>: By combining noise, a larger student model, and iterative training, Noisy Student can produce models that outperform the initial teacher.</li>
       </ul>
 
       <h4>Example</h4>
-      <p>In the Noisy Student paper, an EfficientNet teacher was trained on the labeled ImageNet dataset. It generated pseudo-labels for 300M unlabeled images from JFT-300M. A larger EfficientNet student was trained on the combined dataset with strong augmentations (RandAugment) and dropout, achieving higher accuracy than the teacher. After multiple iterations, the final model set new benchmarks on ImageNet.</p>
+      <p>In the Noisy Student paper, an EfficientNet-B7 teacher was trained on labeled ImageNet and used to pseudo-label images from JFT-300M (whose original labels were ignored). After confidence filtering (threshold 0.3) and class balancing to 130K images per class, the student was trained on 130M images (81M unique). A larger EfficientNet-L2 student, trained with RandAugment, dropout and stochastic depth, outperformed its teacher. After three iterations, the final model reached 88.4% top-1 accuracy on ImageNet, 2.0% above the previous state of the art.</p>
 
       <h4>Challenges</h4>
       <ul>
@@ -444,7 +445,7 @@
       <h4>1.1. General Equation</h4>
       <p>The general equation of a rotated ellipse:</p>
       <div class="math-display">
-        $$\frac{[(x-c_x)\cos(-\theta)+(y-c_y)\sin(-\theta)]^2}{a^2}+\frac{[(x-c_x)\sin(-\theta)-(y-c_y)\cos(-\theta)]^2}{b^2}=1$$
+        $$\frac{[(x-c_x)\cos(\theta)+(y-c_y)\sin(\theta)]^2}{a^2}+\frac{[(x-c_x)\sin(\theta)-(y-c_y)\cos(\theta)]^2}{b^2}=1$$
       </div>
       <p>given:</p>
       <ul>
@@ -469,19 +470,19 @@
       <img src="assets/blog/2d-vision-ellipse.png" width="889" height="793" loading="lazy" alt="Rotated ellipse illustration" />
 
       <h3>2. Rotate Point</h3>
-      <p>If you rotate a point $B(x_B, y_B)$ around a point $A(x_A, y_A)$ by angle $\theta$ (anti-clockwise order) you'll get a point $C(x_C, y_C)$, where:</p>
+      <p>If you rotate a point $B(x_B, y_B)$ around a point $A(x_A, y_A)$ by angle $\theta$ (<strong>clockwise</strong> in image coordinates, where the y-axis points down) you'll get a point $C(x_C, y_C)$, where:</p>
       <div class="math-display">
         $$x_C = (x_B - x_A)\cos(\theta) - (y_B - y_A)\sin(\theta) + x_A$$
         $$y_C = (x_B - x_A)\sin(\theta) + (y_B - y_A)\cos(\theta) + y_A$$
       </div>
       <p>Python implementation:</p>
       <pre><code>def get_rotation(start_point, center_point, rad):
-    """Rotate start_point around center_point by rad radians (counterclockwise).
+    """Rotate start_point around center_point by rad radians (clockwise in image coordinates, y-axis down).
 
     Args:
         start_point:  (x, y)
         center_point: (x, y)
-        rad:          rotation angle in radians, counterclockwise
+        rad:          rotation angle in radians, clockwise in image coordinates
 
     Returns:
         [x_T, y_T]
@@ -514,7 +515,7 @@
 
     <div class="post-body">
 
-      <h3>Benchmark (Up-to-Date)</h3>
+      <h3>Benchmark</h3>
 
       <h4>Public Benchmark</h4>
       <p><strong>Disclaimer</strong>:</p>
@@ -523,9 +524,9 @@
         <li>This benchmark focuses on <strong>accuracy</strong> metrics but no <strong>latency</strong> metrics, which are also an essential part of the real-time applications.</li>
       </ul>
       <div class="ref-links">
-        <a href="https://paperswithcode.com/task/monocular-depth-estimation" target="_blank" rel="noopener" class="ref-link">
+        <a href="https://www.cvlibs.net/datasets/kitti/eval_depth.php?benchmark=depth_prediction" target="_blank" rel="noopener" class="ref-link">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-          Papers with Code – Monocular Depth Estimation
+          KITTI Depth Prediction Benchmark (official leaderboard)
         </a>
       </div>
 
@@ -533,11 +534,11 @@
       <div class="ref-links">
         <a href="#depth-pseudolidar" class="ref-link">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-          From Depth Estimation to Pseudo-LIDAR
+          From Depth Estimation to Pseudo-LiDAR
         </a>
         <a href="https://huggingface.co/blog/Isayoften/monocular-depth-estimation-guide" target="_blank" rel="noopener" class="ref-link">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-          Metric and Relative Monocular Depth Estimation: An Overview (HuggingFace)
+          Metric and Relative Monocular Depth Estimation: An Overview (Hugging Face)
         </a>
       </div>
 
@@ -597,7 +598,7 @@
         </div>
 
         <div class="work-item fade-up">
-          <div class="work-title">Depth Anything V2 – CVPR 2024</div>
+          <div class="work-title">Depth Anything (CVPR 2024) &amp; V2 (NeurIPS 2024)</div>
           <div class="work-links">
             <a href="https://github.com/DepthAnything/Depth-Anything-V2" target="_blank" rel="noopener" class="work-link-btn">
               <svg width="12" height="12" fill="currentColor"><use href="#icon-github"></use></svg>
@@ -743,7 +744,7 @@
   <div class="container">
     <header class="post-header">
       <span class="blog-tag-depth">Depth Estimation</span>
-      <h2>From Depth Estimation to Pseudo-LIDAR</h2>
+      <h2>From Depth Estimation to Pseudo-LiDAR</h2>
       <div class="post-date">March 24, 2025</div>
     </header>
 
@@ -757,7 +758,6 @@
         <li><strong>Texture density</strong>: textured surfaces that are further away appear more fine-grained.</li>
         <li><strong>Linear perspective</strong>: straight, parallel lines in the physical world appear to converge in the image.</li>
         <li><strong>Apparent object size</strong>: objects farther away appear smaller.</li>
-        <li><strong>Motion effect</strong>: objects get blurry and bluish as they move away.</li>
         <li><strong>Shading &amp; illumination</strong>: a surface appears brighter when its normal points toward a light source. Shading provides depth change info within a surface.</li>
         <li><strong>Focus blur</strong>: objects in front or behind the focal plane appear blurred.</li>
         <li><strong>Aerial perspective</strong>: very far objects have less contrast and take on a blueish tint.</li>
@@ -787,9 +787,9 @@
       <h3>From Depth Estimation to 3D Reconstruction</h3>
       <p>The relation between a 2D coordinate $p$ (image plane) and its 3D coordinate $P_c$ (camera coordinate system) is:</p>
       <div class="math-display">$$s\,p = A P_c \quad (1)$$</div>
-      <p>where $p = \begin{bmatrix} u\\ v \end{bmatrix}$, $P_c = \begin{bmatrix} X_c\\ Y_c \\ Z_c \end{bmatrix}$, $s$ is the projective scaling factor, and $A$ is the (ideal) camera intrinsic matrix:</p>
+      <p>where $p = \begin{bmatrix} u\\ v \\ 1 \end{bmatrix}$, $P_c = \begin{bmatrix} X_c\\ Y_c \\ Z_c \end{bmatrix}$, $s$ is the projective scaling factor, and $A$ is the (ideal) camera intrinsic matrix:</p>
       <div class="math-display">$$A = \begin{bmatrix} f_x & 0 & c_x \\ 0 & f_y & c_y \\ 0 & 0 & 1 \end{bmatrix} \quad (2)$$</div>
-      <p>In practice every camera has distortion, so we calibrate first and compute the optimal $A$ via OpenCV:</p>
+      <p>In practice every camera has distortion, so we calibrate first, compute the optimal $A$ via OpenCV, and undistort the image with it:</p>
       <pre><code>camera_matrix = np.zeros(shape=(3, 3))
 camera_matrix[0, 0] = 3.618627944978409e+02
 camera_matrix[0, 2] = 3.140828758355781e+02
@@ -800,7 +800,10 @@ camera_matrix[2, 2] = 1
 dist_coeffs = np.array([-0.115065515143958, 0.023076954804581, 0, 0, 0])
 
 # W, H = image width and height
-A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)</code></pre>
+A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)
+
+# A is only valid for undistorted pixels: undistort the image (and depth map) with it first
+undistorted = cv2.undistort(image, camera_matrix, dist_coeffs, None, A)</code></pre>
 
       <div class="callout">
         💡 Camera calibration is <strong>an approximation process</strong> — similar to machine learning. We seldom get the actual ideal camera matrix, but treat the result as $A$ for simplification.
@@ -828,19 +831,19 @@ A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)</cod
 
       <hr>
 
-      <h3>Replicate LIDAR with Pseudo-LIDAR</h3>
+      <h3>Replicate LiDAR with Pseudo-LiDAR</h3>
       <div class="callout">
-        💡 To verify this proposal, set up <strong>4 cameras</strong> and <strong>1 LIDAR</strong> in the <strong>CARLA simulation environment</strong>, record data, and experiment with the end-to-end pipeline.
+        💡 To verify this proposal, set up <strong>4 cameras</strong> and <strong>1 LiDAR</strong> in the <strong>CARLA simulation environment</strong>, record data, and experiment with the end-to-end pipeline.
       </div>
-      <p>Given LIDAR $L$ producing a 360° point cloud, we replicate it using cameras $C_i$. Proposed pipeline:</p>
+      <p>Given LiDAR $L$ producing a 360° point cloud, we replicate it using cameras $C_i$. Proposed pipeline:</p>
       <ol>
         <li>Infer absolute depth map $D_i$ of each image $I_i$.</li>
         <li>Compute 3D coordinates $P_{C_i}$ in each camera coordinate system using $D_i$ and intrinsic matrix $A_i$.</li>
-        <li>Re-project to LIDAR coordinate system via rotation $R_i$ and translation $t_i$:
-          <div class="math-display">$$P_{L_i} = [R_i \mid t_i]\,P_{C_i} \quad (5)$$</div>
+        <li>Transform to the LiDAR coordinate system via rotation $R_i$ and translation $t_i$:
+          <div class="math-display">$$P_{L_i} = R_i\,P_{C_i} + t_i \quad (5)$$</div>
         </li>
       </ol>
-      <p><strong>Advantages over actual LIDAR:</strong> lower cost, denser color point cloud, potentially higher frame rate.</p>
+      <p><strong>Advantages over actual LiDAR:</strong> lower cost, denser color point cloud, potentially higher frame rate.</p>
       <p><strong>Disadvantages:</strong> camera distortion limits, sensitivity to lighting and weather, frequent occlusion, need for multi-camera stitching, and difficult calibration/synchronization.</p>
 
       <hr>
@@ -898,7 +901,7 @@ A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)</cod
       <ul>
         <li>Points on the same line remain collinear after transformation.</li>
         <li>Parallel lines stay parallel after transformation.</li>
-        <li>The ratio of any pair of segments is preserved; midpoints remain midpoints.</li>
+        <li>Ratios of lengths along a line (and between parallel segments) are preserved; midpoints remain midpoints.</li>
       </ul>
 
       <h4>Examples</h4>
@@ -944,10 +947,11 @@ A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)</cod
       </ul>
       <p>Humans don't look at a single ray but a <strong>cone-like FOV</strong>. We define the gaze FOV as the cone that receives the <code>gaze vector</code> as its angle bisector, then check if any <code>Phone</code> object <strong>intersects with the FOV</strong>. An object intersects if:</p>
       <ol>
+        <li>It overlaps the <code>Human</code> bounding box (objects outside it are ignored).</li>
         <li>Its confidence score is above <code>conf_thres</code> (reduces false positive phone detections).</li>
         <li>The FOV intersects at least <code>count_thres</code> edges of the object's bounding box.</li>
       </ol>
-      <p>If at least one <code>Phone</code> satisfies both conditions, <strong>the person is looking at the phone</strong>.</p>
+      <p>If at least one <code>Phone</code> satisfies all three conditions, <strong>the person is looking at the phone</strong>.</p>
 
       <hr>
 
@@ -968,9 +972,10 @@ A, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (W, H), 1)</cod
       <ul>
         <li><strong>Green vectors</strong>: FOV bounds</li>
         <li><strong>Light-blue vector</strong>: gaze vector</li>
-        <li><strong>White rectangles</strong>: objects below <code>conf_thres</code></li>
+        <li><strong>Blue rectangle</strong>: human bbox</li>
+        <li><strong>White rectangles</strong>: objects outside the human bbox</li>
         <li><strong>Yellow rectangles</strong>: objects inside human bbox but outside FOV</li>
-        <li><strong>Red rectangles</strong>: objects satisfying both conditions (phone being looked at)</li>
+        <li><strong>Red rectangles</strong>: objects satisfying all conditions (phone being looked at)</li>
       </ul>
 
       <pre><code>import math
@@ -980,7 +985,7 @@ from loguru import logger
 
 
 def get_rotation(start_point, center_point, rad):
-    """Rotate start_point around center_point by rad radians (counter-clockwise)."""
+    """Rotate start_point around center_point by rad radians (clockwise in image coordinates, y-axis down)."""
     T = [0, 0]
     T[0] = (start_point[0] - center_point[0]) * math.cos(rad) \
          - (start_point[1] - center_point[1]) * math.sin(rad) \
@@ -1064,7 +1069,7 @@ def find_intersect_obj_indices(gaze_start, gaze_end, objects, bbox,
         gaze_start, gaze_end: gaze vector endpoints (x, y)
         objects: list of [xmin, ymin, xmax, ymax, conf]
         bbox: human bounding box [xmin, ymin, xmax, ymax]
-        fov_degree: FOV half-angle in degrees (0 &lt;= fov_degree &lt;= 90)
+        fov_degree: full FOV angle in degrees (0 &lt;= fov_degree &lt;= 90)
         conf_thres: minimum object confidence (0 &lt; conf_thres &lt;= 1)
         count_thres: minimum intersecting edges (1 &lt;= count_thres &lt;= 4)
     """
@@ -1089,10 +1094,10 @@ def find_intersect_obj_indices(gaze_start, gaze_end, objects, bbox,
             angles = [find_angle(gaze_start, c) for c in corners]
 
             count = sum([
-                is_anglerange_in_fovrange(fov_amin, fov_amax, angles[0], angles[1]),  # top
-                is_anglerange_in_fovrange(fov_amin, fov_amax, angles[2], angles[3]),  # bottom
-                is_anglerange_in_fovrange(fov_amin, fov_amax, angles[0], angles[2]),  # left
-                is_anglerange_in_fovrange(fov_amin, fov_amax, angles[1], angles[3]),  # right
+                is_anglerange_in_fovrange(fov_amin, fov_amax, angles[0], angles[1]),  # left
+                is_anglerange_in_fovrange(fov_amin, fov_amax, angles[2], angles[3]),  # right
+                is_anglerange_in_fovrange(fov_amin, fov_amax, angles[0], angles[2]),  # top
+                is_anglerange_in_fovrange(fov_amin, fov_amax, angles[1], angles[3]),  # bottom
             ])
 
             if count &gt;= count_thres:
@@ -1162,6 +1167,11 @@ if __name__ == "__main__":
   </div>
 </article>
 
+<div class="post-sep"></div>
+
+<!-- ============================================================
+     POST 7 — SLICING-INSPIRED PREPROCESSING FOR SMALL-OBJECT RECALL
+     ============================================================ -->
 <article id="sahi-small-objects" class="blog-article blog-post">
   <div class="container">
     <header class="post-header">
@@ -1181,17 +1191,19 @@ if __name__ == "__main__":
       <hr>
 
       <h3>SAHI in a nutshell</h3>
-      <p><strong>SAHI</strong> (<em>Slicing Aided Hyper Inference</em>) tackles this at <strong>inference time</strong>: instead of feeding
+      <p><strong>SAHI</strong> (<em>Slicing Aided Hyper Inference</em>) tackles this in two complementary ways. <strong>Slicing-aided inference</strong>: instead of feeding
       the detector one downscaled image, it slices the full-resolution image into overlapping tiles, runs detection independently on each
       tile at full resolution, then merges all tile-level detections back into original image coordinates with NMS. Small objects that
-      would've been lost to downscaling now occupy a much larger fraction of each tile, so the detector actually has pixels to work with.</p>
+      would've been lost to downscaling now occupy a much larger fraction of each tile, so the detector actually has pixels to work with.
+      <strong>Slicing-aided fine-tuning</strong>: the training set is augmented with patches sliced from the original images, so the detector
+      also learns from small objects at a larger relative scale. The paper reports that combining both gives the largest gains.</p>
 
       <hr>
 
       <h3>Adapting the idea for training data instead</h3>
       <p>Running multiple slice passes at inference is expensive — it multiplies the number of forward passes per image, which conflicts
-      with a real-time deployment budget. So rather than slicing at inference, I moved the same idea earlier in the pipeline: use SAHI-style
-      slicing to build a <strong>better training set</strong>, and keep inference itself as a single full-image forward pass.</p>
+      with a real-time deployment budget. So I kept only the training-side half of SAHI: building on its slicing-aided fine-tuning, I use slicing to build
+      a <strong>better training set</strong>, and keep inference itself as a single full-image forward pass.</p>
 
       <p>At a high level, the preprocessing step:</p>
       <ol>
@@ -1201,8 +1213,8 @@ if __name__ == "__main__":
         <li>Mixes the sliced crops back in with the original full-resolution images, so the model still sees global scene context and doesn't overfit to tile-scale statistics.</li>
       </ol>
 
-      <p>Paired with <strong>YOLOv8-p2</strong> and <strong>YOLOv9n</strong> — both already extended with a higher-resolution P2 detection
-      head for small-object sensitivity — this preprocessing step gave a meaningful recall boost on small, distant objects, while inference
+      <p>Paired with Ultralytics' <strong>YOLOv8-p2</strong> (which adds a higher-resolution P2 detection head for small-object
+      sensitivity) and <strong>YOLOv9n</strong>, this preprocessing step gave a meaningful recall boost on small, distant objects, while inference
       stayed a single full-image pass, keeping real-time latency intact.</p>
 
       <hr>
