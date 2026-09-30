@@ -621,9 +621,10 @@
         <div class="project-name">Taillight Matching &amp; Pairing</div>
         <div class="project-duration">September 2018 – August 2020</div>
         <p class="project-desc">
-          Official implementation of the stereo-vision nighttime vehicle-to-vehicle positioning algorithm from
-          my MDPI publication: gradient-boosted stereo matching for taillight-region correspondence, paired with
-          a neural-network-based pairing stage to associate left/right taillights under urban traffic conditions.
+          Source code for the stereo-vision nighttime vehicle-to-vehicle positioning algorithm from my MDPI
+          publication: detects red taillight regions in stereo image pairs, extracts geometric and photometric
+          features for matching taillights across the left/right views and pairing the two taillights of each
+          vehicle, and generates the labeled datasets used to train the paper's learned matching and pairing stages.
         </p>
         <a href="#publications" class="project-readmore">See publication →</a>
         <div class="tag-list">
@@ -689,10 +690,11 @@
         <div class="project-name">Monocular Metric Depth Estimation</div>
         <div class="project-duration">Personal Project</div>
         <p class="project-desc">
-          A from-scratch PyTorch pipeline that predicts an absolute per-pixel depth value in meters from
-          a single RGB image, built around a pluggable encoder-decoder design: encoders spanning
+          A PyTorch pipeline built on the LeReS architecture that predicts an absolute per-pixel depth value
+          in meters from a single RGB image, with a pluggable encoder-decoder design: encoders spanning
           EfficientNet, ResNet/RegNet, ConvNeXt, DINOv2, and YOLO-based backbones, paired with depth
-          decoders including NeWCRFs, DPT, FPN, and PixelFormer, trained and evaluated on NYUv2 and KITTI.
+          decoders including MetricLeReS (the default), NeWCRFs, DPT, FPN, and PixelFormer, trained and
+          evaluated on NYUv2 and KITTI.
           Covers the full deployment path from PyTorch through ONNX/TFLite export, quantization-aware
           training, and edge-oriented (TI TIDL) conversion tooling.
         </p>
@@ -883,7 +885,7 @@
         <div class="project-duration">Personal Project</div>
         <p class="project-desc">
           A Python/OpenCV toolkit for estimating camera intrinsics and removing lens distortion, supporting
-          both fisheye and pinhole models across RGB and thermal sensors. Handles checkerboard detection
+          fisheye, pinhole, and Double Sphere camera models across RGB and thermal sensors. Handles checkerboard detection
           from live streams or batch images, with configurable quality thresholds and reprojection-error
           reporting.
         </p>

@@ -620,9 +620,10 @@
         <div class="project-name">후미등 매칭 &amp; 페어링</div>
         <div class="project-duration">2018년 9월 – 2020년 8월</div>
         <p class="project-desc">
-          제 MDPI 논문에서 발표한 스테레오 비전 기반 야간 차량 간(V2V) 위치 추정 알고리즘의 공식 구현체입니다:
-          후미등 영역 대응을 위한 그래디언트 부스팅 스테레오 매칭과, 도심 교통 환경에서 좌우 후미등를
-          연결하는 신경망 기반 페어링 단계로 구성됩니다.
+          제 MDPI 논문에서 발표한 스테레오 비전 기반 야간 차량 간(V2V) 위치 추정 알고리즘의 소스 코드입니다:
+          스테레오 영상 쌍에서 붉은 후미등 영역을 검출하고, 좌우 영상 간 후미등 매칭과 차량별 좌우 후미등
+          페어링을 위한 기하·광도 특징을 추출하며, 논문의 학습 기반 매칭 및 페어링 단계를 학습시키는 데 사용된
+          레이블 데이터셋을 생성합니다.
         </p>
         <a href="#publications" class="project-readmore">논문 보기 →</a>
         <div class="tag-list">
@@ -686,9 +687,9 @@
         <div class="project-name">단안 미터 단위 깊이 추정</div>
         <div class="project-duration">개인 프로젝트</div>
         <p class="project-desc">
-          단일 RGB 이미지로부터 픽셀별 절대 깊이 값(미터 단위)을 예측하는, 처음부터 직접 구현한 PyTorch
-          파이프라인입니다. 교체 가능한 인코더-디코더 구조를 기반으로 하며, EfficientNet, ResNet/RegNet,
-          ConvNeXt, DINOv2, YOLO 기반 백본 등의 인코더와 NeWCRFs, DPT, FPN, PixelFormer 등의 깊이 디코더를
+          LeReS 아키텍처를 기반으로 단일 RGB 이미지로부터 픽셀별 절대 깊이 값(미터 단위)을 예측하는 PyTorch
+          파이프라인입니다. 교체 가능한 인코더-디코더 구조를 채택하여, EfficientNet, ResNet/RegNet,
+          ConvNeXt, DINOv2, YOLO 기반 백본 등의 인코더와 MetricLeReS(기본값), NeWCRFs, DPT, FPN, PixelFormer 등의 깊이 디코더를
           조합하여 NYUv2와 KITTI에서 학습 및 평가합니다. PyTorch에서 ONNX/TFLite 변환, 양자화 인식 학습
           (quantization-aware training), 엣지 디바이스(TI TIDL) 지향 변환 도구에 이르는 전체 배포 경로를
           다룹니다.
@@ -878,7 +879,7 @@
         <div class="project-duration">개인 프로젝트</div>
         <p class="project-desc">
           카메라 내부 파라미터를 추정하고 렌즈 왜곡을 제거하는 Python/OpenCV 툴킷으로, RGB 및 열화상 센서에서
-          어안(fisheye)과 핀홀(pinhole) 모델을 모두 지원합니다. 실시간 스트림이나 배치 이미지에서
+          어안(fisheye), 핀홀(pinhole), 더블 스피어(Double Sphere) 카메라 모델을 지원합니다. 실시간 스트림이나 배치 이미지에서
           체커보드 검출을 처리하며, 품질 임계값 설정과 재투영 오차(reprojection error) 리포트를 제공합니다.
         </p>
         <div class="tag-list">

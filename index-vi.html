@@ -621,9 +621,10 @@
         <div class="project-name">Đối sánh &amp; Ghép cặp Đèn hậu</div>
         <div class="project-duration">Tháng 9/2018 – Tháng 8/2020</div>
         <p class="project-desc">
-          Cài đặt chính thức của thuật toán định vị xe-với-xe (vehicle-to-vehicle) ban đêm dựa trên thị giác lập thể từ
-          công bố MDPI của tôi: đối sánh lập thể tăng cường gradient (gradient-boosted) cho tương ứng vùng đèn hậu, kết hợp với
-          một giai đoạn ghép cặp dựa trên mạng nơ-ron để liên kết đèn hậu trái/phải trong điều kiện giao thông đô thị.
+          Mã nguồn cho thuật toán định vị xe-với-xe (vehicle-to-vehicle) ban đêm dựa trên thị giác lập thể từ
+          công bố MDPI của tôi: phát hiện vùng đèn hậu màu đỏ trong cặp ảnh lập thể, trích xuất đặc trưng hình học và
+          quang học để đối sánh đèn hậu giữa ảnh trái/phải và ghép cặp hai đèn hậu của cùng một xe, đồng thời tạo các
+          tập dữ liệu có nhãn dùng để huấn luyện các giai đoạn đối sánh và ghép cặp dựa trên học máy trong bài báo.
         </p>
         <a href="#publications" class="project-readmore">Xem công bố →</a>
         <div class="tag-list">
@@ -689,10 +690,10 @@
         <div class="project-name">Ước lượng Độ sâu Đơn ảnh (Metric)</div>
         <div class="project-duration">Dự án cá nhân</div>
         <p class="project-desc">
-          Một pipeline PyTorch xây dựng từ đầu, dự đoán giá trị độ sâu tuyệt đối (theo mét) cho từng pixel
-          từ một ảnh RGB duy nhất, với kiến trúc encoder-decoder có thể hoán đổi linh hoạt: các encoder
+          Một pipeline PyTorch dựa trên kiến trúc LeReS, dự đoán giá trị độ sâu tuyệt đối (theo mét) cho từng pixel
+          từ một ảnh RGB duy nhất, với thiết kế encoder-decoder có thể hoán đổi linh hoạt: các encoder
           gồm EfficientNet, ResNet/RegNet, ConvNeXt, DINOv2, và các backbone dựa trên YOLO, kết hợp với
-          các depth decoder gồm NeWCRFs, DPT, FPN, và PixelFormer, huấn luyện và đánh giá trên NYUv2 và
+          các depth decoder gồm MetricLeReS (mặc định), NeWCRFs, DPT, FPN, và PixelFormer, huấn luyện và đánh giá trên NYUv2 và
           KITTI. Bao phủ toàn bộ luồng triển khai từ PyTorch sang ONNX/TFLite, huấn luyện nhận biết lượng
           tử hóa (quantization-aware training), và các công cụ chuyển đổi hướng đến triển khai trên thiết
           bị biên (TI TIDL).
@@ -884,7 +885,7 @@
         <div class="project-duration">Dự án cá nhân</div>
         <p class="project-desc">
           Một bộ công cụ Python/OpenCV để ước lượng thông số nội tại của camera và loại bỏ méo ống kính, hỗ trợ
-          cả mô hình fisheye và pinhole trên cảm biến RGB và nhiệt. Xử lý phát hiện bàn cờ ca-rô
+          các mô hình camera fisheye, pinhole và Double Sphere trên cảm biến RGB và nhiệt. Xử lý phát hiện bàn cờ ca-rô
           từ luồng trực tiếp hoặc ảnh theo lô, với ngưỡng chất lượng có thể cấu hình và báo cáo
           sai số tái chiếu (reprojection error).
         </p>

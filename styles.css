@@ -752,6 +752,8 @@ footer a { color: var(--accent); }
 }
 
 .post-body table {
+  display: block;
+  overflow-x: auto;
   width: 100%;
   border-collapse: collapse;
   margin: 1.25rem 0;

@@ -154,7 +154,7 @@
         <li>Cắt mỗi ảnh huấn luyện thành các tile chồng lấp nhau (với kích thước tile và tỷ lệ chồng lấp có thể cấu hình).</li>
         <li>Ánh xạ lại các bounding box ground-truth vào tọa độ tile, giữ lại các box trên một ngưỡng khả kiến/IoU và loại bỏ hoặc cắt xén phần còn lại.</li>
         <li>Lấy mẫu vượt mức (oversample) các tile chứa các thực thể đối tượng nhỏ, để phân bố huấn luyện không bị chi phối bởi các crop đối tượng lớn, dễ nhận diện.</li>
-        <li>Trộn các crop đã cắt trở lại với ảnh gốc độ phân giải đầy đủ, để mô hình vẫn thấy được ngữ cảnh cảnh toàn cục (global scene context) và không bị overfit với các thống kê ở thang đo tile.</li>
+        <li>Trộn các crop đã cắt trở lại với ảnh gốc độ phân giải đầy đủ, để mô hình vẫn thấy được ngữ cảnh toàn cục (global scene context) và không bị overfit với các thống kê ở thang đo tile.</li>
       </ol>
 
       <p>Kết hợp với <strong>YOLOv8-p2</strong> (có thêm một đầu phát hiện P2 độ phân giải cao hơn để tăng độ nhạy với đối tượng nhỏ)
