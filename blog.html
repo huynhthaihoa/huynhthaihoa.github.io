@@ -133,8 +133,8 @@
 
       <h3>The Problem</h3>
       <p>Standard object detectors are trained on images resized to a fixed input resolution (e.g. <code>640×640</code>). When the source
-      images are high-resolution and objects of interest are small or far from the camera — a distant pedestrian, a small container code,
-      a worker near the edge of a railway platform — that resize step shrinks them down to just a handful of pixels. Most of the training
+      images are high-resolution and objects of interest are small — in my case, surface defects on automotive
+      body panels — that resize step shrinks them down to just a handful of pixels. Most of the training
       signal ends up dominated by large, easy objects, and recall on the small ones suffers.</p>
 
       <hr>
@@ -163,7 +163,7 @@
       </ol>
 
       <p>Paired with Ultralytics' <strong>YOLOv8-p2</strong> (which adds a higher-resolution P2 detection head for small-object
-      sensitivity) and <strong>YOLOv9n</strong>, this preprocessing step gave a meaningful recall boost on small, distant objects, while inference
+      sensitivity) and <strong>YOLOv9n</strong>, this preprocessing step gave a meaningful recall boost on small surface defects, while inference
       stayed a single full-image pass, keeping real-time latency intact.</p>
 
       <hr>

@@ -132,8 +132,8 @@
     <div class="post-body">
 
       <h3>Vấn đề</h3>
-      <p>Các bộ phát hiện đối tượng (object detector) tiêu chuẩn được huấn luyện trên ảnh đã resize về một độ phân giải đầu vào cố định (ví dụ <code>640×640</code>). Khi ảnh nguồn có độ phân giải cao và các đối tượng quan tâm nhỏ hoặc ở xa camera — một người đi bộ ở xa, một mã container nhỏ,
-      một công nhân gần rìa sân ga đường sắt — bước resize đó thu nhỏ chúng xuống chỉ còn vài pixel. Phần lớn tín hiệu huấn luyện bị chi phối bởi các đối tượng lớn, dễ nhận diện, và recall trên các đối tượng nhỏ bị suy giảm.</p>
+      <p>Các bộ phát hiện đối tượng (object detector) tiêu chuẩn được huấn luyện trên ảnh đã resize về một độ phân giải đầu vào cố định (ví dụ <code>640×640</code>). Khi ảnh nguồn có độ phân giải cao và các đối tượng quan tâm có kích thước nhỏ — trong trường hợp của tôi là các khuyết tật bề mặt
+      trên tấm thân vỏ ô tô — bước resize đó thu nhỏ chúng xuống chỉ còn vài pixel. Phần lớn tín hiệu huấn luyện bị chi phối bởi các đối tượng lớn, dễ nhận diện, và recall trên các đối tượng nhỏ bị suy giảm.</p>
 
       <hr>
 
@@ -158,7 +158,7 @@
       </ol>
 
       <p>Kết hợp với <strong>YOLOv8-p2</strong> (có thêm một đầu phát hiện P2 độ phân giải cao hơn để tăng độ nhạy với đối tượng nhỏ)
-      và <strong>YOLOv9n</strong> của Ultralytics, bước tiền xử lý này mang lại một mức tăng recall đáng kể trên các đối tượng nhỏ, ở xa, trong khi suy luận
+      và <strong>YOLOv9n</strong> của Ultralytics, bước tiền xử lý này mang lại một mức tăng recall đáng kể trên các khuyết tật bề mặt nhỏ, trong khi suy luận
       vẫn là một lượt truyền xuôi ảnh-đầy-đủ duy nhất, giữ nguyên độ trễ thời gian thực.</p>
 
       <hr>
