@@ -658,8 +658,9 @@
           From-scratch Python simulations of how a robot estimates its pose from noisy motion and
           sensor data, comparing recursive filtering (EKF, Invariant EKF, UKF) with batch and
           incremental optimization (pose graphs, iSAM, bundle adjustment) on SO(3)/SE(3). Also
-          covers PnP, sliding-window marginalization, and EKFs for contact-rich motion, including hexapod leg odometry. Backed by a
-          pytest suite and structured theory notes; 9 of the 16 simulations are also re-implemented
+          covers PnP, LiDAR scan registration (ICP against fitted planes and cylinders), sliding-window marginalization, and EKFs
+          for contact-rich motion, including hexapod leg odometry and a contact-aided invariant EKF. Backed by a
+          pytest suite and structured theory notes; 10 of the 18 simulations are also re-implemented
           with the manif Lie-theory library.
         </p>
         <div class="tag-list">

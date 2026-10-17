@@ -658,8 +658,9 @@
           Các mô phỏng Python xây dựng từ đầu về cách robot ước lượng tư thế từ dữ liệu chuyển động
           và cảm biến có nhiễu, so sánh lọc đệ quy (EKF, Invariant EKF, UKF) với tối ưu hóa theo lô
           và tăng dần (pose graph, iSAM, bundle adjustment) trên SO(3)/SE(3). Ngoài ra còn có PnP,
-          marginalization theo cửa sổ trượt, và các bộ lọc EKF cho chuyển động có tiếp xúc, bao gồm odometry chân cho robot sáu chân (hexapod). Đi kèm
-          bộ kiểm thử pytest và bộ ghi chú lý thuyết có cấu trúc; 9 trong số 16 mô phỏng được cài
+          căn chỉnh (registration) scan LiDAR (ICP dựa trên các mặt phẳng và hình trụ được khớp), marginalization theo cửa sổ trượt,
+          và các bộ lọc EKF cho chuyển động có tiếp xúc, bao gồm odometry chân cho robot sáu chân (hexapod) và Invariant EKF hỗ trợ tiếp xúc (contact-aided). Đi kèm
+          bộ kiểm thử pytest và bộ ghi chú lý thuyết có cấu trúc; 10 trong số 18 mô phỏng được cài
           đặt thêm bằng thư viện lý thuyết Lie manif.
         </p>
         <div class="tag-list">
