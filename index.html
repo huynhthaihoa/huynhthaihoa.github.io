@@ -660,7 +660,7 @@
           incremental optimization (pose graphs, iSAM, bundle adjustment) on SO(3)/SE(3). Also
           covers PnP, LiDAR scan registration (ICP against fitted planes and cylinders), sliding-window marginalization, and EKFs
           for contact-rich motion, including hexapod leg odometry and a contact-aided invariant EKF. Backed by a
-          pytest suite and structured theory notes; 10 of the 18 simulations are also re-implemented
+          pytest suite and structured theory notes; 10 of the 20 simulations are also re-implemented
           with the manif Lie-theory library.
         </p>
         <div class="tag-list">
@@ -770,6 +770,37 @@
         </div>
       </div>
 
+      <!-- Camera Calibration -->
+      <div class="project-card fade-up">
+        <img class="project-thumb" src="assets/projects/camera-calibration.svg" loading="lazy" alt="Camera Calibration Tool illustration: distorted checkerboard corrected into an undistorted one">
+        <div class="project-top">
+          <div class="project-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="4" y="4" width="16" height="16" rx="1.5"/>
+              <path d="M12 4v16M4 12h16"/>
+            </svg>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/huynhthaihoa/camera-calibration" target="_blank" rel="noopener" class="project-link" title="GitHub">
+              <svg width="16" height="16" fill="currentColor"><use href="#icon-github"></use></svg>
+            </a>
+          </div>
+        </div>
+        <div class="project-name">Camera Calibration Tool</div>
+        <div class="project-duration">Personal Project</div>
+        <p class="project-desc">
+          A Python/OpenCV toolkit for estimating camera intrinsics and removing lens distortion, supporting
+          fisheye, pinhole, and Double Sphere camera models across RGB and thermal sensors. Handles checkerboard detection
+          from live streams or batch images, with configurable quality thresholds and reprojection-error
+          reporting. Also supports stereo calibration of camera pairs.
+        </p>
+        <div class="tag-list">
+          <span class="tag">Python</span>
+          <span class="tag">OpenCV</span>
+          <span class="tag">Camera Calibration</span>
+        </div>
+      </div>
+
       <!-- Gaze Estimation -->
       <div class="project-card fade-up">
         <img class="project-thumb" src="assets/blog/example_distracted.png" loading="lazy" alt="Gaze Estimation: looking at phone demo">
@@ -863,37 +894,6 @@
           <span class="tag">OpenCV</span>
           <span class="tag">Camera Calibration</span>
           <span class="tag">YOLO</span>
-        </div>
-      </div>
-
-      <!-- Camera Calibration -->
-      <div class="project-card fade-up">
-        <img class="project-thumb" src="assets/projects/camera-calibration.svg" loading="lazy" alt="Camera Calibration Tool illustration: distorted checkerboard corrected into an undistorted one">
-        <div class="project-top">
-          <div class="project-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect x="4" y="4" width="16" height="16" rx="1.5"/>
-              <path d="M12 4v16M4 12h16"/>
-            </svg>
-          </div>
-          <div class="project-links">
-            <a href="https://github.com/huynhthaihoa/camera-calibration" target="_blank" rel="noopener" class="project-link" title="GitHub">
-              <svg width="16" height="16" fill="currentColor"><use href="#icon-github"></use></svg>
-            </a>
-          </div>
-        </div>
-        <div class="project-name">Camera Calibration Tool</div>
-        <div class="project-duration">Personal Project</div>
-        <p class="project-desc">
-          A Python/OpenCV toolkit for estimating camera intrinsics and removing lens distortion, supporting
-          fisheye, pinhole, and Double Sphere camera models across RGB and thermal sensors. Handles checkerboard detection
-          from live streams or batch images, with configurable quality thresholds and reprojection-error
-          reporting. Also supports stereo calibration of camera pairs.
-        </p>
-        <div class="tag-list">
-          <span class="tag">Python</span>
-          <span class="tag">OpenCV</span>
-          <span class="tag">Camera Calibration</span>
         </div>
       </div>
 

@@ -660,7 +660,7 @@
           và tăng dần (pose graph, iSAM, bundle adjustment) trên SO(3)/SE(3). Ngoài ra còn có PnP,
           căn chỉnh (registration) scan LiDAR (ICP dựa trên các mặt phẳng và hình trụ được khớp), marginalization theo cửa sổ trượt,
           và các bộ lọc EKF cho chuyển động có tiếp xúc, bao gồm odometry chân cho robot sáu chân (hexapod) và Invariant EKF hỗ trợ tiếp xúc (contact-aided). Đi kèm
-          bộ kiểm thử pytest và bộ ghi chú lý thuyết có cấu trúc; 10 trong số 18 mô phỏng được cài
+          bộ kiểm thử pytest và bộ ghi chú lý thuyết có cấu trúc; 10 trong số 20 mô phỏng được cài
           đặt thêm bằng thư viện lý thuyết Lie manif.
         </p>
         <div class="tag-list">
@@ -770,6 +770,37 @@
         </div>
       </div>
 
+      <!-- Camera Calibration -->
+      <div class="project-card fade-up">
+        <img class="project-thumb" src="assets/projects/camera-calibration.svg" loading="lazy" alt="Minh họa Công cụ Hiệu chỉnh Camera: bàn cờ bị méo được khử méo">
+        <div class="project-top">
+          <div class="project-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="4" y="4" width="16" height="16" rx="1.5"/>
+              <path d="M12 4v16M4 12h16"/>
+            </svg>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/huynhthaihoa/camera-calibration" target="_blank" rel="noopener" class="project-link" title="GitHub">
+              <svg width="16" height="16" fill="currentColor"><use href="#icon-github"></use></svg>
+            </a>
+          </div>
+        </div>
+        <div class="project-name">Công cụ Hiệu chỉnh Camera</div>
+        <div class="project-duration">Dự án cá nhân</div>
+        <p class="project-desc">
+          Một bộ công cụ Python/OpenCV để ước lượng thông số nội tại của camera và loại bỏ méo ống kính, hỗ trợ
+          các mô hình camera fisheye, pinhole và Double Sphere trên cảm biến RGB và nhiệt. Xử lý phát hiện bàn cờ ca-rô
+          từ luồng trực tiếp hoặc ảnh theo lô, với ngưỡng chất lượng có thể cấu hình và báo cáo
+          sai số tái chiếu (reprojection error). Ngoài ra còn hỗ trợ hiệu chỉnh lập thể (stereo) cho cặp camera.
+        </p>
+        <div class="tag-list">
+          <span class="tag">Python</span>
+          <span class="tag">OpenCV</span>
+          <span class="tag">Camera Calibration</span>
+        </div>
+      </div>
+
       <!-- Gaze Estimation -->
       <div class="project-card fade-up">
         <img class="project-thumb" src="assets/blog/example_distracted.png" loading="lazy" alt="Demo Ước lượng Hướng nhìn: nhìn vào điện thoại">
@@ -863,37 +894,6 @@
           <span class="tag">OpenCV</span>
           <span class="tag">Camera Calibration</span>
           <span class="tag">YOLO</span>
-        </div>
-      </div>
-
-      <!-- Camera Calibration -->
-      <div class="project-card fade-up">
-        <img class="project-thumb" src="assets/projects/camera-calibration.svg" loading="lazy" alt="Minh họa Công cụ Hiệu chỉnh Camera: bàn cờ bị méo được khử méo">
-        <div class="project-top">
-          <div class="project-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect x="4" y="4" width="16" height="16" rx="1.5"/>
-              <path d="M12 4v16M4 12h16"/>
-            </svg>
-          </div>
-          <div class="project-links">
-            <a href="https://github.com/huynhthaihoa/camera-calibration" target="_blank" rel="noopener" class="project-link" title="GitHub">
-              <svg width="16" height="16" fill="currentColor"><use href="#icon-github"></use></svg>
-            </a>
-          </div>
-        </div>
-        <div class="project-name">Công cụ Hiệu chỉnh Camera</div>
-        <div class="project-duration">Dự án cá nhân</div>
-        <p class="project-desc">
-          Một bộ công cụ Python/OpenCV để ước lượng thông số nội tại của camera và loại bỏ méo ống kính, hỗ trợ
-          các mô hình camera fisheye, pinhole và Double Sphere trên cảm biến RGB và nhiệt. Xử lý phát hiện bàn cờ ca-rô
-          từ luồng trực tiếp hoặc ảnh theo lô, với ngưỡng chất lượng có thể cấu hình và báo cáo
-          sai số tái chiếu (reprojection error). Ngoài ra còn hỗ trợ hiệu chỉnh lập thể (stereo) cho cặp camera.
-        </p>
-        <div class="tag-list">
-          <span class="tag">Python</span>
-          <span class="tag">OpenCV</span>
-          <span class="tag">Camera Calibration</span>
         </div>
       </div>
 

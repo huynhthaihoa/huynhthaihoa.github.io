@@ -656,7 +656,7 @@
         <p class="project-desc">
           로봇이 잡음이 섞인 운동·센서 데이터로부터 자신의 포즈를 추정하는 방법을 처음부터 직접 구현한 Python 시뮬레이션 모음으로, SO(3)/SE(3) 위에서 재귀
           필터링(EKF, Invariant EKF, UKF)과 배치·증분 최적화(포즈 그래프, iSAM, 번들 조정)를 비교합니다. PnP, LiDAR 스캔 정합(피팅된 평면·원기둥 기반 ICP), 슬라이딩 윈도우
-          주변화(marginalization), 접촉이 많은 운동을 위한 EKF(육각 보행 로봇의 다리 오도메트리, 접촉 보조 Invariant EKF 포함)도 다룹니다. pytest 테스트 스위트와 체계적인 이론 노트를 함께 정리했으며, 18개
+          주변화(marginalization), 접촉이 많은 운동을 위한 EKF(육각 보행 로봇의 다리 오도메트리, 접촉 보조 Invariant EKF 포함)도 다룹니다. pytest 테스트 스위트와 체계적인 이론 노트를 함께 정리했으며, 20개
           시뮬레이션 중 10개는 manif 리 이론(Lie-theory) 라이브러리로도 구현했습니다.
         </p>
         <div class="tag-list">
@@ -765,6 +765,36 @@
         </div>
       </div>
 
+      <!-- Camera Calibration -->
+      <div class="project-card fade-up">
+        <img class="project-thumb" src="assets/projects/camera-calibration.svg" loading="lazy" alt="카메라 캘리브레이션 도구 일러스트: 왜곡된 체커보드를 왜곡 보정한 모습">
+        <div class="project-top">
+          <div class="project-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="4" y="4" width="16" height="16" rx="1.5"/>
+              <path d="M12 4v16M4 12h16"/>
+            </svg>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/huynhthaihoa/camera-calibration" target="_blank" rel="noopener" class="project-link" title="GitHub">
+              <svg width="16" height="16" fill="currentColor"><use href="#icon-github"></use></svg>
+            </a>
+          </div>
+        </div>
+        <div class="project-name">카메라 캘리브레이션 도구</div>
+        <div class="project-duration">개인 프로젝트</div>
+        <p class="project-desc">
+          카메라 내부 파라미터를 추정하고 렌즈 왜곡을 제거하는 Python/OpenCV 툴킷으로, RGB 및 열화상 센서에서
+          어안(fisheye), 핀홀(pinhole), 더블 스피어(Double Sphere) 카메라 모델을 지원합니다. 실시간 스트림이나 배치 이미지에서
+          체커보드 검출을 처리하며, 품질 임계값 설정과 재투영 오차(reprojection error) 리포트를 제공합니다. 카메라 쌍의 스테레오 캘리브레이션도 지원합니다.
+        </p>
+        <div class="tag-list">
+          <span class="tag">Python</span>
+          <span class="tag">OpenCV</span>
+          <span class="tag">Camera Calibration</span>
+        </div>
+      </div>
+
       <!-- Gaze Estimation -->
       <div class="project-card fade-up">
         <img class="project-thumb" src="assets/blog/example_distracted.png" loading="lazy" alt="시선 추정: 휴대폰 응시 감지 데모">
@@ -856,36 +886,6 @@
           <span class="tag">OpenCV</span>
           <span class="tag">Camera Calibration</span>
           <span class="tag">YOLO</span>
-        </div>
-      </div>
-
-      <!-- Camera Calibration -->
-      <div class="project-card fade-up">
-        <img class="project-thumb" src="assets/projects/camera-calibration.svg" loading="lazy" alt="카메라 캘리브레이션 도구 일러스트: 왜곡된 체커보드를 왜곡 보정한 모습">
-        <div class="project-top">
-          <div class="project-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect x="4" y="4" width="16" height="16" rx="1.5"/>
-              <path d="M12 4v16M4 12h16"/>
-            </svg>
-          </div>
-          <div class="project-links">
-            <a href="https://github.com/huynhthaihoa/camera-calibration" target="_blank" rel="noopener" class="project-link" title="GitHub">
-              <svg width="16" height="16" fill="currentColor"><use href="#icon-github"></use></svg>
-            </a>
-          </div>
-        </div>
-        <div class="project-name">카메라 캘리브레이션 도구</div>
-        <div class="project-duration">개인 프로젝트</div>
-        <p class="project-desc">
-          카메라 내부 파라미터를 추정하고 렌즈 왜곡을 제거하는 Python/OpenCV 툴킷으로, RGB 및 열화상 센서에서
-          어안(fisheye), 핀홀(pinhole), 더블 스피어(Double Sphere) 카메라 모델을 지원합니다. 실시간 스트림이나 배치 이미지에서
-          체커보드 검출을 처리하며, 품질 임계값 설정과 재투영 오차(reprojection error) 리포트를 제공합니다. 카메라 쌍의 스테레오 캘리브레이션도 지원합니다.
-        </p>
-        <div class="tag-list">
-          <span class="tag">Python</span>
-          <span class="tag">OpenCV</span>
-          <span class="tag">Camera Calibration</span>
         </div>
       </div>
 
