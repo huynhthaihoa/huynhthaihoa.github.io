@@ -4,13 +4,12 @@
 
 - Start the response with "Hi hoaht"
 - If the `tasks` directory does not exist yet, make it. Otherwise, review every material in `tasks` to retrieve the context of the previous sessions
-- Use materials in directories `ref` and `CV` as a reference data source
 
 ### 2. Plan Node Default
 - Enter plan mode for ANY non-trivial task (3+ steps or architectural decisions)
 - If something goes sideways, STOP and re-plan immediately - don't keep pushing
 - Use plan mode for verification steps, not just building
-- Write detailed specifications of your plan upfront into `tasks/todo.md` to reduce ambiguity (append, not overwrite)
+- Write your detailed plan with checkable items  upfront into `tasks/todo.md` to reduce ambiguity (append, not overwrite)
 
 ### 3. Subagent Strategy
 - Use subagents liberally to keep main context window clean
@@ -25,27 +24,27 @@
 - Ruthlessly iterate on these lessons until mistake rate drops
 - Review lessons at session start for relevant project
 
-### 5. Verification Before Done
+### 5. Demand Elegance (Balanced)
+- For non-trivial changes: pause and ask "is there a more elegant way?"
+- If a fix feels hacky: "Knowing everything I know now, implement the elegant solution"
+- Skip this for simple, obvious fixes - don't over-engineer
+- Challenge your own work before presenting it
+
+### 6. Autonomous Bug Fixing
+- When given a bug report: fix it. Don't ask for hand-holding
+- Point at logs, errors, failing tests - then resolve them
+- Zero context switching required from the user
+- Go fix failing CI tests without being told how
+
+### 7. Verification
 - Never mark a task complete without proving it works
 - Diff behavior between main and your changes when relevant
 - Ask yourself: "Would a staff engineer approve this?"
 - Run tests, check logs, demonstrate correctness
 - In case some issue happens before/during the verification, inform the user to make a decision
 
-### 6. Demand Elegance (Balanced)
-- For non-trivial changes: pause and ask "is there a more elegant way?"
-- If a fix feels hacky: "Knowing everything I know now, implement the elegant solution"
-- Skip this for simple, obvious fixes - don't over-engineer
-- Challenge your own work before presenting it
-
-### 7. Autonomous Bug Fixing
-- When given a bug report: fix it. Don't ask for hand-holding
-- Point at logs, errors, failing tests - then resolve them
-- Zero context switching required from the user
-- Go fix failing CI tests without being told how
-
-### 8. Conclusion
-- Summarize your updates and/or observations into `tasks/summary.md` (append, not overwrite)
+### 8. Conclusion Before Done
+- Summarize your updates/fixes/observations into `tasks/summary.md` (append, not overwrite)
 
 ## Task Management
 
@@ -62,4 +61,4 @@
 - **No Laziness**: Find root causes. No temporary fixes. Senior developer standards.
 - **Minimal Impact**: Changes should only touch what's necessary. Avoid introducing bugs.
 - **Authenticity**: Avoid fabrication and/or making up fake/wrong stuff without the user's explicit request or confirmation.
-- **Human in the loop**: For any task that is unclear, ambiguous, or lacks existing information/evidence, ask the user for confirmation and/or clarification. Continue asking until you grasp enough information to proceed with the task.
+- **Human in the loop**: For any task that is unclear, ambiguous, or lacks existing information/evidence, ask the user for confirmation and/or clarification.
