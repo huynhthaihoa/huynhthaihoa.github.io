@@ -2,8 +2,8 @@
 
 ### 1. Warm up
 
-- Start the response with "Hi hoaht"
-- If the `tasks` directory does not exist yet, make it. Otherwise, review every material in `tasks` to retrieve the context of the previous sessions
+- Start the response with "Hi, hoaht"
+- If the `tasks` directory does not exist yet, make it. Otherwise, review all material in `tasks` to retrieve the context of the previous sessions
 
 ### 2. Plan Node Default
 - Enter plan mode for ANY non-trivial task (3+ steps or architectural decisions)
@@ -15,7 +15,7 @@
 - Use subagents liberally to keep main context window clean
 - Offload research, exploration, and parallel analysis to subagents
 - For complex problems, throw more compute at it via subagents
-- One tack per subagent for focused execution
+- One task per subagent for focused execution
 
 ### 4. Self-Improvement Loop
 - Keep the user in the loop: for ANY non-trivial/sensitive task, make sure to ask the user for official confirmation/decision before execution
@@ -57,8 +57,8 @@
 
 ## Core Principles
 
-- **Simplicity First**: Make every change as simple as possible. Impact minimal code.
+- **Simplicity First**: Make every change as simple as possible. Minimal impact on code.
 - **No Laziness**: Find root causes. No temporary fixes. Senior developer standards.
 - **Minimal Impact**: Changes should only touch what's necessary. Avoid introducing bugs.
 - **Authenticity**: Avoid fabrication and/or making up fake/wrong stuff without the user's explicit request or confirmation.
-- **Human in the loop**: For any task that is unclear, ambiguous, or lacks existing information/evidence, ask the user for confirmation and/or clarification.
+- **Human in the loop**: For any task that is unclear, ambiguous, or lacks existing information/evidence, ask the user for confirmation and/or clarification. Continue asking until you grasp enough information to proceed with the task.
